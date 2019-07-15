@@ -1,0 +1,238 @@
+import 'package:flutter/material.dart';
+import 'package:kayo_package/utils/BaseColorUtils.dart';
+ import 'package:kayo_package/views/widget/VisibleView.dart';
+import 'package:kayo_package/views/widget/alert/flutter_cupertino_data_picker.dart';
+import 'package:kayo_package/views/widget/base/ButtonView.dart';
+import 'package:kayo_package/views/widget/base/Clickable.dart';
+import 'package:kayo_package/views/widget/base/EditView.dart';
+import 'package:kayo_package/views/widget/base/TextView.dart';
+
+/**
+ *  kayo_plugin
+ *  views.widget.alert
+ *
+ *  Created by kayoxu on 2019/2/21 9:47 AM.
+ *  Copyright © 2019 kayoxu. All rights reserved.
+ */
+
+class AlertCenter {
+  static showVisitorCheckDialog(
+    BuildContext context, {
+    Function onOk,
+    ValueChanged<int> onDataChanged,
+    TextEditingController controller,
+  }) {
+    String checkStatus = '请选择审核意见';
+
+    content(state) {
+      return Container(
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(left: 32, right: 32, top: 16),
+              child: Row(
+                children: <Widget>[
+                  TextView(
+                    '审核结果:',
+                    width: 80,
+                  ),
+                  Expanded(
+                      child: Clickable(
+                    bgColor: BaseColorUtils.white,
+                    child: TextView(
+                      checkStatus,
+                      size: 14,
+                      maxLine: 2,
+                      textAlign: TextAlign.left,
+                      color: Color(0xff727272),
+                    ),
+                    onTap: () {
+                      DataPicker.showDataPicker(context, datas: ['通过', '拒绝'],
+                          onConfirm: (data) {
+                        int d = null;
+                        if (data == '通过') {
+                          d = 2;
+                        } else if (data == '拒绝') {
+                          d = 3;
+                        }
+                        onDataChanged(d);
+                        state(() {
+                          checkStatus = data;
+                        });
+                      });
+                    },
+                  )),
+                  Icon(Icons.arrow_drop_down, color: BaseColorUtils.colorGreyLiteLite)
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 32, right: 32, top: 16),
+              child: EditView(
+                hintText: '请输入备注',
+                maxLines: 3,
+                padding: EdgeInsets.only(left: 16, right: 16),
+                margin: EdgeInsets.all(0),
+                controller: controller,
+                showBorder: true,
+              ),
+            )
+          ],
+        ),
+      );
+    }
+  }
+
+  static showMsgDialog(BuildContext context,
+      {@required String title,
+      String message,
+      bool showCancel,
+      String okTitle,
+      String cancelTitle,
+      Function onOk,
+      Function onCancel}) {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDefault(
+            title: title,
+            message: message,
+            showCancel: showCancel,
+            okTitle: okTitle,
+            cancelTitle: cancelTitle,
+            onOK: onOk,
+            onCancel: onCancel,
+          );
+        });
+  }
+}
+
+class AlertDefault extends Dialog {
+  var title;
+  var message;
+  Widget content;
+  Function onOK;
+  Function onCancel;
+  bool showCancel;
+  String okTitle;
+  String cancelTitle;
+
+  AlertDefault({
+    Key key,
+    @required this.title,
+    this.message,
+    this.content,
+    this.showCancel = true,
+    this.okTitle,
+    this.cancelTitle,
+    this.onOK,
+    this.onCancel,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return new Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: new Material(
+            type: MaterialType.transparency,
+            child: new Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new Container(
+                      decoration: ShapeDecoration(
+                          color: Color(0xFFFFFFFF),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                            Radius.circular(8.0),
+                          ))),
+                      margin: const EdgeInsets.all(12),
+                      child: Container(
+                        child: new Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              new TextView(
+                                this.title,
+                                size: 20,
+                                margin: EdgeInsets.only(
+                                    left: 20, top: 20, right: 20),
+                              ),
+                              VisibleView(
+                                  visible: null != message
+                                      ? Visible.visible
+                                      : Visible.gone,
+                                  child: TextView(
+                                    this.message,
+                                    size: 14,
+                                    maxLine: 20,
+                                    margin:
+                                        EdgeInsets.only(left: 16, right: 16),
+                                  )),
+                              VisibleView(
+                                child: content,
+                                visible: null != content
+                                    ? Visible.visible
+                                    : Visible.gone,
+                              ),
+                              Container(
+                                height: 60,
+                                child: new Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: buildButtonAction(context,
+                                        showCancel: this.showCancel,
+                                        okTitle: this.okTitle,
+                                        cancelTitle: this.cancelTitle,
+                                        onOk: this.onOK,
+                                        onCancel: this.onCancel)),
+                              )
+                            ]),
+                      ))
+                ])));
+  }
+
+  List<Widget> buildButtonAction(context,
+      {bool showCancel,
+      String okTitle,
+      String cancelTitle,
+      Function onOk,
+      Function onCancel}) {
+    if (null == onOk) onOk = () {};
+    if (null == onCancel) onCancel = () {};
+
+    if (null == okTitle) okTitle = '确定';
+    if (null == cancelTitle) cancelTitle = '取消';
+
+    List<Widget> widgets = List();
+
+    var ok = _buttonAction(title: okTitle, left: true, onClick: onOk);
+
+    var cancel =
+        _buttonAction(title: cancelTitle, left: false, onClick: onCancel);
+
+    widgets.add(ok);
+    if (false != showCancel) widgets.add(cancel);
+
+    return widgets;
+  }
+
+  Widget _buttonAction(
+      {String title,
+      Color color = BaseColorUtils.colorBlack,
+      Color bgColor = BaseColorUtils.white,
+      Function onClick,
+      bool left}) {
+    return Expanded(
+        child: ButtonView(
+      text: title,
+      height: double.infinity,
+      borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(true == left ? 8 : 0),
+          bottomRight: Radius.circular(false == left ? 8 : 0)),
+      margin: EdgeInsets.only(top: 16),
+      bgColor: bgColor,
+      showShadow: true,
+      color: color,
+      onPressed: onClick,
+    ));
+  }
+}

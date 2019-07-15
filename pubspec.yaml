@@ -1,0 +1,43 @@
+name: kayo_package
+description: A new Flutter package.
+version: 0.0.1
+author:
+homepage:
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  intl: ^0.15.8               # Mar 22, 2019
+  flutter_svg: ^0.13.1        # Jul 10, 2019
+  fluro: ^1.5.0               # Jun 19, 2019
+  cupertino_icons: ^0.1.2     # Apr 5, 2018
+  json_annotation: ^2.4.0     # May 16, 2019
+  flutter_redux: ^0.5.3       # Jan 7, 2019
+  connectivity: ^0.4.3+4      # Jul 9, 2019
+  url_launcher: ^5.0.5        # Jul 10, 2019
+  flutter_markdown: ^0.2.0    # Aug 21, 2018
+  flutter_spinkit: ^3.1.0     # Dec 28, 2018
+  pub_semver: ^1.4.2          # Jul 19, 2018
+  flutter_statusbar: ^0.0.1   # Jul 11, 2018
+  flutter_slidable: ^0.5.3    # May 24, 2019
+  dio: ^2.1.13                # Jul 10, 2019
+  event_bus: ^1.1.0           # Mar 27, 2019
+
+  convert: ^2.1.1             # Dec 19, 2018
+  crypto: ^2.0.6              # Jul 13, 2018
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  build_runner: ^1.6.1        # Jun 26, 2019
+  json_serializable: ^3.0.0   # May 20, 2019
+
+flutter:
+
+  assets:
+    - assets/

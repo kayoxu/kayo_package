@@ -1,0 +1,16 @@
+命令行生成 app
+flutter create --androidx xxapp
+//默认Android使用Java，iOS使用Objective-C。
+//如果要指定语言，比如安卓使用Kotlin，iOS使用Swift
+flutter create --androidx -i swift -a kotlin xxapp
+
+命令行生成 module
+flutter create --androidx -t module xxapp_module
+
+命令行生成 plugin
+flutter create --androidx --template=plugin xxapp_plugin
+
+命令行生成 Package
+flutter create --androidx --template=package kayo_package
+
+

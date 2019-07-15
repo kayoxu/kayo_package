@@ -1,0 +1,159 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:kayo_package/utils/BaseColorUtils.dart';
+import 'package:kayo_package/views/widget/base/Clickable.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+/**
+ *  flutter_demo
+ *
+ *
+ *  Created by kayoxu on 2019/1/23.
+ *  Copyright © 2019 kayoxu. All rights reserved.
+ */
+
+class ImageView extends StatefulWidget {
+  String src;
+  String url;
+  File file;
+  double width;
+  double height;
+  BoxFit fit;
+  double radius;
+  Color color;
+  EdgeInsets margin;
+
+  VoidCallback onClick;
+
+  double elevation;
+  Color shadowColor;
+
+  var isDown = false;
+
+  ImageView({
+    Key key,
+    this.src,
+    this.url,
+    this.file,
+    this.width = 30,
+    this.height = 30,
+    this.fit = BoxFit.fitHeight,
+    this.radius = 0,
+    this.color = BaseColorUtils.colorAccent,
+    this.margin = const EdgeInsets.all(0),
+    this.onClick,
+    this.elevation,
+    this.shadowColor,
+  }) : super(key: key);
+
+  @override
+  ImageViewState createState() => ImageViewState();
+}
+
+class ImageViewState extends State<ImageView> {
+// 圆形
+//  ClipOval
+//  圆角
+//  ClipRRect borderRadius: BorderRadius.circular(10),
+//  BoxDecoration BoxShape.circle
+
+  @override
+  Widget build(BuildContext context) {
+    var image;
+    if (null != widget.url && widget.url != '') {
+      image = Image.network(
+        widget.url,
+        width: widget.width,
+        height: widget.height,
+        fit: widget.fit,
+      );
+    } else if (null != widget.src && widget.url != '') {
+      if (widget.src.endsWith('.svg')) {
+        image = SvgPicture.asset(
+          widget.src,
+          color: widget.color,
+          width: widget.width,
+          height: widget.height,
+        );
+      } else {
+        image = Image.asset(
+          widget.src,
+          width: widget.width,
+          height: widget.height,
+          fit: widget.fit,
+        );
+      }
+    } else if (null != widget.file) {
+      image = Image.file(widget.file,
+          width: widget.width, height: widget.height, fit: widget.fit);
+    } else {
+      image = Image.asset('assets/ic_no_data.png',
+          width: widget.width, height: widget.height, fit: widget.fit);
+    }
+
+    var container = Container(
+//      foregroundDecoration: BoxDecoration(
+//        color: widget.isDown ? Colors.white.withOpacity(0.5) : Colors.transparent,
+//      ),
+      margin: widget.margin,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(widget.radius),
+        child: null == widget.onClick
+            ? image
+            : AnimatedContainer(
+                duration: Duration(milliseconds: 100),
+                foregroundDecoration: BoxDecoration(
+                  color: widget.isDown
+                      ? Colors.white.withOpacity(0.5)
+                      : Colors.transparent,
+                ),
+                child: image,
+              ),
+      ),
+    );
+
+    return Clickable(
+      child: container,
+      radius: widget.radius,
+      onTap: widget.onClick,
+      bgColor: Colors.transparent,
+      elevation: widget.elevation,
+      shadowColor: widget.shadowColor,
+
+      onTapDown: (d) {
+        setState(() {
+          widget.isDown = true;
+        });
+      },
+
+      onHighlightChanged: (b) {
+        if (!b) {
+          setState(() {
+            widget.isDown = false;
+          });
+        }
+      },
+      //      onTapUp: (d) => setState(() => this.isDown = false),
+      onTapCancel: () {
+        setState(() {
+          widget.isDown = false;
+        });
+      },
+    );
+
+    /*Container(
+      child: null == widget.onClick
+          ? container
+          : Material(
+              borderRadius: BorderRadius.circular(widget.radius),
+              child: InkWell(
+                  radius: widget.radius,
+//              color: ColorUtils.white,
+                  onTap: widget.onClick,
+//              padding: EdgeInsets.all(0),
+                  child:container */ /*InkWell(onTap: widget.onClick, child: container)*/ /*),
+            ),
+    );*/
+  }
+}
