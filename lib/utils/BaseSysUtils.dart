@@ -3,7 +3,7 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
- /**
+/**
  *  smart_community
  *  common.utils
  *
@@ -11,7 +11,7 @@ import 'package:crypto/crypto.dart';
  *  Copyright © 2019 kayoxu. All rights reserved.
  */
 
-class SysUtils {
+class BaseSysUtils {
   /*
   * 判断是否为空
   * */
@@ -33,7 +33,7 @@ class SysUtils {
    *  md5 加密
    * */
   static String getMd5(String data) {
-    if (SysUtils.empty(data)) return '';
+    if (BaseSysUtils.empty(data)) return '';
     var content = new Utf8Encoder().convert(data);
     var digest = md5.convert(content);
     // 这里其实就是 digest.toString()
@@ -44,7 +44,7 @@ class SysUtils {
   * 电话号码校验
   * */
   static bool isPhoneNo(String str) {
-    if (SysUtils.empty(str)) return false;
+    if (BaseSysUtils.empty(str)) return false;
 
     return new RegExp(
             '^((13[0-9])|(14[0-9])|(15[0-9])|(16[0-9])|(17[0-9])|(18[0-9])|(19[0-9]))\\d{8}\$')
@@ -55,7 +55,7 @@ class SysUtils {
   * 身份证校验
   * */
   static bool isIdCard(String str) {
-    if (SysUtils.empty(str)) return false;
+    if (BaseSysUtils.empty(str)) return false;
 
 //    return new RegExp('(^[1-9]\\d{5}(18|19|([23]\\d))\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}[0-9Xx]\$)|(^[1-9]\\d{5}\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{2}\$)').hasMatch(str);
     return new RegExp('(^\\d{15}\$)|(^\\d{18}\$)|(^\\d{17}(\\d|X|x)\$)')
@@ -64,7 +64,7 @@ class SysUtils {
   }
 
   static String getIdCardPrivacy(String str) {
-    if (SysUtils.empty(str) || str.length < 6) {
+    if (BaseSysUtils.empty(str) || str.length < 6) {
       return '无';
     } else {
       return str.substring(0, 4) +
@@ -73,12 +73,11 @@ class SysUtils {
     }
   }
 
-
   /*
   * 车牌验证
   * */
   static bool isCarNo(String str) {
-    if (SysUtils.empty(str)) return false;
+    if (BaseSysUtils.empty(str)) return false;
 
     return new RegExp(
             '(^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[警京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼]{0,1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}\$)|(^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[警京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼]{0,1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{2}\$)')
@@ -89,7 +88,7 @@ class SysUtils {
   * 验证码校验
   * */
   static bool isSmsCode(String str) {
-    if (SysUtils.empty(str)) return false;
+    if (BaseSysUtils.empty(str)) return false;
 
     return new RegExp('(^\\d{5}\$)|(^\\d{6}\$)|(^\\d{8}\$)').hasMatch(str);
   }

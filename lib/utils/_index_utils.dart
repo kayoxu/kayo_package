@@ -1,4 +1,5 @@
-export 'SysUtils.dart';
+export 'BaseSysUtils.dart';
+export 'BaseColorUtils.dart';
 
 /**
  *  kayo_package

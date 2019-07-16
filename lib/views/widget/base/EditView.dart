@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kayo_package/utils/BaseColorUtils.dart';
-import 'package:kayo_package/utils/SysUtils.dart';
+import 'package:kayo_package/utils/BaseSysUtils.dart';
   import 'package:kayo_package/views/widget/base/ImageView.dart';
 import 'package:kayo_package/views/widget/base/keyboard/KayoKeyboard.dart';
 import 'package:kayo_package/views/widget/base/keyboard/Keyboard.dart';
@@ -119,7 +119,7 @@ class EditViewState extends State<EditView> {
               obscureText: widget.obscureText,
               decoration: new InputDecoration(
                   hasFloatingPlaceholder: false,
-                  icon: SysUtils.empty(widget.src)
+                  icon: BaseSysUtils.empty(widget.src)
                       ? null
                       : ImageView(
                           width: 25,
