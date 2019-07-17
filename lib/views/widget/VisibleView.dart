@@ -37,5 +37,3 @@ class VisibleView extends StatelessWidget {
                 child: child)));
   }
 }
-
-

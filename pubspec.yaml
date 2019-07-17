@@ -15,7 +15,6 @@ dependencies:
   flutter_svg: ^0.13.1        # Jul 10, 2019
   fluro: ^1.5.0               # Jun 19, 2019
   cupertino_icons: ^0.1.2     # Apr 5, 2018
-  json_annotation: ^2.4.0     # May 16, 2019
   flutter_redux: ^0.5.3       # Jan 7, 2019
   connectivity: ^0.4.3+4      # Jul 9, 2019
   url_launcher: ^5.0.5        # Jul 10, 2019
@@ -29,6 +28,8 @@ dependencies:
 
   convert: ^2.1.1             # Dec 19, 2018
   crypto: ^2.0.6              # Jul 13, 2018
+  json_annotation: ^2.4.0     # May 16, 2019
+
 
 dev_dependencies:
   flutter_test:
