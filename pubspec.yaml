@@ -40,5 +40,5 @@ dev_dependencies:
 
 flutter:
 
-  assets:
-    - assets/
+#  assets:
+#    - assets/
