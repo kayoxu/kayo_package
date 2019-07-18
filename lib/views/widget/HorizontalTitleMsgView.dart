@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kayo_package/utils/BaseColorUtils.dart';
- import 'package:kayo_package/views/widget/VisibleView.dart';
+import 'package:kayo_package/views/widget/VisibleView.dart';
 import 'package:kayo_package/views/widget/base/Clickable.dart';
 import 'package:kayo_package/views/widget/base/ImageView.dart';
 import 'package:kayo_package/views/widget/base/TextView.dart';
@@ -24,6 +24,9 @@ class HorizontalTitleMsgView extends StatefulWidget {
   bool rightIcon;
   Visible leftIcon;
   String leftIconSrc;
+  double leftIconHeight;
+  double leftIconWidth;
+  double legtIconRadius;
   String subTitle;
 
   Color titleColor;
@@ -52,7 +55,10 @@ class HorizontalTitleMsgView extends StatefulWidget {
     this.padding,
     this.margin,
     this.leftIcon = Visible.gone,
-    this.leftIconSrc = 'assets/ic_mine_time.png',
+    this.leftIconSrc = 'assets/ic_moren.png',
+    this.leftIconHeight = 18,
+    this.leftIconWidth = 18,
+    this.legtIconRadius = 6,
     this.subTitle,
     this.titleColor = BaseColorUtils.colorGrey,
     this.titleSize = 14,
@@ -101,9 +107,9 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                   VisibleView(
                     child: ImageView(
                       src: widget.leftIconSrc,
-                      width: 18,
-                      height: 22,
-                      radius: 6,
+                      width: widget.leftIconWidth,
+                      height: widget.leftIconHeight,
+                      radius: widget.legtIconRadius,
                       fit: BoxFit.fitWidth,
                     ),
                     visible: widget.leftIcon,
@@ -133,7 +139,7 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
               Row(
                 children: <Widget>[
                   TextView(
-                   null == widget.msg?'无':widget.msg,
+                    null == widget.msg ? '无' : widget.msg,
                     margin: EdgeInsets.only(right: widget.rightIcon ? 8 : 0),
                     fontWeight: widget.msgFontWeight,
                     color: widget.msgColor,
@@ -176,11 +182,11 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                   child: column),
             ),
     );*/
-        Clickable(
-      bgColor: widget.bgColor,
-      margin: widget.margin,
-      child: column,
-      onTap: widget.onClick,
-    );
+      Clickable(
+        bgColor: widget.bgColor,
+        margin: widget.margin,
+        child: column,
+        onTap: widget.onClick,
+      );
   }
 }
