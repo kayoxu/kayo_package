@@ -12,6 +12,9 @@ import 'package:flutter_svg/flutter_svg.dart';
  *  Created by kayoxu on 2019/1/23.
  *  Copyright © 2019 kayoxu. All rights reserved.
  */
+source(String src) {
+  return 'assets/${src}.png';
+}
 
 class ImageView extends StatefulWidget {
   String src;
@@ -40,7 +43,7 @@ class ImageView extends StatefulWidget {
     this.height = 30,
     this.fit = BoxFit.fitHeight,
     this.radius = 0,
-    this.color = BaseColorUtils.colorAccent,
+    this.color,
     this.margin = const EdgeInsets.all(0),
     this.onClick,
     this.elevation,
@@ -64,6 +67,7 @@ class ImageViewState extends State<ImageView> {
     if (null != widget.url && widget.url != '') {
       image = Image.network(
         widget.url,
+        color: widget.color,
         width: widget.width,
         height: widget.height,
         fit: widget.fit,
@@ -79,6 +83,7 @@ class ImageViewState extends State<ImageView> {
       } else {
         image = Image.asset(
           widget.src,
+          color: widget.color,
           width: widget.width,
           height: widget.height,
           fit: widget.fit,
@@ -86,10 +91,14 @@ class ImageViewState extends State<ImageView> {
       }
     } else if (null != widget.file) {
       image = Image.file(widget.file,
+          color: widget.color,
           width: widget.width, height: widget.height, fit: widget.fit);
     } else {
       image = Image.asset('assets/ic_no_data.png',
-          width: widget.width, height: widget.height, fit: widget.fit);
+          color: widget.color,
+          width: widget.width,
+          height: widget.height,
+          fit: widget.fit);
     }
 
     var container = Container(
@@ -102,14 +111,14 @@ class ImageViewState extends State<ImageView> {
         child: null == widget.onClick
             ? image
             : AnimatedContainer(
-                duration: Duration(milliseconds: 100),
-                foregroundDecoration: BoxDecoration(
-                  color: widget.isDown
-                      ? Colors.white.withOpacity(0.5)
-                      : Colors.transparent,
-                ),
-                child: image,
-              ),
+          duration: Duration(milliseconds: 100),
+          foregroundDecoration: BoxDecoration(
+            color: widget.isDown
+                ? Colors.white.withOpacity(0.5)
+                : Colors.transparent,
+          ),
+          child: image,
+        ),
       ),
     );
 
