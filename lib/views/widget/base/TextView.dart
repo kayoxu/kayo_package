@@ -66,7 +66,7 @@ class TextViewState extends State<TextView> {
           color: widget.color,
           fontSize: widget.size,
           fontWeight: widget.fontWeight,
-          decoration: TextDecoration.none
+          decoration: TextDecoration.none,
           /*background:Paint()..color = Colors.yellowAccent*/),
     );
 

@@ -137,6 +137,7 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                 ],
               ),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   TextView(
                     null == widget.msg ? '无' : widget.msg,

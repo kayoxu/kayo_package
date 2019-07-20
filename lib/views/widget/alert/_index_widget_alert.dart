@@ -1,6 +1,7 @@
 export 'AlertCenter.dart';
 export 'AlertSheet.dart';
 export 'flutter_cupertino_data_picker.dart';
+export 'package:kayo_package/views/widget/alert/datetime_picker/datetime_picker.dart';
 
 /**
  *  kayo_package

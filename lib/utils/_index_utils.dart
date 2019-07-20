@@ -1,5 +1,6 @@
 export 'BaseSysUtils.dart';
 export 'BaseColorUtils.dart';
+export 'BaseTimeUtils.dart';
 
 /**
  *  kayo_package

@@ -1,17 +1,12 @@
-///
-/// author: Simon Chen
-/// since: 2018/09/13
-/// fork by Dylan Wu
-///
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-typedef DateChangedCallback(dynamic data);
+typedef DataChangedCallback(dynamic data);
 
-const double _kDatePickerHeight = 210.0;
-const double _kDatePickerTitleHeight = 44.0;
-const double _kDatePickerItemHeight = 36.0;
-const double _kDatePickerFontSize = 18.0;
+const double _kDataPickerHeight = 210.0;
+const double _kDataPickerTitleHeight = 44.0;
+const double _kDataPickerItemHeight = 36.0;
+const double _kDataPickerFontSize = 18.0;
 
 class DataPicker {
   static void showDataPicker(
@@ -19,15 +14,15 @@ class DataPicker {
     bool showTitleActions: true,
     @required List<dynamic> datas,
     int selectedIndex: 0,
-    DateChangedCallback onChanged,
-    DateChangedCallback onConfirm,
+    DataChangedCallback onChanged,
+    DataChangedCallback onConfirm,
     suffix: '',
     title: '',
 //    locale: 'zh',
   }) {
     Navigator.push(
         context,
-        new _DatePickerRoute(
+        new _DataPickerRoute(
           showTitleActions: showTitleActions,
           initialData: selectedIndex,
           datas: datas,
@@ -43,8 +38,8 @@ class DataPicker {
   }
 }
 
-class _DatePickerRoute<T> extends PopupRoute<T> {
-  _DatePickerRoute({
+class _DataPickerRoute<T> extends PopupRoute<T> {
+  _DataPickerRoute({
     this.showTitleActions,
     this.datas,
     this.initialData,
@@ -61,8 +56,8 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
   final List<dynamic> datas;
   final bool showTitleActions;
   final int initialData;
-  final DateChangedCallback onChanged;
-  final DateChangedCallback onConfirm;
+  final DataChangedCallback onChanged;
+  final DataChangedCallback onConfirm;
   final ThemeData theme;
   final String locale;
   final String suffix;
@@ -125,26 +120,26 @@ class _DataPickerComponent extends StatefulWidget {
     this.title,
   });
 
-  final DateChangedCallback onChanged;
+  final DataChangedCallback onChanged;
   final int initialData;
   final List<dynamic> datas;
 
-  final _DatePickerRoute route;
+  final _DataPickerRoute route;
 
   final String locale;
   final String suffix;
   final String title;
 
   @override
-  State<StatefulWidget> createState() => _DatePickerState(this.initialData);
+  State<StatefulWidget> createState() => _DataPickerState(this.initialData);
 }
 
-class _DatePickerState extends State<_DataPickerComponent> {
+class _DataPickerState extends State<_DataPickerComponent> {
   int _initialIndex;
   int _selectedColorIndex = 0;
   FixedExtentScrollController dataScrollCtrl;
 
-  _DatePickerState(this._initialIndex) {
+  _DataPickerState(this._initialIndex) {
     if (this._initialIndex < 0) {
       this._initialIndex = 0;
     }
@@ -179,11 +174,11 @@ class _DatePickerState extends State<_DataPickerComponent> {
     if (_initialIndex != index) {
       _initialIndex = index;
       setState(() {});
-      _notifyDateChanged();
+      _notifyDataChanged();
     }
   }
 
-  void _notifyDateChanged() {
+  void _notifyDataChanged() {
     if (widget.onChanged != null) {
       widget.onChanged(widget.datas[_initialIndex]);
     }
@@ -207,18 +202,18 @@ class _DatePickerState extends State<_DataPickerComponent> {
       flex: 1,
       child: Container(
           padding: EdgeInsets.all(8.0),
-          height: _kDatePickerHeight,
+          height: _kDataPickerHeight,
           decoration: BoxDecoration(color: Colors.white),
           child: CupertinoPicker(
             backgroundColor: Colors.white,
             scrollController: dataScrollCtrl,
-            itemExtent: _kDatePickerItemHeight,
+            itemExtent: _kDataPickerItemHeight,
             onSelectedItemChanged: (int index) {
               _setData(index);
             },
             children: List.generate(widget.datas.length, (int index) {
               return Container(
-                height: _kDatePickerItemHeight,
+                height: _kDataPickerItemHeight,
                 alignment: Alignment.center,
                 child: Row(
                   children: <Widget>[
@@ -227,7 +222,7 @@ class _DatePickerState extends State<_DataPickerComponent> {
                       '${widget.datas[index]}$suffixAppend',
                       style: TextStyle(
                           color: Color(0xFF000046),
-                          fontSize: _kDatePickerFontSize),
+                          fontSize: _kDataPickerFontSize),
                       textAlign: TextAlign.center,
                       softWrap: false,
                       overflow: TextOverflow.fade,
@@ -250,13 +245,13 @@ class _DatePickerState extends State<_DataPickerComponent> {
     String cancel = _localeCancel();
 
     return Container(
-      height: _kDatePickerTitleHeight,
+      height: _kDataPickerTitleHeight,
       decoration: BoxDecoration(color: Colors.white),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Container(
-            height: _kDatePickerTitleHeight,
+            height: _kDataPickerTitleHeight,
             child: FlatButton(
               child: Text(
                 '$cancel',
@@ -270,7 +265,7 @@ class _DatePickerState extends State<_DataPickerComponent> {
           ),
           Container(
             alignment: Alignment.center,
-            height: _kDatePickerTitleHeight,
+            height: _kDataPickerTitleHeight,
             child: Text(
               widget.title,
               style: TextStyle(
@@ -280,7 +275,7 @@ class _DatePickerState extends State<_DataPickerComponent> {
             ),
           ),
           Container(
-            height: _kDatePickerTitleHeight,
+            height: _kDataPickerTitleHeight,
             child: FlatButton(
               child: Text(
                 '$done',
@@ -356,9 +351,9 @@ class _BottomPickerLayout extends SingleChildLayoutDelegate {
 
   @override
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
-    double maxHeight = _kDatePickerHeight;
+    double maxHeight = _kDataPickerHeight;
     if (showTitleActions) {
-      maxHeight += _kDatePickerTitleHeight;
+      maxHeight += _kDataPickerTitleHeight;
     }
 
     return new BoxConstraints(
