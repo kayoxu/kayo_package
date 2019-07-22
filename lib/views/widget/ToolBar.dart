@@ -18,6 +18,7 @@ class ToolBar extends StatefulWidget {
   final VoidCallback backClick;
   final Color backgroundColor;
   final Color appbarColor;
+  final List<Widget> actions;
 
   ToolBar({
     @required this.child,
@@ -27,6 +28,7 @@ class ToolBar extends StatefulWidget {
     this.backClick,
     this.backgroundColor,
     this.appbarColor,
+    this.actions,
   });
 
   @override
@@ -41,11 +43,13 @@ class ToolBarState extends State<ToolBar> {
           ? widget.backgroundColor : BaseColorUtils.colorWindow,
       appBar: null == widget.appBar
           ? AppBar(
-        actions: <Widget>[],
+        actions: widget.actions,
         elevation: 0.5,
         leading: widget.iosBack
             ? IconButton(
           icon: Icon(Icons.arrow_back_ios),
+          iconSize: 22,
+          color: Color(0xff50525c),
           onPressed: null == widget.backClick
               ? () => Navigator.of(context).pop()
               : widget.backClick, // null disables the button
@@ -62,6 +66,7 @@ class ToolBarState extends State<ToolBar> {
           style: TextStyle(color: BaseColorUtils.colorBlack),
           textAlign: TextAlign.center,
         ),
+
       )
           : widget.appBar,
       body: widget.child,

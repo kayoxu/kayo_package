@@ -299,7 +299,7 @@ class _DataPickerState extends State<_DataPickerComponent> {
 
   String _localeDone() {
     if (widget.locale == null) {
-      return 'Done';
+      return '确定';
     }
 
     String lang = widget.locale.split('_').first;
@@ -321,7 +321,7 @@ class _DataPickerState extends State<_DataPickerComponent> {
 
   String _localeCancel() {
     if (widget.locale == null) {
-      return 'Cancel';
+      return '取消';
     }
 
     String lang = widget.locale.split('_').first;
