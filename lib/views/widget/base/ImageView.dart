@@ -31,6 +31,7 @@ class ImageView extends StatefulWidget {
 
   double elevation;
   Color shadowColor;
+  double aspectRatio;
 
   var isDown = false;
 
@@ -48,6 +49,7 @@ class ImageView extends StatefulWidget {
     this.onClick,
     this.elevation,
     this.shadowColor,
+    this.aspectRatio = -1,
   }) : super(key: key);
 
   @override
@@ -102,10 +104,9 @@ class ImageViewState extends State<ImageView> {
     }
 
     var container = Container(
-//      foregroundDecoration: BoxDecoration(
-//        color: widget.isDown ? Colors.white.withOpacity(0.5) : Colors.transparent,
-//      ),
+
       margin: widget.margin,
+
       child: ClipRRect(
         borderRadius: BorderRadius.circular(widget.radius),
         child: null == widget.onClick
@@ -122,8 +123,11 @@ class ImageViewState extends State<ImageView> {
       ),
     );
 
+    var container2 = -1 == widget.aspectRatio ? container : AspectRatio(
+        aspectRatio: widget.aspectRatio, child: container);
+
     return Clickable(
-      child: container,
+      child: container2,
       radius: widget.radius,
       onTap: widget.onClick,
       bgColor: Colors.transparent,
