@@ -26,7 +26,7 @@ class CardItem extends StatelessWidget {
     this.padding,
     this.color,
     this.shape,
-    this.elevation = 1,
+    this.elevation = .5,
     this.onPressed,
     this.shadowColor = BaseColorUtils.colorGreyLiteLite,
   });
