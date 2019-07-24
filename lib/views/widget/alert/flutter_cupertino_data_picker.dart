@@ -131,20 +131,19 @@ class _DataPickerComponent extends StatefulWidget {
   final String title;
 
   @override
-  State<StatefulWidget> createState() => _DataPickerState(this.initialData);
+  State<StatefulWidget> createState() => _DataPickerState(this.initialData );
 }
 
 class _DataPickerState extends State<_DataPickerComponent> {
   int _initialIndex;
-  int _selectedColorIndex = 0;
-  FixedExtentScrollController dataScrollCtrl;
+   FixedExtentScrollController dataScrollCtrl;
 
-  _DataPickerState(this._initialIndex) {
+  _DataPickerState(this._initialIndex ) {
     if (this._initialIndex < 0) {
       this._initialIndex = 0;
     }
     dataScrollCtrl =
-        new FixedExtentScrollController(initialItem: _selectedColorIndex);
+        new FixedExtentScrollController(initialItem: _initialIndex);
   }
 
   @override

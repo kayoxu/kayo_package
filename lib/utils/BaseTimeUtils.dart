@@ -13,13 +13,17 @@ class BaseTimeUtils {
   static const formatMD = 'MM.dd';
   static const formatShort = 'yy-MM-dd HH:mm';
 
-  static nowTimeStr({String format}) {
-    return timestampToTimeStr(DateTime.now().millisecondsSinceEpoch,
+  static String nowTimeStr({String format}) {
+    return timestampToTimeStr(DateTime
+        .now()
+        .millisecondsSinceEpoch,
         format: format);
   }
 
   static int nowTimestamp() {
-    return DateTime.now().millisecondsSinceEpoch;
+    return DateTime
+        .now()
+        .millisecondsSinceEpoch;
   }
 
   static timeFormat(String time, {String format = formatDefault}) {
@@ -29,7 +33,7 @@ class BaseTimeUtils {
     return timestampToTimeStr(timestamp, format: format);
   }
 
-  static timestampToTimeStr(int timestamp, {String format}) {
+  static String timestampToTimeStr(int timestamp, {String format}) {
     format = format ?? formatDefault;
 
     DateFormat dateFormat = getDateFormat(format);
@@ -48,6 +52,23 @@ class BaseTimeUtils {
     var dateFormat = DateFormat(format);
     return dateFormat;
   }
+
+  static DateTime timeStrToDateTime(String time,
+      {String format = formatDefault}) {
+    DateFormat dateFormat = getDateFormat(format);
+
+    var dateTime = DateTime.now();
+    try {
+      dateTime = dateFormat.parse(time);
+      return dateTime;
+    } catch (e) {
+      print(e);
+    } finally {
+//      print('flutter 🌶️，${dateTime.toString()}');
+      return dateTime;
+    }
+  }
+
 
   static int timeStrToTimestamp(String string, {String format}) {
     format = format ?? formatDefault;

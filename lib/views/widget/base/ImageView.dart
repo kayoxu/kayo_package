@@ -74,7 +74,7 @@ class ImageViewState extends State<ImageView> {
         height: widget.height,
         fit: widget.fit,
       );
-    } else if (null != widget.src && widget.url != '') {
+    } else if (null != widget.src ) {
       if (widget.src.endsWith('.svg')) {
         image = SvgPicture.asset(
           widget.src,
@@ -96,7 +96,7 @@ class ImageViewState extends State<ImageView> {
           color: widget.color,
           width: widget.width, height: widget.height, fit: widget.fit);
     } else {
-      image = Image.asset('assets/ic_no_data.png',
+      image = Image.asset('assets/ic_moren.png',
           color: widget.color,
           width: widget.width,
           height: widget.height,
