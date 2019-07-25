@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kayo_package/utils/BaseColorUtils.dart';
 
 /**
@@ -51,8 +52,13 @@ class ToolBarState extends State<ToolBar> {
           iconSize: 22,
           color: Color(0xff50525c),
           onPressed: null == widget.backClick
-              ? () => Navigator.of(context).pop()
-              : widget.backClick, // null disables the button
+              ? () {
+            if (Navigator.canPop(context)) {
+              return Navigator.of(context).pop();
+            } else {
+              return SystemNavigator.pop();
+            }
+          } : widget.backClick, // null disables the button
         )
             : null,
         brightness: Brightness.light,

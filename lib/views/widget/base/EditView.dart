@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kayo_package/utils/BaseColorUtils.dart';
 import 'package:kayo_package/utils/BaseSysUtils.dart';
-  import 'package:kayo_package/views/widget/base/ImageView.dart';
+import 'package:kayo_package/views/widget/base/ImageView.dart';
 import 'package:kayo_package/views/widget/base/keyboard/KayoKeyboard.dart';
 import 'package:kayo_package/views/widget/base/keyboard/Keyboard.dart';
-
 
 /**
  *  kayo_plugin
@@ -19,6 +18,8 @@ class EditView extends StatefulWidget {
 
   String text;
   String hintText;
+  Color textColor;
+  double textSize;
 
   ValueChanged<String> onChanged;
 
@@ -44,13 +45,14 @@ class EditView extends StatefulWidget {
 
   bool showBorder;
   bool showLine;
-
-
+  TextAlign textAlign;
 
   EditView({
     Key key,
     this.text,
     this.hintText,
+    this.textColor = BaseColorUtils.colorBlack,
+    this.textSize = 14,
     this.onChanged,
     this.textStyle,
     this.controller,
@@ -68,6 +70,7 @@ class EditView extends StatefulWidget {
     this.kayoInputType,
     this.showBorder = false,
     this.showLine = true,
+    this.textAlign = TextAlign.left,
   }) : super(key: key);
 
   @override
@@ -92,22 +95,25 @@ class EditViewState extends State<EditView> {
           padding: widget.padding,
           decoration: true == widget.showBorder
               ? BoxDecoration(
-                  color: BaseColorUtils.colorWhite,
-                  borderRadius: BorderRadius.circular(widget.radius),
-                  boxShadow: [
-                      BoxShadow(
-                          color: BaseColorUtils.colorWhiteDark,
-                          blurRadius: 2,
-                          spreadRadius: .5)
-                    ])
+              color: BaseColorUtils.colorWhite,
+              borderRadius: BorderRadius.circular(widget.radius),
+              boxShadow: [
+                BoxShadow(
+                    color: BaseColorUtils.colorWhiteDark,
+                    blurRadius: 2,
+                    spreadRadius: .5)
+              ])
               : null,
           child: TextField(
-
               onTap: null == widget.onClick ? onClick : widget.onClick,
               style: null == widget.textStyle
-                  ? TextStyle(color: BaseColorUtils.colorBlack, fontSize: 14)
+                  ? TextStyle(
+                color: widget.textColor,
+                fontSize: widget.textSize,
+              )
                   : widget.textStyle,
               autocorrect: false,
+              textAlign: widget.textAlign,
               maxLength: widget.maxLength,
               maxLengthEnforced: false,
               maxLines: widget.maxLines,
@@ -122,12 +128,13 @@ class EditViewState extends State<EditView> {
                   icon: BaseSysUtils.empty(widget.src)
                       ? null
                       : ImageView(
-                          width: 25,
-                          height: 25,
-                          src: widget.src,
-                        ),
+                    width: 25,
+                    height: 25,
+                    src: widget.src,
+                  ),
                   hintStyle: TextStyle(color: BaseColorUtils.colorGreyLiteLite),
                   hintText: widget.hintText,
+
 //                  enabledBorder:
 //                  UnderlineInputBorder(
 //                      borderSide: BorderSide(color: ColorUtils.colorGreyLiteLite)),
@@ -135,21 +142,21 @@ class EditViewState extends State<EditView> {
 //                      borderSide: BorderSide(color: ColorUtils.colorGreyLiteLite)),
 
                   enabledBorder:
-                      true != widget.showBorder && true == widget.showLine
-                          ? UnderlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: BaseColorUtils.colorGreyLiteLite))
-                          : InputBorder.none,
+                  true != widget.showBorder && true == widget.showLine
+                      ? UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: BaseColorUtils.colorGreyLiteLite))
+                      : InputBorder.none,
                   focusedBorder:
-                      true != widget.showBorder && true == widget.showLine
-                          ? UnderlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: BaseColorUtils.colorGreyLiteLite))
-                          : InputBorder.none,
+                  true != widget.showBorder && true == widget.showLine
+                      ? UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: BaseColorUtils.colorGreyLiteLite))
+                      : InputBorder.none,
                   border: true != widget.showBorder && true == widget.showLine
                       ? UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: BaseColorUtils.colorGreyLiteLite))
+                      borderSide: BorderSide(
+                          color: BaseColorUtils.colorGreyLiteLite))
                       : InputBorder.none)),
         ),
       ),

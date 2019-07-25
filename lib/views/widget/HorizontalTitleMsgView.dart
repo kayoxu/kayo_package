@@ -5,6 +5,8 @@ import 'package:kayo_package/views/widget/base/Clickable.dart';
 import 'package:kayo_package/views/widget/base/ImageView.dart';
 import 'package:kayo_package/views/widget/base/TextView.dart';
 
+import 'base/EditView.dart';
+
 /**
  *  kayo_plugin
  *  views.widget
@@ -46,6 +48,14 @@ class HorizontalTitleMsgView extends StatefulWidget {
   VoidCallback onClick;
   double height;
   double width;
+  bool msgEditable;
+  String msgHintText;
+  TextEditingController msgController;
+
+  Function onMsgClick;
+  Function onMsgFocus;
+  ValueChanged<String> onMsgChanged;
+
 
   HorizontalTitleMsgView({
     Key key,
@@ -69,11 +79,17 @@ class HorizontalTitleMsgView extends StatefulWidget {
     this.bgColor,
     this.topLine = false,
     this.bottomLine = false,
-    this.topLineMargin = const EdgeInsets.only(left: 48, right: 14),
-    this.bottomLineMargin = const EdgeInsets.only(left: 48, right: 14),
+    this.topLineMargin = const EdgeInsets.only(left: 16, right: 16),
+    this.bottomLineMargin = const EdgeInsets.only(left: 16, right: 16),
     this.onClick,
     this.height,
     this.width,
+    this.msgEditable = false,
+    this.msgHintText,
+    this.msgController,
+    this.onMsgClick,
+    this.onMsgFocus,
+    this.onMsgChanged,
   }) : super(key: key);
 
   @override
@@ -139,13 +155,32 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  TextView(
+                  widget.msgEditable
+                      ? Container(
+                    child: EditView(
+                      text: widget.msg,
+                      onClick: widget.onMsgFocus,
+                      hintText: widget.msgHintText,
+//                          alignment: Alignment.centerRight,
+                      showLine: false,
+                      textAlign: TextAlign.right,
+                      controller: widget.msgController,
+                      margin:
+                      EdgeInsets.only(right: widget.rightIcon ? 8 : 0),
+                      textColor: widget.msgColor,
+                      textSize: widget.msgSize,
+                      maxLines: 1,
+                      onChanged: widget.onMsgChanged,
+                    ),
+                    width: 150, alignment: Alignment.centerRight,)
+                      : Clickable(child: TextView(
                     null == widget.msg ? '无' : widget.msg,
-                    margin: EdgeInsets.only(right: widget.rightIcon ? 8 : 0),
+                    margin:
+                    EdgeInsets.only(right: widget.rightIcon ? 8 : 0),
                     fontWeight: widget.msgFontWeight,
                     color: widget.msgColor,
                     size: widget.msgSize,
-                  ),
+                  ), onTap: widget.onMsgClick,),
                   Visibility(
                     child: ImageView(
                       src: 'assets/ic_arrow_right.png',

@@ -22,6 +22,8 @@ class ImageView extends StatefulWidget {
   File file;
   double width;
   double height;
+  double rootwidth;
+  double rootHeight;
   BoxFit fit;
   double radius;
   Color color;
@@ -40,8 +42,10 @@ class ImageView extends StatefulWidget {
     this.src,
     this.url,
     this.file,
-    this.width = 30,
-    this.height = 30,
+    this.width,
+    this.height,
+    this.rootwidth,
+    this.rootHeight,
     this.fit = BoxFit.fitHeight,
     this.radius = 0,
     this.color,
@@ -66,7 +70,7 @@ class ImageViewState extends State<ImageView> {
   @override
   Widget build(BuildContext context) {
     var image;
-    if (null != widget.url && widget.url != '') {
+    if (null != widget.url && widget.url != '' && widget.url.length > 10) {
       image = Image.network(
         widget.url,
         color: widget.color,
@@ -74,7 +78,7 @@ class ImageViewState extends State<ImageView> {
         height: widget.height,
         fit: widget.fit,
       );
-    } else if (null != widget.src ) {
+    } else if (null != widget.src) {
       if (widget.src.endsWith('.svg')) {
         image = SvgPicture.asset(
           widget.src,
@@ -104,7 +108,8 @@ class ImageViewState extends State<ImageView> {
     }
 
     var container = Container(
-
+      height: widget.rootHeight,
+      width: widget.rootwidth,
       margin: widget.margin,
 
       child: ClipRRect(
