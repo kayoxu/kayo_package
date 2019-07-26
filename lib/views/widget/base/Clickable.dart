@@ -101,6 +101,7 @@ class ClickableState extends State<Clickable> {
                     child: widget.child,
                     padding: widget.padding,
                   ),
+                  
                   onTap: widget.onTap,
                   onDoubleTap: widget.onDoubleTap,
                   onLongPress: widget.onLongPress,

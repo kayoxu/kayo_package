@@ -40,6 +40,7 @@ class HorizontalTitleMsgView extends StatefulWidget {
   FontWeight msgFontWeight;
 
   Color bgColor;
+  Color msgBgColor = Colors.transparent;
   bool topLine;
   bool bottomLine;
 
@@ -77,6 +78,7 @@ class HorizontalTitleMsgView extends StatefulWidget {
     this.msgSize = 14,
     this.msgFontWeight,
     this.bgColor,
+    this.msgBgColor,
     this.topLine = false,
     this.bottomLine = false,
     this.topLineMargin = const EdgeInsets.only(left: 16, right: 16),
@@ -175,6 +177,7 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                     width: 150, alignment: Alignment.centerRight,)
                       : Clickable(child: TextView(
                     null == widget.msg ? '无' : widget.msg,
+                    bgColor: widget.msgBgColor,
                     margin:
                     EdgeInsets.only(right: widget.rightIcon ? 8 : 0),
                     fontWeight: widget.msgFontWeight,

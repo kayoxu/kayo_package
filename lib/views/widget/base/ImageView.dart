@@ -28,12 +28,14 @@ class ImageView extends StatefulWidget {
   double radius;
   Color color;
   EdgeInsets margin;
+  EdgeInsets padding;
 
   VoidCallback onClick;
 
   double elevation;
   Color shadowColor;
   double aspectRatio;
+  Color bgColor;
 
   var isDown = false;
 
@@ -50,9 +52,11 @@ class ImageView extends StatefulWidget {
     this.radius = 0,
     this.color,
     this.margin = const EdgeInsets.all(0),
+    this.padding = const EdgeInsets.all(0),
     this.onClick,
     this.elevation,
     this.shadowColor,
+    this.bgColor,
     this.aspectRatio = -1,
   }) : super(key: key);
 
@@ -78,7 +82,7 @@ class ImageViewState extends State<ImageView> {
         height: widget.height,
         fit: widget.fit,
       );
-    } else if (null != widget.src) {
+    } else if ( (widget.src??'') !='') {
       if (widget.src.endsWith('.svg')) {
         image = SvgPicture.asset(
           widget.src,
@@ -111,6 +115,8 @@ class ImageViewState extends State<ImageView> {
       height: widget.rootHeight,
       width: widget.rootwidth,
       margin: widget.margin,
+      padding: widget.padding,
+      color: widget.bgColor,
 
       child: ClipRRect(
         borderRadius: BorderRadius.circular(widget.radius),
@@ -160,18 +166,5 @@ class ImageViewState extends State<ImageView> {
       },
     );
 
-    /*Container(
-      child: null == widget.onClick
-          ? container
-          : Material(
-              borderRadius: BorderRadius.circular(widget.radius),
-              child: InkWell(
-                  radius: widget.radius,
-//              color: ColorUtils.white,
-                  onTap: widget.onClick,
-//              padding: EdgeInsets.all(0),
-                  child:container */ /*InkWell(onTap: widget.onClick, child: container)*/ /*),
-            ),
-    );*/
   }
 }

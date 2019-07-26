@@ -135,12 +135,6 @@ class EditViewState extends State<EditView> {
                   hintStyle: TextStyle(color: BaseColorUtils.colorGreyLiteLite),
                   hintText: widget.hintText,
 
-//                  enabledBorder:
-//                  UnderlineInputBorder(
-//                      borderSide: BorderSide(color: ColorUtils.colorGreyLiteLite)),
-//                  focusedBorder: UnderlineInputBorder(
-//                      borderSide: BorderSide(color: ColorUtils.colorGreyLiteLite)),
-
                   enabledBorder:
                   true != widget.showBorder && true == widget.showLine
                       ? UnderlineInputBorder(
@@ -163,16 +157,3 @@ class EditViewState extends State<EditView> {
     );
   }
 }
-
-//child: TextField(
-////            controller: widget.controller,
-////            onChanged: widget.onChanged,
-////            obscureText: widget.obscureText,
-//decoration: new InputDecoration(
-//hintText: widget.hintText,
-//icon: ImageView(
-//width: 20,
-//height: 20,
-//src: 'assets/ic_delete.png',
-//)),
-//),
