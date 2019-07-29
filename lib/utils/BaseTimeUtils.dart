@@ -13,6 +13,62 @@ class BaseTimeUtils {
   static const formatMD = 'MM.dd';
   static const formatShort = 'yy-MM-dd HH:mm';
 
+  static DateTime getDateTime(
+      {DateTime dateTime, bool start, int h = 0, int m = 0, int s = 0}) {
+    dateTime = dateTime ?? DateTime.now();
+
+    if (null != start) {
+      if (start) {
+        h = 0;
+        m = 0;
+        s = 0;
+      } else {
+        h = 23;
+        m = 59;
+        s = 59;
+      }
+    }
+
+    return DateTime(dateTime.year, dateTime.month, dateTime.day, h, m, s);
+  }
+
+  static DateTime getToday({bool start = true}) {
+    return getDateTime(start: start);
+  }
+
+  static DateTime getWeek({DateTime now, bool start = true}) {
+    now = now ?? DateTime.now();
+
+    var dateTime =
+    DateTime(now.year, now.month,
+        !start ? now.day + (DateTime.sunday - now.weekday) : now.day -
+            (now.weekday -
+                DateTime.monday)
+    );
+
+    return getDateTime(start: start, dateTime: dateTime);
+  }
+
+  static DateTime getMonth({DateTime now, bool start = true}) {
+    now = now ?? DateTime.now();
+
+    var dateTime =
+    DateTime(now.year, !start ? now.month + 1 : now.month, !start ? 0 : 1);
+
+    return getDateTime(start: start, dateTime: dateTime);
+  }
+
+  static DateTime getYear({DateTime now, bool start = true}) {
+    now = now ?? DateTime.now();
+
+    var dateTime =
+    DateTime(now.year, !start ? DateTime.december + 1 : DateTime.january,
+        !start ? 0 : 1);
+
+    return getDateTime(start: start, dateTime: dateTime);
+  }
+
+
   static String nowTimeStr({String format}) {
     return timestampToTimeStr(DateTime
         .now()
@@ -68,7 +124,6 @@ class BaseTimeUtils {
       return dateTime;
     }
   }
-
 
   static int timeStrToTimestamp(String string, {String format}) {
     format = format ?? formatDefault;
