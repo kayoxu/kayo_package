@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kayo_package/utils/BaseColorUtils.dart';
- 
+
 /**
  *  kayo_plugin
  *  views.widget.base
@@ -16,19 +16,22 @@ class Scrollview extends StatelessWidget {
   Axis orientation;
   Color bgColor;
   Decoration decoration;
+  Widget headerView;
 
-  Scrollview(
-      {Key key,
-      @required this.children,
-      this.padding = const EdgeInsets.all(0),
-      this.margin = const EdgeInsets.all(0),
-      this.orientation = Axis.vertical,
-      this.bgColor = BaseColorUtils.colorWindow,
-      this.decoration})
+  Scrollview({Key key,
+    @required this.children,
+    this.padding = const EdgeInsets.all(0),
+    this.margin = const EdgeInsets.all(0),
+    this.orientation = Axis.vertical,
+    this.bgColor = BaseColorUtils.colorWindow,
+    this.decoration,
+    this.headerView})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    if (null != headerView) children.insert(0, headerView);
+
     return Container(
       color: bgColor,
       padding: padding,
