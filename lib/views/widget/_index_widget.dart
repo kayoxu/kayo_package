@@ -1,10 +1,10 @@
 export 'package:kayo_package/views/widget/alert/_index_widget_alert.dart';
 export 'package:kayo_package/views/widget/base/_index_widget_base.dart';
-export 'HorizontalTitleMsgView.dart';
-export 'TabBar.dart';
-export 'TabBarWidget.dart';
-export 'ToolBar.dart';
-export 'VisibleView.dart';
+export 'horizontal_title_msg_view.dart';
+export 'tab_bar.dart';
+export 'tab_bar_widget.dart';
+export 'tool_bar.dart';
+export 'visible_view.dart';
 
 /**
  *  kayo_package

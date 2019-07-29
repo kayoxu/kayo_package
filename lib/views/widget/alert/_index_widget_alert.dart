@@ -1,5 +1,5 @@
-export 'AlertCenter.dart';
-export 'AlertSheet.dart';
+export 'alert_center.dart';
+export 'alert_sheet.dart';
 export 'flutter_cupertino_data_picker.dart';
 export 'datetime_picker/datetime_picker.dart';
 

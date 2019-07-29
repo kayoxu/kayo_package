@@ -5,8 +5,8 @@ import 'package:flutter/services.dart';
 
 import 'dart:ui' as ui;
 
-import 'package:kayo_package/views/widget/base/keyboard/utils/KeyboardController.dart';
-import 'package:kayo_package/views/widget/base/keyboard/utils/KeyboardMediaQuery.dart';
+import 'package:kayo_package/views/widget/base/keyboard/utils/keyboard_controller.dart';
+import 'package:kayo_package/views/widget/base/keyboard/utils/keyboard_media_query.dart';
 
 typedef GetKeyboardHeight = double Function(BuildContext context);
 typedef KeyboardBuilder = Widget Function(

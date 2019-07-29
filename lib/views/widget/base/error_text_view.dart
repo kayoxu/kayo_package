@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kayo_package/utils/BaseColorUtils.dart';
- import 'package:kayo_package/views/widget/base/ImageView.dart';
+import 'package:kayo_package/utils/base_color_utils.dart';
+ import 'package:kayo_package/views/widget/base/image_view.dart';
 
 /**
  *  kayo_plugin

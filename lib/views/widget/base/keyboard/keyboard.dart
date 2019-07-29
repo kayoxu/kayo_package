@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kayo_package/utils/BaseColorUtils.dart';
-import 'package:kayo_package/views/widget/base/Clickable.dart';
-import 'package:kayo_package/views/widget/base/TextView.dart';
-import 'package:kayo_package/views/widget/base/keyboard/utils/KeyboardController.dart';
+import 'package:kayo_package/utils/base_color_utils.dart';
+import 'package:kayo_package/views/widget/base/clickable.dart';
+import 'package:kayo_package/views/widget/base/text_view.dart';
+import 'package:kayo_package/views/widget/base/keyboard/utils/keyboard_controller.dart';
 
 enum KayoInputType { carNo, carNoAbc, cardId }
 

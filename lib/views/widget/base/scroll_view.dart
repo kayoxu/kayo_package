@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kayo_package/utils/BaseColorUtils.dart';
+import 'package:kayo_package/utils/base_color_utils.dart';
 
 /**
  *  kayo_plugin

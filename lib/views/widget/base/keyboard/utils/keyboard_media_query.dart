@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kayo_package/views/widget/base/keyboard/utils/KeyboardManager.dart';
+import 'package:kayo_package/views/widget/base/keyboard/utils/keyboard_manager.dart';
 
-import '../KayoKeyboard.dart';
+import '../kayo_keyboard.dart';
 
 class KeyboardMediaQuery extends StatefulWidget {
   final Widget child;

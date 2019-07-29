@@ -28,7 +28,6 @@ class BaseTimeUtils {
         s = 59;
       }
     }
-
     return DateTime(dateTime.year, dateTime.month, dateTime.day, h, m, s);
   }
 

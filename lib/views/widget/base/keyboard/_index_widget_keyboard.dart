@@ -1,6 +1,6 @@
 export 'package:kayo_package/views/widget/base/keyboard/password/pin_input_text_field.dart';
-export 'Keyboard.dart';
-export 'KayoKeyboard.dart';
+export 'keyboard.dart';
+export 'kayo_keyboard.dart';
 
 /**
  *  kayo_package

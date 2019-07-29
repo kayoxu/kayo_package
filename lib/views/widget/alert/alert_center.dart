@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:kayo_package/utils/BaseColorUtils.dart';
- import 'package:kayo_package/views/widget/VisibleView.dart';
+import 'package:kayo_package/utils/base_color_utils.dart';
+ import 'package:kayo_package/views/widget/visible_view.dart';
 import 'package:kayo_package/views/widget/alert/flutter_cupertino_data_picker.dart';
-import 'package:kayo_package/views/widget/base/ButtonView.dart';
-import 'package:kayo_package/views/widget/base/Clickable.dart';
-import 'package:kayo_package/views/widget/base/EditView.dart';
-import 'package:kayo_package/views/widget/base/TextView.dart';
+import 'package:kayo_package/views/widget/base/button_view.dart';
+import 'package:kayo_package/views/widget/base/clickable.dart';
+import 'package:kayo_package/views/widget/base/edit_view.dart';
+import 'package:kayo_package/views/widget/base/text_view.dart';
 
 /**
  *  kayo_plugin

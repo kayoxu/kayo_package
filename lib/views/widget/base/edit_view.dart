@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kayo_package/utils/BaseColorUtils.dart';
-import 'package:kayo_package/utils/BaseSysUtils.dart';
-import 'package:kayo_package/views/widget/base/ImageView.dart';
-import 'package:kayo_package/views/widget/base/keyboard/KayoKeyboard.dart';
-import 'package:kayo_package/views/widget/base/keyboard/Keyboard.dart';
+import 'package:kayo_package/utils/base_color_utils.dart';
+import 'package:kayo_package/utils/base_sys_utils.dart';
+import 'package:kayo_package/views/widget/base/image_view.dart';
+import 'package:kayo_package/views/widget/base/keyboard/kayo_keyboard.dart';
+import 'package:kayo_package/views/widget/base/keyboard/keyboard.dart';
 
 /**
  *  kayo_plugin

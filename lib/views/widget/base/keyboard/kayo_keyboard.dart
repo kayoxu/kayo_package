@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'Keyboard.dart';
-import 'utils/KeyboardManager.dart';
+import 'keyboard.dart';
+import 'utils/keyboard_manager.dart';
 
 class KayoKeyboard {
   static const CKTextInputType input =
