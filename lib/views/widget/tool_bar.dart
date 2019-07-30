@@ -20,6 +20,7 @@ class ToolBar extends StatefulWidget {
   final Color backgroundColor;
   final Color appbarColor;
   final List<Widget> actions;
+  final bool resizeToAvoidBottomPadding;
 
   ToolBar({
     @required this.child,
@@ -30,6 +31,7 @@ class ToolBar extends StatefulWidget {
     this.backgroundColor,
     this.appbarColor,
     this.actions,
+    this.resizeToAvoidBottomPadding,
   });
 
   @override
@@ -40,6 +42,7 @@ class ToolBarState extends State<ToolBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: widget.resizeToAvoidBottomPadding,
       backgroundColor: null != widget.backgroundColor
           ? widget.backgroundColor : BaseColorUtils.colorWindow,
       appBar: null == widget.appBar

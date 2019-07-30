@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
- 
+
 /**
  *  kayo_plugin
  *  views.widget
@@ -10,8 +10,7 @@ import 'package:kayo_package/utils/base_color_utils.dart';
  */
 
 class TextView extends StatefulWidget {
-  TextView(
-    this.text, {
+  TextView(this.text, {
     this.color = BaseColorUtils.colorGrey,
     this.size = 16,
     this.height = null,
@@ -26,6 +25,7 @@ class TextView extends StatefulWidget {
     this.left,
     this.gradient,
     this.border,
+    this.alignment,
   });
 
   Color color;
@@ -46,6 +46,7 @@ class TextView extends StatefulWidget {
   Widget left;
   Gradient gradient;
   bool border;
+  Alignment alignment;
 
 //      : super(key: key)
 
@@ -63,32 +64,33 @@ class TextViewState extends State<TextView> {
       softWrap: true,
       textAlign: widget.textAlign,
       style: TextStyle(
-          color: widget.color,
-          fontSize: widget.size,
-          fontWeight: widget.fontWeight,
-          decoration: TextDecoration.none,
-          /*background:Paint()..color = Colors.yellowAccent*/),
+        color: widget.color,
+        fontSize: widget.size,
+        fontWeight: widget.fontWeight,
+        decoration: TextDecoration.none,
+        /*background:Paint()..color = Colors.yellowAccent*/),
     );
 
     return Container(
+      alignment: widget.alignment,
       width: widget.width,
       decoration: ((null != widget.bgColor || true == widget.border)
           ? BoxDecoration(
-              color: widget.bgColor,
-              borderRadius: BorderRadius.circular(widget.radius),
-              border: widget.border != true
-                  ? null
-                  : Border.all(width: 1, color: widget.color),
-              gradient: widget.gradient,
-            )
+        color: widget.bgColor,
+        borderRadius: BorderRadius.circular(widget.radius),
+        border: widget.border != true
+            ? null
+            : Border.all(width: 1, color: widget.color),
+        gradient: widget.gradient,
+      )
           : null),
       padding: widget.padding,
       margin: widget.margin,
       child: null == widget.left
           ? text
           : Row(
-              children: <Widget>[widget.left, text],
-            ),
+        children: <Widget>[widget.left, text],
+      ),
     );
   }
 }

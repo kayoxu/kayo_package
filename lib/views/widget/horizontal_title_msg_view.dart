@@ -56,7 +56,7 @@ class HorizontalTitleMsgView extends StatefulWidget {
   Function onMsgClick;
   Function onMsgFocus;
   ValueChanged<String> onMsgChanged;
-
+  FocusNode focusNode;
 
   HorizontalTitleMsgView({
     Key key,
@@ -92,6 +92,7 @@ class HorizontalTitleMsgView extends StatefulWidget {
     this.onMsgClick,
     this.onMsgFocus,
     this.onMsgChanged,
+    this.focusNode,
   }) : super(key: key);
 
   @override
@@ -161,6 +162,7 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                       ? Container(
                     child: EditView(
                       text: widget.msg,
+                      focusNode: widget.focusNode,
                       onClick: widget.onMsgFocus,
                       hintText: widget.msgHintText,
 //                          alignment: Alignment.centerRight,
