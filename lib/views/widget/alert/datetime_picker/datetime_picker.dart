@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kayo_package/utils/base_time_utils.dart';
 
 import 'date_model.dart';
 import 'datetime_picker_theme.dart';
@@ -12,7 +13,8 @@ class DatePicker {
   ///
   /// Display date picker bottom sheet.
   ///
-  static void showDatePicker(BuildContext context, {
+  static void showDatePicker(
+    BuildContext context, {
     bool showTitleActions: true,
     DateTime minTime,
     DateTime maxTime,
@@ -36,9 +38,7 @@ class DatePicker {
           locale: locale,
           theme: theme,
           barrierLabel:
-          MaterialLocalizations
-              .of(context)
-              .modalBarrierDismissLabel,
+              MaterialLocalizations.of(context).modalBarrierDismissLabel,
           pickerModel: DatePickerModel(
               currentTime: currentTime,
               maxTime: maxTime,
@@ -55,7 +55,8 @@ class DatePicker {
   ///
   /// Display time picker bottom sheet.
   ///
-  static void showTimePicker(BuildContext context, {
+  static void showTimePicker(
+    BuildContext context, {
     bool showTitleActions: true,
     DateChangedCallback onChanged,
     DateChangedCallback onChanged2,
@@ -75,20 +76,19 @@ class DatePicker {
           locale: locale,
           theme: theme,
           barrierLabel:
-          MaterialLocalizations
-              .of(context)
-              .modalBarrierDismissLabel,
+              MaterialLocalizations.of(context).modalBarrierDismissLabel,
           pickerModel:
-          TimePickerModel(currentTime: currentTime, locale: locale),
+              TimePickerModel(currentTime: currentTime, locale: locale),
           pickerModel2:
-          TimePickerModel(currentTime: currentTime2, locale: locale),
+              TimePickerModel(currentTime: currentTime2, locale: locale),
         ));
   }
 
   ///
   /// Display date&time picker bottom sheet.
   ///
-  static void showDateTimePicker(BuildContext context, {
+  static void showDateTimePicker(
+    BuildContext context, {
     bool showTitleActions: true,
     DateChangedCallback onChanged,
     DateChangedCallback onChanged2,
@@ -108,20 +108,19 @@ class DatePicker {
           locale: locale,
           theme: theme,
           barrierLabel:
-          MaterialLocalizations
-              .of(context)
-              .modalBarrierDismissLabel,
+              MaterialLocalizations.of(context).modalBarrierDismissLabel,
           pickerModel:
-          DateTimePickerModel(currentTime: currentTime, locale: locale),
+              DateTimePickerModel(currentTime: currentTime, locale: locale),
           pickerModel2:
-          DateTimePickerModel(currentTime: currentTime2, locale: locale),
+              DateTimePickerModel(currentTime: currentTime2, locale: locale),
         ));
   }
 
   ///
   /// Display date picker bottom sheet witch custom picker model.
   ///
-  static void showPicker(BuildContext context, {
+  static void showPicker(
+    BuildContext context, {
     bool showTitleActions: true,
     DateChangedCallback onChanged,
     DateChangedCallback onChanged2,
@@ -141,9 +140,7 @@ class DatePicker {
             locale: locale,
             theme: theme,
             barrierLabel:
-            MaterialLocalizations
-                .of(context)
-                .modalBarrierDismissLabel,
+                MaterialLocalizations.of(context).modalBarrierDismissLabel,
             pickerModel: pickerModel,
             pickerModel2: pickerModel2));
   }
@@ -161,8 +158,7 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
     RouteSettings settings,
     pickerModel,
     pickerModel2,
-  })
-      : this.pickerModel = pickerModel ?? DatePickerModel(),
+  })  : this.pickerModel = pickerModel ?? DatePickerModel(),
         this.pickerModel2 = pickerModel2 ?? DatePickerModel(),
         this.theme = theme ?? DatePickerTheme(),
         super(settings: settings);
@@ -222,13 +218,14 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
 }
 
 class _DatePickerComponent extends StatefulWidget {
-  _DatePickerComponent({Key key,
-    @required this.route,
-    this.onChanged,
-    this.onChanged2,
-    this.locale,
-    this.pickerModel,
-    this.pickerModel2});
+  _DatePickerComponent(
+      {Key key,
+      @required this.route,
+      this.onChanged,
+      this.onChanged2,
+      this.locale,
+      this.pickerModel,
+      this.pickerModel2});
 
   final DateChangedCallback onChanged;
   final DateChangedCallback onChanged2;
@@ -321,7 +318,8 @@ class _DatePickerState extends State<_DatePickerComponent> {
     return itemView;
   }
 
-  Widget _renderColumnView(ValueKey key,
+  Widget _renderColumnView(
+      ValueKey key,
       DatePickerTheme theme,
       StringAtIndexCallBack stringAtIndexCB,
       ScrollController scrollController,
@@ -334,7 +332,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
           padding: EdgeInsets.all(8.0),
           height: theme.containerHeight,
           decoration:
-          BoxDecoration(color: theme.backgroundColor ?? Colors.white),
+              BoxDecoration(color: theme.backgroundColor ?? Colors.white),
           child: NotificationListener(
               onNotification: (ScrollNotification notification) {
                 if (notification.depth == 0 &&
@@ -425,8 +423,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
                   widget.pickerModel.layoutProportions()[2], (index) {
                 widget.pickerModel.setRightIndex(index);
                 _notifyDateChanged();
-              },
-                  null),
+              }, null),
             ],
           ),
           Row(
@@ -475,8 +472,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
                   widget.pickerModel2.layoutProportions()[2], (index) {
                 widget.pickerModel2.setRightIndex(index);
                 _notifyDateChanged();
-              },
-                  null),
+              }, null),
             ],
           )
         ],
@@ -520,12 +516,12 @@ class _DatePickerState extends State<_DatePickerComponent> {
                 Navigator.pop(context);
                 if (widget.route.onConfirm != null) {
                   widget.route.onConfirm(widget.pickerModel.finalTime(),
-                      time2: (widget.pickerModel2.finalTime() ?? '').replaceAll(
-                          '00:00:00', '23:59:59')); //todo
+                      time2: BaseTimeUtils.getDateTime(
+                          dateTime: widget.pickerModel2.finalTime(),
+                          start: false));
 
                   print(
-                      '🌶️，${widget.pickerModel.finalTime()} ----- ${widget
-                          .pickerModel2.finalTime()}');
+                      '🌶️，${widget.pickerModel.finalTime()} ----- ${widget.pickerModel2.finalTime()}');
                 }
               },
             ),
