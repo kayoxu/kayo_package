@@ -75,14 +75,14 @@ class ImageViewState extends State<ImageView> {
   Widget build(BuildContext context) {
     var image;
     if (null != widget.url && widget.url != '' && widget.url.length > 10) {
-      image = Image.network(
-        widget.url,
-        color: widget.color,
+      image = FadeInImage.assetNetwork(
+        placeholder: source('ic_moren'),
+        image: widget.url,
         width: widget.width,
         height: widget.height,
         fit: widget.fit,
       );
-    } else if ( (widget.src??'') !='') {
+    } else if ((widget.src ?? '') != '') {
       if (widget.src.endsWith('.svg')) {
         image = SvgPicture.asset(
           widget.src,
@@ -102,7 +102,9 @@ class ImageViewState extends State<ImageView> {
     } else if (null != widget.file) {
       image = Image.file(widget.file,
           color: widget.color,
-          width: widget.width, height: widget.height, fit: widget.fit);
+          width: widget.width,
+          height: widget.height,
+          fit: widget.fit);
     } else {
       image = Image.asset('assets/ic_moren.png',
           color: widget.color,
@@ -117,25 +119,25 @@ class ImageViewState extends State<ImageView> {
       margin: widget.margin,
       padding: widget.padding,
       color: widget.bgColor,
-
       child: ClipRRect(
         borderRadius: BorderRadius.circular(widget.radius),
         child: null == widget.onClick
             ? image
             : AnimatedContainer(
-          duration: Duration(milliseconds: 100),
-          foregroundDecoration: BoxDecoration(
-            color: widget.isDown
-                ? Colors.white.withOpacity(0.5)
-                : Colors.transparent,
-          ),
-          child: image,
-        ),
+                duration: Duration(milliseconds: 100),
+                foregroundDecoration: BoxDecoration(
+                  color: widget.isDown
+                      ? Colors.white.withOpacity(0.5)
+                      : Colors.transparent,
+                ),
+                child: image,
+              ),
       ),
     );
 
-    var container2 = -1 == widget.aspectRatio ? container : AspectRatio(
-        aspectRatio: widget.aspectRatio, child: container);
+    var container2 = -1 == widget.aspectRatio
+        ? container
+        : AspectRatio(aspectRatio: widget.aspectRatio, child: container);
 
     return Clickable(
       child: container2,
@@ -165,6 +167,5 @@ class ImageViewState extends State<ImageView> {
         });
       },
     );
-
   }
 }
