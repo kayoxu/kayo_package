@@ -47,6 +47,8 @@ class EditView extends StatefulWidget {
   bool showLine;
   TextAlign textAlign;
   FocusNode focusNode;
+  VoidCallback onEditingComplete;
+  ValueChanged<String> onSubmitted;
 
   EditView({
     Key key,
@@ -73,6 +75,8 @@ class EditView extends StatefulWidget {
     this.showLine = true,
     this.textAlign = TextAlign.left,
     this.focusNode ,
+    this.onEditingComplete ,
+    this.onSubmitted ,
   }) : super(key: key);
 
   @override
@@ -115,6 +119,8 @@ class EditViewState extends State<EditView> {
               )
                   : widget.textStyle,
               autocorrect: false,
+              onEditingComplete:widget.onEditingComplete ,
+              onSubmitted: widget.onSubmitted,
               focusNode: widget.focusNode,
               textAlign: widget.textAlign,
               maxLength: widget.maxLength,

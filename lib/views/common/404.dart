@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kayo_package/views/widget/base/text_view.dart';
+import 'package:kayo_package/views/widget/tool_bar.dart';
 
 /**
  *  kayo_plugin
@@ -10,10 +12,12 @@ import 'package:flutter/material.dart';
 
 class WidgetNotFound extends StatelessWidget {
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("widget not found"),
-        ),
-        body: Container(child: new Text("widget not found")));
+    return ToolBar(
+      title: '页面错误',
+      iosBack: true,
+      child: Center(
+        child: TextView('没有找到相关页面'),
+      ),
+    );
   }
 }

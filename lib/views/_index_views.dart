@@ -1,4 +1,5 @@
 export 'package:kayo_package/views/widget/_index_widget.dart';
+export 'package:kayo_package/views/common/404.dart';
 
 /**
  *  kayo_package
