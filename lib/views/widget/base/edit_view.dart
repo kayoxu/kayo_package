@@ -126,6 +126,7 @@ class EditViewState extends State<EditView> {
               maxLength: widget.maxLength,
               maxLengthEnforced: false,
               maxLines: widget.maxLines,
+              textInputAction: TextInputAction.done,
               keyboardType: null == widget.kayoInputType
                   ? widget.keyboardType
                   : KayoKeyboard.input,
