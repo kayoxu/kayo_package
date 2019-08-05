@@ -61,7 +61,7 @@ class DatePicker {
     DateChangedCallback onChanged,
     DateChangedCallback onChanged2,
     DateChangedCallback onConfirm,
-    locale: LocaleType.en,
+    locale: LocaleType.zh,
     DateTime currentTime,
     DateTime currentTime2,
     DatePickerTheme theme,
