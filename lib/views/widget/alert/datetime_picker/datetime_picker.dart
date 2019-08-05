@@ -61,7 +61,7 @@ class DatePicker {
     DateChangedCallback onChanged,
     DateChangedCallback onChanged2,
     DateChangedCallback onConfirm,
-    locale: LocaleType.en,
+    locale: LocaleType.zh,
     DateTime currentTime,
     DateTime currentTime2,
     DatePickerTheme theme,
@@ -93,7 +93,11 @@ class DatePicker {
     DateChangedCallback onChanged,
     DateChangedCallback onChanged2,
     DateChangedCallback onConfirm,
-    locale: LocaleType.en,
+    DateTime minTime,
+    DateTime maxTime,
+    DateTime minTime2,
+    DateTime maxTime2,
+    locale: LocaleType.zh,
     DateTime currentTime,
     DateTime currentTime2,
     DatePickerTheme theme,
@@ -109,10 +113,16 @@ class DatePicker {
           theme: theme,
           barrierLabel:
               MaterialLocalizations.of(context).modalBarrierDismissLabel,
-          pickerModel:
-              DateTimePickerModel(currentTime: currentTime, locale: locale),
-          pickerModel2:
-              DateTimePickerModel(currentTime: currentTime2, locale: locale),
+          pickerModel: DateTimePickerModel(
+              currentTime: currentTime,
+              maxTime: maxTime,
+              minTime: minTime,
+              locale: locale),
+          pickerModel2: DateTimePickerModel(
+              currentTime: currentTime2,
+              maxTime: maxTime2,
+              minTime: minTime2,
+              locale: locale),
         ));
   }
 

@@ -432,18 +432,40 @@ class TimePickerModel extends CommonPickerModel {
 
 //a date&time picker model
 class DateTimePickerModel extends CommonPickerModel {
-  DateTimePickerModel({DateTime currentTime, LocaleType locale})
+  DateTime maxTime;
+  DateTime minTime;
+
+  DateTimePickerModel(
+      {DateTime currentTime,
+      DateTime maxTime,
+      DateTime minTime,
+      LocaleType locale})
       : super(locale: locale) {
+    if (maxTime == null) maxTime = DateTime(2040, 1, 1);
+    if (minTime == null) minTime = DateTime(2018, 1, 1);
+
     this.currentTime = currentTime ?? DateTime.now();
     _currentLeftIndex = 0;
     _currentMiddleIndex = this.currentTime.hour;
     _currentRightIndex = this.currentTime.minute;
+
+    this.maxTime = maxTime;
+    this.minTime = minTime;
   }
 
   @override
   String leftStringAtIndex(int index) {
-    DateTime time = currentTime.add(Duration(days: index));
-    return formatDate(time, [ymdw], locale);
+    DateTime dateTime = currentTime.add(Duration(days: index));
+
+    print('flutter DateTimePickerModel  maxTime: ${maxTime} ----  minTime: ${minTime} ----   dateTime: ${dateTime}');
+
+
+    if (dateTime.isBefore(maxTime) && dateTime.isAfter(minTime)) {
+      DateTime time = dateTime;
+      return formatDate(time, [ymdw], locale);
+    } else {
+      return null;
+    }
   }
 
   @override
