@@ -9,6 +9,7 @@ export 'line_view.dart';
 export 'scroll_view.dart';
 export 'shadow_view.dart';
 export 'text_view.dart';
+export 'dash_path_border.dart';
 
 /**
  *  kayo_package
