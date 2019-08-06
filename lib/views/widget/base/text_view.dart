@@ -12,6 +12,7 @@ import 'package:kayo_package/utils/base_color_utils.dart';
 class TextView extends StatefulWidget {
   TextView(this.text, {
     this.color = BaseColorUtils.colorGrey,
+    this.borderColor,
     this.size = 16,
     this.height = null,
     this.width = null,
@@ -29,6 +30,7 @@ class TextView extends StatefulWidget {
   });
 
   Color color;
+  Color borderColor;
   String text;
   double size;
   double height;
@@ -80,7 +82,7 @@ class TextViewState extends State<TextView> {
         borderRadius: BorderRadius.circular(widget.radius),
         border: widget.border != true
             ? null
-            : Border.all(width: 1, color: widget.color),
+            : Border.all(width: 1, color: widget.borderColor ?? widget.color),
         gradient: widget.gradient,
       )
           : null),

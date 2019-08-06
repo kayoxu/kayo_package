@@ -71,7 +71,7 @@ class ButtonViewState extends State<ButtonView> {
       alignment: widget.alignment,
       child: RaisedButton(
         onPressed: widget.onPressed,
-        elevation: widget.showShadow ? 4 : 0,
+        elevation: widget.showShadow ? 3 : 0,
         highlightElevation: widget.showShadow ? 8 : 0,
         disabledElevation: 0,
         child: Padding(
