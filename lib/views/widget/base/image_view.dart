@@ -12,8 +12,9 @@ import 'package:flutter_svg/flutter_svg.dart';
  *  Created by kayoxu on 2019/1/23.
  *  Copyright © 2019 kayoxu. All rights reserved.
  */
-source(String src) {
-  return 'assets/${src}.png';
+source(String src, {String suffix = '.png'}) {
+  if (!suffix.contains(".")) suffix = '.$suffix';
+  return 'assets/${src}$suffix';
 }
 
 class ImageView extends StatefulWidget {
@@ -124,14 +125,14 @@ class ImageViewState extends State<ImageView> {
         child: null == widget.onClick
             ? image
             : AnimatedContainer(
-                duration: Duration(milliseconds: 100),
-                foregroundDecoration: BoxDecoration(
-                  color: widget.isDown
-                      ? Colors.white.withOpacity(0.5)
-                      : Colors.transparent,
-                ),
-                child: image,
-              ),
+          duration: Duration(milliseconds: 100),
+          foregroundDecoration: BoxDecoration(
+            color: widget.isDown
+                ? Colors.white.withOpacity(0.5)
+                : Colors.transparent,
+          ),
+          child: image,
+        ),
       ),
     );
 

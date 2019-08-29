@@ -116,7 +116,7 @@ class BaseTimeUtils {
   * 格式化时间戳
   * 
   * */
-  static timeFormat(String time, {String format = formatDefault}) {
+  static String timeFormat(String time, {String format = formatDefault}) {
     if (null == time) return '无';
     var timestamp = timeStrToTimestamp(time);
     return timestampToTimeStr(timestamp, format: format);
