@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
 
+import 'base/image_view.dart';
+
 /**
  *  kayo_plugin
  *  views.widget
@@ -13,7 +15,7 @@ import 'package:kayo_package/utils/base_color_utils.dart';
 class ToolBar extends StatefulWidget {
   final Widget child;
   final String title;
-  final AppBar appBar;
+  final Widget appBar;
 
   final bool iosBack;
   final VoidCallback backClick;
@@ -24,6 +26,8 @@ class ToolBar extends StatefulWidget {
   final double elevation;
   final bool darkStatusText;
   final double toolbarHeight;
+  final String toolbarSrc;
+  final Widget toolbarSubView;
 
   ToolBar({
     @required this.child,
@@ -38,6 +42,8 @@ class ToolBar extends StatefulWidget {
     this.elevation = 0.5,
     this.darkStatusText = true,
     this.toolbarHeight = -1,
+    this.toolbarSrc,
+    this.toolbarSubView,
   });
 
   @override
@@ -53,9 +59,12 @@ class ToolBarState extends State<ToolBar> {
             elevation: widget.elevation,
             leading: widget.iosBack
                 ? IconButton(
-                    icon: Icon(Icons.arrow_back_ios),
+                    icon: Icon(
+                      Icons.arrow_back_ios,
+                    ),
                     iconSize: 22,
-                    color: Color(0xff50525c),
+                    color:
+                        Color(widget.darkStatusText ? 0xff50525c : 0xffffffff),
                     onPressed: null == widget.backClick
                         ? () {
                             if (Navigator.canPop(context)) {
@@ -87,11 +96,29 @@ class ToolBarState extends State<ToolBar> {
       backgroundColor: null != widget.backgroundColor
           ? widget.backgroundColor
           : BaseColorUtils.colorWindow,
-//      preferredSize: Size.fromHeight(1),
       appBar: -1 == widget.toolbarHeight
           ? toolbar
           : PreferredSize(
-              child: toolbar,
+              child: null == widget.toolbarSrc
+                  ? toolbar
+                  : Container(
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage(source(widget.toolbarSrc)),
+                              fit: BoxFit.fill)),
+                      width: double.infinity,
+                      height: double.infinity,
+                      child: null == widget.toolbarSubView
+                          ? toolbar
+                          : Column(
+                               children: <Widget>[
+                                toolbar,
+                                Expanded(
+                                  child: widget.toolbarSubView,
+                                )
+                              ],
+                            ),
+                    ),
               preferredSize: Size.fromHeight(widget.toolbarHeight),
             ),
       body: widget.child,

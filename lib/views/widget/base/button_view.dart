@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
- 
+
+import 'clickable.dart';
+
 /**
  *  flutter_demo
  *
@@ -32,6 +34,8 @@ class ButtonView extends StatefulWidget {
 
   Widget left;
   bool safeArea;
+  Color borderColor;
+  double borderWidth;
 
   ButtonView({
     Key key,
@@ -51,6 +55,8 @@ class ButtonView extends StatefulWidget {
     this.fontWeight,
     this.left,
     this.safeArea = false,
+    this.borderColor,
+    this.borderWidth = 1,
   }) : super(key: key);
 
   @override
@@ -69,31 +75,58 @@ class ButtonViewState extends State<ButtonView> {
     return Container(
       margin: widget.margin,
       alignment: widget.alignment,
-      child: RaisedButton(
-        onPressed: widget.onPressed,
-        elevation: widget.showShadow ? 3 : 0,
-        highlightElevation: widget.showShadow ? 8 : 0,
-        disabledElevation: 0,
-        child: Padding(
-          padding: widget.padding,
-          child: Container(
-            width: widget.width,
-            height: widget.height,
-            alignment: null == widget.height ? null : Alignment.center,
-            child: null == widget.left
-                ? text()
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[widget.left, text()],
-                  ),
-          ),
-        ),
-        color: widget.bgColor,
-        shape: RoundedRectangleBorder(
-            borderRadius: null == widget.borderRadius
-                ? BorderRadius.circular(widget.radius)
-                : widget.borderRadius),
-      ),
+      child: null == widget.borderColor
+          ? RaisedButton(
+              onPressed: widget.onPressed,
+              elevation: widget.showShadow ? 3 : 0,
+              highlightElevation: widget.showShadow ? 8 : 0,
+              disabledElevation: 0,
+              child: Padding(
+                padding: widget.padding,
+                child: Container(
+                  width: widget.width,
+                  height: widget.height,
+                  alignment: null == widget.height ? null : Alignment.center,
+                  child: null == widget.left
+                      ? text()
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[widget.left, text()],
+                        ),
+                ),
+              ),
+              color: widget.bgColor,
+              shape: RoundedRectangleBorder(
+                  borderRadius: null == widget.borderRadius
+                      ? BorderRadius.circular(widget.radius)
+                      : widget.borderRadius),
+            )
+          : Clickable(
+              radius: widget.radius,
+              bgColor: BaseColorUtils.transparent,
+              decoration: null != widget.borderColor
+                  ? ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(widget.radius)),
+                          side: BorderSide(
+                              color: widget.borderColor,
+                              style: BorderStyle.solid,
+                              width: widget.borderWidth)))
+                  : null,
+              onTap: widget.onPressed,
+              child: Container(
+                width: widget.width,
+                height: widget.height,
+                alignment: null == widget.height ? null : Alignment.center,
+                child: null == widget.left
+                    ? text()
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[widget.left, text()],
+                      ),
+              ),
+            ),
     );
   }
 

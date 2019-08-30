@@ -29,7 +29,7 @@ dependencies:
 
   convert: ^2.1.1             # Dec 19, 2018
   crypto: ^2.0.6              # Jul 13, 2018
-  json_annotation: ^2.4.0     # May 16, 2019
+  json_annotation: ^3.0.0     # Aug 7, 2019
 
 
 dev_dependencies:

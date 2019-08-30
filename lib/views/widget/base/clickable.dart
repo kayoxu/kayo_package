@@ -34,6 +34,9 @@ class Clickable extends StatefulWidget {
   final Color bgColor;
   double elevation;
   Color shadowColor;
+  Decoration decoration;
+  Alignment alignment;
+
 
   Clickable({
     Key key,
@@ -57,9 +60,11 @@ class Clickable extends StatefulWidget {
     this.bgColor,
     this.elevation = 0,
     this.shadowColor = BaseColorUtils.colorGreyLite,
+    this.decoration,
+    this.alignment,
   }) : super(
-          key: key,
-        );
+    key: key,
+  );
 
   @override
   ClickableState createState() => ClickableState();
@@ -73,59 +78,61 @@ class ClickableState extends State<Clickable> {
     widget.radius = widget.radius ?? 0;
 
     return Container(
+      decoration: widget.decoration,
       margin: widget.margin,
+      alignment: widget.alignment,
       child: (null == widget.onTap &&
-              null == widget.onDoubleTap &&
-              null == widget.onLongPress &&
-              null == widget.onTapDown &&
-              null == widget.onTapCancel)
+          null == widget.onDoubleTap &&
+          null == widget.onLongPress &&
+          null == widget.onTapDown &&
+          null == widget.onTapCancel)
           ? ShadowView(
-              elevation: widget.elevation,
-              shadowColor: widget.shadowColor,
-              bgColor: widget.bgColor,
-              borderRadius: BorderRadius.circular(widget.radius),
-              child: Container(
-                child: widget.child,
-                padding: widget.padding,
-              ),
-            )
+        elevation: widget.elevation,
+        shadowColor: widget.shadowColor,
+        bgColor: widget.bgColor,
+        borderRadius: BorderRadius.circular(widget.radius),
+        child: Container(
+          child: widget.child,
+          padding: widget.padding,
+        ),
+      )
           : ShadowView(
-              elevation: widget.elevation,
-              shadowColor: widget.shadowColor,
-              bgColor: widget.bgColor,
-              inkWell: true,
-              borderRadius: BorderRadius.circular(widget.radius),
-              child: Container(
-                child: InkWell(
-                  child: Container(
-                    child: widget.child,
-                    padding: widget.padding,
-                  ),
-                  
-                  onTap: widget.onTap,
-                  onDoubleTap: widget.onDoubleTap,
-                  onLongPress: widget.onLongPress,
-                  onTapDown: widget.onTapDown,
-                  onTapCancel: widget.onTapCancel,
-                  onHighlightChanged: widget.onHighlightChanged,
-                  highlightColor: null != widget.highlightColor
-                      ? widget.highlightColor
-                      : BaseColorUtils.colorGreyLiteLite.withOpacity(.1),
-                  splashColor: null != widget.splashColor
-                      ? widget.splashColor
-                      : BaseColorUtils.colorGreyLiteLite.withOpacity(.3),
-                  splashFactory: widget.splashFactory,
+        elevation: widget.elevation,
+        shadowColor: widget.shadowColor,
+        bgColor: widget.bgColor,
+        inkWell: true,
+        borderRadius: BorderRadius.circular(widget.radius),
+        child: Container(
+          child: InkWell(
+            child: Container(
+              child: widget.child,
+              padding: widget.padding,
+            ),
+
+            onTap: widget.onTap,
+            onDoubleTap: widget.onDoubleTap,
+            onLongPress: widget.onLongPress,
+            onTapDown: widget.onTapDown,
+            onTapCancel: widget.onTapCancel,
+            onHighlightChanged: widget.onHighlightChanged,
+            highlightColor: null != widget.highlightColor
+                ? widget.highlightColor
+                : BaseColorUtils.colorGreyLiteLite.withOpacity(.1),
+            splashColor: null != widget.splashColor
+                ? widget.splashColor
+                : BaseColorUtils.colorGreyLiteLite.withOpacity(.3),
+            splashFactory: widget.splashFactory,
 //                radius: widget.radius,
 //                borderRadius: widget.borderRadius,
-                  borderRadius: null != widget.borderRadius
-                      ? widget.borderRadius
-                      : BorderRadius.all(Radius.circular(widget.radius)),
-                  customBorder: widget.customBorder,
-                  enableFeedback: widget.enableFeedback,
-                  excludeFromSemantics: widget.excludeFromSemantics,
-                ),
-              ),
-            ),
+            borderRadius: null != widget.borderRadius
+                ? widget.borderRadius
+                : BorderRadius.all(Radius.circular(widget.radius)),
+            customBorder: widget.customBorder,
+            enableFeedback: widget.enableFeedback,
+            excludeFromSemantics: widget.excludeFromSemantics,
+          ),
+        ),
+      ),
     );
   }
 }
