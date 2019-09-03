@@ -55,40 +55,44 @@ class ToolBarState extends State<ToolBar> {
   Widget build(BuildContext context) {
     var toolbar = null == widget.appBar
         ? AppBar(
-            actions: widget.actions,
-            elevation: widget.elevation,
-            leading: widget.iosBack
-                ? IconButton(
-                    icon: Icon(
-                      Icons.arrow_back_ios,
-                    ),
-                    iconSize: 22,
-                    color:
-                        Color(widget.darkStatusText ? 0xff50525c : 0xffffffff),
-                    onPressed: null == widget.backClick
-                        ? () {
-                            if (Navigator.canPop(context)) {
-                              return Navigator.of(context).pop();
-                            } else {
-                              return SystemNavigator.pop();
-                            }
-                          }
-                        : widget.backClick, // null disables the button
-                  )
-                : null,
-            brightness:
-                widget.darkStatusText ? Brightness.light : Brightness.dark,
-            centerTitle: true,
-            backgroundColor: null != widget.appbarColor
-                ? widget.appbarColor
-                : BaseColorUtils.colorWindowWhite,
-            iconTheme: IconThemeData(color: BaseColorUtils.colorBlack),
-            title: Text(
-              widget.title,
-              style: TextStyle(color: BaseColorUtils.colorBlack),
-              textAlign: TextAlign.center,
-            ),
-          )
+      actions: widget.actions,
+      elevation: widget.elevation,
+      leading: widget.iosBack
+          ? IconButton(
+        icon: Icon(
+          Icons.arrow_back_ios,
+        ),
+        iconSize: 22,
+        color:
+        Color(widget.darkStatusText ? 0xff50525c : 0xffffffff),
+        onPressed: null == widget.backClick
+            ? () {
+          if (Navigator.canPop(context)) {
+            return Navigator.of(context).pop();
+          } else {
+            return SystemNavigator.pop();
+          }
+        }
+            : widget.backClick, // null disables the button
+      )
+          : null,
+      brightness:
+      widget.darkStatusText ? Brightness.light : Brightness.dark,
+      centerTitle: true,
+      backgroundColor: null != widget.appbarColor
+          ? widget.appbarColor
+          : BaseColorUtils.colorWindowWhite,
+      iconTheme: IconThemeData(color: widget.darkStatusText
+          ? BaseColorUtils.colorBlack
+          : BaseColorUtils.white),
+      title: Text(
+        widget.title,
+        style: TextStyle(color: widget.darkStatusText
+            ? BaseColorUtils.colorBlack
+            : BaseColorUtils.white),
+        textAlign: TextAlign.center,
+      ),
+    )
         : widget.appBar;
 
     return Scaffold(
@@ -99,28 +103,28 @@ class ToolBarState extends State<ToolBar> {
       appBar: -1 == widget.toolbarHeight
           ? toolbar
           : PreferredSize(
-              child: null == widget.toolbarSrc
-                  ? toolbar
-                  : Container(
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage(source(widget.toolbarSrc)),
-                              fit: BoxFit.fill)),
-                      width: double.infinity,
-                      height: double.infinity,
-                      child: null == widget.toolbarSubView
-                          ? toolbar
-                          : Column(
-                               children: <Widget>[
-                                toolbar,
-                                Expanded(
-                                  child: widget.toolbarSubView,
-                                )
-                              ],
-                            ),
-                    ),
-              preferredSize: Size.fromHeight(widget.toolbarHeight),
-            ),
+        child: null == widget.toolbarSrc
+            ? toolbar
+            : Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(source(widget.toolbarSrc)),
+                  fit: BoxFit.fill)),
+          width: double.infinity,
+          height: double.infinity,
+          child: null == widget.toolbarSubView
+              ? toolbar
+              : Column(
+            children: <Widget>[
+              toolbar,
+              Expanded(
+                child: widget.toolbarSubView,
+              )
+            ],
+          ),
+        ),
+        preferredSize: Size.fromHeight(widget.toolbarHeight),
+      ),
       body: widget.child,
     );
   }

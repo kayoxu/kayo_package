@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 /**
@@ -12,6 +13,11 @@ class BaseTimeUtils {
   static const formatYMD = 'yyyy-MM-dd';
   static const formatMD = 'MM.dd';
   static const formatShort = 'yy-MM-dd HH:mm';
+
+  static DateTime getTime({@required int after, @required bool start}) {
+    DateTime dateTime = getToday(start: start);
+    return dateTime.add(Duration(days: after));
+  }
 
   /*
   * 获取今天
@@ -41,7 +47,7 @@ class BaseTimeUtils {
     now = now ?? DateTime.now();
 
     var dateTime =
-        DateTime(now.year, !start ? now.month + 1 : now.month, !start ? 0 : 1);
+    DateTime(now.year, !start ? now.month + 1 : now.month, !start ? 0 : 1);
 
     return getDateTime(start: start, dateTime: dateTime);
   }
@@ -101,7 +107,9 @@ class BaseTimeUtils {
   * now的时间戳
   * */
   static String nowTimeStr({String format}) {
-    return timestampToTimeStr(DateTime.now().millisecondsSinceEpoch,
+    return timestampToTimeStr(DateTime
+        .now()
+        .millisecondsSinceEpoch,
         format: format);
   }
 
@@ -109,7 +117,9 @@ class BaseTimeUtils {
   * now的Timestamp
   * */
   static int nowTimestamp() {
-    return DateTime.now().millisecondsSinceEpoch;
+    return DateTime
+        .now()
+        .millisecondsSinceEpoch;
   }
 
   /*
