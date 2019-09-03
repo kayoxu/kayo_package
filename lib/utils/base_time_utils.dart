@@ -14,6 +14,7 @@ class BaseTimeUtils {
   static const formatMD = 'MM.dd';
   static const formatShort = 'yy-MM-dd HH:mm';
 
+  ///获取时间
   static DateTime getTime({@required int after, @required bool start}) {
     DateTime dateTime = getToday(start: start);
     return dateTime.add(Duration(days: after));
