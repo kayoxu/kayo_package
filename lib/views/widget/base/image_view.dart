@@ -32,6 +32,7 @@ class ImageView extends StatefulWidget {
   EdgeInsets padding;
 
   VoidCallback onClick;
+  VoidCallback onLongClick;
 
   double elevation;
   Color shadowColor;
@@ -55,6 +56,7 @@ class ImageView extends StatefulWidget {
     this.margin = const EdgeInsets.all(0),
     this.padding = const EdgeInsets.all(0),
     this.onClick,
+    this.onLongClick,
     this.elevation,
     this.shadowColor,
     this.bgColor,
@@ -117,8 +119,6 @@ class ImageViewState extends State<ImageView> {
     var container = Container(
       height: widget.rootHeight,
       width: widget.rootwidth,
-      margin: widget.margin,
-      padding: widget.padding,
       color: widget.bgColor,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(widget.radius),
@@ -141,9 +141,12 @@ class ImageViewState extends State<ImageView> {
         : AspectRatio(aspectRatio: widget.aspectRatio, child: container);
 
     return Clickable(
+      margin: widget.margin,
+      padding: widget.padding,
       child: container2,
       radius: widget.radius,
       onTap: widget.onClick,
+      onLongPress: widget.onLongClick,
       bgColor: Colors.transparent,
       elevation: widget.elevation,
       shadowColor: widget.shadowColor,

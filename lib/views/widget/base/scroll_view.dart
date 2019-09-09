@@ -17,6 +17,7 @@ class Scrollview extends StatelessWidget {
   Color bgColor;
   Decoration decoration;
   Widget headerView;
+  double height;
 
   Scrollview({Key key,
     @required this.children,
@@ -25,6 +26,7 @@ class Scrollview extends StatelessWidget {
     this.orientation = Axis.vertical,
     this.bgColor = BaseColorUtils.colorWindow,
     this.decoration,
+    this.height,
     this.headerView})
       : super(key: key);
 
@@ -35,6 +37,7 @@ class Scrollview extends StatelessWidget {
     return Container(
       color: bgColor,
       padding: padding,
+      height: height,
       margin: margin,
       decoration: decoration,
       child: ListView(

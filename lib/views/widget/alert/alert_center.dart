@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
- import 'package:kayo_package/views/widget/visible_view.dart';
+import 'package:kayo_package/views/widget/visible_view.dart';
 import 'package:kayo_package/views/widget/alert/flutter_cupertino_data_picker.dart';
 import 'package:kayo_package/views/widget/base/button_view.dart';
 import 'package:kayo_package/views/widget/base/clickable.dart';
@@ -62,7 +62,8 @@ class AlertCenter {
                       });
                     },
                   )),
-                  Icon(Icons.arrow_drop_down, color: BaseColorUtils.colorGreyLiteLite)
+                  Icon(Icons.arrow_drop_down,
+                      color: BaseColorUtils.colorGreyLiteLite)
                 ],
               ),
             ),
@@ -88,21 +89,26 @@ class AlertCenter {
       String message,
       bool showCancel,
       String okTitle,
+      Widget content,
       String cancelTitle,
+      bool cancelable = false,
+      EdgeInsets margin,
       Function onOk,
       Function onCancel}) {
     showDialog(
         context: context,
-        barrierDismissible: false,
+        barrierDismissible: cancelable,
         builder: (BuildContext context) {
           return AlertDefault(
             title: title,
             message: message,
+            content: content,
             showCancel: showCancel,
             okTitle: okTitle,
             cancelTitle: cancelTitle,
             onOK: onOk,
             onCancel: onCancel,
+            margin: margin,
           );
         });
   }
@@ -117,6 +123,7 @@ class AlertDefault extends Dialog {
   bool showCancel;
   String okTitle;
   String cancelTitle;
+  EdgeInsets margin;
 
   AlertDefault({
     Key key,
@@ -128,13 +135,19 @@ class AlertDefault extends Dialog {
     this.cancelTitle,
     this.onOK,
     this.onCancel,
+    this.margin,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return new Padding(
+    return new Container(
+        margin: margin,
         padding: const EdgeInsets.all(12.0),
         child: new Material(
+            borderOnForeground: false,
+            borderRadius: BorderRadius.all(
+              Radius.circular(12.0),
+            ),
             type: MaterialType.transparency,
             child: new Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -146,7 +159,7 @@ class AlertDefault extends Dialog {
                               borderRadius: BorderRadius.all(
                             Radius.circular(8.0),
                           ))),
-                      margin: const EdgeInsets.all(12),
+                      margin: const EdgeInsets.all(0),
                       child: Container(
                         child: new Column(
                             mainAxisSize: MainAxisSize.min,
