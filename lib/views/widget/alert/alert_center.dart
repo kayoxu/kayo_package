@@ -98,7 +98,8 @@ class AlertCenter {
     showDialog(
         context: context,
         barrierDismissible: cancelable,
-        builder: (BuildContext context) {
+        builder:
+            /* (BuildContext context) {
           return AlertDefault(
             title: title,
             message: message,
@@ -110,8 +111,98 @@ class AlertCenter {
             onCancel: onCancel,
             margin: margin,
           );
-        });
+        }*/
+
+            (context) => AlertDefaultView(
+                  context,
+                  title: title,
+                  message: message,
+                  content: content,
+                  showCancel: showCancel,
+                  okTitle: okTitle,
+                  cancelTitle: cancelTitle,
+                  onOK: onOk,
+                  onCancel: onCancel,
+                  margin: margin,
+                ));
   }
+}
+
+Widget AlertDefaultView(
+  BuildContext context, {
+  var title,
+  var message,
+  Widget content,
+  Function onOK,
+  Function onCancel,
+  bool showCancel,
+  String okTitle,
+  String cancelTitle,
+  EdgeInsets margin,
+}) {
+  return new Container(
+      margin: margin,
+      alignment: Alignment.center,
+      padding: const EdgeInsets.all(12.0),
+      child: new Material(
+          borderOnForeground: false,
+          borderRadius: BorderRadius.all(
+            Radius.circular(12.0),
+          ),
+//          type: MaterialType.transparency,
+          child: new Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                new Container(
+                    decoration: ShapeDecoration(
+                        color: Color(0xFFFFFFFF),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                          Radius.circular(8.0),
+                        ))
+                    ),
+                    margin: const EdgeInsets.all(0),
+                    child: Container(
+                      child: new Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            new TextView(
+                              title,
+                              size: 20,
+                              margin:
+                                  EdgeInsets.only(left: 20, top: 20, right: 20),
+                            ),
+                            VisibleView(
+                                visible: null != message
+                                    ? Visible.visible
+                                    : Visible.gone,
+                                child: TextView(
+                                  message,
+                                  size: 14,
+                                  maxLine: 20,
+                                  margin: EdgeInsets.only(left: 16, right: 16),
+                                )),
+                            VisibleView(
+                              child: content,
+                              visible: null != content
+                                  ? Visible.visible
+                                  : Visible.gone,
+                            ),
+                            Container(
+                              height: 60,
+                              child: new Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: buildButtonAction(context,
+                                      showCancel: showCancel,
+                                      okTitle: okTitle,
+                                      cancelTitle: cancelTitle,
+                                      onOk: onOK,
+                                      onCancel: onCancel)),
+                            )
+                          ]),
+                    ))
+              ])));
 }
 
 class AlertDefault extends Dialog {
@@ -148,8 +239,9 @@ class AlertDefault extends Dialog {
             borderRadius: BorderRadius.all(
               Radius.circular(12.0),
             ),
-            type: MaterialType.transparency,
+//            type: MaterialType.transparency,
             child: new Column(
+                mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   new Container(
@@ -202,50 +294,50 @@ class AlertDefault extends Dialog {
                       ))
                 ])));
   }
+}
 
-  List<Widget> buildButtonAction(context,
-      {bool showCancel,
-      String okTitle,
-      String cancelTitle,
-      Function onOk,
-      Function onCancel}) {
-    if (null == onOk) onOk = () {};
-    if (null == onCancel) onCancel = () {};
+List<Widget> buildButtonAction(context,
+    {bool showCancel,
+    String okTitle,
+    String cancelTitle,
+    Function onOk,
+    Function onCancel}) {
+  if (null == onOk) onOk = () {};
+  if (null == onCancel) onCancel = () {};
 
-    if (null == okTitle) okTitle = '确定';
-    if (null == cancelTitle) cancelTitle = '取消';
+  if (null == okTitle) okTitle = '确定';
+  if (null == cancelTitle) cancelTitle = '取消';
 
-    List<Widget> widgets = List();
+  List<Widget> widgets = List();
 
-    var ok = _buttonAction(title: okTitle, left: true, onClick: onOk);
+  var ok = _buttonAction(title: okTitle, left: true, onClick: onOk);
 
-    var cancel =
-        _buttonAction(title: cancelTitle, left: false, onClick: onCancel);
+  var cancel =
+      _buttonAction(title: cancelTitle, left: false, onClick: onCancel);
 
-    widgets.add(ok);
-    if (false != showCancel) widgets.add(cancel);
+  widgets.add(ok);
+  if (false != showCancel) widgets.add(cancel);
 
-    return widgets;
-  }
+  return widgets;
+}
 
-  Widget _buttonAction(
-      {String title,
-      Color color = BaseColorUtils.colorBlack,
-      Color bgColor = BaseColorUtils.white,
-      Function onClick,
-      bool left}) {
-    return Expanded(
-        child: ButtonView(
-      text: title,
-      height: double.infinity,
-      borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(true == left ? 8 : 0),
-          bottomRight: Radius.circular(false == left ? 8 : 0)),
-      margin: EdgeInsets.only(top: 16),
-      bgColor: bgColor,
-      showShadow: true,
-      color: color,
-      onPressed: onClick,
-    ));
-  }
+Widget _buttonAction(
+    {String title,
+    Color color = BaseColorUtils.colorBlack,
+    Color bgColor = BaseColorUtils.white,
+    Function onClick,
+    bool left}) {
+  return Expanded(
+      child: ButtonView(
+    text: title,
+    height: double.infinity,
+    borderRadius: BorderRadius.only(
+        bottomLeft: Radius.circular(true == left ? 8 : 0),
+        bottomRight: Radius.circular(false == left ? 8 : 0)),
+    margin: EdgeInsets.only(top: 16),
+    bgColor: bgColor,
+    showShadow: true,
+    color: color,
+    onPressed: onClick,
+  ));
 }
