@@ -24,7 +24,7 @@ dependencies:
   flutter_statusbar: ^0.0.1   # Jul 11, 2018
   flutter_slidable: ^0.5.3    # May 24, 2019
 #  dio: ^2.1.13                # Jul 10, 2019
-  dio: ^3.0.0                # Jul 10, 2019
+  dio: ^3.0.0                # Sep 18, 2019
   event_bus: ^1.1.0           # Mar 27, 2019
   path_drawing: ^0.4.1        # May 7, 2019
 
