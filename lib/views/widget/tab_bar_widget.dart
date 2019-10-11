@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kayo_package/kayo_package.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
- 
+
 ///支持顶部和顶部的TabBar控件
 ///配合AutomaticKeepAliveClientMixin可以keep住
 class TabBarWidget extends StatefulWidget {
@@ -9,6 +10,9 @@ class TabBarWidget extends StatefulWidget {
 
   ///顶部模式type
   static const int TOP_TAB = 2;
+
+  ///顶部模式type
+  static const int HIDE_TAB = 3;
 
   final int type;
 
@@ -62,7 +66,6 @@ class TabBarWidget extends StatefulWidget {
 
 class TabBarWidgetState extends State<TabBarWidget>
     with SingleTickerProviderStateMixin {
-
   TabController _tabController;
 
   VoidCallback _tabControllerChangeCallBack;
@@ -122,10 +125,10 @@ class TabBarWidgetState extends State<TabBarWidget>
           },
         ),
       );
-    } else {
+    } else if (this.widget.type == TabBarWidget.BOTTOM_TAB) {
       ///底部tab bar
       return new Scaffold(
-        backgroundColor: BaseColorUtils.colorWindow,
+          backgroundColor: BaseColorUtils.colorWindow,
           drawer: widget.drawer,
           appBar: widget.appBar,
           body: TabBarView(
@@ -145,7 +148,7 @@ class TabBarWidgetState extends State<TabBarWidget>
                     BoxShadow(
                       color: const Color(0xFFd0d0d0),
                       blurRadius: 0.5,
-                      spreadRadius:  0.5,
+                      spreadRadius: 0.5,
 //                      offset: Offset(-1, -1), //-1,-1
                     ),
                   ],
@@ -168,6 +171,15 @@ class TabBarWidgetState extends State<TabBarWidget>
               ),
             ),
           ));
+    } else {
+      ///隐藏Tab
+      return BaseSysUtils.empty(widget.tabViews)
+          ? WidgetNotFound()
+          : Scaffold(
+              backgroundColor: BaseColorUtils.colorWindow,
+              drawer: widget.drawer,
+              appBar: widget.appBar,
+              body: widget.tabViews[0]);
     }
   }
 }
