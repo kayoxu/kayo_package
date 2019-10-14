@@ -37,6 +37,8 @@ class Clickable extends StatefulWidget {
   Decoration decoration;
   Alignment alignment;
 
+  Color selectColor;
+  bool selected;
 
   Clickable({
     Key key,
@@ -62,6 +64,8 @@ class Clickable extends StatefulWidget {
     this.shadowColor = BaseColorUtils.colorGreyLite,
     this.decoration,
     this.alignment,
+    this.selectColor,
+    this.selected,
   }) : super(
     key: key,
   );
@@ -99,7 +103,9 @@ class ClickableState extends State<Clickable> {
           : ShadowView(
         elevation: widget.elevation,
         shadowColor: widget.shadowColor,
-        bgColor: widget.bgColor,
+        bgColor: (widget.selected ?? false && null != widget.selectColor)
+            ? widget.selectColor
+            : widget.bgColor,
         inkWell: true,
         borderRadius: BorderRadius.circular(widget.radius),
         child: Container(
