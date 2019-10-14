@@ -15,9 +15,7 @@ import 'base/image_view.dart';
 class ToolBar extends StatefulWidget {
   final Widget child;
   final String title;
-  final Widget titelWidget
-
-  ,
+  final Widget titelWidget;
 
   final Widget appBar;
 
