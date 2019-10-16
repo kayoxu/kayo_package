@@ -3,6 +3,8 @@
 
 导入方式如下：
 
+```go
+
 dependencies:
   flutter:
     sdk: flutter
@@ -11,3 +13,6 @@ dependencies:
   kayo_package:
     git:
     url: https://github.com/kayoxu/kayo_package.git
+
+
+```
