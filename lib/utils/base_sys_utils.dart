@@ -4,6 +4,7 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
+import 'package:kayo_package/kayo_package.dart';
 /**
  *  smart_community
  *  common.utils
@@ -161,6 +162,8 @@ class BaseSysUtils {
   /// - [alpha] 透明度(默认1，0-1)
   /// 可以输入多种格式的颜色代码，如: 0x000000,0xff000000,#000000
   static Color getColor(String colorString, {double alpha = 1.0}) {
+    if (colorString.isEmpty) return BaseColorUtils.colorAccent;
+
     String colorStr = colorString;
     // colorString未带0xff前缀并且长度为6
     if (!colorStr.startsWith('0xff') && colorStr.length == 6) {

@@ -101,8 +101,11 @@ class TabBarWidgetState extends State<TabBarWidget>
 
   @override
   Widget build(BuildContext context) {
-//    _tabController.index = widget.initialIndex;
-    _tabController.animateTo(widget.initialIndex);
+    if (widget.animate) {
+      _tabController.animateTo(widget.initialIndex);
+    } else {
+      _tabController.index = widget.initialIndex;
+    }
 
     if (this.widget.type == TabBarWidget.TOP_TAB) {
       ///顶部tab bar
