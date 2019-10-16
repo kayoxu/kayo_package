@@ -11,14 +11,3 @@ dependencies:
   kayo_package:
     git:
     url: https://github.com/kayoxu/kayo_package.git
-
-  EasyRefreshController _controller = EasyRefreshController();
-  ....
-  EasyRefresh(
-    controller: _controller,
-    ....
-  );
-  ....
-  _controller.callRefresh();
-  _controller.callLoad();
-4.控制加载和刷新完成
