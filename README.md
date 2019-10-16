@@ -3,7 +3,7 @@
 
 导入方式如下：
 
-```go
+``` yml
 
 dependencies:
   flutter:
