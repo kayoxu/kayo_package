@@ -3,7 +3,7 @@
 
 导入方式如下：
 
-··· yml
+··· java
 dependencies:  
   flutter:  
     sdk: flutter  
