@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
 import 'package:kayo_package/views/widget/base/clickable.dart';
@@ -20,6 +21,7 @@ source(String src, {String suffix = '.png'}) {
 class ImageView extends StatefulWidget {
   String src;
   String url;
+  bool useCache;
   File file;
   double width;
   double height;
@@ -61,6 +63,7 @@ class ImageView extends StatefulWidget {
     this.shadowColor,
     this.bgColor,
     this.aspectRatio = -1,
+    this.useCache = false,
   }) : super(key: key);
 
   @override
@@ -78,13 +81,23 @@ class ImageViewState extends State<ImageView> {
   Widget build(BuildContext context) {
     var image;
     if (null != widget.url && widget.url != '' && widget.url.length > 10) {
-      image = FadeInImage.assetNetwork(
-        placeholder: source('ic_moren'),
-        image: widget.url,
-        width: widget.width,
-        height: widget.height,
-        fit: widget.fit,
-      );
+      if (widget.useCache) {
+        image = CachedNetworkImage(
+          placeholder: source('ic_moren'),
+          imageUrl: widget.url,
+          width: widget.width,
+          height: widget.height,
+          fit: widget.fit,
+        );
+      }else{
+        image = FadeInImage.assetNetwork(
+          placeholder: source('ic_moren'),
+          image: widget.url,
+          width: widget.width,
+          height: widget.height,
+          fit: widget.fit,
+        );
+      }
     } else if ((widget.src ?? '') != '') {
       if (widget.src.endsWith('.svg')) {
         image = SvgPicture.asset(
