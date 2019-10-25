@@ -83,13 +83,15 @@ class ImageViewState extends State<ImageView> {
     if (null != widget.url && widget.url != '' && widget.url.length > 10) {
       if (widget.useCache) {
         image = CachedNetworkImage(
-          placeholder: source('ic_moren'),
+          placeholder: (context, str) {
+            return Image.asset(source('ic_moren'));
+          },
           imageUrl: widget.url,
           width: widget.width,
           height: widget.height,
           fit: widget.fit,
         );
-      }else{
+      } else {
         image = FadeInImage.assetNetwork(
           placeholder: source('ic_moren'),
           image: widget.url,
@@ -138,14 +140,14 @@ class ImageViewState extends State<ImageView> {
         child: null == widget.onClick
             ? image
             : AnimatedContainer(
-          duration: Duration(milliseconds: 100),
-          foregroundDecoration: BoxDecoration(
-            color: widget.isDown
-                ? Colors.white.withOpacity(0.5)
-                : Colors.transparent,
-          ),
-          child: image,
-        ),
+                duration: Duration(milliseconds: 100),
+                foregroundDecoration: BoxDecoration(
+                  color: widget.isDown
+                      ? Colors.white.withOpacity(0.5)
+                      : Colors.transparent,
+                ),
+                child: image,
+              ),
       ),
     );
 
