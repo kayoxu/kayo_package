@@ -11,9 +11,14 @@ import 'package:kayo_package/views/widget/tool_bar.dart';
  */
 
 class WidgetNotFound extends StatelessWidget {
+  Function backClick;
+
+  WidgetNotFound({this.backClick});
+
   Widget build(BuildContext context) {
     return ToolBar(
       title: '页面错误',
+      backClick: backClick,
       iosBack: true,
       child: Center(
         child: TextView('没有找到相关页面'),
