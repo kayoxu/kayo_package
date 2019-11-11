@@ -4,6 +4,7 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
+import 'package:flutter/material.dart';
 import 'package:kayo_package/kayo_package.dart';
 /**
  *  smart_community
@@ -62,7 +63,7 @@ class BaseSysUtils {
     if (BaseSysUtils.empty(str)) return false;
 
     return new RegExp(
-            '^((13[0-9])|(14[0-9])|(15[0-9])|(16[0-9])|(17[0-9])|(18[0-9])|(19[0-9]))\\d{8}\$')
+        '^((13[0-9])|(14[0-9])|(15[0-9])|(16[0-9])|(17[0-9])|(18[0-9])|(19[0-9]))\\d{8}\$')
         .hasMatch(str);
   }
 
@@ -74,7 +75,7 @@ class BaseSysUtils {
 
 //    return new RegExp('(^[1-9]\\d{5}(18|19|([23]\\d))\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}[0-9Xx]\$)|(^[1-9]\\d{5}\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{2}\$)').hasMatch(str);
     return new RegExp('(^\\d{15}\$)|(^\\d{18}\$)|(^\\d{17}(\\d|X|x)\$)')
-            .hasMatch(str) ||
+        .hasMatch(str) ||
         str.contains('12345678911');
   }
 
@@ -95,7 +96,7 @@ class BaseSysUtils {
     if (BaseSysUtils.empty(str)) return false;
 
     return new RegExp(
-            '(^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[警京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼]{0,1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}\$)|(^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[警京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼]{0,1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{2}\$)')
+        '(^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[警京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼]{0,1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}\$)|(^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[警京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼]{0,1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{2}\$)')
         .hasMatch(str.toUpperCase());
   }
 
@@ -162,7 +163,7 @@ class BaseSysUtils {
   /// - [alpha] 透明度(默认1，0-1)
   /// 可以输入多种格式的颜色代码，如: 0x000000,0xff000000,#000000
   static Color getColor(String colorString, {double alpha = 1.0}) {
-    if ((colorString??'').isEmpty) return BaseColorUtils.colorAccent;
+    if ((colorString ?? '').isEmpty) return BaseColorUtils.colorAccent;
 
     String colorStr = colorString;
     // colorString未带0xff前缀并且长度为6
@@ -185,4 +186,13 @@ class BaseSysUtils {
     // 通过fromRGBO返回带透明度和RGB值的颜色
     return Color.fromRGBO(red, green, blue, alpha);
   }
+
+  static double getWidth(context) {
+    return MediaQuery.of(context).size.width;
+  }
+
+  static double getHeight(context) {
+    return MediaQuery.of(context).size.height;
+  }
+
 }
