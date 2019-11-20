@@ -439,7 +439,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
               color: Color(0xff888A8E),
               borderColor: Color(0xffE6E6E6),
               size: 13,
-              padding: EdgeInsets.only(left: 8, right: 8, top: 0, bottom: 0),
+              padding: EdgeInsets.only(left: 8, right: 8, top: 1, bottom: 0),
             ),
           ),
           Visibility(
@@ -549,7 +549,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
               color: Color(0xff888A8E),
               borderColor: Color(0xffE6E6E6),
               size: 13,
-              padding: EdgeInsets.only(left: 8, right: 8, top: 0, bottom: 0),
+              padding: EdgeInsets.only(left: 8, right: 8, top: 1, bottom: 0),
             ),
           ),
           Visibility(
