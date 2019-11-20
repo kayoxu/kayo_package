@@ -432,7 +432,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
             height: theme.timeTitleHeight,
             padding: EdgeInsets.all(3),
             child: TextView(
-              i18nObjInLocale(widget.locale)['startTime'],
+              _startTime(),
               radius: 20,
               border: true,
               color: Color(0xff888A8E),
@@ -541,7 +541,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
             padding: EdgeInsets.all(3),
             margin: EdgeInsets.only(top: theme.centerLineHeight),
             child: TextView(
-              i18nObjInLocale(widget.locale)['endTime'],
+              _endTime(),
               radius: 20,
               border: true,
               color: Color(0xff888A8E),
@@ -658,7 +658,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
                     .finalTime()
                     .isAfter(widget.pickerModel2.finalTime())) {
                   if (null != widget.route.onError)
-                    widget.route.onError(i18nObjInLocale(widget.locale)['chooseTimeError']);
+                    widget.route.onError(_chooseTimeError());
                   return;
                 }
 
@@ -706,7 +706,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
             padding: EdgeInsets.only(left: 16, top: 0),
             height: theme.titleHeight,
             child: TextView(
-              i18nObjInLocale(widget.locale)['chooseTime'],
+              _chooseTime(),
               color: Color(0xff191D2D),
               size: 15,
               fontWeight: FontWeight.bold,
@@ -735,6 +735,17 @@ class _DatePickerState extends State<_DatePickerComponent> {
 
   String _localeCancel() {
     return i18nObjInLocale(widget.locale)['cancel'];
+  }
+  String _chooseTime() {
+    return i18nObjInLocale(widget.locale)['chooseTime'];
+  }  String _startTime() {
+    return i18nObjInLocale(widget.locale)['startTime'];
+  }
+  String _endTime() {
+    return i18nObjInLocale(widget.locale)['endTime'];
+  }
+  String _chooseTimeError() {
+    return i18nObjInLocale(widget.locale)['chooseTimeError'];
   }
 }
 
