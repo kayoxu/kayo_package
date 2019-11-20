@@ -513,7 +513,7 @@ class DateTimePickerModel extends CommonPickerModel {
   @override
   String middleStringAtIndex(int index) {
     if (index >= 0 && index < 24) {
-      return digits(index, 2) + '时';
+      return digits(index, 2) +  i18nObjInLocale(locale)['hour'].toString();
     } else {
       return null;
     }
@@ -522,7 +522,7 @@ class DateTimePickerModel extends CommonPickerModel {
   @override
   String rightStringAtIndex(int index) {
     if (index >= 0 && index < 60) {
-      return digits(index, 2) + '分';
+      return digits(index, 2) + i18nObjInLocale(locale)['minute'].toString();
     } else {
       return null;
     }
@@ -531,7 +531,7 @@ class DateTimePickerModel extends CommonPickerModel {
   @override
   String rightStringAtIndex01(int index) {
     if (index >= 0 && index < 60) {
-      return digits(index, 2) + '秒';
+      return digits(index, 2) + i18nObjInLocale(locale)['second'].toString();
     } else {
       return null;
     }
