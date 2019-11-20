@@ -50,6 +50,8 @@ class EditView extends StatefulWidget {
   VoidCallback onEditingComplete;
   ValueChanged<String> onSubmitted;
   bool useDefaultEditController;
+  bool editable;
+
 
   EditView({
     Key key,
@@ -79,6 +81,7 @@ class EditView extends StatefulWidget {
     this.onEditingComplete,
     this.onSubmitted,
     this.useDefaultEditController = false,
+    this.editable = true,
   }) : super(key: key);
 
   @override
@@ -95,14 +98,20 @@ class EditViewState extends State<EditView> {
   @override
   void initState() {
     super.initState();
-    if (widget.useDefaultEditController && null == widget.controller) {
-      widget.controller = TextEditingController();
+    if ((widget.useDefaultEditController || !widget.editable) &&
+        null == widget.controller) {
+      widget.controller =
+          TextEditingController(
+              text: widget.text ?? '' /*widget.editable || !widget.useDefaultEditController
+                  ? ''
+                  : widget.text*/);
     }
   }
 
   @override
   void dispose() {
-    if (widget.useDefaultEditController && null != widget.controller) {
+    if ((widget.useDefaultEditController || !widget.editable) &&
+        null != widget.controller) {
       widget.controller.dispose();
     }
     super.dispose();
@@ -119,24 +128,25 @@ class EditViewState extends State<EditView> {
           padding: widget.padding,
           decoration: true == widget.showBorder
               ? BoxDecoration(
-                  color: BaseColorUtils.colorWhite,
-                  borderRadius: BorderRadius.circular(widget.radius),
-                  boxShadow: [
-                      BoxShadow(
-                          color: BaseColorUtils.colorWhiteDark,
-                          blurRadius: 2,
-                          spreadRadius: .5)
-                    ])
+              color: BaseColorUtils.colorWhite,
+              borderRadius: BorderRadius.circular(widget.radius),
+              boxShadow: [
+                BoxShadow(
+                    color: BaseColorUtils.colorWhiteDark,
+                    blurRadius: 2,
+                    spreadRadius: .5)
+              ])
               : null,
           child: TextField(
               onTap: null == widget.onClick ? onClick : widget.onClick,
               style: null == widget.textStyle
                   ? TextStyle(
-                      color: widget.textColor,
-                      fontSize: widget.textSize,
-                    )
+                color: widget.textColor,
+                fontSize: widget.textSize,
+              )
                   : widget.textStyle,
               autocorrect: false,
+              enabled: widget.editable,
               onEditingComplete: widget.onEditingComplete,
               onSubmitted: widget.onSubmitted,
               focusNode: widget.focusNode,
@@ -156,28 +166,28 @@ class EditViewState extends State<EditView> {
                   icon: BaseSysUtils.empty(widget.src)
                       ? null
                       : ImageView(
-                          width: 25,
-                          height: 25,
-                          src: widget.src,
-                        ),
+                    width: 25,
+                    height: 25,
+                    src: widget.src,
+                  ),
                   hintStyle: TextStyle(color: BaseColorUtils.colorGreyLiteLite),
                   hintText: widget.hintText,
                   enabledBorder:
-                      true != widget.showBorder && true == widget.showLine
-                          ? UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: BaseColorUtils.colorGreyLiteLite))
-                          : InputBorder.none,
+                  true != widget.showBorder && true == widget.showLine
+                      ? UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: BaseColorUtils.colorGreyLiteLite))
+                      : InputBorder.none,
                   focusedBorder:
-                      true != widget.showBorder && true == widget.showLine
-                          ? UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: BaseColorUtils.colorGreyLiteLite))
-                          : InputBorder.none,
+                  true != widget.showBorder && true == widget.showLine
+                      ? UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: BaseColorUtils.colorGreyLiteLite))
+                      : InputBorder.none,
                   border: true != widget.showBorder && true == widget.showLine
                       ? UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: BaseColorUtils.colorGreyLiteLite))
+                      borderSide: BorderSide(
+                          color: BaseColorUtils.colorGreyLiteLite))
                       : InputBorder.none)),
         ),
       ),

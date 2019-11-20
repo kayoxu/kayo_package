@@ -21,6 +21,13 @@ class BaseTimeUtils {
   }
 
   /*
+  * 获取现在
+  * */
+  static DateTime getNow() {
+    return DateTime.now();
+  }
+
+  /*
   * 获取今天
   * */
   static DateTime getToday({bool start = true}) {
@@ -48,7 +55,7 @@ class BaseTimeUtils {
     now = now ?? DateTime.now();
 
     var dateTime =
-        DateTime(now.year, !start ? now.month + 1 : now.month, !start ? 0 : 1);
+    DateTime(now.year, !start ? now.month + 1 : now.month, !start ? 0 : 1);
 
     return getDateTime(start: start, dateTime: dateTime, plus: start ? 2 : 0);
   }
@@ -108,7 +115,9 @@ class BaseTimeUtils {
   * now的时间戳
   * */
   static String nowTimeStr({String format}) {
-    return timestampToTimeStr(DateTime.now().millisecondsSinceEpoch,
+    return timestampToTimeStr(DateTime
+        .now()
+        .millisecondsSinceEpoch,
         format: format);
   }
 
@@ -116,7 +125,9 @@ class BaseTimeUtils {
   * now的Timestamp
   * */
   static int nowTimestamp() {
-    return DateTime.now().millisecondsSinceEpoch;
+    return DateTime
+        .now()
+        .millisecondsSinceEpoch;
   }
 
   /*
@@ -212,13 +223,12 @@ class BaseTimeUtils {
   * start 是否是开始时间
   * 
   * */
-  static DateTime getDateTime(
-      {DateTime dateTime,
-      bool start,
-      int h = 0,
-      int m = 0,
-      int s = 0,
-      int plus = 0}) {
+  static DateTime getDateTime({DateTime dateTime,
+    bool start,
+    int h = 0,
+    int m = 0,
+    int s = 0,
+    int plus = 0}) {
     dateTime = dateTime ?? DateTime.now();
 
     if (null != start) {

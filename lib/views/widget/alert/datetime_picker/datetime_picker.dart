@@ -432,7 +432,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
             height: theme.timeTitleHeight,
             padding: EdgeInsets.all(3),
             child: TextView(
-              '开始时间',
+              i18nObjInLocale(widget.locale)['startTime'],
               radius: 20,
               border: true,
               color: Color(0xff888A8E),
@@ -541,7 +541,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
             padding: EdgeInsets.all(3),
             margin: EdgeInsets.only(top: theme.centerLineHeight),
             child: TextView(
-              '结束时间',
+              i18nObjInLocale(widget.locale)['endTime'],
               radius: 20,
               border: true,
               color: Color(0xff888A8E),
@@ -658,7 +658,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
                     .finalTime()
                     .isAfter(widget.pickerModel2.finalTime())) {
                   if (null != widget.route.onError)
-                    widget.route.onError('开始时间不能大于结束时间');
+                    widget.route.onError(i18nObjInLocale(widget.locale)['chooseTimeError']);
                   return;
                 }
 
@@ -706,7 +706,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
             padding: EdgeInsets.only(left: 16, top: 0),
             height: theme.titleHeight,
             child: TextView(
-              '请选择起止时间',
+              i18nObjInLocale(widget.locale)['chooseTime'],
               color: Color(0xff191D2D),
               size: 15,
               fontWeight: FontWeight.bold,

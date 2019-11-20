@@ -18,7 +18,7 @@ class DataPicker {
     DataChangedCallback onConfirm,
     suffix: '',
     title: '',
-//    locale: 'zh',
+    locale: 'zh',
   }) {
     Navigator.push(
         context,
@@ -28,7 +28,7 @@ class DataPicker {
           datas: datas,
           onChanged: onChanged,
           onConfirm: onConfirm,
-//          locale: locale,
+          locale: locale,
           suffix: suffix,
           title: title,
           theme: Theme.of(context, shadowThemeOnly: true),
