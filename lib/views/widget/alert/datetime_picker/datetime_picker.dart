@@ -433,6 +433,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
             padding: EdgeInsets.all(3),
             child: TextView(
               _startTime(),
+              textAlign: TextAlign.center,
               radius: 20,
               border: true,
               color: Color(0xff888A8E),
@@ -542,6 +543,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
             margin: EdgeInsets.only(top: theme.centerLineHeight),
             child: TextView(
               _endTime(),
+              textAlign: TextAlign.center,
               radius: 20,
               border: true,
               color: Color(0xff888A8E),
