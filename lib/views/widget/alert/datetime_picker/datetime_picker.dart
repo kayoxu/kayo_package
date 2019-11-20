@@ -736,14 +736,19 @@ class _DatePickerState extends State<_DatePickerComponent> {
   String _localeCancel() {
     return i18nObjInLocale(widget.locale)['cancel'];
   }
-  String _chooseTime() {
-    return i18nObjInLocale(widget.locale)['chooseTime'];
-  }  String _startTime() {
+
+  String _startTime() {
     return i18nObjInLocale(widget.locale)['startTime'];
   }
+
   String _endTime() {
     return i18nObjInLocale(widget.locale)['endTime'];
   }
+
+  String _chooseTime() {
+    return i18nObjInLocale(widget.locale)['chooseTime'];
+  }
+
   String _chooseTimeError() {
     return i18nObjInLocale(widget.locale)['chooseTimeError'];
   }
