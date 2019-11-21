@@ -128,7 +128,7 @@ class AlertCenter {
   }
 }
 
-Widget AlertDefaultView(
+  Widget AlertDefaultView(
   BuildContext context, {
   var title,
   var message,
