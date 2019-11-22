@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kayo_package/kayo_package.dart';
 import 'package:kayo_package/utils/base_time_utils.dart';
 import 'package:kayo_package/views/widget/base/button_view.dart';
 import 'package:kayo_package/views/widget/base/text_view.dart';
@@ -35,6 +36,7 @@ class DatePicker {
     DateTime currentTime2,
     DatePickerTheme theme,
     String formatType = ymdw,
+    bool onlyStart = false,
   }) {
     Navigator.push(
         context,
@@ -46,6 +48,7 @@ class DatePicker {
           locale: locale,
           onError: onError,
           formatType: formatType,
+          onlyStart: onlyStart,
           theme: theme,
           barrierLabel:
               MaterialLocalizations.of(context).modalBarrierDismissLabel,
@@ -79,6 +82,7 @@ class DatePicker {
     DateTime currentTime2,
     DatePickerTheme theme,
     String formatType = hms,
+    bool onlyStart = false,
   }) {
     Navigator.push(
         context,
@@ -91,6 +95,7 @@ class DatePicker {
           onError: onError,
           formatType: formatType,
           theme: theme,
+          onlyStart: onlyStart,
           barrierLabel:
               MaterialLocalizations.of(context).modalBarrierDismissLabel,
           pickerModel:
@@ -119,6 +124,7 @@ class DatePicker {
     DateTime currentTime,
     DateTime currentTime2,
     DatePickerTheme theme,
+    bool onlyStart = false,
   }) {
     Navigator.push(
         context,
@@ -131,6 +137,7 @@ class DatePicker {
           formatType: formatType,
           locale: locale,
           theme: theme,
+          onlyStart: onlyStart,
           barrierLabel:
               MaterialLocalizations.of(context).modalBarrierDismissLabel,
           pickerModel: DateTimePickerModel(
@@ -161,6 +168,7 @@ class DatePicker {
     BasePickerModel pickerModel,
     BasePickerModel pickerModel2,
     DatePickerTheme theme,
+    bool onlyStart = false,
   }) {
     Navigator.push(
         context,
@@ -173,6 +181,7 @@ class DatePicker {
             formatType: formatType,
             locale: locale,
             theme: theme,
+            onlyStart: onlyStart,
             barrierLabel:
                 MaterialLocalizations.of(context).modalBarrierDismissLabel,
             pickerModel: pickerModel,
@@ -188,6 +197,7 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
     this.onConfirm,
     this.onError,
     this.formatType,
+    this.onlyStart,
     theme,
     this.barrierLabel,
     this.locale,
@@ -199,6 +209,7 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
         this.theme = theme ?? DatePickerTheme(),
         super(settings: settings);
 
+  final bool onlyStart;
   final bool showTitleActions;
   final DateChangedCallback onChanged;
   final DateChangedCallback onChanged2;
@@ -241,6 +252,7 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
       child: _DatePickerComponent(
         onChanged: onChanged,
         onChanged2: onChanged2,
+        onlyStart: onlyStart,
         locale: this.locale,
         route: this,
         pickerModel: pickerModel,
@@ -262,12 +274,14 @@ class _DatePickerComponent extends StatefulWidget {
       this.onChanged,
       this.onChanged2,
       this.locale,
+      this.onlyStart,
       this.pickerModel,
       this.pickerModel2});
 
   final DateChangedCallback onChanged;
   final DateChangedCallback onChanged2;
 
+  final bool onlyStart;
   final _DatePickerRoute route;
 
   final LocaleType locale;
@@ -329,7 +343,8 @@ class _DatePickerState extends State<_DatePickerComponent> {
             child: new CustomSingleChildLayout(
               delegate: new _BottomPickerLayout(
                   widget.route.animation.value, theme,
-                  showTitleActions: widget.route.showTitleActions),
+                  showTitleActions: widget.route.showTitleActions,
+                  onlystart: widget.onlyStart),
               child: new GestureDetector(
                 child: Material(
                   color: Colors.transparent,
@@ -431,15 +446,18 @@ class _DatePickerState extends State<_DatePickerComponent> {
           Container(
             height: theme.timeTitleHeight,
             padding: EdgeInsets.all(3),
-            child: TextView(
-              _startTime(),
-              textAlign: TextAlign.center,
-              radius: 20,
-              border: true,
-              color: Color(0xff888A8E),
-              borderColor: Color(0xffE6E6E6),
-              size: 13,
-              padding: EdgeInsets.only(left: 8, right: 8, top: 1, bottom: 0),
+            child: VisibleView(
+              child: TextView(
+                _startTime(),
+                textAlign: TextAlign.center,
+                radius: 20,
+                border: true,
+                color: Color(0xff888A8E),
+                borderColor: Color(0xffE6E6E6),
+                size: 13,
+                padding: EdgeInsets.only(left: 8, right: 8, top: 1, bottom: 0),
+              ),
+              visible: widget.onlyStart ? Visible.gone : Visible.visible,
             ),
           ),
           Visibility(
@@ -537,22 +555,26 @@ class _DatePickerState extends State<_DatePickerComponent> {
               )
             ],
           ),
-          Container(
-            height: theme.timeTitleHeight,
-            padding: EdgeInsets.all(3),
-            margin: EdgeInsets.only(top: theme.centerLineHeight),
-            child: TextView(
-              _endTime(),
-              textAlign: TextAlign.center,
-              radius: 20,
-              border: true,
-              color: Color(0xff888A8E),
-              borderColor: Color(0xffE6E6E6),
-              size: 13,
-              padding: EdgeInsets.only(left: 8, right: 8, top: 1, bottom: 0),
+          VisibleView(
+            visible: widget.onlyStart ? Visible.gone : Visible.visible,
+            child: Container(
+              height: theme.timeTitleHeight,
+              padding: EdgeInsets.all(3),
+              margin: EdgeInsets.only(top: theme.centerLineHeight),
+              child: TextView(
+                _endTime(),
+                textAlign: TextAlign.center,
+                radius: 20,
+                border: true,
+                color: Color(0xff888A8E),
+                borderColor: Color(0xffE6E6E6),
+                size: 13,
+                padding: EdgeInsets.only(left: 8, right: 8, top: 1, bottom: 0),
+              ),
             ),
           ),
           Visibility(
+            visible: !widget.onlyStart,
             child: Container(
                 height: theme.timeTimeHeight,
                 padding: EdgeInsets.all(3),
@@ -566,85 +588,88 @@ class _DatePickerState extends State<_DatePickerComponent> {
                       EdgeInsets.only(left: 8, right: 8, top: 0, bottom: 0),
                 )),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              _renderColumnView(
-                  ValueKey(widget.pickerModel2.currentLeftIndex()),
-                  theme,
-                  widget.pickerModel2.leftStringAtIndex,
-                  leftScrollCtrl2,
-                  widget.pickerModel2.layoutProportions()[0], (index) {
-                widget.pickerModel2.setLeftIndex(index);
-              }, (index) {
-                setState(() {
-                  refreshScrollOffset();
-                  _notifyDateChanged();
-                });
-              }),
-              Text(
-                widget.pickerModel2.leftDivider(),
-                style: theme.itemStyle,
-              ),
-              _renderColumnView(
-                  ValueKey(widget.pickerModel2.currentLeftIndex()),
-                  theme,
-                  widget.pickerModel2.middleStringAtIndex,
-                  middleScrollCtrl2,
-                  widget.pickerModel2.layoutProportions()[1], (index) {
-                widget.pickerModel2.setMiddleIndex(index);
-              }, (index) {
-                setState(() {
-                  refreshScrollOffset();
-                  _notifyDateChanged();
-                });
-              }),
-              Text(
-                widget.pickerModel2.rightDivider(),
-                style: theme.itemStyle,
-              ),
-              Visibility(
-                  visible: length > 2,
-                  child: _renderColumnView(
-                      ValueKey(widget.pickerModel2.currentMiddleIndex() +
-                          widget.pickerModel2.currentLeftIndex()),
-                      theme,
-                      widget.pickerModel2.rightStringAtIndex,
-                      rightScrollCtrl2,
-                      widget.pickerModel2
-                          .layoutProportions()[2 < length ? 2 : 0], (index) {
-                    widget.pickerModel2.setRightIndex(index);
-                    _notifyDateChanged();
-                  }, (index) {
-                    setState(() {
-                      refreshScrollOffset();
-                      _notifyDateChanged();
-                    });
-                  })),
-              Text(
-                widget.pickerModel2.rightDivider01(),
-                style: theme.itemStyle,
-              ),
-              Visibility(
-                visible: length > 3,
-                child: _renderColumnView(
-                    ValueKey(widget.pickerModel2.currentMiddleIndex() +
-                        widget.pickerModel2.currentLeftIndex()),
+          VisibleView(
+            visible: widget.onlyStart ? Visible.gone : Visible.visible,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                _renderColumnView(
+                    ValueKey(widget.pickerModel2.currentLeftIndex()),
                     theme,
-                    widget.pickerModel2.rightStringAtIndex01,
-                    rightScrollCtrl201,
-                    widget.pickerModel2.layoutProportions()[3 < length ? 3 : 0],
-                    (index) {
-                  widget.pickerModel2.setRightIndex01(index);
-                  _notifyDateChanged();
+                    widget.pickerModel2.leftStringAtIndex,
+                    leftScrollCtrl2,
+                    widget.pickerModel2.layoutProportions()[0], (index) {
+                  widget.pickerModel2.setLeftIndex(index);
                 }, (index) {
                   setState(() {
                     refreshScrollOffset();
                     _notifyDateChanged();
                   });
                 }),
-              )
-            ],
+                Text(
+                  widget.pickerModel2.leftDivider(),
+                  style: theme.itemStyle,
+                ),
+                _renderColumnView(
+                    ValueKey(widget.pickerModel2.currentLeftIndex()),
+                    theme,
+                    widget.pickerModel2.middleStringAtIndex,
+                    middleScrollCtrl2,
+                    widget.pickerModel2.layoutProportions()[1], (index) {
+                  widget.pickerModel2.setMiddleIndex(index);
+                }, (index) {
+                  setState(() {
+                    refreshScrollOffset();
+                    _notifyDateChanged();
+                  });
+                }),
+                Text(
+                  widget.pickerModel2.rightDivider(),
+                  style: theme.itemStyle,
+                ),
+                Visibility(
+                    visible: length > 2,
+                    child: _renderColumnView(
+                        ValueKey(widget.pickerModel2.currentMiddleIndex() +
+                            widget.pickerModel2.currentLeftIndex()),
+                        theme,
+                        widget.pickerModel2.rightStringAtIndex,
+                        rightScrollCtrl2,
+                        widget.pickerModel2
+                            .layoutProportions()[2 < length ? 2 : 0], (index) {
+                      widget.pickerModel2.setRightIndex(index);
+                      _notifyDateChanged();
+                    }, (index) {
+                      setState(() {
+                        refreshScrollOffset();
+                        _notifyDateChanged();
+                      });
+                    })),
+                Text(
+                  widget.pickerModel2.rightDivider01(),
+                  style: theme.itemStyle,
+                ),
+                Visibility(
+                  visible: length > 3,
+                  child: _renderColumnView(
+                      ValueKey(widget.pickerModel2.currentMiddleIndex() +
+                          widget.pickerModel2.currentLeftIndex()),
+                      theme,
+                      widget.pickerModel2.rightStringAtIndex01,
+                      rightScrollCtrl201,
+                      widget.pickerModel2
+                          .layoutProportions()[3 < length ? 3 : 0], (index) {
+                    widget.pickerModel2.setRightIndex01(index);
+                    _notifyDateChanged();
+                  }, (index) {
+                    setState(() {
+                      refreshScrollOffset();
+                      _notifyDateChanged();
+                    });
+                  }),
+                )
+              ],
+            ),
           ),
           Container(
             height: theme.doneBtnHeight,
@@ -657,8 +682,9 @@ class _DatePickerState extends State<_DatePickerComponent> {
               color: Colors.white,
               onPressed: () {
                 if (widget.pickerModel
-                    .finalTime()
-                    .isAfter(widget.pickerModel2.finalTime())) {
+                        .finalTime()
+                        .isAfter(widget.pickerModel2.finalTime()) &&
+                    !widget.onlyStart) {
                   if (null != widget.route.onError)
                     widget.route.onError(_chooseTimeError());
                   return;
@@ -708,7 +734,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
             padding: EdgeInsets.only(left: 16, top: 0),
             height: theme.titleHeight,
             child: TextView(
-              _chooseTime(),
+              widget.onlyStart ? _chooseTimeOlnyStart() : _chooseTime(),
               color: Color(0xff191D2D),
               size: 15,
               fontWeight: FontWeight.bold,
@@ -751,6 +777,10 @@ class _DatePickerState extends State<_DatePickerComponent> {
     return i18nObjInLocale(widget.locale)['chooseTime'] as String;
   }
 
+  String _chooseTimeOlnyStart() {
+    return i18nObjInLocale(widget.locale)['chooseTimeOlnyStart'] as String;
+  }
+
   String _chooseTimeError() {
     return i18nObjInLocale(widget.locale)['chooseTimeError'] as String;
   }
@@ -758,12 +788,13 @@ class _DatePickerState extends State<_DatePickerComponent> {
 
 class _BottomPickerLayout extends SingleChildLayoutDelegate {
   _BottomPickerLayout(this.progress, this.theme,
-      {this.itemCount, this.showTitleActions});
+      {this.itemCount, this.showTitleActions, this.onlystart});
 
   final double progress;
   final int itemCount;
   final bool showTitleActions;
   final DatePickerTheme theme;
+  final bool onlystart;
 
   @override
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
@@ -772,6 +803,15 @@ class _BottomPickerLayout extends SingleChildLayoutDelegate {
         2 * theme.timeTimeHeight +
         theme.centerLineHeight +
         theme.doneBtnHeight;
+
+    if (onlystart ?? false) {
+      maxHeight = theme.containerHeight * 1 +
+          0 * theme.timeTitleHeight +
+          1 * theme.timeTimeHeight +
+          theme.centerLineHeight +
+          theme.doneBtnHeight;
+    }
+
     if (showTitleActions) {
       maxHeight += theme.titleHeight;
     }
