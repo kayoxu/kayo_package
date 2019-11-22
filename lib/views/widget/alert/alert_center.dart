@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kayo_package/kayo_package.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
 import 'package:kayo_package/views/widget/visible_view.dart';
 import 'package:kayo_package/views/widget/alert/flutter_cupertino_data_picker.dart';
@@ -93,42 +94,31 @@ class AlertCenter {
       String cancelTitle,
       bool cancelable = false,
       EdgeInsets margin,
+      Color cancelColor = BaseColorUtils.colorBlack,
+      Color okColor = BaseColorUtils.colorBlack,
       Function onOk,
       Function onCancel}) {
     showDialog(
         context: context,
         barrierDismissible: cancelable,
-        builder:
-            /* (BuildContext context) {
-          return AlertDefault(
-            title: title,
-            message: message,
-            content: content,
-            showCancel: showCancel,
-            okTitle: okTitle,
-            cancelTitle: cancelTitle,
-            onOK: onOk,
-            onCancel: onCancel,
-            margin: margin,
-          );
-        }*/
-
-            (context) => AlertDefaultView(
-                  context,
-                  title: title,
-                  message: message,
-                  content: content,
-                  showCancel: showCancel,
-                  okTitle: okTitle,
-                  cancelTitle: cancelTitle,
-                  onOK: onOk,
-                  onCancel: onCancel,
-                  margin: margin,
-                ));
+        builder: (context) => AlertDefaultView(
+              context,
+              title: title,
+              message: message,
+              content: content,
+              showCancel: showCancel,
+              okTitle: okTitle,
+              okColor: okColor,
+              cancelColor: cancelColor,
+              cancelTitle: cancelTitle,
+              onOK: onOk,
+              onCancel: onCancel,
+              margin: margin,
+            ));
   }
 }
 
-  Widget AlertDefaultView(
+Widget AlertDefaultView(
   BuildContext context, {
   var title,
   var message,
@@ -137,6 +127,8 @@ class AlertCenter {
   Function onCancel,
   bool showCancel,
   String okTitle,
+  Color cancelColor,
+  Color okColor,
   String cancelTitle,
   EdgeInsets margin,
 }) {
@@ -160,8 +152,7 @@ class AlertCenter {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(
                           Radius.circular(8.0),
-                        ))
-                    ),
+                        ))),
                     margin: const EdgeInsets.all(0),
                     child: Container(
                       child: new Column(
@@ -194,6 +185,8 @@ class AlertCenter {
                               child: new Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: buildButtonAction(context,
+                                      okColor: okColor,
+                                      cancelColor: cancelColor,
                                       showCancel: showCancel,
                                       okTitle: okTitle,
                                       cancelTitle: cancelTitle,
@@ -301,6 +294,8 @@ List<Widget> buildButtonAction(context,
     String okTitle,
     String cancelTitle,
     Function onOk,
+    Color cancelColor,
+    Color okColor,
     Function onCancel}) {
   if (null == onOk) onOk = () {};
   if (null == onCancel) onCancel = () {};
@@ -310,13 +305,13 @@ List<Widget> buildButtonAction(context,
 
   List<Widget> widgets = List();
 
-  var ok = _buttonAction(title: okTitle, left: true, onClick: onOk);
+  var ok =
+      _buttonAction(title: okTitle, left: false, onClick: onOk, color: okColor);
 
-  var cancel =
-      _buttonAction(title: cancelTitle, left: false, onClick: onCancel);
-
-  widgets.add(ok);
+  var cancel = _buttonAction(
+      title: cancelTitle, left: true, onClick: onCancel, color: cancelColor);
   if (false != showCancel) widgets.add(cancel);
+  widgets.add(ok);
 
   return widgets;
 }
