@@ -194,5 +194,10 @@ class BaseSysUtils {
   static double getHeight(context) {
     return MediaQuery.of(context).size.height;
   }
+  static double getStatusHeight(context) {
+    return MediaQueryData.fromWindow(window).padding.top;
+  }  static double getNaviHeight(context) {
+    return MediaQueryData.fromWindow(window).padding.bottom;
+  }
 
 }
