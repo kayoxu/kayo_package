@@ -63,7 +63,7 @@ class BaseSysUtils {
     if (BaseSysUtils.empty(str)) return false;
 
     return new RegExp(
-        '^((13[0-9])|(14[0-9])|(15[0-9])|(16[0-9])|(17[0-9])|(18[0-9])|(19[0-9]))\\d{8}\$')
+            '^((13[0-9])|(14[0-9])|(15[0-9])|(16[0-9])|(17[0-9])|(18[0-9])|(19[0-9]))\\d{8}\$')
         .hasMatch(str);
   }
 
@@ -75,7 +75,7 @@ class BaseSysUtils {
 
 //    return new RegExp('(^[1-9]\\d{5}(18|19|([23]\\d))\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}[0-9Xx]\$)|(^[1-9]\\d{5}\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{2}\$)').hasMatch(str);
     return new RegExp('(^\\d{15}\$)|(^\\d{18}\$)|(^\\d{17}(\\d|X|x)\$)')
-        .hasMatch(str) ||
+            .hasMatch(str) ||
         str.contains('12345678911');
   }
 
@@ -96,7 +96,7 @@ class BaseSysUtils {
     if (BaseSysUtils.empty(str)) return false;
 
     return new RegExp(
-        '(^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[警京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼]{0,1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}\$)|(^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[警京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼]{0,1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{2}\$)')
+            '(^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[警京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼]{0,1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}\$)|(^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[警京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼]{0,1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{2}\$)')
         .hasMatch(str.toUpperCase());
   }
 
@@ -194,10 +194,25 @@ class BaseSysUtils {
   static double getHeight(context) {
     return MediaQuery.of(context).size.height;
   }
+
   static double getStatusHeight(context) {
     return MediaQueryData.fromWindow(window).padding.top;
-  }  static double getNaviHeight(context) {
+  }
+
+  static double getNaviHeight(context) {
     return MediaQueryData.fromWindow(window).padding.bottom;
   }
 
+  static int last = 0;
+
+  static Future<bool> doubleClickBack(Function onClickBack) {
+    int now = DateTime.now().millisecondsSinceEpoch;
+    if (now - last > 1500) {
+      last = DateTime.now().millisecondsSinceEpoch;
+      if (null != onClickBack) onClickBack();
+      return Future.value(false);
+    } else {
+      return Future.value(true);
+    }
+  }
 }
