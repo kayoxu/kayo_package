@@ -11,7 +11,7 @@ class TabBarWidget extends StatefulWidget {
   ///顶部模式type
   static const int TOP_TAB = 2;
 
-  ///顶部模式type
+  ///
   static const int HIDE_TAB = 3;
 
   final int type;

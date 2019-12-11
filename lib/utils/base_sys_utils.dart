@@ -121,7 +121,7 @@ class BaseSysUtils {
   }
 
   /*
-  * int 转 string
+  * string 转 int
   * */
   static int str2Int(String value) {
     int v = -1;

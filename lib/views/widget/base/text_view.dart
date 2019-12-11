@@ -10,7 +10,8 @@ import 'package:kayo_package/utils/base_color_utils.dart';
  */
 
 class TextView extends StatefulWidget {
-  TextView(this.text, {
+  TextView(
+    this.text, {
     this.color = BaseColorUtils.colorGrey,
     this.borderColor,
     this.size = 16,
@@ -27,6 +28,7 @@ class TextView extends StatefulWidget {
     this.gradient,
     this.border,
     this.alignment,
+    this.mainAxisSize,
   });
 
   Color color;
@@ -49,6 +51,7 @@ class TextView extends StatefulWidget {
   Gradient gradient;
   bool border;
   Alignment alignment;
+  MainAxisSize mainAxisSize;
 
 //      : super(key: key)
 
@@ -70,7 +73,8 @@ class TextViewState extends State<TextView> {
         fontSize: widget.size,
         fontWeight: widget.fontWeight,
         decoration: TextDecoration.none,
-        /*background:Paint()..color = Colors.yellowAccent*/),
+        /*background:Paint()..color = Colors.yellowAccent*/
+      ),
     );
 
     return Container(
@@ -78,21 +82,23 @@ class TextViewState extends State<TextView> {
       width: widget.width,
       decoration: ((null != widget.bgColor || true == widget.border)
           ? BoxDecoration(
-        color: widget.bgColor,
-        borderRadius: BorderRadius.circular(widget.radius),
-        border: widget.border != true
-            ? null
-            : Border.all(width: 1, color: widget.borderColor ?? widget.color),
-        gradient: widget.gradient,
-      )
+              color: widget.bgColor,
+              borderRadius: BorderRadius.circular(widget.radius),
+              border: widget.border != true
+                  ? null
+                  : Border.all(
+                      width: 1, color: widget.borderColor ?? widget.color),
+              gradient: widget.gradient,
+            )
           : null),
       padding: widget.padding,
       margin: widget.margin,
       child: null == widget.left
           ? text
           : Row(
-        children: <Widget>[widget.left, text],
-      ),
+              mainAxisSize: widget.mainAxisSize ?? MainAxisSize.max,
+              children: <Widget>[widget.left, text],
+            ),
     );
   }
 }
