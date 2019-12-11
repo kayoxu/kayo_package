@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
- import 'package:kayo_package/views/widget/visible_view.dart';
+import 'package:kayo_package/views/widget/visible_view.dart';
 import 'package:kayo_package/views/widget/base/button_view.dart';
 import 'package:kayo_package/views/widget/base/line_view.dart';
 import 'package:kayo_package/views/widget/base/text_view.dart';
-
 
 /**
  *  kayo_plugin
@@ -15,7 +14,6 @@ import 'package:kayo_package/views/widget/base/text_view.dart';
  */
 
 class AlertSheet {
-
   /*
   * base
   * 
@@ -24,6 +22,8 @@ class AlertSheet {
       {String title = '提示',
       @required List<Widget> children,
       bool showCancel = false,
+      bool textBold = true,
+      double textSize = 14,
       String cancelText = '取消',
       Color cancelColor = BaseColorUtils.colorRed,
       VoidCallback cancelCallback}) {
@@ -41,17 +41,23 @@ class AlertSheet {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                TextView(
-                  title,
-                  size: 14,
-                  color: BaseColorUtils.colorGreyLite,
-                  maxLine: 2,
-                  margin:
-                      EdgeInsets.only(left: 16, top: 12, right: 16, bottom: 12),
+                VisibleView(
+                  visible: null == title ? Visible.gone : Visible.visible,
+                  child: TextView(
+                    title ?? '',
+                    size: 14,
+                    color: BaseColorUtils.colorGreyLite,
+                    maxLine: 2,
+                    margin: EdgeInsets.only(
+                        left: 16, top: 12, right: 16, bottom: 12),
+                  ),
                 ),
-                LineView(
-                  color: BaseColorUtils.colorWindow,
-                  height: 1,
+                VisibleView(
+                  visible: null == title ? Visible.gone : Visible.visible,
+                  child: LineView(
+                    color: BaseColorUtils.colorWindow,
+                    height: 1,
+                  ),
                 ),
                 Column(
                   children: children,
@@ -68,6 +74,7 @@ class AlertSheet {
                             text: cancelText,
                             color: cancelColor,
                             showLine: false,
+                            textBold: textBold,
                             callback: cancelCallback),
                       ],
                     ))
@@ -83,12 +90,14 @@ class AlertSheet {
       {@required String text,
       @required VoidCallback callback,
       Color color = BaseColorUtils.colorBlackLite,
+      bool textBold = true,
+      double textSize,
       bool showLine = true}) {
     var action = ButtonView(
       text: text,
       showShadow: false,
-      textSize: 18,
-      fontWeight: FontWeight.bold,
+      textSize: textSize,
+      fontWeight: textBold ? FontWeight.bold : FontWeight.normal,
       color: color,
       bgColor: BaseColorUtils.white,
       radius: 0,
@@ -105,7 +114,8 @@ class AlertSheet {
               action,
               LineView(
                 color: BaseColorUtils.colorWindow,
-                margin: EdgeInsets.only(left: 16, right: 16),
+                height: 1,
+//                margin: EdgeInsets.only(left: 16, right: 16),
               ),
             ],
           );
