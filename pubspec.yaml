@@ -27,8 +27,8 @@ dependencies:
   dio:  3.0.4                # Sep 18, 2019
   event_bus: ^1.1.0           # Mar 27, 2019
   path_drawing: ^0.4.1        # May 7, 2019
-  cached_network_image: ^1.1.2+1    #  Oct 17, 2019
-#  cached_network_image: ^2.0.0-rc.1    #   Nov 4, 2019
+#  cached_network_image: ^1.1.2+1    #  Oct 17, 2019
+  cached_network_image: ^2.0.0-rc.1    #   Nov 4, 2019
 
   convert: ^2.1.1             # Dec 19, 2018
   crypto: ^2.0.6              # Jul 13, 20flutter_statusbar18
