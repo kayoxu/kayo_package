@@ -21,7 +21,7 @@ dependencies:
   flutter_markdown: ^0.2.0    # Aug 21, 2018
   flutter_spinkit: ^3.1.0     # Dec 28, 2018
   pub_semver: ^1.4.2          # Jul 19, 2018
-  flutter_statusbar: ^0.0.1   # Jul 11, 2018
+#  flutter_statusbar: ^0.0.1   # Jul 11, 2018
   flutter_slidable: ^0.5.3    # May 24, 2019
 #  dio: ^2.1.13                # Jul 10, 2019
   dio:  3.0.4                # Sep 18, 2019
@@ -31,7 +31,7 @@ dependencies:
 #  cached_network_image: ^2.0.0-rc.1    #   Nov 4, 2019
 
   convert: ^2.1.1             # Dec 19, 2018
-  crypto: ^2.0.6              # Jul 13, 2018
+  crypto: ^2.0.6              # Jul 13, 20flutter_statusbar18
   json_annotation: ^3.0.0     # Aug 7, 2019
 
 
