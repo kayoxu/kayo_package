@@ -311,6 +311,41 @@ String formatDate(DateTime date, List<String> formats, LocaleType locale) {
         return formatDate(date, [D, ' ', M, ' ', dd, ', ', yyyy], locale);
       }
     }
+  }else if (formats.first == ymdhmw) {
+    final now = DateTime.now();
+    if (date.year == now.year) {
+      if (locale == LocaleType.zh) {
+        return formatDate(
+            date, [mm, '月', dd, '日', HH, '时', nn, '分', D], locale);
+      } else if (locale == LocaleType.nl) {
+        return formatDate(date, [D, ' ', dd, ' ', M], locale);
+      } else if (locale == LocaleType.ko) {
+        return formatDate(date, [mm, '월', dd, '일 ', D], locale);
+      } else if (locale == LocaleType.de) {
+        return formatDate(date, [D, ', ', dd, '. ', M], locale);
+      } else if (locale == LocaleType.id) {
+        return formatDate(date, [D, ', ', dd, ' ', M], locale);
+      } else {
+        return formatDate(date, [D, ' ', M, ' ', dd], locale);
+      }
+    } else {
+      if (locale == LocaleType.zh) {
+        return formatDate(
+            date,
+            [yyyy, '年', mm, '月', dd, '日', HH, '时', nn, '分', D],
+            locale);
+      } else if (locale == LocaleType.nl) {
+        return formatDate(date, [D, ' ', dd, ' ', M, ' ', yyyy], locale);
+      } else if (locale == LocaleType.ko) {
+        return formatDate(date, [yyyy, '년', mm, '월', dd, '일 ', D], locale);
+      } else if (locale == LocaleType.de) {
+        return formatDate(date, [D, ', ', dd, '. ', M, ' ', yyyy], locale);
+      } else if (locale == LocaleType.id) {
+        return formatDate(date, [D, ', ', dd, ' ', M, ' ', yyyy], locale);
+      } else {
+        return formatDate(date, [D, ' ', M, ' ', dd, ', ', yyyy], locale);
+      }
+    }
   } else if (formats.first == ym) {
     return formatDate(date, [yyyy, '年', mm, '月'], locale);
   } else if (formats.first == hms) {

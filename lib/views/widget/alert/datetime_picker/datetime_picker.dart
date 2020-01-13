@@ -22,21 +22,21 @@ class DatePicker {
   ///
   static void showDatePicker(BuildContext context,
       {bool showTitleActions: true,
-        DateTime minTime,
-        DateTime maxTime,
-        DateTime minTime2,
-        DateTime maxTime2,
-        DateChangedCallback onChanged,
-        DateChangedCallback onChanged2,
-        DateChangedCallback onConfirm,
-        ErrorCallback onError,
-        locale: LocaleType.zh,
-        DateTime currentTime,
-        DateTime currentTime2,
-        DatePickerTheme theme,
-        String formatType = ymdw,
-        bool onlyStart = false,
-        bool showWeek = true}) {
+      DateTime minTime,
+      DateTime maxTime,
+      DateTime minTime2,
+      DateTime maxTime2,
+      DateChangedCallback onChanged,
+      DateChangedCallback onChanged2,
+      DateChangedCallback onConfirm,
+      ErrorCallback onError,
+      locale: LocaleType.zh,
+      DateTime currentTime,
+      DateTime currentTime2,
+      DatePickerTheme theme,
+      String formatType = ymdw,
+      bool onlyStart = false,
+      bool showWeek = true}) {
     Navigator.push(
         context,
         new _DatePickerRoute(
@@ -51,9 +51,7 @@ class DatePicker {
           showWeek: showWeek,
           theme: theme,
           barrierLabel:
-          MaterialLocalizations
-              .of(context)
-              .modalBarrierDismissLabel,
+              MaterialLocalizations.of(context).modalBarrierDismissLabel,
           pickerModel: DatePickerModel(
               currentTime: currentTime,
               maxTime: maxTime,
@@ -72,19 +70,24 @@ class DatePicker {
   ///
   /// Display time picker bottom sheet.
   ///
-  static void showTimePicker(BuildContext context,
-      {bool showTitleActions: true,
-        DateChangedCallback onChanged,
-        DateChangedCallback onChanged2,
-        DateChangedCallback onConfirm,
-        locale: LocaleType.zh,
-        DateTime currentTime,
-        ErrorCallback onError,
-        DateTime currentTime2,
-        DatePickerTheme theme,
-        String formatType = hms,
-        bool onlyStart = false,
-        bool showWeek = true}) {
+  static void showTimePicker(
+    BuildContext context, {
+    bool showTitleActions: true,
+    DateChangedCallback onChanged,
+    DateChangedCallback onChanged2,
+    DateChangedCallback onConfirm,
+    locale: LocaleType.zh,
+    DateTime currentTime,
+    ErrorCallback onError,
+    DateTime currentTime2,
+    DatePickerTheme theme,
+    String formatType = hms,
+    bool onlyStart = false,
+    bool showWeek = true,
+    String title,
+    String startTitle,
+    String endTitle,
+  }) {
     Navigator.push(
         context,
         new _DatePickerRoute(
@@ -98,37 +101,43 @@ class DatePicker {
           theme: theme,
           onlyStart: onlyStart,
           showWeek: showWeek,
+          title: title,
+          startTitle: startTitle,
+          endTitle: endTitle,
           barrierLabel:
-          MaterialLocalizations
-              .of(context)
-              .modalBarrierDismissLabel,
+              MaterialLocalizations.of(context).modalBarrierDismissLabel,
           pickerModel:
-          TimePickerModel(currentTime: currentTime, locale: locale),
+              TimePickerModel(currentTime: currentTime, locale: locale),
           pickerModel2:
-          TimePickerModel(currentTime: currentTime2, locale: locale),
+              TimePickerModel(currentTime: currentTime2, locale: locale),
         ));
   }
 
   ///
   /// Display date&time picker bottom sheet.
   ///
-  static void showDateTimePicker(BuildContext context,
-      {bool showTitleActions: true,
-        DateChangedCallback onChanged,
-        DateChangedCallback onChanged2,
-        DateChangedCallback onConfirm,
-        ErrorCallback onError,
-        String formatType = ymdhmsw,
-        DateTime minTime,
-        DateTime maxTime,
-        DateTime minTime2,
-        DateTime maxTime2,
-        locale: LocaleType.zh,
-        DateTime currentTime,
-        DateTime currentTime2,
-        DatePickerTheme theme,
-        bool onlyStart = false,
-        bool showWeek = true}) {
+  static void showDateTimePicker(
+    BuildContext context, {
+    bool showTitleActions: true,
+    DateChangedCallback onChanged,
+    DateChangedCallback onChanged2,
+    DateChangedCallback onConfirm,
+    ErrorCallback onError,
+    String formatType = ymdhmsw,
+    DateTime minTime,
+    DateTime maxTime,
+    DateTime minTime2,
+    DateTime maxTime2,
+    locale: LocaleType.zh,
+    DateTime currentTime,
+    DateTime currentTime2,
+    DatePickerTheme theme,
+    bool onlyStart = false,
+    bool showWeek = true,
+    String title,
+    String startTitle,
+    String endTitle,
+  }) {
     Navigator.push(
         context,
         new _DatePickerRoute(
@@ -142,10 +151,11 @@ class DatePicker {
           theme: theme,
           onlyStart: onlyStart,
           showWeek: showWeek,
+          title: title,
+          startTitle: startTitle,
+          endTitle: endTitle,
           barrierLabel:
-          MaterialLocalizations
-              .of(context)
-              .modalBarrierDismissLabel,
+              MaterialLocalizations.of(context).modalBarrierDismissLabel,
           pickerModel: DateTimePickerModel(
               currentTime: currentTime,
               maxTime: maxTime,
@@ -164,17 +174,17 @@ class DatePicker {
   ///
   static void showPicker(BuildContext context,
       {bool showTitleActions: true,
-        DateChangedCallback onChanged,
-        DateChangedCallback onChanged2,
-        DateChangedCallback onConfirm,
-        ErrorCallback onError,
-        String formatType = ymdw,
-        locale: LocaleType.zh,
-        BasePickerModel pickerModel,
-        BasePickerModel pickerModel2,
-        DatePickerTheme theme,
-        bool onlyStart = false,
-        bool showWeek = true}) {
+      DateChangedCallback onChanged,
+      DateChangedCallback onChanged2,
+      DateChangedCallback onConfirm,
+      ErrorCallback onError,
+      String formatType = ymdw,
+      locale: LocaleType.zh,
+      BasePickerModel pickerModel,
+      BasePickerModel pickerModel2,
+      DatePickerTheme theme,
+      bool onlyStart = false,
+      bool showWeek = true}) {
     Navigator.push(
         context,
         new _DatePickerRoute(
@@ -189,31 +199,31 @@ class DatePicker {
             onlyStart: onlyStart,
             showWeek: showWeek,
             barrierLabel:
-            MaterialLocalizations
-                .of(context)
-                .modalBarrierDismissLabel,
+                MaterialLocalizations.of(context).modalBarrierDismissLabel,
             pickerModel: pickerModel,
             pickerModel2: pickerModel2));
   }
 }
 
 class _DatePickerRoute<T> extends PopupRoute<T> {
-  _DatePickerRoute({
-    this.showTitleActions,
-    this.onChanged,
-    this.onChanged2,
-    this.onConfirm,
-    this.onError,
-    this.formatType,
-    this.onlyStart,
-    this.showWeek,
-    theme,
-    this.barrierLabel,
-    this.locale,
-    RouteSettings settings,
-    pickerModel,
-    pickerModel2,
-  })
+  _DatePickerRoute(
+      {this.showTitleActions,
+      this.onChanged,
+      this.onChanged2,
+      this.onConfirm,
+      this.onError,
+      this.formatType,
+      this.onlyStart,
+      this.showWeek,
+      theme,
+      this.barrierLabel,
+      this.locale,
+      RouteSettings settings,
+      pickerModel,
+      pickerModel2,
+      this.title,
+      this.startTitle,
+      this.endTitle})
       : this.pickerModel = pickerModel ?? DatePickerModel(),
         this.pickerModel2 = pickerModel2 ?? DatePickerModel(),
         this.theme = theme ?? DatePickerTheme(),
@@ -231,6 +241,9 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
   final BasePickerModel pickerModel2;
   final ErrorCallback onError;
   final String formatType;
+  final String title;
+  final String startTitle;
+  final String endTitle;
 
   @override
   Duration get transitionDuration => const Duration(milliseconds: 200);
@@ -261,15 +274,18 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
       context: context,
       removeTop: true,
       child: _DatePickerComponent(
-        onChanged: onChanged,
-        onChanged2: onChanged2,
-        onlyStart: onlyStart,
-        showWeek: showWeek,
-        locale: this.locale,
-        route: this,
-        pickerModel: pickerModel,
-        pickerModel2: pickerModel2,
-      ),
+          onChanged: onChanged,
+          onChanged2: onChanged2,
+          onlyStart: onlyStart,
+          showWeek: showWeek,
+          locale: this.locale,
+          route: this,
+          pickerModel: pickerModel,
+          pickerModel2: pickerModel2,
+          formatType: formatType,
+          title: title,
+          startTitle: startTitle,
+          endTitle: endTitle),
     );
     ThemeData inheritTheme = Theme.of(context, shadowThemeOnly: true);
     if (inheritTheme != null) {
@@ -280,27 +296,37 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
 }
 
 class _DatePickerComponent extends StatefulWidget {
-  _DatePickerComponent({Key key,
+  _DatePickerComponent({
+    Key key,
     @required this.route,
     this.onChanged,
     this.onChanged2,
     this.locale,
     this.onlyStart,
     this.showWeek,
+    this.formatType,
     this.pickerModel,
-    this.pickerModel2});
+    this.pickerModel2,
+    this.title,
+    this.startTitle,
+    this.endTitle,
+  });
 
   final DateChangedCallback onChanged;
   final DateChangedCallback onChanged2;
 
   final bool onlyStart;
   final bool showWeek;
+  final String formatType;
   final _DatePickerRoute route;
 
   final LocaleType locale;
 
   final BasePickerModel pickerModel;
   final BasePickerModel pickerModel2;
+  final String title;
+  final String startTitle;
+  final String endTitle;
 
   @override
   State<StatefulWidget> createState() {
@@ -362,7 +388,8 @@ class _DatePickerState extends State<_DatePickerComponent> {
               child: new GestureDetector(
                 child: Material(
                   color: Colors.transparent,
-                  child: _renderPickerView(theme),
+                  child: _renderPickerView(theme, widget.formatType,
+                      widget.title, widget.startTitle, widget.endTitle),
                 ),
               ),
             ),
@@ -381,7 +408,8 @@ class _DatePickerState extends State<_DatePickerComponent> {
     }
   }
 
-  Widget _renderPickerView(DatePickerTheme theme) {
+  Widget _renderPickerView(DatePickerTheme theme, String formatType,
+      String title, String startTitle, String endTitle) {
     Widget itemView = _renderItemView(theme);
     if (widget.route.showTitleActions) {
       return Column(
@@ -394,7 +422,8 @@ class _DatePickerState extends State<_DatePickerComponent> {
     return itemView;
   }
 
-  Widget _renderColumnView(ValueKey key,
+  Widget _renderColumnView(
+      ValueKey key,
       DatePickerTheme theme,
       StringAtIndexCallBack stringAtIndexCB,
       ScrollController scrollController,
@@ -407,7 +436,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
           padding: EdgeInsets.all(8.0),
           height: theme.containerHeight,
           decoration:
-          BoxDecoration(color: theme.backgroundColor ?? Colors.white),
+              BoxDecoration(color: theme.backgroundColor ?? Colors.white),
           child: NotificationListener(
               onNotification: (ScrollNotification notification) {
                 if (notification.depth == 0 &&
@@ -448,9 +477,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
   }
 
   Widget _renderItemView(DatePickerTheme theme) {
-    var length = widget.pickerModel2
-        .layoutProportions()
-        .length;
+    var length = widget.pickerModel2.layoutProportions().length;
 
     String done = _localeDone();
 
@@ -463,7 +490,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
             padding: EdgeInsets.all(3),
             child: VisibleView(
               child: TextView(
-                _startTime(),
+                widget.startTitle ?? _startTime(),
                 textAlign: TextAlign.center,
                 radius: 20,
                 border: false,
@@ -472,7 +499,10 @@ class _DatePickerState extends State<_DatePickerComponent> {
                 size: 15,
                 padding: EdgeInsets.only(left: 8, right: 8, top: 1, bottom: 0),
               ),
-              visible: widget.onlyStart ? Visible.gone : Visible.visible,
+              visible: widget.onlyStart &&
+                      (widget.startTitle == null || widget.startTitle == '')
+                  ? Visible.gone
+                  : Visible.visible,
             ),
           ),
           Visibility(
@@ -487,7 +517,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
                   fontWeight: FontWeight.bold,
                   size: 14,
                   padding:
-                  EdgeInsets.only(left: 8, right: 8, top: 0, bottom: 0),
+                      EdgeInsets.only(left: 8, right: 8, top: 0, bottom: 0),
                 )),
           ),
           Row(
@@ -528,7 +558,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
                 style: theme.itemStyle,
               ),
               Visibility(
-                visible: length > 2,
+                visible: length > 2 && widget.formatType.contains('m'),
                 child: _renderColumnView(
                     ValueKey(widget.pickerModel.currentMiddleIndex() +
                         widget.pickerModel.currentLeftIndex()),
@@ -536,10 +566,10 @@ class _DatePickerState extends State<_DatePickerComponent> {
                     widget.pickerModel.rightStringAtIndex,
                     rightScrollCtrl,
                     widget.pickerModel.layoutProportions()[2 < length ? 2 : 0],
-                        (index) {
-                      widget.pickerModel.setRightIndex(index);
-                      _notifyDateChanged();
-                    }, (index) {
+                    (index) {
+                  widget.pickerModel.setRightIndex(index);
+                  _notifyDateChanged();
+                }, (index) {
                   setState(() {
                     refreshScrollOffset();
                     _notifyDateChanged();
@@ -551,7 +581,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
                 style: theme.itemStyle,
               ),
               Visibility(
-                visible: length > 3,
+                visible: length > 3 && widget.formatType.contains('s'),
                 child: _renderColumnView(
                     ValueKey(widget.pickerModel.currentMiddleIndex() +
                         widget.pickerModel.currentLeftIndex()),
@@ -559,10 +589,10 @@ class _DatePickerState extends State<_DatePickerComponent> {
                     widget.pickerModel.rightStringAtIndex01,
                     rightScrollCtrl01,
                     widget.pickerModel.layoutProportions()[3 < length ? 3 : 0],
-                        (index) {
-                      widget.pickerModel.setRightIndex01(index);
-                      _notifyDateChanged();
-                    }, (index) {
+                    (index) {
+                  widget.pickerModel.setRightIndex01(index);
+                  _notifyDateChanged();
+                }, (index) {
                   setState(() {
                     refreshScrollOffset();
                     _notifyDateChanged();
@@ -578,7 +608,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
               padding: EdgeInsets.all(3),
               margin: EdgeInsets.only(top: theme.centerLineHeight),
               child: TextView(
-                _endTime(),
+                widget.endTitle ?? _endTime(),
                 textAlign: TextAlign.center,
                 radius: 20,
                 border: false,
@@ -601,7 +631,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
                   fontWeight: FontWeight.bold,
                   size: 14,
                   padding:
-                  EdgeInsets.only(left: 8, right: 8, top: 0, bottom: 0),
+                      EdgeInsets.only(left: 8, right: 8, top: 0, bottom: 0),
                 )),
           ),
           VisibleView(
@@ -699,8 +729,8 @@ class _DatePickerState extends State<_DatePickerComponent> {
               color: Colors.white,
               onPressed: () {
                 if (widget.pickerModel
-                    .finalTime()
-                    .isAfter(widget.pickerModel2.finalTime()) &&
+                        .finalTime()
+                        .isAfter(widget.pickerModel2.finalTime()) &&
                     !widget.onlyStart) {
                   if (null != widget.route.onError)
                     widget.route.onError(_chooseTimeError());
@@ -723,8 +753,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
 
                   widget.route.onConfirm(finalTime, time2: finalTime2);
                   print(
-                      '🌶️，${widget.pickerModel.finalTime()} ----- ${widget
-                          .pickerModel2.finalTime()}');
+                      '🌶️，${widget.pickerModel.finalTime()} ----- ${widget.pickerModel2.finalTime()}');
                 }
               },
             ),
@@ -752,7 +781,8 @@ class _DatePickerState extends State<_DatePickerComponent> {
             padding: EdgeInsets.only(left: 16, top: 0),
             height: theme.titleHeight,
             child: TextView(
-              widget.onlyStart ? _chooseTimeOlnyStart() : _chooseTime(),
+              widget.title ??
+                  (widget.onlyStart ? _chooseTimeOlnyStart() : _chooseTime()),
               color: Color(0xff191D2D),
               size: 18,
               fontWeight: FontWeight.w600,
@@ -832,7 +862,6 @@ class _BottomPickerLayout extends SingleChildLayoutDelegate {
           theme.centerLineHeight +
           theme.doneBtnHeight;
     }
-
 
     if (showTitleActions) {
       maxHeight += theme.titleHeight;
