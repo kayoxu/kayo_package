@@ -8,6 +8,7 @@ import 'i18n_model.dart';
 const String ymdw = 'ymdw';
 const String ymd = 'ymd';
 const String ymdhmsw = 'ymdhmsw';
+const String ymdhmw = 'ymdhmw';
 const String ym = 'ym';
 const String hms = 'hms';
 

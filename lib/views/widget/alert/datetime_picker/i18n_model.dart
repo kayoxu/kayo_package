@@ -171,7 +171,7 @@ final _i18nModel = {
     'startTime': '开始时间',
     'endTime': '结束时间',
     'chooseTime': '请选择起止时间',
-    'chooseTimeOlnyStart': '请选择时间',
+    'chooseTimeOlnyStart': '请选择日期',
     'chooseTimeError': '开始时间不能大于结束时间',
     'hour': '时',
     'minute': '分',
