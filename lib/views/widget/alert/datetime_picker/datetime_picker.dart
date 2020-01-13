@@ -36,7 +36,7 @@ class DatePicker {
       DatePickerTheme theme,
       String formatType = ymdw,
       bool onlyStart = false,
-      bool showWeek = true}) {
+      bool showWeek = false}) {
     Navigator.push(
         context,
         new _DatePickerRoute(
@@ -83,7 +83,7 @@ class DatePicker {
     DatePickerTheme theme,
     String formatType = hms,
     bool onlyStart = false,
-    bool showWeek = true,
+    bool showWeek = false,
     String title,
     String startTitle,
     String endTitle,
@@ -133,7 +133,7 @@ class DatePicker {
     DateTime currentTime2,
     DatePickerTheme theme,
     bool onlyStart = false,
-    bool showWeek = true,
+    bool showWeek = false,
     String title,
     String startTitle,
     String endTitle,
@@ -184,7 +184,7 @@ class DatePicker {
       BasePickerModel pickerModel2,
       DatePickerTheme theme,
       bool onlyStart = false,
-      bool showWeek = true}) {
+      bool showWeek = false}) {
     Navigator.push(
         context,
         new _DatePickerRoute(
@@ -558,7 +558,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
                 style: theme.itemStyle,
               ),
               Visibility(
-                visible: length > 2 && widget.formatType.contains('m'),
+                visible: length > 2 && widget.formatType.contains('hm'),
                 child: _renderColumnView(
                     ValueKey(widget.pickerModel.currentMiddleIndex() +
                         widget.pickerModel.currentLeftIndex()),
@@ -674,7 +674,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
                   style: theme.itemStyle,
                 ),
                 Visibility(
-                    visible: length > 2,
+                    visible: length > 2 && widget.formatType.contains('hm'),
                     child: _renderColumnView(
                         ValueKey(widget.pickerModel2.currentMiddleIndex() +
                             widget.pickerModel2.currentLeftIndex()),
@@ -696,7 +696,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
                   style: theme.itemStyle,
                 ),
                 Visibility(
-                  visible: length > 3,
+                  visible: length > 3 && widget.formatType.contains('s'),
                   child: _renderColumnView(
                       ValueKey(widget.pickerModel2.currentMiddleIndex() +
                           widget.pickerModel2.currentLeftIndex()),
