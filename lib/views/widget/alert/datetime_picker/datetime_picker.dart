@@ -558,7 +558,9 @@ class _DatePickerState extends State<_DatePickerComponent> {
                 style: theme.itemStyle,
               ),
               Visibility(
-                visible: length > 2 && widget.formatType.contains('hm'),
+                visible: length > 2 &&
+                    (widget.formatType.contains('hm') ||
+                        widget.formatType.contains('d')),
                 child: _renderColumnView(
                     ValueKey(widget.pickerModel.currentMiddleIndex() +
                         widget.pickerModel.currentLeftIndex()),
