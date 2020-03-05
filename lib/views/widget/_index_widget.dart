@@ -1,5 +1,6 @@
 export 'package:kayo_package/views/widget/alert/_index_widget_alert.dart';
 export 'package:kayo_package/views/widget/base/_index_widget_base.dart';
+export 'package:kayo_package/views/widget/tab_menu/_index_tab_menu.dart';
 export 'horizontal_title_msg_view.dart';
 export 'tab_bar.dart';
 export 'tab_bar_widget.dart';
