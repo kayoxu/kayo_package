@@ -43,6 +43,7 @@ class TabBarWidget extends StatefulWidget {
   final int initialIndex;
 
   final bool animate;
+  final bool scrollable;
 
   TabBarWidget({
     Key key,
@@ -61,6 +62,7 @@ class TabBarWidget extends StatefulWidget {
     this.onTabChanged,
     this.initialIndex = 0,
     this.animate = true,
+    this.scrollable = true,
   }) : super(key: key);
 
   @override
@@ -145,7 +147,8 @@ class TabBarWidgetState extends State<TabBarWidget>
           drawer: widget.drawer,
           appBar: widget.appBar,
           body: TabBarView(
-            //TabBarView呈现内容，因此放到Scaffold的body中
+              //TabBarView呈现内容，因此放到Scaffold的body中
+              physics: widget.scrollable ? null : NeverScrollableScrollPhysics(),
               controller: _tabController, //配置控制器
               children: widget.tabViews),
           bottomNavigationBar: Material(
@@ -175,12 +178,9 @@ class TabBarWidgetState extends State<TabBarWidget>
                   //tab标签的下划线颜色
                   // labelColor: const Color(0xFF000000),
                   indicatorWeight: .5,
-                  labelColor: Theme
-                      .of(context)
-                      .primaryColor,
+                  labelColor: Theme.of(context).primaryColor,
                   unselectedLabelColor: const Color(0xFF8E8E8E),
                   isScrollable: false,
-
                   tabs: widget.tabItems,
                 ),
               ),
@@ -191,10 +191,10 @@ class TabBarWidgetState extends State<TabBarWidget>
       return BaseSysUtils.empty(widget.tabViews)
           ? WidgetNotFound()
           : Scaffold(
-          backgroundColor: BaseColorUtils.colorWindow,
-          drawer: widget.drawer,
-          appBar: widget.appBar,
-          body: widget.tabViews[0]);
+              backgroundColor: BaseColorUtils.colorWindow,
+              drawer: widget.drawer,
+              appBar: widget.appBar,
+              body: widget.tabViews[0]);
     }
   }
 }
