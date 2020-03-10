@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 typedef DataChangedCallback(dynamic data);
+typedef DataChangedCallback2(int index, dynamic data);
 
 const double _kDataPickerHeight = 210.0;
 const double _kDataPickerTitleHeight = 44.0;
@@ -16,6 +17,7 @@ class DataPicker {
     int selectedIndex: 0,
     DataChangedCallback onChanged,
     DataChangedCallback onConfirm,
+    DataChangedCallback2 onConfirm2,
     suffix: '',
     title: '',
     locale: 'zh',
@@ -28,6 +30,7 @@ class DataPicker {
           datas: datas,
           onChanged: onChanged,
           onConfirm: onConfirm,
+          onConfirm2: onConfirm2,
           locale: locale,
           suffix: suffix,
           title: title,
@@ -45,6 +48,7 @@ class _DataPickerRoute<T> extends PopupRoute<T> {
     this.initialData,
     this.onChanged,
     this.onConfirm,
+    this.onConfirm2,
     this.theme,
     this.barrierLabel,
     this.locale,
@@ -58,6 +62,7 @@ class _DataPickerRoute<T> extends PopupRoute<T> {
   final int initialData;
   final DataChangedCallback onChanged;
   final DataChangedCallback onConfirm;
+  final DataChangedCallback2 onConfirm2;
   final ThemeData theme;
   final String locale;
   final String suffix;
@@ -131,14 +136,14 @@ class _DataPickerComponent extends StatefulWidget {
   final String title;
 
   @override
-  State<StatefulWidget> createState() => _DataPickerState(this.initialData );
+  State<StatefulWidget> createState() => _DataPickerState(this.initialData);
 }
 
 class _DataPickerState extends State<_DataPickerComponent> {
   int _initialIndex;
-   FixedExtentScrollController dataScrollCtrl;
+  FixedExtentScrollController dataScrollCtrl;
 
-  _DataPickerState(this._initialIndex ) {
+  _DataPickerState(this._initialIndex) {
     if (this._initialIndex < 0) {
       this._initialIndex = 0;
     }
@@ -286,6 +291,10 @@ class _DataPickerState extends State<_DataPickerComponent> {
               onPressed: () {
                 if (widget.route.onConfirm != null) {
                   widget.route.onConfirm(widget.datas[_initialIndex]);
+                }
+                if (widget.route.onConfirm2 != null) {
+                  widget.route
+                      .onConfirm2(_initialIndex, widget.datas[_initialIndex]);
                 }
                 Navigator.pop(context);
               },
