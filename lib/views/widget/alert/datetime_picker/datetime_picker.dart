@@ -74,7 +74,7 @@ class DatePicker {
   ///
   /// Display time picker bottom sheet.
   ///
-  static void showTimePicker(
+  static Future showTimePicker(
     BuildContext context, {
     bool showTitleActions: true,
     DateChangedCallback onChanged,
@@ -92,7 +92,7 @@ class DatePicker {
     String startTitle,
     String endTitle,
   }) {
-    Navigator.push(
+    return Navigator.push(
         context,
         new _DatePickerRoute(
           showTitleActions: showTitleActions,
@@ -120,7 +120,7 @@ class DatePicker {
   ///
   /// Display date&time picker bottom sheet.
   ///
-  static void showDateTimePicker(
+  static Future showDateTimePicker(
     BuildContext context, {
     bool showTitleActions: true,
     DateChangedCallback onChanged,
@@ -142,7 +142,7 @@ class DatePicker {
     String startTitle,
     String endTitle,
   }) {
-    Navigator.push(
+    return Navigator.push(
         context,
         new _DatePickerRoute(
           showTitleActions: showTitleActions,
@@ -176,7 +176,7 @@ class DatePicker {
   ///
   /// Display date picker bottom sheet witch custom picker model.
   ///
-  static void showPicker(BuildContext context,
+  static Future showPicker(BuildContext context,
       {bool showTitleActions: true,
       DateChangedCallback onChanged,
       DateChangedCallback onChanged2,
@@ -189,7 +189,7 @@ class DatePicker {
       DatePickerTheme theme,
       bool onlyStart = false,
       bool showWeek = false}) {
-    Navigator.push(
+    return Navigator.push(
         context,
         new _DatePickerRoute(
             showTitleActions: showTitleActions,
@@ -749,7 +749,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
                   return;
                 }
 
-                Navigator.pop(context);
+                Navigator.pop(context, "data");
                 if (widget.route.onConfirm != null) {
                   var finalTime = widget.pickerModel.finalTime();
                   var finalTime2 = widget.pickerModel2.finalTime();
