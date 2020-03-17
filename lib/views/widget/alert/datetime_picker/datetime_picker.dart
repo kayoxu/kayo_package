@@ -29,6 +29,7 @@ class DatePicker {
       DateChangedCallback onChanged,
       DateChangedCallback onChanged2,
       DateChangedCallback onConfirm,
+      Function onCancel,
       ErrorCallback onError,
       locale: LocaleType.zh,
       DateTime currentTime,
@@ -44,6 +45,7 @@ class DatePicker {
           onChanged: onChanged,
           onChanged2: onChanged2,
           onConfirm: onConfirm,
+          onCancel: onCancel,
           locale: locale,
           onError: onError,
           formatType: formatType,
@@ -211,6 +213,7 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
       this.onChanged,
       this.onChanged2,
       this.onConfirm,
+      this.onCancel,
       this.onError,
       this.formatType,
       this.onlyStart,
@@ -244,6 +247,7 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
   final String title;
   final String startTitle;
   final String endTitle;
+  final Function onCancel;
 
   @override
   Duration get transitionDuration => const Duration(milliseconds: 200);
@@ -300,6 +304,7 @@ class _DatePickerComponent extends StatefulWidget {
     Key key,
     @required this.route,
     this.onChanged,
+    this.onCancel,
     this.onChanged2,
     this.locale,
     this.onlyStart,
@@ -314,6 +319,7 @@ class _DatePickerComponent extends StatefulWidget {
 
   final DateChangedCallback onChanged;
   final DateChangedCallback onChanged2;
+  final Function onCancel;
 
   final bool onlyStart;
   final bool showWeek;
@@ -801,7 +807,10 @@ class _DatePickerState extends State<_DatePickerComponent> {
                 '$cancel',
                 style: theme.cancelStyle,
               ),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () {
+                Navigator.pop(context);
+                if (null != widget.onCancel) widget.onCancel();
+              },
             ),
           ),
         ],
