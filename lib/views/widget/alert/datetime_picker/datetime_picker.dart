@@ -20,7 +20,7 @@ class DatePicker {
   ///
   /// Display date picker bottom sheet.
   ///
-  static void showDatePicker(BuildContext context,
+  static showDatePicker(BuildContext context,
       {bool showTitleActions: true,
       DateTime minTime,
       DateTime maxTime,
@@ -38,37 +38,37 @@ class DatePicker {
       String formatType = ymdw,
       bool onlyStart = false,
       bool showWeek = false}) {
-    Navigator.push(
-        context,
-        new _DatePickerRoute(
-          showTitleActions: showTitleActions,
-          onChanged: onChanged,
-          onChanged2: onChanged2,
-          onConfirm: onConfirm,
-          onCancel: onCancel,
-          locale: locale,
-          onError: onError,
-          formatType: formatType,
-          onlyStart: onlyStart,
-          showWeek: showWeek,
-          theme: theme,
-          barrierLabel:
-              MaterialLocalizations.of(context).modalBarrierDismissLabel,
-          pickerModel: DatePickerModel(
-              currentTime: currentTime,
-              maxTime: maxTime,
-              minTime: minTime,
+    return Navigator.push(
+            context,
+            new _DatePickerRoute(
+              showTitleActions: showTitleActions,
+              onChanged: onChanged,
+              onChanged2: onChanged2,
+              onConfirm: onConfirm,
+              onCancel: onCancel,
+              locale: locale,
+              onError: onError,
               formatType: formatType,
-              locale: locale),
-          pickerModel2: DatePickerModel(
-              currentTime: currentTime2,
-              maxTime: maxTime2,
-              minTime: minTime2,
-              formatType: formatType,
-              locale: locale),
-        ))
+              onlyStart: onlyStart,
+              showWeek: showWeek,
+              theme: theme,
+              barrierLabel:
+                  MaterialLocalizations.of(context).modalBarrierDismissLabel,
+              pickerModel: DatePickerModel(
+                  currentTime: currentTime,
+                  maxTime: maxTime,
+                  minTime: minTime,
+                  formatType: formatType,
+                  locale: locale),
+              pickerModel2: DatePickerModel(
+                  currentTime: currentTime2,
+                  maxTime: maxTime2,
+                  minTime: minTime2,
+                  formatType: formatType,
+                  locale: locale),
+            ))
 //        .then((data) {if (null != onCancel) onCancel();})
-    ;
+        ;
   }
 
   ///
