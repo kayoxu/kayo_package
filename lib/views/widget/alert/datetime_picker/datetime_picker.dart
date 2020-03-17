@@ -20,7 +20,7 @@ class DatePicker {
   ///
   /// Display date picker bottom sheet.
   ///
-  static showDatePicker(BuildContext context,
+  static Future showDatePicker(BuildContext context,
       {bool showTitleActions: true,
       DateTime minTime,
       DateTime maxTime,
