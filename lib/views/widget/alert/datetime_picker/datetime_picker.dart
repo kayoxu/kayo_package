@@ -66,7 +66,9 @@ class DatePicker {
               minTime: minTime2,
               formatType: formatType,
               locale: locale),
-        ));
+        ))
+//        .then((data) {if (null != onCancel) onCancel();})
+    ;
   }
 
   ///
