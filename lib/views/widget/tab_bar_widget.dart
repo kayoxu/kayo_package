@@ -125,6 +125,7 @@ class TabBarWidgetState extends State<TabBarWidget>
             tabs: widget.tabItems,
             indicatorColor: widget.indicatorColor,
             indicator: null,
+            onTap: widget.onTabChanged,
           ),
         ),
         body: new PageView(
