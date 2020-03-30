@@ -330,7 +330,6 @@ class KeyboardState extends State<Keyboard> {
         ],
       ),
       Container(
-        margin: EdgeInsets.only(left: 8, right: 8),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -391,7 +390,6 @@ class KeyboardState extends State<Keyboard> {
         ],
       ),
       Container(
-        margin: EdgeInsets.only(left: 8, right: 8),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -452,7 +450,6 @@ class KeyboardState extends State<Keyboard> {
         ],
       ),
       Container(
-        margin: EdgeInsets.only(left: 8, right: 8),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
