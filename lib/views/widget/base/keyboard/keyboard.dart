@@ -4,7 +4,7 @@ import 'package:kayo_package/views/widget/base/clickable.dart';
 import 'package:kayo_package/views/widget/base/text_view.dart';
 import 'package:kayo_package/views/widget/base/keyboard/utils/keyboard_controller.dart';
 
-enum KayoInputType { carNo, carNoAbc, cardId }
+enum KayoInputType { carNo, carNoAbc, cardId,number }
 
 class Keyboard extends StatefulWidget {
   final KeyboardController controller;
@@ -38,6 +38,8 @@ class KeyboardState extends State<Keyboard> {
         return abc();
       } else if (Keyboard.kayoInputType == KayoInputType.cardId) {
         return abc1();
+      }else if (Keyboard.kayoInputType == KayoInputType.number) {
+        return abcNumber();
       }
     }
 
@@ -342,6 +344,66 @@ class KeyboardState extends State<Keyboard> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           buildButton('X'),
+          buildButton('0'),
+          Expanded(
+              child: Clickable(
+            bgColor: BaseColorUtils.colorGreyLiteLite,
+            radius: 6,
+            elevation: 5,
+            highlightColor: BaseColorUtils.colorGrey.withOpacity(.1),
+            shadowColor: BaseColorUtils.colorGrey.withOpacity(.3),
+            margin: EdgeInsets.only(left: 2, top: 4, right: 2, bottom: 4),
+//            padding: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
+            child: Container(
+              alignment: Alignment.center,
+              height: 50,
+              child: Icon(Icons.backspace),
+            ),
+            onTap: () {
+              widget.controller.deleteOne();
+            },
+          ))
+        ],
+      ),
+    ];
+  }
+  List<Widget> abcNumber() {
+    return <Widget>[
+      Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          buildButton('1'),
+          buildButton('2'),
+          buildButton('3'),
+        ],
+      ),
+      Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          buildButton('4'),
+          buildButton('5'),
+          buildButton('6'),
+        ],
+      ),
+      Container(
+        margin: EdgeInsets.only(left: 8, right: 8),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            buildButton('7'),
+            buildButton('8'),
+            buildButton('9'),
+          ],
+        ),
+      ),
+      Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          buildButton('.'),
           buildButton('0'),
           Expanded(
               child: Clickable(
