@@ -164,30 +164,30 @@ class CoolKeyboard {
   static hideKeyboard({bool animation = true}) {
     if (_keyboardEntry != null) {
       _keyboardHeight = null;
-      _pageKey.currentState.animationController.addStatusListener((status) {
+      _pageKey?.currentState?.animationController?.addStatusListener((status) {
         if (status == AnimationStatus.dismissed ||
             status == AnimationStatus.completed) {
           if (_keyboardEntry != null) {
-            _keyboardEntry.remove();
+            _keyboardEntry?.remove();
             _keyboardEntry = null;
           }
         }
       });
       if (animation) {
-        _pageKey.currentState.exitKeyboard();
+        _pageKey?.currentState?.exitKeyboard();
       } else {
-        _keyboardEntry.remove();
+        _keyboardEntry?.remove();
         _keyboardEntry = null;
       }
     }
     _pageKey = null;
 
     KeyboardMediaQueryState queryState =
-        _context.findAncestorStateOfType() as KeyboardMediaQueryState;
+        _context?.findAncestorStateOfType() as KeyboardMediaQueryState;
 //    KeyboardMediaQueryState queryState = _context
 //            .ancestorStateOfType(const TypeMatcher<KeyboardMediaQueryState>())
 //        as KeyboardMediaQueryState;
-    queryState.update();
+    queryState?.update();
   }
 
   static clearKeyboard() {
