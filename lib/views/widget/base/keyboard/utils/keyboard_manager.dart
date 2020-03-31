@@ -48,11 +48,15 @@ class CoolKeyboard {
           }
           break;
         case 'TextInput.hide':
-          if (_currentKeyboard != null) {
-            hideKeyboard();
-            return _codec.encodeSuccessEnvelope(null);
-          } else {
-            return await _sendPlatformMessage("flutter/textinput", data);
+          try {
+            if (_currentKeyboard != null) {
+              hideKeyboard();
+              return _codec.encodeSuccessEnvelope(null);
+            } else {
+              return await _sendPlatformMessage("flutter/textinput", data);
+            }
+          } catch (e) {
+            print(e);
           }
           break;
         case 'TextInput.setEditingState':
