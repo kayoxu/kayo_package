@@ -182,8 +182,10 @@ class CoolKeyboard {
     }
     _pageKey = null;
 
-    KeyboardMediaQueryState queryState =
-        _context?.findAncestorStateOfType() as KeyboardMediaQueryState;
+    var findAncestorStateOfType = _context?.findAncestorStateOfType();
+    KeyboardMediaQueryState queryState = null == findAncestorStateOfType
+        ? null
+        : findAncestorStateOfType as KeyboardMediaQueryState;
 //    KeyboardMediaQueryState queryState = _context
 //            .ancestorStateOfType(const TypeMatcher<KeyboardMediaQueryState>())
 //        as KeyboardMediaQueryState;
