@@ -183,9 +183,8 @@ class CoolKeyboard {
           }
         }
       });
-      if (animation) {
+      if (false) {
         _pageKey?.currentState?.exitKeyboard();
-        _keyboardEntry = null;
       } else {
         _keyboardEntry?.remove();
         _keyboardEntry = null;
@@ -372,6 +371,7 @@ class KeyboardPageState extends State<KeyboardPage>
   void dispose() {
     try {
       animationController?.dispose();
+
       super.dispose();
     } catch (e) {
       print(e);
@@ -380,5 +380,6 @@ class KeyboardPageState extends State<KeyboardPage>
 
   exitKeyboard() {
     animationController?.reverse();
+
   }
 }
