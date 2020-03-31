@@ -63,8 +63,12 @@ class CoolKeyboard {
           }
           break;
         case 'TextInput.clearClient':
-          hideKeyboard(animation: true);
-          clearKeyboard();
+          try {
+            hideKeyboard(animation: true);
+            clearKeyboard();
+          } catch (e) {
+            print(e);
+          }
           break;
         case 'TextInput.setClient':
           var setInputType = methodCall.arguments[1]['inputType'];
