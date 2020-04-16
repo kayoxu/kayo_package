@@ -17,7 +17,7 @@ class TextView extends StatefulWidget {
     this.size = 16,
     this.height = null,
     this.width = null,
-    this.padding = const EdgeInsets.only(left: 0, top: 4, right: 0, bottom: 4),
+    this.padding = const EdgeInsets.all(0),
     this.margin = const EdgeInsets.all(0),
     this.textAlign = TextAlign.left,
     this.fontWeight,
