@@ -6,13 +6,14 @@ import 'package:kayo_package/utils/base_color_utils.dart';
 import 'package:kayo_package/views/widget/base/clickable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-/**
- *  flutter_demo
- *
- *
- *  Created by kayoxu on 2019/1/23.
- *  Copyright © 2019 kayoxu. All rights reserved.
- */
+///
+///  flutter_demo
+///
+///
+/// Created by kayoxu on 2019/1/23.
+///  Copyright © 2019 kayoxu. All rights reserved.
+///
+///
 source(String src, {String suffix = '.png'}) {
   if (!suffix.contains(".")) suffix = '.$suffix';
   return 'assets/${src}$suffix';
