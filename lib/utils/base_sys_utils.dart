@@ -57,6 +57,17 @@ class BaseSysUtils {
   }
 
   /*
+   *  sha256 加密
+   * */
+  static String getSha256(String data) {
+    if (BaseSysUtils.empty(data)) return '';
+    var content = new Utf8Encoder().convert(data);
+    var digest = sha256.convert(content);
+    // 这里其实就是 digest.toString()
+    return hex.encode(digest.bytes);
+  }
+
+  /*
   * 电话号码校验
   * */
   static bool isPhoneNo(String str) {
