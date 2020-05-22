@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kayo_package/kayo_package.dart';
 /**
  *  smart_community
@@ -121,6 +122,15 @@ class BaseSysUtils {
   }
 
   /*
+  * 返回第一个汉字或者数字字母
+  * */
+  static bool getFirstText(String str) {
+    if (BaseSysUtils.empty(str)) return false;
+
+    return new RegExp('(^\\d{5}\$)|(^\\d{6}\$)|(^\\d{8}\$)').hasMatch(str);
+  }
+
+  /*
   * int 转 string
   * */
   static String int2Str(int value) {
@@ -226,4 +236,8 @@ class BaseSysUtils {
       return Future.value(true);
     }
   }
+
+//  static SystemNavigatorPop() async {
+//    return await SystemNavigator.pop();
+//  }
 }
