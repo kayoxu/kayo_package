@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kayo_package/kayo_package.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
 
 /**
@@ -10,26 +11,31 @@ import 'package:kayo_package/utils/base_color_utils.dart';
  */
 
 class TextView extends StatefulWidget {
-  TextView(
-    this.text, {
-    this.color = BaseColorUtils.colorGrey,
-    this.borderColor,
-    this.size = 16,
-    this.height = null,
-    this.width = null,
-    this.padding = const EdgeInsets.all(0),
-    this.margin = const EdgeInsets.all(0),
-    this.textAlign = TextAlign.left,
-    this.fontWeight,
-    this.bgColor,
-    this.radius = 0,
-    this.maxLine,
-    this.left,
-    this.gradient,
-    this.border,
-    this.alignment,
-    this.mainAxisSize,
-  });
+  TextView(this.text,
+      {this.color = BaseColorUtils.colorGrey,
+      this.borderColor,
+      this.borderWidth = 1,
+      this.size = 16,
+      this.height = null,
+      this.width = null,
+      this.padding = const EdgeInsets.all(0),
+      this.margin = const EdgeInsets.all(0),
+      this.textAlign = TextAlign.left,
+      this.fontWeight,
+      this.bgColor,
+      this.radius = 0,
+      this.maxLine,
+      this.left,
+      this.gradient,
+      this.border,
+      this.alignment,
+      this.mainAxisSize,
+      this.rightIcon,
+      this.rightIconHeight = 10,
+      this.rightIconWidth = 10,
+      this.rightIconMargin = const EdgeInsets.only(left: 3),
+      this.onTap,
+      this.rightIconColor});
 
   Color color;
   Color borderColor;
@@ -44,6 +50,7 @@ class TextView extends StatefulWidget {
 
   Color bgColor;
   double radius;
+  double borderWidth;
 
   int maxLine;
 
@@ -52,8 +59,12 @@ class TextView extends StatefulWidget {
   bool border;
   Alignment alignment;
   MainAxisSize mainAxisSize;
-
-//      : super(key: key)
+  String rightIcon;
+  double rightIconHeight;
+  double rightIconWidth;
+  EdgeInsets rightIconMargin;
+  Function onTap;
+  Color rightIconColor;
 
   @override
   TextViewState createState() => TextViewState();
@@ -77,7 +88,14 @@ class TextViewState extends State<TextView> {
       ),
     );
 
-    return Container(
+    var v = null == widget.left
+        ? text
+        : Row(
+            mainAxisSize: widget.mainAxisSize ?? MainAxisSize.max,
+            children: <Widget>[widget.left, text],
+          );
+
+    var c = Container(
       alignment: widget.alignment,
       width: widget.width,
       decoration: ((null != widget.bgColor || true == widget.border)
@@ -87,18 +105,35 @@ class TextViewState extends State<TextView> {
               border: widget.border != true
                   ? null
                   : Border.all(
-                      width: 1, color: widget.borderColor ?? widget.color),
+                      width: widget.borderWidth,
+                      color: widget.borderColor ?? widget.color),
               gradient: widget.gradient,
             )
           : null),
       padding: widget.padding,
       margin: widget.margin,
-      child: null == widget.left
-          ? text
+      child: null == widget.rightIcon
+          ? v
           : Row(
-              mainAxisSize: widget.mainAxisSize ?? MainAxisSize.max,
-              children: <Widget>[widget.left, text],
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                v,
+                ImageView(
+                  height: 12,
+                  margin: EdgeInsets.only(left: 3),
+                  src: widget.rightIcon,
+                  color: widget.rightIconColor,
+                )
+              ],
             ),
     );
+
+    return null == widget.onTap
+        ? c
+        : Clickable(
+            onTap: widget.onTap,
+            bgColor: BaseColorUtils.transparent,
+            child: c,
+          );
   }
 }
