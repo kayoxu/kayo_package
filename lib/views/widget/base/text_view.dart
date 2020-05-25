@@ -32,7 +32,7 @@ class TextView extends StatefulWidget {
       this.mainAxisSize,
       this.rightIcon,
       this.rightIconHeight = 10,
-      this.rightIconWidth = 10,
+      this.rightIconWidth = 8,
       this.rightIconMargin = const EdgeInsets.only(left: 3),
       this.onTap,
       this.rightIconColor});
