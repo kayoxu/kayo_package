@@ -98,6 +98,7 @@ class TextViewState extends State<TextView> {
     var c = Container(
       alignment: widget.alignment,
       width: widget.width,
+      height: widget.height,
       decoration: ((null != widget.bgColor || true == widget.border)
           ? BoxDecoration(
               color: widget.bgColor,
