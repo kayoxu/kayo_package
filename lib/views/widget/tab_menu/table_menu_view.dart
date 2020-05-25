@@ -13,6 +13,7 @@ class TabMenuView extends StatefulWidget {
   EdgeInsets margin;
   BorderRadius borderRadius;
   final double radius;
+  Color bgColor;
 
   TabMenuView({
     Key key,
@@ -25,6 +26,7 @@ class TabMenuView extends StatefulWidget {
     this.borderRadius = const BorderRadius.only(
         bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
     this.radius,
+    this.bgColor = BaseColorUtils.white,
   }) : super(key: key);
 
   @override
@@ -38,7 +40,7 @@ class _TabMenuViewState extends State<TabMenuView> {
       height: widget.height,
       margin: widget.margin,
       decoration: BoxDecoration(
-          color: Colors.white,
+          color: widget.bgColor,
           borderRadius: null != widget.radius
               ? BorderRadius.all(Radius.circular(widget.radius))
               : BorderRadius.only(
