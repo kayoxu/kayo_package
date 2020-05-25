@@ -132,6 +132,7 @@ class TextViewState extends State<TextView> {
     return null == widget.onTap
         ? c
         : Clickable(
+            radius: widget.radius,
             onTap: widget.onTap,
             bgColor: BaseColorUtils.transparent,
             child: c,
