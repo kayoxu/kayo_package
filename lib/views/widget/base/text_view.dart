@@ -119,7 +119,8 @@ class TextViewState extends State<TextView> {
               children: <Widget>[
                 v,
                 ImageView(
-                  height: 12,
+                  height: widget.rightIconHeight,
+                  width: widget.rightIconWidth,
                   margin: EdgeInsets.only(left: 3),
                   src: widget.rightIcon,
                   color: widget.rightIconColor,
