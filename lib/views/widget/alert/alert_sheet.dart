@@ -84,7 +84,7 @@ class AlertSheet {
         });
   }
 
-  static bool hide(context) => Navigator.of(context).pop();
+  static hide(context) => Navigator.of(context).pop();
 
   static sheetAction(
       {@required String text,

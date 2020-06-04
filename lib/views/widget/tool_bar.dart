@@ -70,11 +70,11 @@ class ToolBarState extends State<ToolBar> {
                     color:
                         Color(widget.darkStatusText ? 0xff50525c : 0xffffffff),
                     onPressed: null == widget.backClick
-                        ? () {
+                        ? () async {
                             if (Navigator.canPop(context)) {
                               return Navigator.of(context).pop();
                             } else {
-                              return SystemNavigator.pop();
+                              return await SystemNavigator.pop();
                             }
                           }
                         : widget.backClick, // null disables the button
