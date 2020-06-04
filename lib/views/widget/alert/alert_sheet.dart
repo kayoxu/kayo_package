@@ -32,7 +32,8 @@ class AlertSheet {
     showModalBottomSheet(
         context: context,
         builder: (context) {
-          return Container(
+          return SafeArea(
+              child: Container(
             color: BaseColorUtils.white,
             child: /*SafeArea(
               child: ,
@@ -80,7 +81,7 @@ class AlertSheet {
                     ))
               ],
             ),
-          );
+          ));
         });
   }
 
