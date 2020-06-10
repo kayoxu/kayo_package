@@ -17,7 +17,7 @@ dependencies:
 #  cupertino_icons: ^0.1.2     # Apr 5, 2018
   flutter_redux: ^0.6.0       # Dec 4, 2019
   connectivity: ^0.4.8+2      # Mar 9, 2020
-#  url_launcher: ^5.1.2        # Aug 3, 2019
+  url_launcher: ^5.4.10        # May 21, 2020
   flutter_markdown: ^0.3.4    # Feb 25, 2020
   flutter_spinkit: ^4.1.2+1  # Mar 26, 2020
   pub_semver: ^1.4.4          # Mar 16, 2020
