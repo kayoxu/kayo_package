@@ -108,7 +108,9 @@ class ButtonViewState extends State<ButtonView> {
           : Clickable(
               radius: widget.radius,
               bgColor: BaseColorUtils.transparent,
-              decoration: null != widget.borderColor
+              decoration: (null != widget.borderColor &&
+                      null == widget.bgStartColor &&
+                      null == widget.bgEndColor)
                   ? ShapeDecoration(
                       shape: RoundedRectangleBorder(
                           borderRadius:
