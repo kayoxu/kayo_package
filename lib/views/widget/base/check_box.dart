@@ -61,7 +61,7 @@ class CheckBoxView extends StatelessWidget {
   Color activeColor;
   Color nameColor;
   EdgeInsets padding;
-  int nameSize;
+  double nameSize;
 
   CheckBoxView(
       {@required this.value,
