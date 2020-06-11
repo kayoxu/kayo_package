@@ -79,12 +79,14 @@ class ButtonViewState extends State<ButtonView> {
     return Container(
       margin: widget.margin,
       alignment: widget.alignment,
-      decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [
-            widget.bgStartColor ?? widget.bgColor,
-            widget.bgEndColor ?? widget.bgColor
-          ]),
-          border: Border.all(width: widget.radius, color: widget.bgColor)),
+      decoration: null == widget.bgStartColor && null == widget.bgEndColor
+          ? null
+          : BoxDecoration(
+              gradient: LinearGradient(colors: [
+                widget.bgStartColor ?? widget.bgColor,
+                widget.bgEndColor ?? widget.bgColor
+              ]),
+              borderRadius: BorderRadius.circular(widget.radius)),
       child: null == widget.borderColor
           ? RaisedButton(
               onPressed: widget.onPressed,
