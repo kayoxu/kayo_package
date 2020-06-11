@@ -59,6 +59,8 @@ class ButtonView extends StatefulWidget {
     this.safeArea = false,
     this.borderColor,
     this.borderWidth = 1,
+    this.bgStartColor,
+    this.bgEndColor,
   }) : super(key: key);
 
   @override
