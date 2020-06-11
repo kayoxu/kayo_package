@@ -90,8 +90,14 @@ class ButtonViewState extends State<ButtonView> {
       child: null == widget.borderColor
           ? RaisedButton(
               onPressed: widget.onPressed,
-              elevation: widget.showShadow ? 3 : 0,
-              highlightElevation: widget.showShadow ? 8 : 0,
+              elevation: widget.showShadow &&
+                      (null != widget.bgStartColor && null != widget.bgEndColor)
+                  ? 3
+                  : 0,
+              highlightElevation: widget.showShadow &&
+                      (null != widget.bgStartColor && null != widget.bgEndColor)
+                  ? 8
+                  : 0,
               disabledElevation: 0,
               child: Padding(
                 padding: widget.padding,
