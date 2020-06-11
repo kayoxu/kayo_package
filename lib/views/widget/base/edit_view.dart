@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
 import 'package:kayo_package/utils/base_sys_utils.dart';
 import 'package:kayo_package/views/widget/base/image_view.dart';
@@ -55,6 +56,7 @@ class EditView extends StatefulWidget {
   bool useDefaultEditController;
   bool editable;
   bool showLabelText;
+  List<TextInputFormatter> inputFormatters;
 
   EditView({
     Key key,
@@ -88,6 +90,7 @@ class EditView extends StatefulWidget {
     this.useDefaultEditController = false,
     this.editable = true,
     this.showLabelText = false,
+    this.inputFormatters,
   }) : super(key: key);
 
   @override
@@ -139,22 +142,23 @@ class EditViewState extends State<EditView> {
           padding: widget.padding,
           decoration: true == widget.showBorder
               ? BoxDecoration(
-              color: BaseColorUtils.colorWhite,
-              borderRadius: BorderRadius.circular(widget.radius),
-              boxShadow: [
-                BoxShadow(
-                    color: BaseColorUtils.colorWhiteDark,
-                    blurRadius: 2,
-                    spreadRadius: .5)
-              ])
+                  color: BaseColorUtils.colorWhite,
+                  borderRadius: BorderRadius.circular(widget.radius),
+                  boxShadow: [
+                      BoxShadow(
+                          color: BaseColorUtils.colorWhiteDark,
+                          blurRadius: 2,
+                          spreadRadius: .5)
+                    ])
               : null,
           child: TextField(
               onTap: null == widget.onClick ? onClick : widget.onClick,
+              inputFormatters: widget.inputFormatters,
               style: null == widget.textStyle
                   ? TextStyle(
-                color: widget.textColor,
-                fontSize: widget.textSize,
-              )
+                      color: widget.textColor,
+                      fontSize: widget.textSize,
+                    )
                   : widget.textStyle,
               autocorrect: false,
               enabled: widget.editable,
@@ -175,36 +179,37 @@ class EditViewState extends State<EditView> {
               decoration: widget.showLabelText
                   ? InputDecoration(labelText: widget.hintText)
                   : InputDecoration(
-                  hasFloatingPlaceholder: false,
-                  icon: BaseSysUtils.empty(widget.src)
-                      ? null
-                      : ImageView(
-                    width: 25,
-                    height: 25,
-                    src: widget.src,
-                  ),
-                  hintStyle:
-                  TextStyle(color: widget.hintTextColor,fontSize: widget.hintTextSize),
-                  hintText: widget.hintText,
-                  labelStyle: TextStyle(color: Colors.yellow),
-                  enabledBorder:
-                  true != widget.showBorder && true == widget.showLine
-                      ? UnderlineInputBorder(
-                      borderSide: BorderSide(
-                          color: BaseColorUtils.colorGreyLiteLite))
-                      : InputBorder.none,
-                  focusedBorder:
-                  true != widget.showBorder && true == widget.showLine
-                      ? UnderlineInputBorder(
-                      borderSide: BorderSide(
-                          color: BaseColorUtils.colorGreyLiteLite))
-                      : InputBorder.none,
-                  border:
-                  true != widget.showBorder && true == widget.showLine
-                      ? UnderlineInputBorder(
-                      borderSide: BorderSide(
-                          color: BaseColorUtils.colorGreyLiteLite))
-                      : InputBorder.none)),
+                      hasFloatingPlaceholder: false,
+                      icon: BaseSysUtils.empty(widget.src)
+                          ? null
+                          : ImageView(
+                              width: 25,
+                              height: 25,
+                              src: widget.src,
+                            ),
+                      hintStyle: TextStyle(
+                          color: widget.hintTextColor,
+                          fontSize: widget.hintTextSize),
+                      hintText: widget.hintText,
+                      labelStyle: TextStyle(color: Colors.yellow),
+                      enabledBorder:
+                          true != widget.showBorder && true == widget.showLine
+                              ? UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: BaseColorUtils.colorGreyLiteLite))
+                              : InputBorder.none,
+                      focusedBorder:
+                          true != widget.showBorder && true == widget.showLine
+                              ? UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: BaseColorUtils.colorGreyLiteLite))
+                              : InputBorder.none,
+                      border:
+                          true != widget.showBorder && true == widget.showLine
+                              ? UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: BaseColorUtils.colorGreyLiteLite))
+                              : InputBorder.none)),
         ),
       ),
     );
