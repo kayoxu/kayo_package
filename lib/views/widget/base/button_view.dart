@@ -36,6 +36,8 @@ class ButtonView extends StatefulWidget {
   bool safeArea;
   Color borderColor;
   double borderWidth;
+  Color bgStartColor;
+  Color bgEndColor;
 
   ButtonView({
     Key key,
@@ -75,6 +77,10 @@ class ButtonViewState extends State<ButtonView> {
     return Container(
       margin: widget.margin,
       alignment: widget.alignment,
+      decoration: BoxDecoration(
+          gradient:
+              LinearGradient(colors: [widget.bgStartColor, widget.bgEndColor]),
+          border: Border.all(width: widget.radius, color: widget.bgColor)),
       child: null == widget.borderColor
           ? RaisedButton(
               onPressed: widget.onPressed,
