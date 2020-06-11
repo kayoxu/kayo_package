@@ -81,65 +81,64 @@ class ButtonViewState extends State<ButtonView> {
       alignment: widget.alignment,
       child: null == widget.borderColor
           ? RaisedButton(
-        onPressed: widget.onPressed,
-        elevation: widget.showShadow ? 3 : 0,
-        highlightElevation: widget.showShadow ? 8 : 0,
-        disabledElevation: 0,
-        child: Padding(
-          padding: widget.padding,
-          child: Container(
-            width: widget.width,
-            height: widget.height,
-            alignment: null == widget.height ? null : Alignment.center,
-            child: null == widget.left
-                ? text()
-                : Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[widget.left, text()],
-            ),
-          ),
-        ),
-        color: widget.bgColor,
-        shape: RoundedRectangleBorder(
-            borderRadius: null == widget.borderRadius
-                ? BorderRadius.circular(widget.radius)
-                : widget.borderRadius),
-      )
+              onPressed: widget.onPressed,
+              elevation: widget.showShadow ? 3 : 0,
+              highlightElevation: widget.showShadow ? 8 : 0,
+              disabledElevation: 0,
+              child: Padding(
+                padding: widget.padding,
+                child: Container(
+                  width: widget.width,
+                  height: widget.height,
+                  alignment: null == widget.height ? null : Alignment.center,
+                  child: null == widget.left
+                      ? text()
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[widget.left, text()],
+                        ),
+                ),
+              ),
+              color: widget.bgColor,
+              shape: RoundedRectangleBorder(
+                  borderRadius: null == widget.borderRadius
+                      ? BorderRadius.circular(widget.radius)
+                      : widget.borderRadius),
+            )
           : Clickable(
-        radius: widget.radius,
-        bgColor: BaseColorUtils.transparent,
-        decoration:
-        null == widget.bgStartColor && null == widget.bgEndColor
-            ? (null != widget.borderColor
-            ? ShapeDecoration(
-            shape: RoundedRectangleBorder(
-                borderRadius:
-                BorderRadius.all(Radius.circular(widget.radius)),
-                side: BorderSide(
-                    color: widget.borderColor,
-                    style: BorderStyle.solid,
-                    width: widget.borderWidth)))
-            : BoxDecoration(
-            gradient: LinearGradient(colors: [
-              widget.bgStartColor ?? widget.bgColor,
-              widget.bgEndColor ?? widget.bgColor
-            ]),
-            borderRadius: BorderRadius.circular(widget.radius))),
-        onTap: widget.onPressed,
-        child: Container(
-          width: widget.width,
-          height: widget.height,
-          alignment: null == widget.height ? null : Alignment.center,
-          child: null == widget.left
-              ? text()
-              : Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[widget.left, text()],
-          ),
-        ),
-
-
-      ),);
+              radius: widget.radius,
+              bgColor: BaseColorUtils.transparent,
+              decoration: null != widget.borderColor
+                  ? ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(widget.radius)),
+                          side: BorderSide(
+                              color: widget.borderColor,
+                              style: BorderStyle.solid,
+                              width: widget.borderWidth)))
+                  : (null == widget.bgStartColor && null == widget.bgEndColor
+                      ? null
+                      : BoxDecoration(
+                          gradient: LinearGradient(colors: [
+                            widget.bgStartColor ?? widget.bgColor,
+                            widget.bgEndColor ?? widget.bgColor
+                          ]),
+                          borderRadius: BorderRadius.circular(widget.radius))),
+              onTap: widget.onPressed,
+              child: Container(
+                width: widget.width,
+                height: widget.height,
+                alignment: null == widget.height ? null : Alignment.center,
+                child: null == widget.left
+                    ? text()
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[widget.left, text()],
+                      ),
+              ),
+            ),
+    );
   }
 
   Text text() {
