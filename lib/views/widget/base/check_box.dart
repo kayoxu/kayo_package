@@ -60,6 +60,7 @@ class CheckBoxView extends StatelessWidget {
   String name;
   Color activeColor;
   Color nameColor;
+  EdgeInsets padding;
   int nameSize;
 
   CheckBoxView(
@@ -68,7 +69,8 @@ class CheckBoxView extends StatelessWidget {
       @required this.activeColor,
       @required this.onChanged,
       this.nameColor = BaseColorUtils.colorBlack,
-      this.nameSize = 14});
+      this.nameSize = 14,
+      this.padding});
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +83,7 @@ class CheckBoxView extends StatelessWidget {
     return Clickable(
       radius: 12,
       bgColor: Colors.transparent,
-      padding: EdgeInsets.only(right: 8),
+      padding: padding ?? EdgeInsets.only(right: 8),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -89,7 +91,7 @@ class CheckBoxView extends StatelessWidget {
           TextView(
             name ?? '',
             color: nameColor,
-            size: 14,
+            size: nameSize ?? 14,
           ),
         ],
       ),
