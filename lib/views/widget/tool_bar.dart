@@ -116,8 +116,8 @@ class ToolBarState extends State<ToolBar> {
           ? toolbar
           : PreferredSize(
               child: (null == widget.toolbarSrc &&
-                      (null != widget.toolbarStartBgColor &&
-                          null != widget.toolbarEndBgColor))
+                      (null == widget.toolbarStartBgColor &&
+                          null == widget.toolbarEndBgColor))
                   ? toolbar
                   : Container(
                       decoration: (null != widget.toolbarStartBgColor ||
