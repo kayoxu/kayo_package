@@ -25,6 +25,7 @@ class HorizontalTitleMsgView extends StatefulWidget {
   String title;
   String msg;
   bool rightIcon;
+  Color rightIconColor;
   Visible leftIcon;
   String leftIconSrc;
   double leftIconHeight;
@@ -46,7 +47,6 @@ class HorizontalTitleMsgView extends StatefulWidget {
   FontWeight subMsgFontWeight;
   Function subMsgClick;
   double subMsgWidth;
-
 
   Color bgColor;
   Color msgBgColor = Colors.transparent;
@@ -74,6 +74,7 @@ class HorizontalTitleMsgView extends StatefulWidget {
     @required this.title,
     this.msg = '',
     this.rightIcon = false,
+    this.rightIconColor = BaseColorUtils.colorBlackLite,
     this.padding,
     this.margin,
     this.leftIcon = Visible.gone,
@@ -192,47 +193,47 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                         size: widget.subMsgSize,
                       ),
                       onTap: widget.subMsgClick,
-                     ),
+                    ),
                     visible: BaseSysUtils.empty(widget.subMsg)
                         ? Visible.gone
                         : Visible.visible,
                   ),
                   widget.msgEditable
                       ? Container(
-                    child: EditView(
-                      text: widget.msg,
-                      onEditingComplete: widget.onEditingComplete,
-                      onSubmitted: widget.onSubmitted,
-                      focusNode: widget.focusNode,
-                      onClick: widget.onMsgFocus,
-                      hintText: widget.msgHintText,
+                          child: EditView(
+                            text: widget.msg,
+                            onEditingComplete: widget.onEditingComplete,
+                            onSubmitted: widget.onSubmitted,
+                            focusNode: widget.focusNode,
+                            onClick: widget.onMsgFocus,
+                            hintText: widget.msgHintText,
 //                          alignment: Alignment.centerRight,
-                      showLine: false,
-                      textAlign: TextAlign.right,
-                      controller: widget.msgController,
-                      margin: EdgeInsets.only(
-                          right: widget.rightIcon ? 8 : 0),
-                      textColor: widget.msgColor,
-                      textSize: widget.msgSize,
-                      maxLines: 1,
-                      onChanged: widget.onMsgChanged,
-                    ),
-                    width: 150,
-                    alignment: Alignment.centerRight,
-                  )
+                            showLine: false,
+                            textAlign: TextAlign.right,
+                            controller: widget.msgController,
+                            margin: EdgeInsets.only(
+                                right: widget.rightIcon ? 8 : 0),
+                            textColor: widget.msgColor,
+                            textSize: widget.msgSize,
+                            maxLines: 1,
+                            onChanged: widget.onMsgChanged,
+                          ),
+                          width: 150,
+                          alignment: Alignment.centerRight,
+                        )
                       : Clickable(
-                    child: TextView(
-                      null == widget.msg ? '无' : widget.msg,
-                      bgColor: widget.msgBgColor,
-                      margin: EdgeInsets.only(
-                          right: widget.rightIcon ? 8 : 0),
-                      fontWeight: widget.msgFontWeight,
-                      color: widget.msgColor,
-                      size: widget.msgSize,
-                    ),
-                    onTap: widget.onMsgClick,
-                    bgColor: widget.msgBgColor,
-                  ),
+                          child: TextView(
+                            null == widget.msg ? '无' : widget.msg,
+                            bgColor: widget.msgBgColor,
+                            margin: EdgeInsets.only(
+                                right: widget.rightIcon ? 8 : 0),
+                            fontWeight: widget.msgFontWeight,
+                            color: widget.msgColor,
+                            size: widget.msgSize,
+                          ),
+                          onTap: widget.onMsgClick,
+                          bgColor: widget.msgBgColor,
+                        ),
                   Visibility(
                     child: ImageView(
                       src: 'assets/ic_arrow_right.png',
@@ -270,11 +271,11 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                   child: column),
             ),
     );*/
-      Clickable(
-        bgColor: widget.bgColor,
-        margin: widget.margin,
-        child: column,
-        onTap: widget.onClick,
-      );
+        Clickable(
+      bgColor: widget.bgColor,
+      margin: widget.margin,
+      child: column,
+      onTap: widget.onClick,
+    );
   }
 }
