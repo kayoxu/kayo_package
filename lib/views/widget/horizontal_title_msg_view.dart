@@ -239,6 +239,7 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                       src: 'assets/ic_arrow_right.png',
                       width: 6,
                       height: 11,
+                      color: widget.rightIconColor,
                     ),
                     visible: widget.rightIcon,
                   ),
