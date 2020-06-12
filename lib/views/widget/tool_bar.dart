@@ -30,6 +30,8 @@ class ToolBar extends StatefulWidget {
   final bool darkStatusText;
   final double toolbarHeight;
   final String toolbarSrc;
+  final Color toolbarStartBgColor;
+  final Color toolbarEndBgColor;
   final Widget toolbarSubView;
 
   ToolBar({
@@ -47,6 +49,8 @@ class ToolBar extends StatefulWidget {
     this.darkStatusText = true,
     this.toolbarHeight = -1,
     this.toolbarSrc,
+    this.toolbarStartBgColor,
+    this.toolbarEndBgColor,
     this.toolbarSubView,
   });
 
@@ -111,13 +115,26 @@ class ToolBarState extends State<ToolBar> {
       appBar: -1 == widget.toolbarHeight
           ? toolbar
           : PreferredSize(
-              child: null == widget.toolbarSrc
+              child: (null == widget.toolbarSrc &&
+                      (null != widget.toolbarStartBgColor &&
+                          null != widget.toolbarEndBgColor))
                   ? toolbar
                   : Container(
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage(source(widget.toolbarSrc)),
-                              fit: BoxFit.fill)),
+                      decoration: (null != widget.toolbarStartBgColor ||
+                              null != widget.toolbarEndBgColor)
+                          ? BoxDecoration(
+                              gradient: LinearGradient(colors: [
+                                widget.toolbarStartBgColor ??
+                                    widget.toolbarEndBgColor,
+                                widget.toolbarEndBgColor ??
+                                    widget.toolbarStartBgColor
+                              ]),
+//                              borderRadius: BorderRadius.circular(widget.radius)
+                            )
+                          : BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage(source(widget.toolbarSrc)),
+                                  fit: BoxFit.fill)),
                       width: double.infinity,
                       height: double.infinity,
                       child: null == widget.toolbarSubView
