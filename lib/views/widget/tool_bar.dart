@@ -141,7 +141,7 @@ class ToolBarState extends State<ToolBar> {
                           ? toolbar
                           : Column(
                               children: <Widget>[
-                                toolbar,
+//                                toolbar,
                                 Expanded(
                                   child: widget.toolbarSubView,
                                 )
