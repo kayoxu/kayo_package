@@ -28,6 +28,7 @@ class HorizontalTitleMsgView extends StatefulWidget {
   Color rightIconColor;
   Visible leftIcon;
   String leftIconSrc;
+  EdgeInsets leftIconMargin;
   double leftIconHeight;
   double leftIconWidth;
   double legtIconRadius;
@@ -79,6 +80,7 @@ class HorizontalTitleMsgView extends StatefulWidget {
     this.margin,
     this.leftIcon = Visible.gone,
     this.leftIconSrc = 'assets/ic_moren.png',
+    this.leftIconMargin = const EdgeInsets.only(right: 12),
     this.leftIconHeight = 18,
     this.leftIconWidth = 18,
     this.legtIconRadius = 6,
@@ -150,6 +152,7 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                       height: widget.leftIconHeight,
                       radius: widget.legtIconRadius,
                       fit: BoxFit.fitWidth,
+                      margin: widget.leftIconMargin,
                     ),
                     visible: widget.leftIcon,
                   ),
@@ -157,7 +160,7 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                     widget.title,
                     margin: widget.leftIcon == Visible.gone
                         ? null
-                        : EdgeInsets.only(left: 12, right: 6),
+                        : EdgeInsets.only( right: 6),
                     fontWeight: widget.titleFontWeight,
                     color: widget.titleColor,
                     size: widget.titleSize,
