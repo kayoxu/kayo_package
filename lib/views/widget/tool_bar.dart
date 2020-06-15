@@ -33,6 +33,7 @@ class ToolBar extends StatefulWidget {
   final Color toolbarStartBgColor;
   final Color toolbarEndBgColor;
   final Widget toolbarSubView;
+  final double marginToolbarTop;
 
   ToolBar({
     @required this.child,
@@ -52,6 +53,7 @@ class ToolBar extends StatefulWidget {
     this.toolbarStartBgColor,
     this.toolbarEndBgColor,
     this.toolbarSubView,
+    this.marginToolbarTop,
   });
 
   @override
@@ -150,7 +152,12 @@ class ToolBarState extends State<ToolBar> {
                     ),
               preferredSize: Size.fromHeight(widget.toolbarHeight),
             ),
-      body: widget.child,
+      body: null != widget.marginToolbarTop
+          ? Container(
+              margin: EdgeInsets.only(top: widget.marginToolbarTop ?? 0),
+              child: widget.child,
+            )
+          : widget.child,
     );
   }
 }
