@@ -18,10 +18,18 @@ class SuperScriptView extends StatelessWidget {
   String iconSrc;
   Color iconTint;
   String count;
+  Color countColor;
+  Color countBgColor;
   EdgeInsets margin;
 
   SuperScriptView(
-      {this.onTap, this.iconTint, this.iconSrc, this.count, this.margin});
+      {this.onTap,
+      this.iconTint,
+      this.iconSrc,
+      this.count,
+      this.margin,
+      this.countBgColor,
+      this.countColor});
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +57,8 @@ class SuperScriptView extends StatelessWidget {
                 padding: EdgeInsets.only(left: 2, right: 2),
                 textAlign: TextAlign.center,
                 alignment: Alignment.center,
-                color: BaseColorUtils.white,
-                bgColor: BaseColorUtils.colorRed,
+                color: countColor ?? BaseColorUtils.white,
+                bgColor: countBgColor ?? BaseColorUtils.colorRed,
               )),
         ],
       ),
