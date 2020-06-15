@@ -152,12 +152,12 @@ class ToolBarState extends State<ToolBar> {
                     ),
               preferredSize: Size.fromHeight(widget.toolbarHeight),
             ),
-      body: null != widget.marginToolbarTop
-          ? Container(
+      body: null == widget.marginToolbarTop
+          ? widget.child
+          : Container(
               margin: EdgeInsets.only(top: widget.marginToolbarTop ?? 0),
               child: widget.child,
-            )
-          : widget.child,
+            ),
     );
   }
 }
