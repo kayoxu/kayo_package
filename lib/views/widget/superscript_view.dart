@@ -20,7 +20,8 @@ class SuperScriptView extends StatelessWidget {
   String count;
   EdgeInsets margin;
 
-  SuperScriptView({this.onTap, this.iconTint});
+  SuperScriptView(
+      {this.onTap, this.iconTint, this.iconSrc, this.count, this.margin});
 
   @override
   Widget build(BuildContext context) {
