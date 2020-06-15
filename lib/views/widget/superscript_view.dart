@@ -32,14 +32,12 @@ class SuperScriptView extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Positioned(
-              right: 1,
-              top: 1,
               child: ImageView(
-                height: 24,
-                width: 24,
-                color: iconTint,
-                src: iconSrc,
-              )),
+            height: 24,
+            width: 24,
+            color: iconTint,
+            src: iconSrc,
+          )),
           Positioned(
               right: 1,
               top: 3,
