@@ -18,6 +18,7 @@ class SuperScriptView extends StatelessWidget {
   String iconSrc;
   Color iconTint;
   String count;
+  EdgeInsets margin;
 
   SuperScriptView({this.onTap, this.iconTint});
 
@@ -26,7 +27,7 @@ class SuperScriptView extends StatelessWidget {
     return Clickable(
       onTap: onTap,
       alignment: Alignment.center,
-      margin: EdgeInsets.only(right: 20),
+      margin: margin ?? EdgeInsets.only(right: 20),
       child: Stack(
         children: <Widget>[
           Positioned(
