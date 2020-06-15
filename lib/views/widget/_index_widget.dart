@@ -6,6 +6,7 @@ export 'tab_bar.dart';
 export 'tab_bar_widget.dart';
 export 'tool_bar.dart';
 export 'visible_view.dart';
+export 'superscript_view.dart';
 
 /**
  *  kayo_package
