@@ -34,6 +34,7 @@ class ToolBar extends StatefulWidget {
   final Color toolbarEndBgColor;
   final Widget toolbarSubView;
   final double marginToolbarTop;
+  final bool centerTitle;
 
   ToolBar({
     @required this.child,
@@ -54,6 +55,7 @@ class ToolBar extends StatefulWidget {
     this.toolbarEndBgColor,
     this.toolbarSubView,
     this.marginToolbarTop,
+    this.centerTitle = true,
   });
 
   @override
@@ -88,7 +90,7 @@ class ToolBarState extends State<ToolBar> {
                 : null,
             brightness:
                 widget.darkStatusText ? Brightness.light : Brightness.dark,
-            centerTitle: true,
+            centerTitle: widget.centerTitle ?? true,
             backgroundColor: null != widget.appbarColor
                 ? widget.appbarColor
                 : BaseColorUtils.colorWindowWhite,
