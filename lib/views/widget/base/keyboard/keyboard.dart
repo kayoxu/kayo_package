@@ -4,6 +4,8 @@ import 'package:kayo_package/views/widget/base/clickable.dart';
 import 'package:kayo_package/views/widget/base/text_view.dart';
 import 'package:kayo_package/views/widget/base/keyboard/utils/keyboard_controller.dart';
 
+import 'keyboardevent.dart';
+
 enum KayoInputType { carNo, carNoAbc, cardId, number, phone }
 
 class Keyboard extends StatefulWidget {
@@ -17,6 +19,15 @@ class Keyboard extends StatefulWidget {
 }
 
 class KeyboardState extends State<Keyboard> {
+  var stream;
+
+  @override
+  void initState() {
+    super.initState();
+    stream = KeyboardEvent.eventBus.on<KeyboardEvent>().listen((event) {
+      keyboardHandleFunction(event.kayoInputType);
+    });
+  }
   change(tyep) {
     setState(() {
       Keyboard.kayoInputType = tyep;
@@ -27,6 +38,14 @@ class KeyboardState extends State<Keyboard> {
   void dispose() {
     Keyboard.kayoInputType = KayoInputType.carNo;
     super.dispose();
+    if (stream != null) {
+      stream.cancel();
+      stream = null;
+    }
+  }
+
+  void keyboardHandleFunction(KayoInputType kayoInputType) {
+    change(kayoInputType);
   }
 
   @override
