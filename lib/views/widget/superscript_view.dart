@@ -24,18 +24,19 @@ class SuperScriptView extends StatelessWidget {
   Color countBgColor;
   EdgeInsets margin;
   EdgeInsets padding;
+  EdgeInsets iconPadding;
 
-  SuperScriptView(
-      {this.onTap,
-      this.iconTint,
-      this.iconSrc,
-      this.count,
-      this.margin,
-      this.countBgColor,
-      this.padding,
-      this.iconSize,
-      this.countSize = 8,
-      this.countColor});
+  SuperScriptView({this.onTap,
+    this.iconTint,
+    this.iconSrc,
+    this.count,
+    this.margin,
+    this.countBgColor,
+    this.padding,
+    this.iconPadding,
+    this.iconSize,
+    this.countSize = 8,
+    this.countColor});
 
   @override
   Widget build(BuildContext context) {
@@ -44,18 +45,19 @@ class SuperScriptView extends StatelessWidget {
     return Clickable(
       onTap: onTap,
       alignment: Alignment.center,
+      padding: padding,
       radius: 6,
       margin: margin ?? EdgeInsets.only(right: 10),
       child: Stack(
         children: <Widget>[
           Positioned(
               child: ImageView(
-            margin: padding,
-            height: iconSize ?? 24,
-            width: iconSize ?? 24,
-            color: iconTint,
-            src: iconSrc,
-          )),
+                margin: iconPadding,
+                height: iconSize ?? 24,
+                width: iconSize ?? 24,
+                color: iconTint,
+                src: iconSrc,
+              )),
           Positioned(
               right: 1,
               top: 3,
