@@ -50,6 +50,7 @@ class TabBarWidget extends StatefulWidget {
   final bool darkStatusText;
   final double elevation;
   final String titleStr;
+  final List<Widget> actions;
 
   TabBarWidget({
     Key key,
@@ -73,6 +74,7 @@ class TabBarWidget extends StatefulWidget {
     this.centerTitle = false,
     this.elevation,
     this.titleStr,
+    this.actions,
     this.darkStatusText = true,
   }) : super(key: key);
 
@@ -129,7 +131,9 @@ class TabBarWidgetState extends State<TabBarWidget>
             : widget.tarWidgetControl.footerButton,
         appBar: AppBar(
           elevation: widget.elevation ?? 0.5,
+          actions: widget.actions,
           backgroundColor: BaseColorUtils.colorWindowWhite,
+          centerTitle: widget.centerTitle,
           leading: widget.showBack == true
               ? IconButton(
                   icon: Icon(
