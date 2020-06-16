@@ -68,7 +68,7 @@ class SuperScriptView extends StatelessWidget {
                     radius: 20,
                     size: countSize ?? 8,
                     height: (countSize ?? 8) + 2,
-                    padding: EdgeInsets.only(left: 2, right: 2),
+                    padding: EdgeInsets.only(left: countSize/3, right: countSize/3),
                     textAlign: TextAlign.center,
                     alignment: Alignment.center,
                     color: countColor ?? BaseColorUtils.white,
