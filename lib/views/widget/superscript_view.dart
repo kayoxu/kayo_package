@@ -41,7 +41,7 @@ class SuperScriptView extends StatelessWidget {
       onTap: onTap,
       alignment: Alignment.center,
       padding: padding,
-      margin: margin ?? EdgeInsets.only(right: 20),
+      margin: margin ?? EdgeInsets.only(right: 10),
       child: Stack(
         children: <Widget>[
           Positioned(
