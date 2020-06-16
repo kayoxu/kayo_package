@@ -34,7 +34,7 @@ class SuperScriptView extends StatelessWidget {
       this.countBgColor,
       this.padding,
       this.iconSize,
-      this.countSize,
+      this.countSize = 8,
       this.countColor});
 
   @override
@@ -66,9 +66,10 @@ class SuperScriptView extends StatelessWidget {
                   child: TextView(
                     '${superScriptValue}',
                     radius: 20,
-                    size: countSize ?? 8,
-                    height: (countSize ?? 8) + 2,
-                    padding: EdgeInsets.only(left: countSize/3, right: countSize/3),
+                    size: countSize ,
+                    height: countSize  + 2,
+                    padding: EdgeInsets.only(
+                        left: countSize / 3, right: countSize / 3),
                     textAlign: TextAlign.center,
                     alignment: Alignment.center,
                     color: countColor ?? BaseColorUtils.white,
