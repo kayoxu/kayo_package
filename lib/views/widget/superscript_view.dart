@@ -40,6 +40,7 @@ class SuperScriptView extends StatelessWidget {
     return Clickable(
       onTap: onTap,
       alignment: Alignment.center,
+      radius: 6,
       padding: padding,
       margin: margin ?? EdgeInsets.only(right: 10),
       child: Stack(
