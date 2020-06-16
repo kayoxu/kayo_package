@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kayo_package/kayo_package.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
 
@@ -44,6 +45,11 @@ class TabBarWidget extends StatefulWidget {
 
   final bool animate;
   final bool scrollable;
+  final bool showBack;
+  final bool centerTitle;
+  final bool darkStatusText;
+  final double elevation;
+  final String titleStr;
 
   TabBarWidget({
     Key key,
@@ -63,6 +69,11 @@ class TabBarWidget extends StatefulWidget {
     this.initialIndex = 0,
     this.animate = true,
     this.scrollable = true,
+    this.showBack = false,
+    this.centerTitle = false,
+    this.elevation,
+    this.titleStr,
+    this.darkStatusText = true,
   }) : super(key: key);
 
   @override
@@ -117,9 +128,35 @@ class TabBarWidgetState extends State<TabBarWidget>
             ? []
             : widget.tarWidgetControl.footerButton,
         appBar: AppBar(
-          elevation: 0.5,
+          elevation: widget.elevation ?? 0.5,
           backgroundColor: BaseColorUtils.colorWindowWhite,
-          title: widget.title,
+          leading: widget.showBack == true
+              ? IconButton(
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                  ),
+                  iconSize: 22,
+                  color: Color(widget.darkStatusText ? 0xff50525c : 0xffffffff),
+                  onPressed: () async {
+                    if (Navigator.canPop(context)) {
+                      return Navigator.of(context).pop();
+                    } else {
+                      return await SystemNavigator.pop();
+                    }
+                  }, // null disables the button
+                )
+              : null,
+          brightness:
+              widget.darkStatusText ? Brightness.light : Brightness.dark,
+          title: widget.title ??
+              Text(
+                widget.titleStr,
+                style: TextStyle(
+                    color: widget.darkStatusText
+                        ? BaseColorUtils.colorBlack
+                        : BaseColorUtils.white),
+                textAlign: TextAlign.center,
+              ),
           bottom: new TabBar(
             controller: _tabController,
             tabs: widget.tabItems,
@@ -149,7 +186,8 @@ class TabBarWidgetState extends State<TabBarWidget>
           appBar: widget.appBar,
           body: TabBarView(
               //TabBarView呈现内容，因此放到Scaffold的body中
-              physics: widget.scrollable ? null : NeverScrollableScrollPhysics(),
+              physics:
+                  widget.scrollable ? null : NeverScrollableScrollPhysics(),
               controller: _tabController, //配置控制器
               children: widget.tabViews),
           bottomNavigationBar: Material(
