@@ -144,8 +144,8 @@ class BaseSysUtils {
   /*
   * string 转 int
   * */
-  static int str2Int(String value) {
-    int v = -1;
+  static int str2Int(String value, {int defaultValue = -1}) {
+    int v = defaultValue;
     if (null != value) {
       try {
         v = int.parse(value);
@@ -234,6 +234,16 @@ class BaseSysUtils {
       return Future.value(false);
     } else {
       return Future.value(true);
+    }
+  }
+
+  static String getSuperScriptValue(int data) {
+    if (data <= 0) {
+      return '';
+    } else if (data > 99) {
+      return '99';
+    } else {
+      return '${data}';
     }
   }
 

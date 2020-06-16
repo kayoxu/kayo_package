@@ -50,7 +50,7 @@ class SuperScriptView extends StatelessWidget {
               right: 1,
               top: 3,
               child: TextView(
-                count ?? '',
+                '${BaseSysUtils.getSuperScriptValue(BaseSysUtils.str2Int(count ??'0',defaultValue: 0))}',
                 radius: 10,
                 size: 8,
                 height: 10,

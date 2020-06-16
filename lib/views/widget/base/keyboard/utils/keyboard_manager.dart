@@ -25,12 +25,17 @@ class CoolKeyboard {
   static double get keyboardHeight => _keyboardHeight;
   static double _keyboardHeight;
 
-  static init(BuildContext context) {
+  static init2(BuildContext context, ValueChanged<String> onKeyboardOpen) {
     _context = context;
-    interceptorInput();
+    interceptorInput(onKeyboardOpen);
   }
 
-  static interceptorInput() {
+  static init(BuildContext context) {
+    _context = context;
+    interceptorInput(null);
+  }
+
+  static interceptorInput(ValueChanged<String> onKeyboardOpen) {
     if (isInterceptor) return;
     isInterceptor = true;
     ServicesBinding.instance.defaultBinaryMessenger
@@ -42,6 +47,7 @@ class CoolKeyboard {
         case 'TextInput.show':
           if (_currentKeyboard != null) {
             openKeyboard();
+            if (null != onKeyboardOpen) onKeyboardOpen('');
             return _codec.encodeSuccessEnvelope(null);
           } else {
             return await _sendPlatformMessage("flutter/textinput", data);
