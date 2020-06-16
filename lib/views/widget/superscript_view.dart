@@ -45,12 +45,12 @@ class SuperScriptView extends StatelessWidget {
       onTap: onTap,
       alignment: Alignment.center,
       radius: 6,
-      padding: padding,
       margin: margin ?? EdgeInsets.only(right: 10),
       child: Stack(
         children: <Widget>[
           Positioned(
               child: ImageView(
+            margin: padding,
             height: iconSize ?? 24,
             width: iconSize ?? 24,
             color: iconTint,
@@ -66,8 +66,8 @@ class SuperScriptView extends StatelessWidget {
                   child: TextView(
                     '${superScriptValue}',
                     radius: 20,
-                    size: countSize ,
-                    height: countSize  + 2,
+                    size: countSize,
+                    height: countSize + 2,
                     padding: EdgeInsets.only(
                         left: countSize / 3, right: countSize / 3),
                     textAlign: TextAlign.center,
