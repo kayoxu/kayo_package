@@ -69,6 +69,8 @@ class HorizontalTitleMsgView extends StatefulWidget {
   FocusNode focusNode;
   VoidCallback onEditingComplete;
   ValueChanged<String> onSubmitted;
+  Color topLineColor;
+  Color bottomLineColor;
 
   HorizontalTitleMsgView({
     Key key,
@@ -115,6 +117,8 @@ class HorizontalTitleMsgView extends StatefulWidget {
     this.focusNode,
     this.onEditingComplete,
     this.onSubmitted,
+    this.topLineColor,
+    this.bottomLineColor,
   }) : super(key: key);
 
   @override
@@ -132,7 +136,7 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
             margin: widget.topLineMargin,
             width: double.infinity,
             height: .5,
-            color: BaseColorUtils.colorGreyLiteLiteLite,
+            color: widget.topLineColor ?? BaseColorUtils.colorGreyLiteLiteLite,
           ),
         ),
         Container(
@@ -160,7 +164,7 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                     widget.title,
                     margin: widget.leftIcon == Visible.gone
                         ? null
-                        : EdgeInsets.only( right: 6),
+                        : EdgeInsets.only(right: 6),
                     fontWeight: widget.titleFontWeight,
                     color: widget.titleColor,
                     size: widget.titleSize,
@@ -257,7 +261,8 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
             margin: widget.bottomLineMargin,
             width: double.infinity,
             height: .5,
-            color: BaseColorUtils.colorGreyLiteLiteLite,
+            color:
+                widget.bottomLineColor ?? BaseColorUtils.colorGreyLiteLiteLite,
           ),
         ),
       ],
