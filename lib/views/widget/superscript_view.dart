@@ -21,6 +21,7 @@ class SuperScriptView extends StatelessWidget {
   Color countColor;
   Color countBgColor;
   EdgeInsets margin;
+  EdgeInsets padding;
 
   SuperScriptView(
       {this.onTap,
@@ -29,6 +30,7 @@ class SuperScriptView extends StatelessWidget {
       this.count,
       this.margin,
       this.countBgColor,
+      this.padding,
       this.countColor});
 
   @override
@@ -38,6 +40,7 @@ class SuperScriptView extends StatelessWidget {
     return Clickable(
       onTap: onTap,
       alignment: Alignment.center,
+      padding: padding,
       margin: margin ?? EdgeInsets.only(right: 20),
       child: Stack(
         children: <Widget>[
