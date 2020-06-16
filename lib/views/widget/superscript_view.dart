@@ -65,10 +65,10 @@ class SuperScriptView extends StatelessWidget {
                       : Visible.visible,
                   child: TextView(
                     '${superScriptValue}',
-                    radius: 10,
+                    radius: 20,
                     size: countSize ?? 8,
-//                    height: 10,
-                    padding: EdgeInsets.only(left: 4, right: 4),
+                    height: (countSize ?? 8) + 2,
+                    padding: EdgeInsets.only(left: 2, right: 2),
                     textAlign: TextAlign.center,
                     alignment: Alignment.center,
                     color: countColor ?? BaseColorUtils.white,
