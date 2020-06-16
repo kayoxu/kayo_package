@@ -33,6 +33,8 @@ class SuperScriptView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var superScriptValue = BaseSysUtils.getSuperScriptValue(
+        BaseSysUtils.str2Int(count ?? '0', defaultValue: 0));
     return Clickable(
       onTap: onTap,
       alignment: Alignment.center,
@@ -49,17 +51,21 @@ class SuperScriptView extends StatelessWidget {
           Positioned(
               right: 1,
               top: 3,
-              child: TextView(
-                '${BaseSysUtils.getSuperScriptValue(BaseSysUtils.str2Int(count ??'0',defaultValue: 0))}',
-                radius: 10,
-                size: 8,
-                height: 10,
-                padding: EdgeInsets.only(left: 2, right: 2),
-                textAlign: TextAlign.center,
-                alignment: Alignment.center,
-                color: countColor ?? BaseColorUtils.white,
-                bgColor: countBgColor ?? BaseColorUtils.colorRed,
-              )),
+              child: VisibleView(
+                  visible: BaseSysUtils.empty(superScriptValue)
+                      ? Visible.invisible
+                      : Visible.visible,
+                  child: TextView(
+                    '${superScriptValue}',
+                    radius: 10,
+                    size: 8,
+                    height: 10,
+                    padding: EdgeInsets.only(left: 2, right: 2),
+                    textAlign: TextAlign.center,
+                    alignment: Alignment.center,
+                    color: countColor ?? BaseColorUtils.white,
+                    bgColor: countBgColor ?? BaseColorUtils.colorRed,
+                  ))),
         ],
       ),
     );
