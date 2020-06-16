@@ -41,6 +41,9 @@ class ImageView extends StatefulWidget {
   Color shadowColor;
   double aspectRatio;
   Color bgColor;
+  EdgeInsets imagePadding;
+  Color imagePaddingColor;
+  double imagePaddingRadius;
 
   var isDown = false;
 
@@ -63,6 +66,9 @@ class ImageView extends StatefulWidget {
     this.elevation,
     this.shadowColor,
     this.bgColor,
+    this.imagePadding,
+    this.imagePaddingColor,
+    this.imagePaddingRadius,
     this.aspectRatio = -1,
     this.useCache = false,
   }) : super(key: key);
@@ -141,14 +147,14 @@ class ImageViewState extends State<ImageView> {
         child: null == widget.onClick
             ? image
             : AnimatedContainer(
-                duration: Duration(milliseconds: 100),
-                foregroundDecoration: BoxDecoration(
-                  color: widget.isDown
-                      ? Colors.white.withOpacity(0.5)
-                      : Colors.transparent,
-                ),
-                child: image,
-              ),
+          duration: Duration(milliseconds: 100),
+          foregroundDecoration: BoxDecoration(
+            color: widget.isDown
+                ? Colors.white.withOpacity(0.5)
+                : Colors.transparent,
+          ),
+          child: image,
+        ),
       ),
     );
 
@@ -156,7 +162,17 @@ class ImageViewState extends State<ImageView> {
         ? container
         : AspectRatio(aspectRatio: widget.aspectRatio, child: container);
 
-    return Clickable(
+    return null != widget.imagePadding
+        ? Container(
+      decoration: BoxDecoration(
+        color: widget.imagePaddingColor ?? Colors.transparent,
+        borderRadius: BorderRadius.circular(widget.imagePaddingRadius ?? 0),
+      ),
+      padding: widget.imagePadding,
+      alignment: Alignment.center,
+      child: image,
+    )
+        : Clickable(
       margin: widget.margin,
       padding: widget.padding,
       child: container2,
