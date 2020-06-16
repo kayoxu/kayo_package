@@ -34,7 +34,6 @@ class SuperScriptView extends StatelessWidget {
       this.countBgColor,
       this.padding,
       this.iconSize,
-      this.iconSize,
       this.countSize,
       this.countColor});
 
