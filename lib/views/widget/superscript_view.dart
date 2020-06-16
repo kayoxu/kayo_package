@@ -17,6 +17,8 @@ class SuperScriptView extends StatelessWidget {
   Function onTap;
   String iconSrc;
   Color iconTint;
+  double iconSize;
+  double countSize;
   String count;
   Color countColor;
   Color countBgColor;
@@ -31,6 +33,9 @@ class SuperScriptView extends StatelessWidget {
       this.margin,
       this.countBgColor,
       this.padding,
+      this.iconSize,
+      this.iconSize,
+      this.countSize,
       this.countColor});
 
   @override
@@ -47,8 +52,8 @@ class SuperScriptView extends StatelessWidget {
         children: <Widget>[
           Positioned(
               child: ImageView(
-            height: 24,
-            width: 24,
+            height: iconSize ?? 24,
+            width: iconSize ?? 24,
             color: iconTint,
             src: iconSrc,
           )),
@@ -62,8 +67,8 @@ class SuperScriptView extends StatelessWidget {
                   child: TextView(
                     '${superScriptValue}',
                     radius: 10,
-                    size: 8,
-                    height: 10,
+                    size: countSize ?? 8,
+//                    height: 10,
                     padding: EdgeInsets.only(left: 2, right: 2),
                     textAlign: TextAlign.center,
                     alignment: Alignment.center,
