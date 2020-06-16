@@ -127,7 +127,7 @@ class TabBarWidgetState extends State<TabBarWidget>
       return new Scaffold(
         floatingActionButton: widget.floatingActionButton,
         persistentFooterButtons: widget.tarWidgetControl == null
-            ? []
+            ? null
             : widget.tarWidgetControl.footerButton,
         appBar: AppBar(
           elevation: widget.elevation ?? 0.5,
