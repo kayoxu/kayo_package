@@ -17,6 +17,7 @@ class ToolBar extends StatefulWidget {
   final Widget child;
   final String title;
   final Widget titelWidget;
+  final Widget floatingActionButton;
 
   final Widget appBar;
 
@@ -55,6 +56,7 @@ class ToolBar extends StatefulWidget {
     this.toolbarEndBgColor,
     this.toolbarSubView,
     this.marginToolbarTop,
+    this.floatingActionButton,
     this.centerTitle = true,
   });
 
@@ -160,6 +162,7 @@ class ToolBarState extends State<ToolBar> {
               margin: EdgeInsets.only(top: widget.marginToolbarTop ?? 0),
               child: widget.child,
             ),
+      floatingActionButton: widget.floatingActionButton,
     );
   }
 }
