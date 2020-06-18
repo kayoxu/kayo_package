@@ -14,12 +14,17 @@ extension BaseStringExtension on String {
   Color toColor({Color defaultColor = const Color(0xff333333)}) {
     try {
       if (this?.isNotEmpty == true) {
-        if (this.length != 7 ||
-            int.tryParse(this.substring(1, 7), radix: 16) == null) {
-          return defaultColor;
+        if (this.length == 6 &&
+            int.tryParse(this.substring(0, 6), radix: 16) != null) {
+          return Color(int.parse(this.substring(0, 6), radix: 16) + 0xFF000000);
+        } else if (this.length == 7 &&
+            int.tryParse(this.substring(1, 7), radix: 16) != null) {
+          return Color(int.parse(this.substring(1, 7), radix: 16) + 0xFF000000);
+        } else if (this.length == 8 &&
+            int.tryParse(this.substring(0, 8), radix: 16) != null) {
+          return Color(int.parse(this.substring(0, 8), radix: 16));
         } else {
-          return new Color(
-              int.parse(this.substring(1, 7), radix: 16) + 0xFF000000);
+          return defaultColor;
         }
       }
     } catch (e) {
