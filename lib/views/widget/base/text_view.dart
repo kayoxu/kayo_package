@@ -112,7 +112,7 @@ class TextViewState extends State<TextView> {
             )
           : null),
       padding: widget.padding,
-      margin: widget.margin,
+      margin: null == widget.onTap ? widget.margin : null,
       child: null == widget.rightIcon
           ? v
           : Row(
@@ -134,6 +134,7 @@ class TextViewState extends State<TextView> {
         ? c
         : Clickable(
             radius: widget.radius,
+            margin: null == widget.onTap ? null : widget.margin,
             onTap: widget.onTap,
             bgColor: BaseColorUtils.transparent,
             child: c,
