@@ -279,7 +279,7 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
     Widget bottomSheet = new MediaQuery.removePadding(
       context: context,
       removeTop: true,
-      child: _DatePickerComponent(
+      child: DatePickerComponent(
           onChanged: onChanged,
           onChanged2: onChanged2,
           onlyStart: onlyStart,
@@ -301,8 +301,8 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
   }
 }
 
-class _DatePickerComponent extends StatefulWidget {
-  _DatePickerComponent({
+class DatePickerComponent extends StatefulWidget {
+  DatePickerComponent({
     Key key,
     @required this.route,
     this.onChanged,
@@ -342,7 +342,7 @@ class _DatePickerComponent extends StatefulWidget {
   }
 }
 
-class _DatePickerState extends State<_DatePickerComponent> {
+class _DatePickerState extends State<DatePickerComponent> {
   FixedExtentScrollController leftScrollCtrl,
       middleScrollCtrl,
       rightScrollCtrl,
