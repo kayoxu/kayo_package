@@ -40,7 +40,7 @@ class DatePicker {
       bool showWeek = false}) {
     return Navigator.push(
             context,
-            new _DatePickerRoute(
+            new DatePickerRoute(
               showTitleActions: showTitleActions,
               onChanged: onChanged,
               onChanged2: onChanged2,
@@ -94,7 +94,7 @@ class DatePicker {
   }) {
     return Navigator.push(
         context,
-        new _DatePickerRoute(
+        new DatePickerRoute(
           showTitleActions: showTitleActions,
           onChanged: onChanged,
           onChanged2: onChanged2,
@@ -144,7 +144,7 @@ class DatePicker {
   }) {
     return Navigator.push(
         context,
-        new _DatePickerRoute(
+        new DatePickerRoute(
           showTitleActions: showTitleActions,
           onChanged: onChanged,
           onChanged2: onChanged2,
@@ -191,7 +191,7 @@ class DatePicker {
       bool showWeek = false}) {
     return Navigator.push(
         context,
-        new _DatePickerRoute(
+        new DatePickerRoute(
             showTitleActions: showTitleActions,
             onChanged: onChanged,
             onChanged2: onChanged2,
@@ -209,8 +209,8 @@ class DatePicker {
   }
 }
 
-class _DatePickerRoute<T> extends PopupRoute<T> {
-  _DatePickerRoute(
+class DatePickerRoute<T> extends PopupRoute<T> {
+  DatePickerRoute(
       {this.showTitleActions,
       this.onChanged,
       this.onChanged2,
@@ -326,7 +326,7 @@ class DatePickerComponent extends StatefulWidget {
   final bool onlyStart;
   final bool showWeek;
   final String formatType;
-  final _DatePickerRoute route;
+  final DatePickerRoute route;
 
   final LocaleType locale;
 
