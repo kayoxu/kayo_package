@@ -1,4 +1,4 @@
-export 'package:kayo_package/extension/_index_extension.dart';
+export 'package:kayo_package/extension/base_string_extension.dart';
 
 /**
  *  kayo_package
