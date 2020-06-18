@@ -40,7 +40,7 @@ class DatePicker {
       bool showWeek = false}) {
     return Navigator.push(
             context,
-            new DatePickerRoute(
+            new _DatePickerRoute(
               showTitleActions: showTitleActions,
               onChanged: onChanged,
               onChanged2: onChanged2,
@@ -94,7 +94,7 @@ class DatePicker {
   }) {
     return Navigator.push(
         context,
-        new DatePickerRoute(
+        new _DatePickerRoute(
           showTitleActions: showTitleActions,
           onChanged: onChanged,
           onChanged2: onChanged2,
@@ -144,7 +144,7 @@ class DatePicker {
   }) {
     return Navigator.push(
         context,
-        new DatePickerRoute(
+        new _DatePickerRoute(
           showTitleActions: showTitleActions,
           onChanged: onChanged,
           onChanged2: onChanged2,
@@ -191,7 +191,7 @@ class DatePicker {
       bool showWeek = false}) {
     return Navigator.push(
         context,
-        new DatePickerRoute(
+        new _DatePickerRoute(
             showTitleActions: showTitleActions,
             onChanged: onChanged,
             onChanged2: onChanged2,
@@ -209,8 +209,8 @@ class DatePicker {
   }
 }
 
-class DatePickerRoute<T> extends PopupRoute<T> {
-  DatePickerRoute(
+class _DatePickerRoute<T> extends PopupRoute<T> {
+  _DatePickerRoute(
       {this.showTitleActions,
       this.onChanged,
       this.onChanged2,
@@ -279,7 +279,7 @@ class DatePickerRoute<T> extends PopupRoute<T> {
     Widget bottomSheet = new MediaQuery.removePadding(
       context: context,
       removeTop: true,
-      child: DatePickerComponent(
+      child: _DatePickerComponent(
           onChanged: onChanged,
           onChanged2: onChanged2,
           onlyStart: onlyStart,
@@ -301,8 +301,8 @@ class DatePickerRoute<T> extends PopupRoute<T> {
   }
 }
 
-class DatePickerComponent extends StatefulWidget {
-  DatePickerComponent({
+class _DatePickerComponent extends StatefulWidget {
+  _DatePickerComponent({
     Key key,
     @required this.route,
     this.onChanged,
@@ -326,7 +326,7 @@ class DatePickerComponent extends StatefulWidget {
   final bool onlyStart;
   final bool showWeek;
   final String formatType;
-  final DatePickerRoute route;
+  final _DatePickerRoute route;
 
   final LocaleType locale;
 
@@ -342,7 +342,7 @@ class DatePickerComponent extends StatefulWidget {
   }
 }
 
-class _DatePickerState extends State<DatePickerComponent> {
+class _DatePickerState extends State<_DatePickerComponent> {
   FixedExtentScrollController leftScrollCtrl,
       middleScrollCtrl,
       rightScrollCtrl,
