@@ -49,6 +49,7 @@ class EditView extends StatefulWidget {
 
   bool showBorder;
   bool showLine;
+  Color lineColor;
   TextAlign textAlign;
   FocusNode focusNode;
   VoidCallback onEditingComplete;
@@ -91,6 +92,7 @@ class EditView extends StatefulWidget {
     this.editable = true,
     this.showLabelText = false,
     this.inputFormatters,
+    this.lineColor,
   }) : super(key: key);
 
   @override
@@ -196,19 +198,22 @@ class EditViewState extends State<EditView> {
                           true != widget.showBorder && true == widget.showLine
                               ? UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: BaseColorUtils.colorGreyLiteLite))
+                                      color: widget.lineColor ??
+                                          BaseColorUtils.colorGreyLiteLite))
                               : InputBorder.none,
                       focusedBorder:
                           true != widget.showBorder && true == widget.showLine
                               ? UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: BaseColorUtils.colorGreyLiteLite))
+                                      color: widget.lineColor ??
+                                          BaseColorUtils.colorGreyLiteLite))
                               : InputBorder.none,
                       border:
                           true != widget.showBorder && true == widget.showLine
                               ? UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: BaseColorUtils.colorGreyLiteLite))
+                                      color: widget.lineColor ??
+                                          BaseColorUtils.colorGreyLiteLite))
                               : InputBorder.none)),
         ),
       ),
