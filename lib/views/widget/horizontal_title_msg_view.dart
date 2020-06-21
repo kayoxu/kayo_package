@@ -41,6 +41,7 @@ class HorizontalTitleMsgView extends StatefulWidget {
   Color msgColor;
   double msgSize;
   FontWeight msgFontWeight;
+  EdgeInsets msgPadding;
 
   String subMsg;
   Color subMsgColor;
@@ -119,6 +120,7 @@ class HorizontalTitleMsgView extends StatefulWidget {
     this.onSubmitted,
     this.topLineColor,
     this.bottomLineColor,
+    this.msgPadding,
   }) : super(key: key);
 
   @override
@@ -215,6 +217,7 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                             onClick: widget.onMsgFocus,
                             hintText: widget.msgHintText,
 //                          alignment: Alignment.centerRight,
+                            padding: widget.msgPadding,
                             showLine: false,
                             textAlign: TextAlign.right,
                             controller: widget.msgController,
