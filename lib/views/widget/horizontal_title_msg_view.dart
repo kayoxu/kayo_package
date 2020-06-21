@@ -217,7 +217,6 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                             onClick: widget.onMsgFocus,
                             hintText: widget.msgHintText,
 //                          alignment: Alignment.centerRight,
-                            padding: widget.msgPadding,
                             showLine: false,
                             textAlign: TextAlign.right,
                             controller: widget.msgController,
@@ -235,6 +234,7 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                           child: TextView(
                             null == widget.msg ? '无' : widget.msg,
                             bgColor: widget.msgBgColor,
+                            padding: widget.msgPadding,
                             margin: EdgeInsets.only(
                                 right: widget.rightIcon ? 8 : 0),
                             fontWeight: widget.msgFontWeight,
