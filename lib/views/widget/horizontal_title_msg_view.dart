@@ -166,7 +166,7 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                     widget.title,
                     margin: widget.leftIcon == Visible.gone
                         ? null
-                        : EdgeInsets.only(right: 7),
+                        : EdgeInsets.only(right: 6),
                     fontWeight: widget.titleFontWeight,
                     color: widget.titleColor,
                     size: widget.titleSize,
