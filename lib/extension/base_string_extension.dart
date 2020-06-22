@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:kayo_package/kayo_package.dart';
+
 extension BaseStringExtension on String {
   int toInt({int value = 0}) {
     try {
@@ -45,13 +47,18 @@ extension BaseStringExtension on String {
   String toTimeStr() {
     try {
       if (this?.isNotEmpty == true) {
-        this.length
-
-
+        if (BaseSysUtils.isNumber(this)) {
+          var t = BaseSysUtils.str2Int(this);
+          if (this.length == 10) {
+            return BaseTimeUtils.timestampToTimeStr(t * 1000);
+          } else if (this.length == 13) {
+            return BaseTimeUtils.timestampToTimeStr(t);
+          }
+        }
       }
     } catch (e) {
       print(e);
-      return '';
+      return this;
     }
   }
 }
