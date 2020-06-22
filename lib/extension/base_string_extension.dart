@@ -41,4 +41,17 @@ extension BaseStringExtension on String {
       return defaultColor;
     }
   }
+
+  String toTimeStr() {
+    try {
+      if (this?.isNotEmpty == true) {
+        this.length
+
+
+      }
+    } catch (e) {
+      print(e);
+      return '';
+    }
+  }
 }

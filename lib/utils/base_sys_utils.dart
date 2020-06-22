@@ -124,6 +124,10 @@ class BaseSysUtils {
     }
   }
 
+  static bool isNumber(String str) {
+    return new RegExp('(^[0-9])').hasMatch(str);
+  }
+
   /*
   * 车牌验证
   * */
