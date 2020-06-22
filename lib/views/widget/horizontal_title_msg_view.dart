@@ -41,6 +41,7 @@ class HorizontalTitleMsgView extends StatefulWidget {
   Color msgColor;
   double msgSize;
   FontWeight msgFontWeight;
+  EdgeInsets msgPadding;
 
   String subMsg;
   Color subMsgColor;
@@ -119,6 +120,7 @@ class HorizontalTitleMsgView extends StatefulWidget {
     this.onSubmitted,
     this.topLineColor,
     this.bottomLineColor,
+    this.msgPadding,
   }) : super(key: key);
 
   @override
@@ -229,9 +231,11 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                           alignment: Alignment.centerRight,
                         )
                       : Clickable(
+                          radius: 5,
                           child: TextView(
                             null == widget.msg ? '无' : widget.msg,
                             bgColor: widget.msgBgColor,
+                            padding: widget.msgPadding,
                             margin: EdgeInsets.only(
                                 right: widget.rightIcon ? 8 : 0),
                             fontWeight: widget.msgFontWeight,
