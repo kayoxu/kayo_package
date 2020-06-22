@@ -69,6 +69,29 @@ class BaseSysUtils {
   }
 
   /*
+  * Base64加密
+  */
+  static Future<String> encodeBase64(String data) async {
+    var content = utf8.encode(data);
+    var digest = base64Encode(content).replaceAll("\n", "");
+    return digest;
+  }
+
+  /*
+  * Base64解密
+  */
+  static Future<String> decodeBase64(String data) async {
+    String d = '';
+    try {
+      d = String.fromCharCodes(base64Decode(data));
+    } catch (e) {
+      print(e);
+    } finally {
+      return d ?? data;
+    }
+  }
+
+  /*
   * 电话号码校验
   * */
   static bool isPhoneNo(String str) {
