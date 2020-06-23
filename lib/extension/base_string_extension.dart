@@ -64,7 +64,7 @@ extension BaseStringExtension on String {
   }
 
   String defaultValue2({String data = '无'}) {
-    if (this.isEmpty) {
+    if (this == null || this.isEmpty) {
       return data;
     } else {
       return this;
