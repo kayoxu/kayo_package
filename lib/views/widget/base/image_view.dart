@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
 import 'package:kayo_package/views/widget/base/clickable.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+//import 'package:flutter_svg/flutter_svg.dart';
 
 ///
 ///  flutter_demo
@@ -108,14 +108,16 @@ class ImageViewState extends State<ImageView> {
         );
       }
     } else if ((widget.src ?? '') != '') {
-      if (widget.src.endsWith('.svg')) {
-        image = SvgPicture.asset(
-          widget.src,
-          color: widget.color,
-          width: widget.width,
-          height: widget.height,
-        );
-      } else {
+//      if (widget.src.endsWith('.svg')) {
+//        image = SvgPicture.asset(
+//          widget.src,
+//          color: widget.color,
+//          width: widget.width,
+//          height: widget.height,
+//        );
+//      } else
+
+        {
         image = Image.asset(
           widget.src,
           color: widget.color,
