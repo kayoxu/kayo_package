@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import 'package:kayo_package/kayo_package.dart';
 
 extension BaseStringExtension on String {
@@ -58,6 +59,14 @@ extension BaseStringExtension on String {
       }
     } catch (e) {
       print(e);
+      return this;
+    }
+  }
+
+  String defaultValue2({String data = '无'}) {
+    if (this.isEmpty) {
+      return data;
+    } else {
       return this;
     }
   }
