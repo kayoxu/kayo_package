@@ -63,7 +63,8 @@ extension BaseStringExtension on String {
     }
   }
 
-  int toTimestamp({bool second = true, String format}) {
+  int toTimestamp(
+      {bool second = true, String format = BaseTimeUtils.formatDefault}) {
     if (this?.isNotEmpty == true) {
       var timestamp = BaseTimeUtils.timeStrToTimestamp(this, format: format);
       return second == true ? timestamp / 1000 : timestamp;
