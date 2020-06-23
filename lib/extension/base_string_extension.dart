@@ -72,12 +72,4 @@ extension BaseStringExtension on String {
       return this ?? 0;
     }
   }
-
-  String defaultStr({String data = '无'}) {
-    if (this == null || this.isEmpty) {
-      return data;
-    } else {
-      return this;
-    }
-  }
 }
