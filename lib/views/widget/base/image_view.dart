@@ -16,7 +16,7 @@ import 'package:kayo_package/views/widget/base/clickable.dart';
 ///
 source(String src, {String suffix = '.png'}) {
   if (!suffix.contains(".")) suffix = '.$suffix';
-  return 'assets1/${src}$suffix';
+  return 'assets/${src}$suffix';
 }
 
 class ImageView extends StatefulWidget {
