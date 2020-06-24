@@ -21,7 +21,7 @@ extension BaseObjectExtension on Object {
   }
 
   String defaultStr({String data = '无'}) {
-    if (null == this && '' == this) {
+    if (null == this || '' == this) {
       return data;
     } else {
       return this;
