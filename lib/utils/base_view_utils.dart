@@ -10,7 +10,10 @@ import 'package:kayo_package/kayo_package.dart';
  */
 class BaseViewUtils {
   static Widget noData(
-      {String src, String msg = 'No Data', EdgeInsets margin,double marginImageTop = 10}) {
+      {String src,
+      String msg = 'No Data',
+      EdgeInsets margin,
+      double marginImageTop = 0}) {
     return Container(
       alignment: Alignment.topCenter,
       margin: null == margin ? EdgeInsets.only(top: 60) : margin,
@@ -19,12 +22,15 @@ class BaseViewUtils {
         children: <Widget>[
           ImageView(
             src: source(src ?? 'ic_no_data'),
+            margin: EdgeInsets.only(bottom: marginImageTop),
             width: 120,
             height: 120,
           ),
           Positioned(
-            top: marginImageTop,
-            child: TextView(msg ?? '',color: BaseColorUtils.colorGreyLite,),
+            child: TextView(
+              msg ?? '',
+              color: BaseColorUtils.colorGreyLite,
+            ),
             bottom: 0,
           )
         ],
