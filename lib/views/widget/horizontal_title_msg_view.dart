@@ -27,6 +27,8 @@ Container HorizontalTitleMsgView2({
   double height,
   bool showLine,
   EdgeInsets padding,
+  FontWeight titleFontWeight,
+  FontWeight msgFontWeight,
   EdgeInsets margin,
   double titleSize = 14,
   double msgSize = 14,
@@ -44,12 +46,14 @@ Container HorizontalTitleMsgView2({
             TextView(
               title ?? '',
               size: titleSize,
+              fontWeight: titleFontWeight,
               color: titleColor ?? BaseColorUtils.colorBlackLite,
             ),
             Expanded(
               child: TextView(
                 msg ?? '',
                 size: msgSize,
+                fontWeight: msgFontWeight,
                 textAlign: TextAlign.end,
                 maxLine: 2,
                 color: msgColor ?? BaseColorUtils.colorBlack,
