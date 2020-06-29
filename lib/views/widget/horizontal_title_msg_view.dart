@@ -18,6 +18,57 @@ import 'base/edit_view.dart';
 
 //enum Visible { visible, invisible, gone }
 
+Container HorizontalTitleMsgView2({
+  @required String title,
+  @required String msg,
+  Color titleColor,
+  Color msgColor,
+  Color lineColor,
+  double height,
+  bool showLine,
+  EdgeInsets padding,
+  EdgeInsets margin,
+  double titleSize = 14,
+  double msgSize = 14,
+}) {
+  return Container(
+    height: height ?? 51,
+    margin: margin ?? EdgeInsets.only(left: 16, right: 16),
+    padding: padding,
+    child: Column(
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        Expanded(
+            child: Row(
+          children: <Widget>[
+            TextView(
+              title ?? '',
+              size: titleSize,
+              color: titleColor ?? BaseColorUtils.colorBlackLite,
+            ),
+            Expanded(
+              child: TextView(
+                msg ?? '',
+                size: msgSize,
+                textAlign: TextAlign.end,
+                maxLine: 2,
+                color: msgColor ?? BaseColorUtils.colorBlack,
+              ),
+            )
+          ],
+        )),
+        VisibleView(
+          child: LineView(
+            height: .5,
+            color: lineColor ?? BaseColorUtils.colorGreyLiteLiteLite,
+          ),
+          visible: showLine ?? false ? Visible.visible : Visible.gone,
+        )
+      ],
+    ),
+  );
+}
+
 class HorizontalTitleMsgView extends StatefulWidget {
   EdgeInsets padding;
   EdgeInsets margin;
