@@ -16,6 +16,18 @@ extension BaseStringExtension on String {
     }
   }
 
+  double toDouble({double value = 0}) {
+    try {
+      if (this?.isNotEmpty == true) {
+        value = double.tryParse(this);
+      }
+    } catch (e) {
+      print(e);
+    } finally {
+      return value;
+    }
+  }
+
   Color toColor({Color defaultColor = const Color(0xff333333)}) {
     try {
       if (this?.isNotEmpty == true) {
