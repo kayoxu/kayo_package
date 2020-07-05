@@ -19,6 +19,7 @@ class EditView extends StatefulWidget {
 
   String text;
   String hintText;
+  String errorText;
   Color hintTextColor;
   double hintTextSize;
 
@@ -63,6 +64,7 @@ class EditView extends StatefulWidget {
     Key key,
     this.text,
     this.hintText,
+    this.errorText,
     this.textColor = BaseColorUtils.colorBlack,
     this.hintTextColor = BaseColorUtils.colorGreyLiteLite,
     this.textSize = 14,
@@ -193,6 +195,9 @@ class EditViewState extends State<EditView> {
                           color: widget.hintTextColor,
                           fontSize: widget.hintTextSize),
                       hintText: widget.hintText,
+                      errorText: (widget.errorText?.isEmpty ?? true)
+                          ? null
+                          : widget.errorText,
                       labelStyle: TextStyle(color: Colors.yellow),
                       enabledBorder:
                           true != widget.showBorder && true == widget.showLine
