@@ -3,8 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
 import 'package:kayo_package/utils/base_sys_utils.dart';
 import 'package:kayo_package/views/widget/base/image_view.dart';
-import 'package:kayo_package/views/widget/base/keyboard/kayo_keyboard.dart';
-import 'package:kayo_package/views/widget/base/keyboard/keyboard.dart';
 
 /**
  *  kayo_plugin
@@ -46,8 +44,6 @@ class EditView extends StatefulWidget {
 
   VoidCallback onClick;
 
-  KayoInputType kayoInputType;
-
   bool showBorder;
   bool showLine;
   Color lineColor;
@@ -83,7 +79,6 @@ class EditView extends StatefulWidget {
     this.alignment = Alignment.centerLeft,
     this.maxLength,
     this.onClick,
-    this.kayoInputType,
     this.showBorder = false,
     this.showLine = true,
     this.textAlign = TextAlign.left,
@@ -102,11 +97,7 @@ class EditView extends StatefulWidget {
 }
 
 class EditViewState extends State<EditView> {
-  onClick() {
-    if (null != widget.kayoInputType) {
-      Keyboard.kayoInputType = widget.kayoInputType;
-    }
-  }
+  onClick() {}
 
   @override
   void initState() {
@@ -174,9 +165,7 @@ class EditViewState extends State<EditView> {
               maxLengthEnforced: false,
               maxLines: widget.maxLines,
               textInputAction: TextInputAction.done,
-              keyboardType: null == widget.kayoInputType
-                  ? widget.keyboardType
-                  : KayoKeyboard.input,
+              keyboardType: widget.keyboardType,
               controller: widget.controller,
               onChanged: widget.onChanged,
               obscureText: widget.obscureText,
