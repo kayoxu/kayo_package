@@ -36,6 +36,7 @@ class ToolBar extends StatefulWidget {
   final Widget toolbarSubView;
   final double marginToolbarTop;
   final bool centerTitle;
+  final Function onWillPop;
 
   ToolBar({
     @required this.child,
@@ -58,6 +59,7 @@ class ToolBar extends StatefulWidget {
     this.marginToolbarTop,
     this.floatingActionButton,
     this.centerTitle = true,
+    this.onWillPop,
   });
 
   @override
@@ -113,7 +115,7 @@ class ToolBarState extends State<ToolBar> {
           )
         : widget.appBar;
 
-    return Scaffold(
+    var scaffold = Scaffold(
       resizeToAvoidBottomPadding: widget.resizeToAvoidBottomPadding,
       backgroundColor: null != widget.backgroundColor
           ? widget.backgroundColor
@@ -164,5 +166,8 @@ class ToolBarState extends State<ToolBar> {
             ),
       floatingActionButton: widget.floatingActionButton,
     );
+    return null == widget.onWillPop
+        ? scaffold
+        : WillPopScope(child: scaffold, onWillPop: widget.onWillPop);
   }
 }
