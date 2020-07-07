@@ -3,7 +3,7 @@ import 'package:kayo_package/kayo_package.dart';
 
 import 'keyboard_tools.dart';
 
-class CarNumKeyboard extends StatefulWidget {
+class KeyboardCarNum extends StatefulWidget {
 
   static double getHeight(BuildContext ctx) {
     MediaQueryData mediaQuery = MediaQuery.of(ctx);
@@ -12,25 +12,25 @@ class CarNumKeyboard extends StatefulWidget {
 
   final KeyboardController controller;
 
-  const CarNumKeyboard({this.controller});
+  const KeyboardCarNum({this.controller});
 
   @override
-  CarNumKeyboardState createState() => CarNumKeyboardState();
+  KeyboardCarNumState createState() => KeyboardCarNumState();
 
   static register() {
     CoolKeyboard.addKeyboard(
         FlutterKeyboard.carNumBad,
         KeyboardConfig(
             builder: (context, controller, params) {
-              return CarNumKeyboard(controller: controller);
+              return KeyboardCarNum(controller: controller);
             },
-            getHeight: CarNumKeyboard.getHeight));
+            getHeight: KeyboardCarNum.getHeight));
   }
 }
 
 bool _showABC = true;
 
-class CarNumKeyboardState extends State<CarNumKeyboard> {
+class KeyboardCarNumState extends State<KeyboardCarNum> {
   change(bool showAbc) {
     setState(() {
       _showABC = showAbc;

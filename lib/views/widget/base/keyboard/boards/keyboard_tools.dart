@@ -19,8 +19,8 @@ class FlutterKeyboard {
       const CKTextInputType(name: 'CarNumKeyboardBad');
 
   static register() {
-    CarNumKeyboard.register();
-    CarNumKeyboardBad.register();
+    KeyboardCarNum.register();
+    KeyboardCarNumBad.register();
 //    NumberKeyboard.register();
   }
 }
