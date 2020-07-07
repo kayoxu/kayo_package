@@ -18,7 +18,7 @@ class CarNumKeyboardBad extends StatefulWidget {
 
   static register() {
     CoolKeyboard.addKeyboard(
-        FlutterKeyboard.carNum,
+        FlutterKeyboard.carNumBad,
         KeyboardConfig(
             builder: (context, controller, params) {
               return CarNumKeyboardBad(controller: controller);
