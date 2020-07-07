@@ -191,6 +191,7 @@ class KeyboardCarNumBadState extends State<KeyboardCarNumBad> {
                   child: Icon(Icons.backspace),
                 ),
                 onTap: () {
+                  badKeyboard = true;
                   widget.controller.deleteOne();
                 },
               ))
@@ -300,6 +301,7 @@ class KeyboardCarNumBadState extends State<KeyboardCarNumBad> {
                   child: Icon(Icons.backspace),
                 ),
                 onTap: () {
+                  badKeyboard = true;
                   widget.controller.deleteOne();
                 },
               ))
