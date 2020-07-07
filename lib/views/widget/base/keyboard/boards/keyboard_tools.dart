@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../cool_ui.dart';
+import 'car_num_keyboard.dart';
+import 'car_num_keyboard_bad.dart';
 
 ///
 ///  kayo_package
@@ -15,4 +17,10 @@ class FlutterKeyboard {
       const CKTextInputType(name: 'CarNumKeyboard');
   static const CKTextInputType carNumBad =
       const CKTextInputType(name: 'CarNumKeyboardBad');
+
+  static register() {
+    CarNumKeyboard.register();
+    CarNumKeyboardBad.register();
+    NumberKeyboard.register();
+  }
 }
