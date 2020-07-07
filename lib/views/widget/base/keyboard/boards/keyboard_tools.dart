@@ -21,6 +21,6 @@ class FlutterKeyboard {
   static register() {
     CarNumKeyboard.register();
     CarNumKeyboardBad.register();
-    NumberKeyboard.register();
+//    NumberKeyboard.register();
   }
 }
