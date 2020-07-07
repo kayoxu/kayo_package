@@ -8,7 +8,6 @@ class KeyboardController extends ValueNotifier<TextEditingValue> {
   KeyboardController({TextEditingValue value, this.client})
       : super(value == null ? TextEditingValue.empty : value);
 
-
   /// The current string the user is editing.
   String get text => value.text;
 
@@ -16,11 +15,9 @@ class KeyboardController extends ValueNotifier<TextEditingValue> {
   /// that they need to update (it calls [notifyListeners]). For this reason,
   /// this value should only be set between frames, e.g. in response to user
   /// actions, not during the build, layout, or paint phases.
-  set text
-
-
-      (String newText) {
-    value = value.copyWith(text: newText,
+  set text(String newText) {
+    value = value.copyWith(
+        text: newText,
         selection: const TextSelection.collapsed(offset: -1),
         composing: TextRange.empty);
   }
@@ -42,18 +39,18 @@ class KeyboardController extends ValueNotifier<TextEditingValue> {
   }
 
   set value(TextEditingValue newValue) {
-    newValue = newValue.copyWith( // 修正由于默认值导致的Bug
+    newValue = newValue.copyWith(
+        // 修正由于默认值导致的Bug
         composing: TextRange(
             start: newValue.composing.start < 0 ? 0 : newValue.composing.start,
-            end: newValue.composing.end < 0 ? 0 : newValue.composing.end
-        ),
+            end: newValue.composing.end < 0 ? 0 : newValue.composing.end),
         selection: newValue.selection.copyWith(
-            baseOffset: newValue.selection.baseOffset < 0 ? 0 : newValue
-                .selection.baseOffset,
-            extentOffset: newValue.selection.extentOffset < 0 ? 0 : newValue
-                .selection.extentOffset
-        )
-    );
+            baseOffset: newValue.selection.baseOffset < 0
+                ? 0
+                : newValue.selection.baseOffset,
+            extentOffset: newValue.selection.extentOffset < 0
+                ? 0
+                : newValue.selection.extentOffset));
 
     super.value = newValue;
   }
@@ -91,16 +88,13 @@ class KeyboardController extends ValueNotifier<TextEditingValue> {
 
     if (badKeyboard == true) {
       newText =
-      text.length > 0 ? (text.substring(0, text.length - 1) ?? '') : '';
+          text.length > 0 ? (text.substring(0, text.length - 1) ?? '') : '';
       value = TextEditingValue(
           text: newText,
           selection: selection.copyWith(
-              baseOffset: newText.length,
-              extentOffset: newText.length)
-      );
+              baseOffset: newText.length, extentOffset: newText.length));
     } else {
-      if (selection.baseOffset == 0)
-        return;
+      if (selection.baseOffset == 0) return;
       String newText = '';
 
       if (selection.baseOffset != selection.extentOffset) {
@@ -109,8 +103,7 @@ class KeyboardController extends ValueNotifier<TextEditingValue> {
             text: newText,
             selection: selection.copyWith(
                 baseOffset: selection.baseOffset,
-                extentOffset: selection.baseOffset)
-        );
+                extentOffset: selection.baseOffset));
       } else {
         newText = text.substring(0, selection.baseOffset - 1) +
             selection.textAfter(text);
@@ -118,26 +111,26 @@ class KeyboardController extends ValueNotifier<TextEditingValue> {
             text: newText,
             selection: selection.copyWith(
                 baseOffset: selection.baseOffset - 1,
-                extentOffset: selection.baseOffset - 1)
-        );
+                extentOffset: selection.baseOffset - 1));
       }
     }
   }
 
   /// 在光标位置添加文字,一般用于键盘输入
   addText(String insertText) {
-    String newText = badKeyboard == true ? text + insertText : selection
-        .textBefore(text) + insertText + selection.textAfter(text);
+    String newText = badKeyboard == true
+        ? text + insertText
+        : selection.textBefore(text) + insertText + selection.textAfter(text);
     value = TextEditingValue(
         text: newText,
         selection: selection.copyWith(
             baseOffset: selection.baseOffset + insertText.length,
-            extentOffset: selection.baseOffset + insertText.length)
-    );
+            extentOffset: selection.baseOffset + insertText.length));
   }
 
   /// 完成
   doneAction() {
+    badKeyboard = false;
     CoolKeyboard.sendPerformAction(TextInputAction.done);
   }
 

@@ -332,6 +332,7 @@ class CarNumKeyboardState extends State<CarNumKeyboard> {
             ),
           ),
           onTap: () {
+            badKeyboard = false;
             widget.controller.addText(value);
           },
         ));
