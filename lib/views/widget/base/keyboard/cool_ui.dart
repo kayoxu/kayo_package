@@ -1,3 +1,5 @@
+library cool_ui;
+
 import 'dart:async';
 import 'dart:ui' as ui;
 import 'dart:core';
