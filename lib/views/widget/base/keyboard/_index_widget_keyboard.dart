@@ -2,6 +2,7 @@ export 'package:kayo_package/views/widget/base/keyboard/password/pin_input_text_
 export 'package:kayo_package/views/widget/base/keyboard/cool_ui.dart';
 export 'package:kayo_package/views/widget/base/keyboard/boards/car_num_keyboard_bad.dart';
 export 'package:kayo_package/views/widget/base/keyboard/boards/car_num_keyboard.dart';
+export 'package:kayo_package/views/widget/base/keyboard/boards/keyboard_tools.dart';
 
 /**
  *  kayo_package

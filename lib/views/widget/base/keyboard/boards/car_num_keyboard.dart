@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kayo_package/kayo_package.dart';
 
+import 'keyboard_tools.dart';
+
 class CarNumKeyboard extends StatefulWidget {
-  static const CKTextInputType inputType =
-      const CKTextInputType(name: 'CarNumKeyboard');
 
   static double getHeight(BuildContext ctx) {
     MediaQueryData mediaQuery = MediaQuery.of(ctx);
@@ -19,7 +19,7 @@ class CarNumKeyboard extends StatefulWidget {
 
   static register() {
     CoolKeyboard.addKeyboard(
-        CarNumKeyboard.inputType,
+        FlutterKeyboard.carNumBad,
         KeyboardConfig(
             builder: (context, controller, params) {
               return CarNumKeyboard(controller: controller);
