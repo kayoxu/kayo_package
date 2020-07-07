@@ -1,6 +1,6 @@
 part of cool_ui;
 
-bool badKeyboard = true;
+bool badKeyboard = false;
 
 class KeyboardController extends ValueNotifier<TextEditingValue> {
   final InputClient client;
