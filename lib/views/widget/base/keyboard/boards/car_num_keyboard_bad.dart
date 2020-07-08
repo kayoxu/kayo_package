@@ -6,7 +6,7 @@ import 'keyboard_tools.dart';
 class KeyboardCarNumBad extends StatefulWidget {
   static double getHeight(BuildContext ctx) {
     MediaQueryData mediaQuery = MediaQuery.of(ctx);
-    return 48.0 + 8 + 4 * 48; //mediaQuery.size.width / 3 / 2 * 5 + 20;
+    return 48.0 + 8 + 8 + 4 * 48; //mediaQuery.size.width / 3 / 2 * 5 + 20;
   }
 
   final KeyboardController controller;
@@ -46,49 +46,56 @@ class KeyboardCarNumBadState extends State<KeyboardCarNumBad> {
   Widget build(BuildContext context) {
     MediaQueryData mediaQuery = MediaQuery.of(context);
     return SafeArea(
+        top: false,
+        bottom: true,
         child: Material(
-      color: BaseColorUtils.transparent,
-      child: DefaultTextStyle(
-          style: TextStyle(
-              fontWeight: FontWeight.w500, color: Colors.black, fontSize: 23.0),
-          child: Stack(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(top: 48),
-                padding: EdgeInsets.only(left: 4, top: 4, right: 4, bottom: 4),
+          color: BaseColorUtils.transparent,
+          child: DefaultTextStyle(
+              style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                  fontSize: 23.0),
+              child: SingleChildScrollView(
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.only(top: 48),
+                      padding:
+                          EdgeInsets.only(left: 4, top: 4, right: 4, bottom: 4),
 //            height: KayoKeyboard.getHeight(context),
-                width: mediaQuery.size.width,
-                decoration: BoxDecoration(
-                    color: BaseColorUtils.white,
-                    boxShadow: <BoxShadow>[
-                      BoxShadow(
-                          color: BaseColorUtils.cardShadow,
-                          blurRadius: 2.0,
-                          spreadRadius: 2.0,
-                          offset: Offset(0, 0)),
-                    ]),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.min,
-                  children: _showABC ? abc() : carno(),
-                ),
-              ),
-              Positioned(
-                  top: 0,
-                  right: 8,
-                  child: FloatingActionButton(
-                      mini: true,
-                      backgroundColor: BaseColorUtils.white,
-                      child: Icon(
-                        Icons.keyboard_hide,
-                        color: BaseColorUtils.colorGrey,
+                      width: mediaQuery.size.width,
+                      decoration: BoxDecoration(
+                          color: BaseColorUtils.white,
+                          boxShadow: <BoxShadow>[
+                            BoxShadow(
+                                color: BaseColorUtils.cardShadow,
+                                blurRadius: 2.0,
+                                spreadRadius: 2.0,
+                                offset: Offset(0, 0)),
+                          ]),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.min,
+                        children: _showABC ? abc() : carno(),
                       ),
-                      onPressed: () {
-                        widget.controller.doneAction();
-                      }))
-            ],
-          )),
-    ));
+                    ),
+                    Positioned(
+                        top: 0,
+                        right: 8,
+                        child: FloatingActionButton(
+                            mini: true,
+                            backgroundColor: BaseColorUtils.white,
+                            child: Icon(
+                              Icons.keyboard_hide,
+                              color: BaseColorUtils.colorGrey,
+                            ),
+                            onPressed: () {
+                              widget.controller.doneAction();
+                            }))
+                  ],
+                ),
+              )),
+        ));
   }
 
   List<Widget> carno() {
