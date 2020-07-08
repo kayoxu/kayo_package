@@ -4,10 +4,9 @@ import 'package:kayo_package/kayo_package.dart';
 import 'keyboard_tools.dart';
 
 class KeyboardCarNum extends StatefulWidget {
-
   static double getHeight(BuildContext ctx) {
     MediaQueryData mediaQuery = MediaQuery.of(ctx);
-    return 290; //mediaQuery.size.width / 3 / 2 * 5 + 20;
+    return 48.0 + 8 + 4 * 48; //mediaQuery.size.width / 3 / 2 * 5 + 20;
   }
 
   final KeyboardController controller;
@@ -46,8 +45,7 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
   @override
   Widget build(BuildContext context) {
     MediaQueryData mediaQuery = MediaQuery.of(context);
-    return SafeArea(
-        child: Material(
+    return Material(
       color: BaseColorUtils.transparent,
       child: DefaultTextStyle(
           style: TextStyle(
@@ -89,7 +87,7 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
                       }))
             ],
           )),
-    ));
+    );
   }
 
   List<Widget> carno() {
@@ -158,7 +156,7 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
 //              padding: EdgeInsets.only(left: 4, top: 4, right: 4, bottom: 4),
                   child: Container(
                     alignment: Alignment.center,
-                    height: 50,
+                    height: 40,
                     child: TextView(
                       'ABC',
                       size: 23,
@@ -188,7 +186,7 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
 //            padding: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
                 child: Container(
                   alignment: Alignment.center,
-                  height: 50,
+                  height: 40,
                   child: Icon(Icons.backspace),
                 ),
                 onTap: () {
@@ -267,7 +265,7 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
                   margin: EdgeInsets.only(left: 2, top: 4, right: 2, bottom: 4),
                   child: Container(
                     alignment: Alignment.center,
-                    height: 50,
+                    height: 40,
                     child: TextView(
                       '省份',
                       size: 23,
@@ -297,7 +295,7 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
 //            padding: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
                 child: Container(
                   alignment: Alignment.center,
-                  height: 50,
+                  height: 40,
                   child: Icon(Icons.backspace),
                 ),
                 onTap: () {

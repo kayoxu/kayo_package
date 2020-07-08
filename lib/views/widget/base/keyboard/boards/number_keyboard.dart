@@ -6,7 +6,7 @@ import 'keyboard_tools.dart';
 class KeyboardNumber extends StatefulWidget {
   static double getHeight(BuildContext ctx) {
     MediaQueryData mediaQuery = MediaQuery.of(ctx);
-    return 290; //mediaQuery.size.width / 3 / 2 * 5 + 20;
+    return 48.0 + 8 + 4 * 48; //mediaQuery.size.width / 3 / 2 * 5 + 20;
   }
 
   final KeyboardController controller;
@@ -36,8 +36,7 @@ class KeyboardNumberState extends State<KeyboardNumber> {
   @override
   Widget build(BuildContext context) {
     MediaQueryData mediaQuery = MediaQuery.of(context);
-    return SafeArea(
-        child: Material(
+    return Material(
       color: BaseColorUtils.transparent,
       child: DefaultTextStyle(
           style: TextStyle(
@@ -79,7 +78,7 @@ class KeyboardNumberState extends State<KeyboardNumber> {
                       }))
             ],
           )),
-    ));
+    );
   }
 
   List<Widget> abc() {
@@ -130,7 +129,7 @@ class KeyboardNumberState extends State<KeyboardNumber> {
 //            padding: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
             child: Container(
               alignment: Alignment.center,
-              height: 50,
+              height: 40,
               child: Icon(Icons.backspace),
             ),
             onTap: () {

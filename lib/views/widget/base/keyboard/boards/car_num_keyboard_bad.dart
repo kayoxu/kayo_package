@@ -6,7 +6,7 @@ import 'keyboard_tools.dart';
 class KeyboardCarNumBad extends StatefulWidget {
   static double getHeight(BuildContext ctx) {
     MediaQueryData mediaQuery = MediaQuery.of(ctx);
-    return 290; //mediaQuery.size.width / 3 / 2 * 5 + 20;
+    return 48.0 + 8 + 4 * 48; //mediaQuery.size.width / 3 / 2 * 5 + 20;
   }
 
   final KeyboardController controller;
@@ -187,7 +187,7 @@ class KeyboardCarNumBadState extends State<KeyboardCarNumBad> {
 //            padding: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
                 child: Container(
                   alignment: Alignment.center,
-                  height: 50,
+                  height: 40,
                   child: Icon(Icons.backspace),
                 ),
                 onTap: () {
@@ -267,7 +267,7 @@ class KeyboardCarNumBadState extends State<KeyboardCarNumBad> {
                   margin: EdgeInsets.only(left: 2, top: 4, right: 2, bottom: 4),
                   child: Container(
                     alignment: Alignment.center,
-                    height: 50,
+                    height: 40,
                     child: TextView(
                       '省份',
                       size: 23,
@@ -297,7 +297,7 @@ class KeyboardCarNumBadState extends State<KeyboardCarNumBad> {
 //            padding: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
                 child: Container(
                   alignment: Alignment.center,
-                  height: 50,
+                  height: 40,
                   child: Icon(Icons.backspace),
                 ),
                 onTap: () {
