@@ -17,6 +17,10 @@ class FlutterKeyboard {
       const CKTextInputType(name: 'CarNumKeyboard');
   static const CKTextInputType carNumBad =
       const CKTextInputType(name: 'CarNumKeyboardBad');
+  static const CKTextInputType number =
+      const CKTextInputType(name: 'NumberKeyboardBad');
+  static const CKTextInputType phone =
+      const CKTextInputType(name: 'PhoneKeyboardBad');
 
   static register() {
     KeyboardCarNum.register();
