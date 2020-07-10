@@ -47,7 +47,7 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
     MediaQueryData mediaQuery = MediaQuery.of(context);
     return SafeArea(
         top: false,
-        bottom: true,
+        bottom: false,
         child: Material(
           color: BaseColorUtils.transparent,
           child: DefaultTextStyle(

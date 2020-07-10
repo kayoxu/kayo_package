@@ -38,7 +38,7 @@ class KeyboardNumberState extends State<KeyboardNumber> {
     MediaQueryData mediaQuery = MediaQuery.of(context);
     return SafeArea(
         top: false,
-        bottom: true,
+        bottom: false,
         child: Material(
           color: BaseColorUtils.transparent,
           child: DefaultTextStyle(
