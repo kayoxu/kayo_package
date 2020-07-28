@@ -35,6 +35,7 @@ class TextView extends StatefulWidget {
       this.rightIconWidth = 8,
       this.rightIconMargin = const EdgeInsets.only(left: 3),
       this.onTap,
+      this.overflow,
       this.rightIconColor});
 
   Color color;
@@ -65,6 +66,7 @@ class TextView extends StatefulWidget {
   EdgeInsets rightIconMargin;
   Function onTap;
   Color rightIconColor;
+  TextOverflow overflow;
 
   @override
   TextViewState createState() => TextViewState();
@@ -76,7 +78,7 @@ class TextViewState extends State<TextView> {
     var text = Text(
       widget.text,
       maxLines: widget.maxLine,
-      overflow: TextOverflow.ellipsis,
+      overflow: widget.overflow ?? TextOverflow.ellipsis,
       softWrap: true,
       textAlign: widget.textAlign,
       style: TextStyle(
