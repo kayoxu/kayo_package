@@ -239,7 +239,8 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                       )),
                 ],
               ),
-              Row(
+              Expanded(
+                  child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   VisibleView(
@@ -285,21 +286,24 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                           width: 150,
                           alignment: Alignment.centerRight,
                         )
-                      : Clickable(
+                      : Expanded(
+                          child: Clickable(
                           radius: 5,
                           child: TextView(
                             null == widget.msg ? '无' : widget.msg,
                             bgColor: widget.msgBgColor,
+                            textAlign: TextAlign.right,
                             padding: widget.msgPadding,
                             margin: EdgeInsets.only(
-                                right: widget.rightIcon ? 8 : 0),
+                                left: 8, right: widget.rightIcon ? 8 : 0),
                             fontWeight: widget.msgFontWeight,
                             color: widget.msgColor,
                             size: widget.msgSize,
+                            maxLine: 2,
                           ),
                           onTap: widget.onMsgClick,
                           bgColor: widget.msgBgColor,
-                        ),
+                        )),
                   Visibility(
                     child: ImageView(
                       src: 'assets/ic_arrow_right.png',
@@ -310,7 +314,7 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                     visible: widget.rightIcon,
                   ),
                 ],
-              ),
+              )),
             ],
           ),
         ),
