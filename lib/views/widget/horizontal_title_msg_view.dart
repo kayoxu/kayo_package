@@ -257,7 +257,7 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                         color: widget.subMsgColor,
                         size: widget.subMsgSize,
                       ),
-                      bgColor: BaseColorUtils.transparent,
+                      bgColor: BaseColorUtils.white,
                       onTap: widget.subMsgClick,
                     ),
                     visible: BaseSysUtils.empty(widget.subMsg)
