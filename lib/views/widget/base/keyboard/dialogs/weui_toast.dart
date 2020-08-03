@@ -204,7 +204,7 @@ HideCallback showWeuiToast(
 
   Completer<VoidCallback> result = Completer<VoidCallback>();
   var backButtonName = 'CoolUI_WeuiToast$backButtonIndex';
-  BackButtonInterceptor.add((stopDefaultButtonEvent){
+  BackButtonInterceptor.add((stopDefaultButtonEvent,_){
     print(backButtonClose);
     if(backButtonClose){
       result.future.then((hide){

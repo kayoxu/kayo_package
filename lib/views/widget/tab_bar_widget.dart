@@ -51,6 +51,8 @@ class TabBarWidget extends StatefulWidget {
   final double elevation;
   final String titleStr;
   final List<Widget> actions;
+  final bool showLine;
+  final Color bgColor;
 
   TabBarWidget({
     Key key,
@@ -76,6 +78,8 @@ class TabBarWidget extends StatefulWidget {
     this.titleStr,
     this.actions,
     this.darkStatusText = true,
+    this.showLine = true,
+    this.bgColor = const Color(0xffffffff),
   }) : super(key: key);
 
   @override
@@ -196,7 +200,7 @@ class TabBarWidgetState extends State<TabBarWidget>
               children: widget.tabViews),
           bottomNavigationBar: Material(
             //为了适配主题风格，包一层Material实现风格套用
-            color: BaseColorUtils.colorWindow, //底部导航栏主题颜色
+            color: widget.bgColor ?? BaseColorUtils.colorWindow, //底部导航栏主题颜色
             child: SafeArea(
               child: Container(
                 padding: EdgeInsets.only(top: 3),
@@ -205,7 +209,9 @@ class TabBarWidgetState extends State<TabBarWidget>
                   color: const Color(0xFFFFFFFF),
                   boxShadow: <BoxShadow>[
                     BoxShadow(
-                      color: const Color(0xFFd0d0d0),
+                      color: widget.showLine == true
+                          ? const Color(0xFFd0d0d0)
+                          : widget.bgColor,
                       blurRadius: 0.5,
                       spreadRadius: 0.5,
 //                      offset: Offset(-1, -1), //-1,-1
