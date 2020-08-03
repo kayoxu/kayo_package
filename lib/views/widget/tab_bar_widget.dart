@@ -210,9 +210,9 @@ class TabBarWidgetState extends State<TabBarWidget>
                   boxShadow: <BoxShadow>[
                     BoxShadow(
                       color: widget.showLine == true
-                          ? const Color(0xFFd0d0d0)
+                          ? const Color(0xFFf1f1f1)
                           : widget.bgColor,
-                      blurRadius:0.2,
+                      blurRadius:0.1,
                       spreadRadius:0,
                       offset: Offset(-0.2, -0.2), //-1,-1
                     ),
