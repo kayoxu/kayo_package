@@ -212,9 +212,9 @@ class TabBarWidgetState extends State<TabBarWidget>
                       color: widget.showLine == true
                           ? const Color(0xFFd0d0d0)
                           : widget.bgColor,
-                      blurRadius: 0.5,
-                      spreadRadius: 0.5,
-//                      offset: Offset(-1, -1), //-1,-1
+                      blurRadius:0.2,
+                      spreadRadius:0,
+                      offset: Offset(-0.2, -0.2), //-1,-1
                     ),
                   ],
                 ),
