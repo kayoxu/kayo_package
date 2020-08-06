@@ -10,14 +10,11 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 ///  Copyright © 2020 kayoxu. All rights reserved.
 ///
 
-abstract class BaseViewModelList<T> extends BaseViewModelRefresh<T> {
+abstract class BaseViewModelList<T> extends BaseViewModelRefreshList<T> {
   static const int pageNumFirst = 0;
   static const int pageSize = 20;
 
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
 
-  RefreshController get refreshController => _refreshController;
 
   int _currentPageNum = pageNumFirst;
 
@@ -30,10 +27,8 @@ abstract class BaseViewModelList<T> extends BaseViewModelRefresh<T> {
       ValueChanged<String> onError});
 
 
-
   @override
   void dispose() {
-    _refreshController.dispose();
 
     super.dispose();
   }

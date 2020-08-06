@@ -10,8 +10,8 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 ///  Copyright © 2020 kayoxu. All rights reserved.
 ///
 
-abstract class BaseViewModelRefresh<T> extends BaseViewModel {
-  T data;
+abstract class BaseViewModelRefreshList<List<T>> extends BaseViewModel {
+  List<T> data;
 
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
@@ -26,8 +26,8 @@ abstract class BaseViewModelRefresh<T> extends BaseViewModel {
   // 下拉刷新
   refresh(
       {bool init = false,
-      ValueChanged<T> onSuccess,
-      ValueChanged<T> onCache,
+      ValueChanged<List<T>> onSuccess,
+      ValueChanged<List<T>> onCache,
       ValueChanged<String> onError}) async {
     try {
       loadData(onSuccess: (data) {
@@ -51,7 +51,7 @@ abstract class BaseViewModelRefresh<T> extends BaseViewModel {
     }
   }
 
-  void _setData(T data) {
+  void _setData(List<T> data) {
     this.data = data;
     if (data == null) {
       setEmpty();
@@ -62,8 +62,8 @@ abstract class BaseViewModelRefresh<T> extends BaseViewModel {
 
   // 加载数据
   loadData(
-      {ValueChanged<T> onSuccess,
-      ValueChanged<T> onCache,
+      {ValueChanged<List<T>> onSuccess,
+      ValueChanged<List<T>> onCache,
       ValueChanged<String> onError});
 
   @override
