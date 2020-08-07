@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:kayo_package/kayo_package.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
 
-/**
- *  kayo_plugin
- *  views.widget
- *
- *  Created by kayoxu on 2019/2/1 11:26 AM.
- *  Copyright © 2019 kayoxu. All rights reserved.
- */
+///  kayo_plugin
+///  views.widget
+///
+///  Created by kayoxu on 2019/2/1 11:26 AM.
+///  Copyright © 2019 kayoxu. All rights reserved.
 
 class TextView extends StatefulWidget {
   TextView(this.text,

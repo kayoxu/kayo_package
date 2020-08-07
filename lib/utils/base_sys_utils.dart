@@ -7,13 +7,11 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kayo_package/kayo_package.dart';
-/**
- *  smart_community
- *  common.utils
- *
- *  Created by kayoxu on 2019/1/28.
- *  Copyright © 2019 kayoxu. All rights reserved.
- */
+///  smart_community
+///  common.utils
+///
+///  Created by kayoxu on 2019/1/28.
+///  Copyright © 2019 kayoxu. All rights reserved.
 
 class BaseSysUtils {
   /*

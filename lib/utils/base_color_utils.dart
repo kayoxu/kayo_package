@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 
-/**
- *  kayo_plugin
- *  lib.utils
- *
- *  Created by kayoxu on 2019-06-11 16:09.
- *  Copyright © 2019 kayoxu. All rights reserved.
- */
+///  kayo_plugin
+///  lib.utils
+///
+///  Created by kayoxu on 2019-06-11 16:09.
+///  Copyright © 2019 kayoxu. All rights reserved.
 class BaseColorUtils {
   static const int colorPrimaryColor = 0xFF2B7FFB;
   static const Color colorPrimary = Color(0xFF2B7FFB);

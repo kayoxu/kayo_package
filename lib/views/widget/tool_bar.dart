@@ -5,13 +5,11 @@ import 'package:kayo_package/utils/base_color_utils.dart';
 
 import 'base/image_view.dart';
 
-/**
- *  kayo_plugin
- *  views.widget
- *
- *  Created by kayoxu on 2019/2/13 10:35 AM.
- *  Copyright © 2019 kayoxu. All rights reserved.
- */
+///  kayo_plugin
+///  views.widget
+///
+///  Created by kayoxu on 2019/2/13 10:35 AM.
+///  Copyright © 2019 kayoxu. All rights reserved.
 
 class ToolBar extends StatefulWidget {
   final Widget child;

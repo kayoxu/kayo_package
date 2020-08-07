@@ -8,13 +8,11 @@ import 'package:kayo_package/views/widget/base/text_view.dart';
 
 import 'base/edit_view.dart';
 
-/**
- *  kayo_plugin
- *  views.widget
- *
- *  Created by kayoxu on 2019/2/12 4:31 PM.
- *  Copyright © 2019 kayoxu. All rights reserved.
- */
+///  kayo_plugin
+///  views.widget
+///
+///  Created by kayoxu on 2019/2/12 4:31 PM.
+///  Copyright © 2019 kayoxu. All rights reserved.
 
 //enum Visible { visible, invisible, gone }
 

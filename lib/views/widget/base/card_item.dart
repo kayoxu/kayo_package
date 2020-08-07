@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
  import 'package:kayo_package/views/widget/base/clickable.dart';
 
-/**
- *  kayo_plugin
- *  views.widget
- *
- *  Created by kayoxu on 2019/2/11 4:17 PM.
- *  Copyright © 2019 kayoxu. All rights reserved.
- */
+///  kayo_plugin
+///  views.widget
+///
+///  Created by kayoxu on 2019/2/11 4:17 PM.
+///  Copyright © 2019 kayoxu. All rights reserved.
 
 class CardItem extends StatelessWidget {
   final Widget child;

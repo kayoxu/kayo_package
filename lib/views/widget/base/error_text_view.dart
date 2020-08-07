@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
  import 'package:kayo_package/views/widget/base/image_view.dart';
 
-/**
- *  kayo_plugin
- *  views.widget
- *
- *  Created by kayoxu on 2019/1/30 4:43 PM.
- *  Copyright © 2019 kayoxu. All rights reserved.
- */
+///  kayo_plugin
+///  views.widget
+///
+///  Created by kayoxu on 2019/1/30 4:43 PM.
+///  Copyright © 2019 kayoxu. All rights reserved.
 
 class ErrorTextView extends StatefulWidget {
   String text;

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-/**
- *  kayo_package
- *
- *
- *  Created by kayoxu on 2019-07-20 19:35.
- *  Copyright © 2019 kayoxu. All rights reserved.
- */
+///  kayo_package
+///
+///
+///  Created by kayoxu on 2019-07-20 19:35.
+///  Copyright © 2019 kayoxu. All rights reserved.
 class BaseTimeUtils {
   static const formatDefault = 'yyyy-MM-dd HH:mm:ss';
   static const formatYMD = 'yyyy-MM-dd';

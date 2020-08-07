@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kayo_package/kayo_package.dart';
 
-/**
- *  smart_lock_flutter
- *  utils
- *
- *  Created by kayoxu on 2019-09-04 11:40.
- *  Copyright © 2019 kayoxu. All rights reserved.
- */
+///  smart_lock_flutter
+///  utils
+///
+///  Created by kayoxu on 2019-09-04 11:40.
+///  Copyright © 2019 kayoxu. All rights reserved.
 class BaseViewUtils {
   static Widget noData(
       {String src,

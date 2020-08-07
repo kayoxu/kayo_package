@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:kayo_package/views/widget/base/text_view.dart';
 import 'package:kayo_package/views/widget/tool_bar.dart';
 
-/**
- *  kayo_plugin
- *  views
- *
- *  Created by kayoxu on 2019/1/24.
- *  Copyright © 2019 kayoxu. All rights reserved.
- */
+///  kayo_plugin
+///  views
+///
+///  Created by kayoxu on 2019/1/24.
+///  Copyright © 2019 kayoxu. All rights reserved.
 
 class WidgetNotFound extends StatelessWidget {
   Function backClick;

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
 
-/**
- *  kayo_plugin
- *  views.widget.base
- *
- *  Created by kayoxu on 2019/2/13 3:18 PM.
- *  Copyright © 2019 kayoxu. All rights reserved.
- */
+///  kayo_plugin
+///  views.widget.base
+///
+///  Created by kayoxu on 2019/2/13 3:18 PM.
+///  Copyright © 2019 kayoxu. All rights reserved.
 
 class Scrollview extends StatelessWidget {
   List<Widget> children;

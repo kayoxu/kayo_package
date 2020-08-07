@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
  import 'package:kayo_package/views/widget/visible_view.dart';
 
-/**
- *  kayo_plugin
- *  views.widget.base
- *
- *  Created by kayoxu on 2019/2/14 2:21 PM.
- *  Copyright © 2019 kayoxu. All rights reserved.
- */
+///  kayo_plugin
+///  views.widget.base
+///
+///  Created by kayoxu on 2019/2/14 2:21 PM.
+///  Copyright © 2019 kayoxu. All rights reserved.
 
 class LineView extends StatefulWidget {
   Visible visible;

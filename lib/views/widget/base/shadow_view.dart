@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
  
-/**
- *  kayo_plugin
- *  views.widget.base
- *
- *  Created by kayoxu on 2019/2/14 9:53 AM.
- *  Copyright © 2019 kayoxu. All rights reserved.
- */
+///  kayo_plugin
+///  views.widget.base
+///
+///  Created by kayoxu on 2019/2/14 9:53 AM.
+///  Copyright © 2019 kayoxu. All rights reserved.
 
 class ShadowView extends StatefulWidget {
   Widget child;

@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
 import 'package:kayo_package/views/widget/base/shadow_view.dart';
 
-/**
- *  kayo_plugin
- *  views.widget.base
- *
- *  Created by kayoxu on 2019/2/13 6:24 PM.
- *  Copyright © 2019 kayoxu. All rights reserved.
- */
+///  kayo_plugin
+///  views.widget.base
+///
+///  Created by kayoxu on 2019/2/13 6:24 PM.
+///  Copyright © 2019 kayoxu. All rights reserved.
 
 class Clickable extends StatefulWidget {
   final Widget child;

@@ -8,13 +8,11 @@ import 'package:kayo_package/views/widget/base/clickable.dart';
 import 'package:kayo_package/views/widget/base/edit_view.dart';
 import 'package:kayo_package/views/widget/base/text_view.dart';
 
-/**
- *  kayo_plugin
- *  views.widget.alert
- *
- *  Created by kayoxu on 2019/2/21 9:47 AM.
- *  Copyright © 2019 kayoxu. All rights reserved.
- */
+///  kayo_plugin
+///  views.widget.alert
+///
+///  Created by kayoxu on 2019/2/21 9:47 AM.
+///  Copyright © 2019 kayoxu. All rights reserved.
 
 class AlertCenter {
   static showVisitorCheckDialog(

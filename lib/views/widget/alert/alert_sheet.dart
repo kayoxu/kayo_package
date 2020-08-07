@@ -5,13 +5,11 @@ import 'package:kayo_package/views/widget/base/button_view.dart';
 import 'package:kayo_package/views/widget/base/line_view.dart';
 import 'package:kayo_package/views/widget/base/text_view.dart';
 
-/**
- *  kayo_plugin
- *  views.widget.alert
- *
- *  Created by kayoxu on 2019/2/14 2:18 PM.
- *  Copyright © 2019 kayoxu. All rights reserved.
- */
+///  kayo_plugin
+///  views.widget.alert
+///
+///  Created by kayoxu on 2019/2/14 2:18 PM.
+///  Copyright © 2019 kayoxu. All rights reserved.
 
 class AlertSheet {
   /*

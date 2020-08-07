@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:path_drawing/path_drawing.dart';
 export 'package:path_drawing/path_drawing.dart';
 
-/**
- *  kayo_package
- *  views.widget.base
- *
- *  Created by kayoxu on 2019-08-06 19:59.
- *  Copyright © 2019 kayoxu. All rights reserved.
- */
+///  kayo_package
+///  views.widget.base
+///
+///  Created by kayoxu on 2019-08-06 19:59.
+///  Copyright © 2019 kayoxu. All rights reserved.
 class DashPathBorder extends Border {
   DashPathBorder({
     @required this.dashArray,
