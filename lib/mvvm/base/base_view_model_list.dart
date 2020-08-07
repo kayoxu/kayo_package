@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kayo_package/mvvm/base/base_view_model_refresh_list.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import 'base_view_model.dart';
 
 ///
 ///  kayo_package
@@ -9,17 +11,145 @@ import 'package:kayo_package/mvvm/base/base_view_model_refresh_list.dart';
 ///  Copyright © 2020 kayoxu. All rights reserved.
 ///
 
-
 ///只有列表，可分页
-abstract class BaseViewModelList<T> extends BaseViewModelRefreshList<T> {
-  @override
-  loadData(
+abstract class BaseViewModelList<T> extends BaseViewModel {
+  static const int pageNumFirst = 0;
+  static const int pageSize = 20;
+  int _currentPageNum = pageNumFirst;
+
+  List<T> data;
+
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  RefreshController get refreshController => _refreshController;
+
+  initData() {
+    setBusy();
+    refresh();
+  }
+
+  // 下拉刷新
+  refresh(
+      {bool init = false,
+      ValueChanged<List<T>> onSuccess,
+      ValueChanged<List<T>> onCache,
+      ValueChanged<String> onError}) async {
+    var hasMoreData = hasMore() == true;
+
+    if (hasMoreData) _currentPageNum = pageNumFirst;
+    try {
+      loadData(
+          pageIndex: hasMoreData ? _currentPageNum : null,
+          onSuccess: (data) {
+            _setData(data);
+            if (null != onSuccess) {
+              onSuccess(data);
+            }
+          },
+          onCache: (data) {
+            if (null != onCache) {
+              _setData(data);
+              onCache(data);
+            }
+          },
+          onError: (data) {
+            if (null != onError) {
+              onError(data);
+            }
+          });
+    } catch (e, s) {
+//      if (init) list.clear();
+//      setError(e, s);
+    }
+  }
+
+  void _setData(List<T> data) {
+    if (data.isEmpty) {
+      refreshController.refreshCompleted(resetFooterState: true);
+      this.data.clear();
+      setEmpty();
+    } else {
+//      onCompleted(data);
+      this.data.clear();
+      this.data.addAll(data);
+      refreshController.refreshCompleted();
+      // 小于分页的数量,禁止上拉加载更多
+      if (data.length < pageSize) {
+        refreshController.loadNoData();
+      } else {
+        //防止上次上拉加载更多失败,需要重置状态
+        refreshController.loadComplete();
+      }
+      setIdle();
+    }
+  }
+
+  /// 上拉加载更多
+  loadMore(
       {ValueChanged<List<T>> onSuccess,
+      ValueChanged<List<T>> onCache,
+      ValueChanged<String> onError}) async {
+    try {
+      loadData(
+          pageIndex: ++_currentPageNum,
+          onSuccess: (data) {
+            _setMoreData(data);
+            if (null != onSuccess) {
+              onSuccess(data);
+            }
+          },
+          onCache: (data) {
+            if (null != onCache) {
+              _setMoreData(data);
+              onCache(data);
+            }
+          },
+          onError: (data) {
+            _currentPageNum--;
+            refreshController.loadFailed();
+            if (null != onError) {
+              onError(data);
+            }
+          });
+    } catch (e, s) {
+      _currentPageNum--;
+      refreshController.loadFailed();
+      debugPrint('error--->\n' + e.toString());
+      debugPrint('statck--->\n' + s.toString());
+      return null;
+    }
+  }
+
+  void _setMoreData(List<T> data) {
+    if (data.isEmpty) {
+      _currentPageNum--;
+      refreshController.loadNoData();
+    } else {
+      //          onCompleted(data);
+      this.data.addAll(data);
+      if (data.length < pageSize) {
+        refreshController.loadNoData();
+      } else {
+        refreshController.loadComplete();
+      }
+      notifyListeners();
+    }
+  }
+
+  /// 加载数据
+  loadData(
+      {int pageIndex,
+      ValueChanged<List<T>> onSuccess,
       ValueChanged<List<T>> onCache,
       ValueChanged<String> onError});
 
+  ///有上拉加载更多
+  bool hasMore();
+
   @override
   void dispose() {
+    _refreshController.dispose();
     super.dispose();
   }
 }
