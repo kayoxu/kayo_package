@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kayo_package/mvvm/base/base_view_model_refresh.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:kayo_package/mvvm/base/base_view_model_refresh_list.dart';
 
 ///
 ///  kayo_package
@@ -10,27 +9,17 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 ///  Copyright © 2020 kayoxu. All rights reserved.
 ///
 
+
+///只有列表，可分页
 abstract class BaseViewModelList<T> extends BaseViewModelRefreshList<T> {
-  static const int pageNumFirst = 0;
-  static const int pageSize = 20;
-
-
-
-  int _currentPageNum = pageNumFirst;
-
-
-
   @override
   loadData(
-      {ValueChanged<T> onSuccess,
-      ValueChanged<T> onCache,
+      {ValueChanged<List<T>> onSuccess,
+      ValueChanged<List<T>> onCache,
       ValueChanged<String> onError});
-
 
   @override
   void dispose() {
-
     super.dispose();
   }
-
 }

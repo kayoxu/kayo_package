@@ -10,7 +10,12 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 ///  Copyright © 2020 kayoxu. All rights reserved.
 ///
 
+///只有列表，并且没有上拉加载
 abstract class BaseViewModelRefreshList<T> extends BaseViewModel {
+  static const int pageNumFirst = 0;
+  static const int pageSize = 20;
+  int _currentPageNum = pageNumFirst;
+
   List<T> data;
 
   RefreshController _refreshController =
@@ -63,7 +68,7 @@ abstract class BaseViewModelRefreshList<T> extends BaseViewModel {
   // 加载数据
   loadData(
       {ValueChanged<List<T>> onSuccess,
-      ValueChanged<List<T>>onCache,
+      ValueChanged<List<T>> onCache,
       ValueChanged<String> onError});
 
   @override
