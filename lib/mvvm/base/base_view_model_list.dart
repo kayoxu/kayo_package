@@ -31,11 +31,11 @@ abstract class BaseViewModelList<T> extends BaseViewModel {
 
   // 下拉刷新
   refresh(
-      {bool init = false,
-      ValueChanged<List<T>> onSuccess,
+      {ValueChanged<List<T>> onSuccess,
       ValueChanged<List<T>> onCache,
       ValueChanged<String> onError}) async {
     var hasMoreData = hasMore() == true;
+    setBusy();
 
     if (hasMoreData) _currentPageNum = pageNumFirst;
     try {
@@ -49,7 +49,7 @@ abstract class BaseViewModelList<T> extends BaseViewModel {
           },
           onCache: (data) {
             if (null != onCache) {
-              _setData(data);
+              _setData(data, loadData: false);
               onCache(data);
             }
           },
@@ -57,18 +57,22 @@ abstract class BaseViewModelList<T> extends BaseViewModel {
             if (null != onError) {
               onError(data);
             }
+            setIdle();
           });
     } catch (e, s) {
 //      if (init) list.clear();
 //      setError(e, s);
+      setIdle();
     }
   }
 
-  void _setData(List<T> data) {
+  void _setData(List<T> data, {bool loadData = true}) {
     if (data.isEmpty) {
       refreshController.refreshCompleted(resetFooterState: true);
       this.data.clear();
-      setEmpty();
+      if (loadData == true) {
+        setEmpty();
+      }
     } else {
 //      onCompleted(data);
       this.data.clear();
@@ -81,7 +85,9 @@ abstract class BaseViewModelList<T> extends BaseViewModel {
         //防止上次上拉加载更多失败,需要重置状态
         refreshController.loadComplete();
       }
-      setIdle();
+      if (loadData == true) {
+        setIdle();
+      }
     }
   }
 

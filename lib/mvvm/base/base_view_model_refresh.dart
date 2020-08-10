@@ -25,10 +25,10 @@ abstract class BaseViewModelRefresh<T> extends BaseViewModel {
 
   // 下拉刷新
   refresh(
-      {bool init = false,
-      ValueChanged<T> onSuccess,
+      {ValueChanged<T> onSuccess,
       ValueChanged<T> onCache,
       ValueChanged<String> onError}) async {
+    setBusy();
     try {
       loadData(onSuccess: (data) {
         _setData(data);
@@ -37,7 +37,7 @@ abstract class BaseViewModelRefresh<T> extends BaseViewModel {
         }
       }, onCache: (data) {
         if (null != onCache) {
-          _setData(data);
+          _setData(data, loadData: false);
           onCache(data);
         }
       }, onError: (data) {
@@ -51,12 +51,16 @@ abstract class BaseViewModelRefresh<T> extends BaseViewModel {
     }
   }
 
-  void _setData(T data) {
+  void _setData(T data, {bool loadData = true}) {
     this.data = data;
     if (data == null) {
-      setEmpty();
+      if (loadData == true) {
+        setEmpty();
+      }
     } else {
-      setIdle();
+      if (loadData == true) {
+        setIdle();
+      }
     }
   }
 
