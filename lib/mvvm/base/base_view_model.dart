@@ -66,4 +66,6 @@ class BaseViewModel with ChangeNotifier {
     debugPrint('BaseViewModel dispose -->$runtimeType');
     super.dispose();
   }
+
+  void initState() {}
 }

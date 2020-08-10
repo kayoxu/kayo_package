@@ -24,10 +24,6 @@ abstract class BaseViewModelList<T> extends BaseViewModel {
 
   RefreshController get refreshController => _refreshController;
 
-  initData() {
-    setBusy();
-    refresh();
-  }
 
   // 下拉刷新
   refresh(
@@ -152,6 +148,14 @@ abstract class BaseViewModelList<T> extends BaseViewModel {
 
   ///有上拉加载更多
   bool hasMore();
+
+
+  @override
+  void initState() {
+    super.initState();
+    setBusy();
+    refresh();
+  }
 
   @override
   void dispose() {

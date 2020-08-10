@@ -18,10 +18,7 @@ abstract class BaseViewModelRefresh<T> extends BaseViewModel {
 
   RefreshController get refreshController => _refreshController;
 
-  initData() {
-    setBusy();
-    refresh();
-  }
+
 
   // 下拉刷新
   refresh(
@@ -69,6 +66,15 @@ abstract class BaseViewModelRefresh<T> extends BaseViewModel {
       {ValueChanged<T> onSuccess,
       ValueChanged<T> onCache,
       ValueChanged<String> onError});
+
+
+  @override
+  void initState() {
+    super.initState();
+    setBusy();
+    refresh();
+  }
+
 
   @override
   void dispose() {
