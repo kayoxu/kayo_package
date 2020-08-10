@@ -41,7 +41,7 @@ class ToolBar extends StatefulWidget {
     this.title = '',
     this.titelWidget,
     this.appBar,
-    this.iosBack = true,
+    this.iosBack = false,
     this.backClick,
     this.backgroundColor,
     this.appbarColor,
