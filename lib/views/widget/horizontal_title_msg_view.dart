@@ -25,6 +25,7 @@ Container HorizontalTitleMsgView2({
   double height,
   bool showLine,
   EdgeInsets padding,
+  EdgeInsets msgPadding = const EdgeInsets.only(left: 10),
   FontWeight titleFontWeight,
   FontWeight msgFontWeight,
   EdgeInsets margin,
@@ -50,6 +51,7 @@ Container HorizontalTitleMsgView2({
             Expanded(
               child: TextView(
                 msg ?? '',
+                padding: msgPadding,
                 size: msgSize,
                 fontWeight: msgFontWeight,
                 textAlign: TextAlign.end,
@@ -173,7 +175,7 @@ class HorizontalTitleMsgView extends StatefulWidget {
     this.onSubmitted,
     this.topLineColor,
     this.bottomLineColor,
-    this.msgPadding,
+    this.msgPadding = const EdgeInsets.only(left: 10),
   }) : super(key: key);
 
   @override
