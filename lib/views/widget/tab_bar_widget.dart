@@ -11,6 +11,7 @@ class TabBarWidget extends StatefulWidget {
 
   ///顶部模式type
   static const int TOP_TAB = 2;
+  static const int TOP_TAB_NO_TITLE = 4;
 
   ///
   static const int HIDE_TAB = 3;
@@ -89,6 +90,7 @@ class TabBarWidget extends StatefulWidget {
 class TabBarWidgetState extends State<TabBarWidget>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
+  PageController _pageController;
 
   VoidCallback _tabControllerChangeCallBack;
 
@@ -100,10 +102,17 @@ class TabBarWidgetState extends State<TabBarWidget>
       initialIndex: widget.initialIndex,
       length: widget.tabItems.length,
     );
+
+    _pageController = PageController(initialPage: widget.initialIndex);
+
     _tabControllerChangeCallBack = () {
       if (!_tabController.indexIsChanging) {
         int _index = _tabController.index;
         this.widget.onPageChanged(_index);
+        if (_index != _pageController.page) {
+          _pageController?.animateToPage(_index,
+              duration: Duration(milliseconds: 100), curve: Curves.easeInOutQuint);
+        }
       }
     };
 
@@ -186,6 +195,63 @@ class TabBarWidgetState extends State<TabBarWidget>
           },
         ),
       );
+    } else if (this.widget.type == TabBarWidget.TOP_TAB_NO_TITLE) {
+      ///顶部tab bar
+      return new Scaffold(
+        floatingActionButton: widget.floatingActionButton,
+        persistentFooterButtons: widget.tarWidgetControl == null
+            ? null
+            : widget.tarWidgetControl.footerButton,
+        appBar: AppBar(
+          elevation: widget.elevation ?? 0.5,
+          actions: widget.actions,
+          backgroundColor: BaseColorUtils.colorWindowWhite,
+          centerTitle: widget.centerTitle,
+          automaticallyImplyLeading: false,
+          leading: widget.showBack == true
+              ? IconButton(
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                  ),
+                  iconSize: 22,
+                  color: Color(widget.darkStatusText ? 0xff50525c : 0xffffffff),
+                  onPressed: () async {
+                    if (Navigator.canPop(context)) {
+                      return Navigator.of(context).pop();
+                    } else {
+                      return await SystemNavigator.pop();
+                    }
+                  }, // null disables the button
+                )
+              : null,
+          brightness:
+              widget.darkStatusText ? Brightness.light : Brightness.dark,
+          title: TabBar(
+            controller: _tabController,
+            tabs: widget.tabItems,
+            indicatorColor: widget.indicatorColor,
+            labelStyle: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+            unselectedLabelStyle:
+                TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+            labelColor: Color(0xff1E6FF4),
+            unselectedLabelColor: Color(0xff333333),
+            indicator: null,
+            onTap: widget.onTabChanged,
+          ),
+        ),
+        body: new PageView(
+          controller: widget.topPageControl ?? _pageController,
+          children: widget.tabViews,
+          onPageChanged: (index) {
+            if (widget.animate) {
+              _tabController.animateTo(index);
+            } else {
+              _tabController.index = index;
+            }
+//            widget.onPageChanged?.call(index);
+          },
+        ),
+      );
     } else if (this.widget.type == TabBarWidget.BOTTOM_TAB) {
       ///底部tab bar
       return new Scaffold(
@@ -212,8 +278,8 @@ class TabBarWidgetState extends State<TabBarWidget>
                       color: widget.showLine == true
                           ? const Color(0xFFf1f1f1)
                           : widget.bgColor,
-                      blurRadius:0.1,
-                      spreadRadius:0,
+                      blurRadius: 0.1,
+                      spreadRadius: 0,
                       offset: Offset(-0.2, -0.2), //-1,-1
                     ),
                   ],
