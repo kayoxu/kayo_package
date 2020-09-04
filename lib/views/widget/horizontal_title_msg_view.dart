@@ -155,7 +155,7 @@ class HorizontalTitleMsgView extends StatefulWidget {
     this.subMsgClick,
     this.subMsg,
     this.subMsgWidth,
-    this.bgColor,
+    this.bgColor = Colors.transparent,
     this.msgBgColor,
     this.topLine = false,
     this.bottomLine = false,
