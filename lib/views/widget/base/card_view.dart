@@ -35,7 +35,7 @@ class CardView extends StatelessWidget {
     this.colorAlignmentBegin,
     this.colorAlignmentEnd,
     this.onPressed,
-    this.shadowColor = BaseColorUtils.colorGreyLiteLite,
+    this.shadowColor = const Color(0X80CCCCC),
   }) : super(key: key);
 
   @override
