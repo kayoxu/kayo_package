@@ -56,7 +56,7 @@ class CardView extends StatelessWidget {
                 LinearGradient(
                     begin: colorAlignmentBegin ?? Alignment.topCenter,
                     end: colorAlignmentEnd ?? Alignment.bottomCenter,
-                    colors: bgColors ?? [BaseColorUtils.white]),
+                    colors: bgColors ?? [BaseColorUtils.white,BaseColorUtils.white]),
           ),
           padding: padding,
           child: child,
