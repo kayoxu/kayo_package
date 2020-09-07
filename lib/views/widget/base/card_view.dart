@@ -5,8 +5,8 @@ import 'package:kayo_package/views/widget/base/clickable.dart';
 ///  kayo_plugin
 ///  views.widget
 ///
-///  Created by kayoxu on 2019/2/11 4:17 PM.
-///  Copyright © 2019 kayoxu. All rights reserved.
+///  Created by kayoxu on 2020/9/01 11:12 AM.
+///  Copyright © 2020 kayoxu. All rights reserved.
 
 class CardView extends StatelessWidget {
   final Widget child;
