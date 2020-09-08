@@ -17,14 +17,15 @@ class LineView extends StatefulWidget {
   Color color;
   double radius;
 
-  LineView({Key key,
-    this.visible,
-    this.margin,
-    this.padding,
-    this.height,
-    this.width,
-    this.radius,
-    this.color})
+  LineView(
+      {Key key,
+      this.visible,
+      this.margin,
+      this.padding,
+      this.height,
+      this.width,
+      this.radius,
+      this.color})
       : super(key: key);
 
   @override
@@ -46,8 +47,10 @@ class LineViewState extends State<LineView> {
         padding: widget.padding,
         width: widget.width,
         height: widget.height,
-        decoration: BoxDecoration(color: widget.color,
-            borderRadius: BorderRadius.all(Radius.circular(widget.radius??0)),
+        decoration: BoxDecoration(
+            color: widget.color,
+            borderRadius:
+                BorderRadius.all(Radius.circular(widget.radius ?? 0))),
       ),
     );
   }
