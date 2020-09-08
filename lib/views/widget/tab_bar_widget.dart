@@ -182,8 +182,8 @@ class TabBarWidgetState extends State<TabBarWidget>
             onTap: widget.onTabChanged,
           ),
         ),
-        body: new PageView(
-          controller: widget.topPageControl,
+        body:  new PageView(
+          controller: widget.topPageControl ?? _pageController,
           children: widget.tabViews,
           onPageChanged: (index) {
             if (widget.animate) {
@@ -191,7 +191,7 @@ class TabBarWidgetState extends State<TabBarWidget>
             } else {
               _tabController.index = index;
             }
-            widget.onPageChanged?.call(index);
+//            widget.onPageChanged?.call(index);
           },
         ),
       );
