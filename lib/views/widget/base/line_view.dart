@@ -15,7 +15,7 @@ class LineView extends StatefulWidget {
   double height;
   double width;
   Color color;
-  double radius
+  double radius;
 
   LineView({Key key,
     this.visible,
