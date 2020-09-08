@@ -35,7 +35,7 @@ class CardView extends StatelessWidget {
     this.colorAlignmentBegin,
     this.colorAlignmentEnd,
     this.onPressed,
-    this.shadowColor = const Color(0X80CCCCC),
+    this.shadowColor ,
   }) : super(key: key);
 
   @override
@@ -43,20 +43,21 @@ class CardView extends StatelessWidget {
     return Container(
       margin: margin,
       child: Material(
-        borderRadius: BorderRadius.circular(shadowRadius),
-        shadowColor: shadowColor,
+        borderRadius: BorderRadius.circular(shadowRadius ?? 0),
+        shadowColor: shadowColor ?? BaseColorUtils.transparent,
         borderOnForeground: false,
-        elevation: elevation,
+        elevation: elevation ?? 0,
         child: Clickable(
           bgColor: BaseColorUtils.transparent,
-          radius: radius,
+          radius: radius ?? 0,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(radius)),
+            borderRadius: BorderRadius.all(Radius.circular(radius ?? 0)),
             gradient: linearGradient ??
                 LinearGradient(
                     begin: colorAlignmentBegin ?? Alignment.topCenter,
                     end: colorAlignmentEnd ?? Alignment.bottomCenter,
-                    colors: bgColors ?? [BaseColorUtils.white,BaseColorUtils.white]),
+                    colors: bgColors ??
+                        [BaseColorUtils.transparent, BaseColorUtils.transparent]),
           ),
           padding: padding,
           child: child,

@@ -35,6 +35,7 @@ class ToolBar extends StatefulWidget {
   final double marginToolbarTop;
   final bool centerTitle;
   final Function onWillPop;
+  final Widget leadingIcon;
 
   ToolBar({
     @required this.child,
@@ -58,6 +59,7 @@ class ToolBar extends StatefulWidget {
     this.floatingActionButton,
     this.centerTitle = true,
     this.onWillPop,
+    this.leadingIcon,
   });
 
   @override
@@ -71,11 +73,13 @@ class ToolBarState extends State<ToolBar> {
         ? AppBar(
             actions: widget.actions,
             elevation: widget.elevation,
-            leading: widget.iosBack
+            leading: widget.iosBack || null != widget.leadingIcon
                 ? IconButton(
-                    icon: Icon(
-                      Icons.arrow_back_ios,
-                    ),
+                    icon: null != widget.leadingIcon
+                        ? widget.leadingIcon
+                        : Icon(
+                            Icons.arrow_back_ios,
+                          ),
                     iconSize: 22,
                     color:
                         Color(widget.darkStatusText ? 0xff50525c : 0xffffffff),

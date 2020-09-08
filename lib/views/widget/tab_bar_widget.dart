@@ -111,7 +111,7 @@ class TabBarWidgetState extends State<TabBarWidget>
         this.widget.onPageChanged(_index);
         if (_index != _pageController.page) {
           _pageController?.animateToPage(_index,
-              duration: Duration(milliseconds: 100), curve: Curves.easeInOutQuint);
+              duration: Duration(milliseconds: 500), curve: Curves.easeInOutQuint);
         }
       }
     };
