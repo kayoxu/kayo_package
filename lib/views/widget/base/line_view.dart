@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
- import 'package:kayo_package/views/widget/visible_view.dart';
+import 'package:kayo_package/views/widget/visible_view.dart';
 
 ///  kayo_plugin
 ///  views.widget.base
@@ -15,15 +15,16 @@ class LineView extends StatefulWidget {
   double height;
   double width;
   Color color;
+  double radius
 
-  LineView(
-      {Key key,
-      this.visible,
-      this.margin,
-      this.padding,
-      this.height,
-      this.width,
-      this.color})
+  LineView({Key key,
+    this.visible,
+    this.margin,
+    this.padding,
+    this.height,
+    this.width,
+    this.radius,
+    this.color})
       : super(key: key);
 
   @override
@@ -45,7 +46,8 @@ class LineViewState extends State<LineView> {
         padding: widget.padding,
         width: widget.width,
         height: widget.height,
-        color: widget.color,
+        decoration: BoxDecoration(color: widget.color,
+            borderRadius: BorderRadius.all(Radius.circular(widget.radius??0)),
       ),
     );
   }
