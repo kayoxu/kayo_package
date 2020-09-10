@@ -11,6 +11,8 @@ class BaseViewUtils {
       {String src,
       String msg = 'No Data',
       EdgeInsets margin,
+      double width,
+      double height,
       double marginImageTop = 0}) {
     return Container(
       alignment: Alignment.topCenter,
@@ -21,8 +23,8 @@ class BaseViewUtils {
           ImageView(
             src: source(src ?? 'ic_no_data'),
             margin: EdgeInsets.only(bottom: marginImageTop),
-            width: 120,
-            height: 120,
+            width: width ?? 120,
+            height: height ?? 120,
           ),
           Positioned(
             child: TextView(
