@@ -54,6 +54,7 @@ class TabBarWidget extends StatefulWidget {
   final List<Widget> actions;
   final bool showLine;
   final Color bgColor;
+  final Function backClick;
 
   TabBarWidget({
     Key key,
@@ -78,6 +79,7 @@ class TabBarWidget extends StatefulWidget {
     this.elevation,
     this.titleStr,
     this.actions,
+    this.backClick,
     this.darkStatusText = true,
     this.showLine = true,
     this.bgColor = const Color(0xffffffff),
@@ -111,7 +113,8 @@ class TabBarWidgetState extends State<TabBarWidget>
         this.widget.onPageChanged(_index);
         if (_index != _pageController.page) {
           _pageController?.animateToPage(_index,
-              duration: Duration(milliseconds: 300), curve: Curves.easeInOutQuint);
+              duration: Duration(milliseconds: 300),
+              curve: Curves.easeInOutQuint);
         }
       }
     };
@@ -154,13 +157,14 @@ class TabBarWidgetState extends State<TabBarWidget>
                   ),
                   iconSize: 22,
                   color: Color(widget.darkStatusText ? 0xff50525c : 0xffffffff),
-                  onPressed: () async {
-                    if (Navigator.canPop(context)) {
-                      return Navigator.of(context).pop();
-                    } else {
-                      return await SystemNavigator.pop();
-                    }
-                  }, // null disables the button
+                  onPressed: widget.backClick ??
+                      () async {
+                        if (Navigator.canPop(context)) {
+                          return Navigator.of(context).pop();
+                        } else {
+                          return await SystemNavigator.pop();
+                        }
+                      }, // null disables the button
                 )
               : null,
           brightness:
@@ -182,7 +186,7 @@ class TabBarWidgetState extends State<TabBarWidget>
             onTap: widget.onTabChanged,
           ),
         ),
-        body:  new PageView(
+        body: new PageView(
           controller: widget.topPageControl ?? _pageController,
           children: widget.tabViews,
           onPageChanged: (index) {
