@@ -36,6 +36,7 @@ class ToolBar extends StatefulWidget {
   final bool centerTitle;
   final Function onWillPop;
   final Widget leadingIcon;
+  final bool noAppBar;
 
   ToolBar({
     @required this.child,
@@ -60,6 +61,7 @@ class ToolBar extends StatefulWidget {
     this.centerTitle = true,
     this.onWillPop,
     this.leadingIcon,
+    this.noAppBar,
   });
 
   @override
@@ -150,12 +152,18 @@ class ToolBarState extends State<ToolBar> {
                       child: null == widget.toolbarSubView
                           ? toolbar
                           : Column(
-                              children: <Widget>[
-                                toolbar,
-                                Expanded(
-                                  child: widget.toolbarSubView,
-                                )
-                              ],
+                              children: widget.noAppBar == true
+                                  ? <Widget>[
+                                      Expanded(
+                                        child: widget.toolbarSubView,
+                                      )
+                                    ]
+                                  : <Widget>[
+                                      toolbar,
+                                      Expanded(
+                                        child: widget.toolbarSubView,
+                                      )
+                                    ],
                             ),
                     ),
               preferredSize: Size.fromHeight(widget.toolbarHeight),
