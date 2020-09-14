@@ -158,7 +158,7 @@ class ToolBarState extends State<ToolBar> {
                                         child: SizedBox(
                                           height: 25,
                                         ),
-                                        preferredSize: Size.fromHeight(1),
+                                        preferredSize: Size.fromHeight(0),
                                       ),
                                       Expanded(
                                         child: widget.toolbarSubView,
