@@ -154,6 +154,12 @@ class ToolBarState extends State<ToolBar> {
                           : Column(
                               children: widget.noAppBar == true
                                   ? <Widget>[
+                                      PreferredSize(
+                                        child: SizedBox(
+                                          height: 25,
+                                        ),
+                                        preferredSize: Size.fromHeight(1),
+                                      ),
                                       Expanded(
                                         child: widget.toolbarSubView,
                                       )
