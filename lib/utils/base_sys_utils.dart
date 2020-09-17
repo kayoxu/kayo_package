@@ -123,7 +123,13 @@ class BaseSysUtils {
   }
 
   static bool isNumber(String str) {
-    return new RegExp('(^[0-9])').hasMatch(str);
+
+    if (str == null) {
+      return false;
+    }
+    return double.tryParse(str) != null;
+
+//    return new RegExp('(^[0-9])').hasMatch(str);
   }
 
   /*

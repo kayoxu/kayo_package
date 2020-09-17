@@ -35,4 +35,13 @@ extension BaseObjectExtension on Object {
       return this;
     }
   }
+
+  dynamic findFirst() {
+    if (null != this && this is List) {
+      if ((this as List).length > 0) {
+        return (this as List).first;
+      }
+    }
+    return null;
+  }
 }

@@ -57,21 +57,24 @@ extension BaseStringExtension on String {
     }
   }
 
-  String toTimeStr() {
+  String toTimeStr({String format, String defaultTime}) {
     try {
       if (this?.isNotEmpty == true) {
         if (BaseSysUtils.isNumber(this)) {
           var t = BaseSysUtils.str2Int(this);
           if (this.length == 10) {
-            return BaseTimeUtils.timestampToTimeStr(t * 1000);
+            return BaseTimeUtils.timestampToTimeStr(t * 1000,format: format);
           } else if (this.length == 13) {
-            return BaseTimeUtils.timestampToTimeStr(t);
+            return BaseTimeUtils.timestampToTimeStr(t, format: format);
           }
+        }else{
+          return this;
         }
       }
+      return defaultTime;
     } catch (e) {
       print(e);
-      return this;
+      return this ?? defaultTime;
     }
   }
 
