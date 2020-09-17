@@ -18,8 +18,6 @@ abstract class BaseViewModelRefresh<T> extends BaseViewModel {
 
   RefreshController get refreshController => _refreshController;
 
-
-
   // 下拉刷新
   refresh(
       {ValueChanged<T> onSuccess,
@@ -32,6 +30,7 @@ abstract class BaseViewModelRefresh<T> extends BaseViewModel {
         if (null != onSuccess) {
           onSuccess(data);
         }
+        _refreshController.refreshCompleted();
       }, onCache: (data) {
         if (null != onCache) {
           _setData(data, loadData: false);
@@ -41,6 +40,7 @@ abstract class BaseViewModelRefresh<T> extends BaseViewModel {
         if (null != onError) {
           onError(data);
         }
+        _refreshController.refreshCompleted();
       });
     } catch (e, s) {
 //      if (init) list.clear();
@@ -67,14 +67,12 @@ abstract class BaseViewModelRefresh<T> extends BaseViewModel {
       ValueChanged<T> onCache,
       ValueChanged<String> onError});
 
-
   @override
   void initState() {
     super.initState();
     setBusy();
     refresh();
   }
-
 
   @override
   void dispose() {
