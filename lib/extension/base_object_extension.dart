@@ -44,4 +44,13 @@ extension BaseObjectExtension on Object {
     }
     return null;
   }
+
+  dynamic findLast() {
+    if (null != this && this is List) {
+      if ((this as List).length > 0) {
+        return (this as List).last;
+      }
+    }
+    return null;
+  }
 }

@@ -18,11 +18,19 @@ enum ViewState {
 class BaseViewModel with ChangeNotifier {
   bool _disposed = false;
   ViewState _viewState;
+  BuildContext context;
+
 
   BaseViewModel({ViewState viewState})
       : _viewState = viewState ?? ViewState.idle {
     debugPrint('BaseViewModel---constructor--->$runtimeType');
   }
+
+
+  setContext(BuildContext context) {
+    this.context = context;
+  }
+
 
   /// ViewState
   ViewState get viewState => _viewState;
