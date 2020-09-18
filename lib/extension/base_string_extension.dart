@@ -63,13 +63,14 @@ extension BaseStringExtension on String {
         if (BaseSysUtils.isNumber(this)) {
           var t = BaseSysUtils.str2Int(this);
           if (this.length == 10) {
-            return BaseTimeUtils.timestampToTimeStr(t * 1000,format: format);
+            return BaseTimeUtils.timestampToTimeStr(t * 1000, format: format);
           } else if (this.length == 13) {
             return BaseTimeUtils.timestampToTimeStr(t, format: format);
-          }else{
-            return BaseTimeUtils.timestampToTimeStr(t * 1000,format: format);
+          } else {
+            return BaseTimeUtils.timestampToTimeStr((t - 60 * 60 * 8) * 1000,
+                format: format);
           }
-        }else{
+        } else {
           return this;
         }
       }
