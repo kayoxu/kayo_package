@@ -66,6 +66,8 @@ extension BaseStringExtension on String {
             return BaseTimeUtils.timestampToTimeStr(t * 1000,format: format);
           } else if (this.length == 13) {
             return BaseTimeUtils.timestampToTimeStr(t, format: format);
+          }else{
+            return BaseTimeUtils.timestampToTimeStr(t * 1000,format: format);
           }
         }else{
           return this;

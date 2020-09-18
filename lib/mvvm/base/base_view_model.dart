@@ -20,20 +20,19 @@ class BaseViewModel with ChangeNotifier {
   ViewState _viewState;
   BuildContext context;
 
-
-  BaseViewModel({ViewState viewState})
-      : _viewState = viewState ?? ViewState.idle {
+  BaseViewModel({ViewState viewState, BuildContext context})
+      : _viewState = (viewState ?? ViewState.idle),
+        context = context {
     debugPrint('BaseViewModel---constructor--->$runtimeType');
   }
 
+  /// ViewState
+  ViewState get viewState => _viewState;
 
-  setContext(BuildContext context) {
+  setBuildContext(BuildContext context) {
     this.context = context;
   }
 
-
-  /// ViewState
-  ViewState get viewState => _viewState;
 
   set viewState(ViewState viewState) {
 //    _viewStateError = null;
