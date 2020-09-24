@@ -7,6 +7,7 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kayo_package/kayo_package.dart';
+
 ///  smart_community
 ///  common.utils
 ///
@@ -100,6 +101,15 @@ class BaseSysUtils {
         .hasMatch(str);
   }
 
+  ///是否是中文
+  static bool isCnChar(String str) {
+    if (BaseSysUtils.empty(str)) return false;
+
+    return new RegExp(
+            '^[\u4e00-\u9fa5]+\$')
+        .hasMatch(str);
+  }
+
   /*
   * 身份证校验
   * */
@@ -123,7 +133,6 @@ class BaseSysUtils {
   }
 
   static bool isNumber(String str) {
-
     if (str == null) {
       return false;
     }
