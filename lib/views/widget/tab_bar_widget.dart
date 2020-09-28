@@ -111,7 +111,7 @@ class TabBarWidgetState extends State<TabBarWidget>
       if (!_tabController.indexIsChanging) {
         int _index = _tabController.index;
         this.widget.onPageChanged(_index);
-        if (_index != _pageController.page) {
+        if (_pageController.hasClients && _index != _pageController.page) {
           _pageController?.animateToPage(_index,
               duration: Duration(milliseconds: 300),
               curve: Curves.easeInOutQuint);
