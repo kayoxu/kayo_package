@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
 import 'package:kayo_package/views/widget/base/clickable.dart';
+import 'package:kayo_package/views/widget/base/image_view.dart';
 
 ///  kayo_plugin
 ///  views.widget
@@ -21,6 +22,8 @@ class CardView extends StatelessWidget {
   final List<Color> bgColors;
   final Alignment colorAlignmentBegin;
   final Alignment colorAlignmentEnd;
+  final String bgImg;
+  final BoxFit bgImgFit;
 
   const CardView({
     @required this.child,
@@ -35,7 +38,9 @@ class CardView extends StatelessWidget {
     this.colorAlignmentBegin,
     this.colorAlignmentEnd,
     this.onPressed,
-    this.shadowColor ,
+    this.shadowColor,
+    this.bgImg,
+    this.bgImgFit,
   }) : super(key: key);
 
   @override
@@ -57,10 +62,23 @@ class CardView extends StatelessWidget {
                     begin: colorAlignmentBegin ?? Alignment.topCenter,
                     end: colorAlignmentEnd ?? Alignment.bottomCenter,
                     colors: bgColors ??
-                        [BaseColorUtils.transparent, BaseColorUtils.transparent]),
+                        [
+                          BaseColorUtils.transparent,
+                          BaseColorUtils.transparent
+                        ]),
           ),
           padding: padding,
-          child: child,
+          child: null == bgImg
+              ? child
+              : Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(radius ?? 0)),
+                      color: Colors.transparent,
+                      image: DecorationImage(
+                          image: AssetImage(bgImg),
+                          fit: bgImgFit ?? BoxFit.contain)),
+                  child: child,
+                ),
           onTap: onPressed,
         ),
       ),
