@@ -12,6 +12,7 @@ class BaseViewUtils {
       String msg = 'No Data',
       EdgeInsets margin,
       Color msgColor,
+      double msgSize,
       double width,
       double height,
       double marginImageTop = 0}) {
@@ -30,6 +31,7 @@ class BaseViewUtils {
           Positioned(
             child: TextView(
               msg ?? '',
+              size: msgSize ?? 14,
               color: msgColor ?? BaseColorUtils.colorGreyLite,
             ),
             bottom: 0,

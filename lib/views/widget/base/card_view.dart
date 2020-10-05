@@ -24,6 +24,7 @@ class CardView extends StatelessWidget {
   final Alignment colorAlignmentEnd;
   final String bgImg;
   final BoxFit bgImgFit;
+  final double width;
 
   const CardView({
     @required this.child,
@@ -41,11 +42,13 @@ class CardView extends StatelessWidget {
     this.shadowColor,
     this.bgImg,
     this.bgImgFit,
+    this.width,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: width,
       margin: margin,
       child: Material(
         borderRadius: BorderRadius.circular(shadowRadius ?? 0),
@@ -72,7 +75,8 @@ class CardView extends StatelessWidget {
               ? child
               : Container(
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(radius ?? 0)),
+                      borderRadius:
+                          BorderRadius.all(Radius.circular(radius ?? 0)),
                       color: Colors.transparent,
                       image: DecorationImage(
                           image: AssetImage(bgImg),

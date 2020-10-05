@@ -17,13 +17,12 @@ abstract class BaseViewModelList<T> extends BaseViewModel {
   static const int pageSize = 20;
   int _currentPageNum = pageNumFirst;
 
-  List<T> data;
+  List<T> data = [];
 
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
   RefreshController get refreshController => _refreshController;
-
 
   // 下拉刷新
   refresh(
@@ -148,7 +147,6 @@ abstract class BaseViewModelList<T> extends BaseViewModel {
 
   ///有上拉加载更多
   bool hasMore();
-
 
   @override
   void initState() {
