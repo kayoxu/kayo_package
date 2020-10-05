@@ -28,6 +28,14 @@ extension BaseStringExtension on String {
     }
   }
 
+  String fixDouble({String unit = ''}) {
+    var data = '${this ?? '0'}$unit';
+    if (data.endsWith('.0$unit')) {
+      data.replaceAll('.0$unit', '$unit');
+    }
+    return data;
+  }
+
   Color toColor({Color defaultColor = const Color(0xff333333)}) {
     try {
       if (this?.isNotEmpty == true) {
