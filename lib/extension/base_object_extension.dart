@@ -53,4 +53,13 @@ extension BaseObjectExtension on Object {
     }
     return null;
   }
+
+  dynamic findData(int index) {
+    if (null != this && this is List) {
+      if ((this as List).length > 0 && index < (this as List).length) {
+        return (this as List)[index];
+      }
+    }
+    return null;
+  }
 }
