@@ -31,7 +31,7 @@ extension BaseStringExtension on String {
   String fixDouble({String unit = ''}) {
     var data = '${this ?? '0'}$unit';
     if (data.endsWith('.0$unit')) {
-      data.replaceAll('.0$unit', '$unit');
+      data = data.replaceAll('.0$unit', '$unit');
     }
     return data;
   }
