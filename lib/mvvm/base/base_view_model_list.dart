@@ -151,8 +151,10 @@ abstract class BaseViewModelList<T> extends BaseViewModel {
   @override
   void initState() {
     super.initState();
-    setBusy();
-    refresh();
+    if (autoLoadData == true) {
+      setBusy();
+      refresh();
+    }
   }
 
   @override

@@ -19,6 +19,7 @@ class BaseViewModel with ChangeNotifier {
   bool _disposed = false;
   ViewState _viewState;
   BuildContext context;
+  bool autoLoadData;
 
   BaseViewModel({ViewState viewState, BuildContext context})
       : _viewState = (viewState ?? ViewState.idle),

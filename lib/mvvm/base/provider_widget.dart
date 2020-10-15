@@ -11,6 +11,7 @@ class ProviderWidget<T extends ChangeNotifier> extends StatefulWidget {
   final Widget child;
   final Function(T model) onModelReady;
   final bool autoDispose;
+  final bool autoInitState;
   final bool autoLoadData;
   final Function initState;
   final Function dispose;
@@ -22,7 +23,8 @@ class ProviderWidget<T extends ChangeNotifier> extends StatefulWidget {
       this.child,
       this.onModelReady,
       this.autoDispose: true,
-      this.autoLoadData: false,
+      this.autoInitState: true,
+      this.autoLoadData: true,
       this.initState,
       this.dispose})
       : super(key: key);
@@ -39,8 +41,13 @@ class _ProviderWidgetState<T extends ChangeNotifier>
     model = widget.model;
     widget.onModelReady?.call(model);
     super.initState();
-    if (widget.autoLoadData == true && model is BaseViewModel) {
-      (model as BaseViewModel).initState();
+
+    if (model is BaseViewModel) {
+      (model as BaseViewModel).setBuildContext(context);
+      (model as BaseViewModel).autoLoadData = widget.autoLoadData ?? false;
+      if (widget.autoInitState == true) {
+        (model as BaseViewModel).initState();
+      }
     }
     if (null != widget.initState) {
       widget.initState.call();
