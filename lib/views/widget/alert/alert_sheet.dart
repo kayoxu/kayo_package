@@ -29,10 +29,17 @@ class AlertSheet {
 
     showModalBottomSheet(
         context: context,
+        backgroundColor: Colors.transparent,
+        isScrollControlled: true,
         builder: (context) {
           return SafeArea(
               child: Container(
-            color: BaseColorUtils.white,
+            // color: BaseColorUtils.white,
+            decoration: BoxDecoration(
+                color: BaseColorUtils.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12))),
             child: /*SafeArea(
               child: ,
             )*/
@@ -85,23 +92,24 @@ class AlertSheet {
 
   static hide(context) => Navigator.of(context).pop();
 
-  static sheetAction(
+  static Widget sheetAction(
       {@required String text,
       @required VoidCallback callback,
       Color color = BaseColorUtils.colorBlackLite,
       bool textBold = true,
       double textSize,
+      EdgeInsets padding,
       bool showLine = true}) {
     var action = ButtonView(
       text: text,
       showShadow: false,
       textSize: textSize,
-      fontWeight: textBold ? FontWeight.bold : FontWeight.normal,
+      fontWeight: textBold ? FontWeight.w600 : FontWeight.normal,
       color: color,
       bgColor: BaseColorUtils.white,
       radius: 0,
       margin: EdgeInsets.all(0),
-      padding: EdgeInsets.only(top: 12, bottom: 12),
+      padding: padding ?? EdgeInsets.only(top: 12, bottom: 12),
       width: double.infinity,
       onPressed: callback,
     );
