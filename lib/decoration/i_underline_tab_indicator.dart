@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-
 ///
 ///  kayo_package
 ///  i_underline_tab_indicator.dart
@@ -15,15 +14,17 @@ class IUnderlineTabIndicator extends Decoration {
   ///
   /// The [borderSide] and [insets] arguments must not be null.
   const IUnderlineTabIndicator({
-    this.borderSide = const BorderSide(
-        width: 2.0, color: Color(0xff1E6FF4)),
+    this.borderSide = const BorderSide(width: 2.0, color: Color(0xff1E6FF4)),
+    this.width,
+    this.color,
     this.insets = EdgeInsets.zero,
-  })
-      : assert(borderSide != null),
+  })  : assert(borderSide != null),
         assert(insets != null);
 
   /// The color and weight of the horizontal line drawn below the selected tab.
   final BorderSide borderSide;
+  final double width;
+  final Color color;
 
   /// Locates the selected tab's underline relative to the tab's boundary.
   ///
@@ -34,9 +35,12 @@ class IUnderlineTabIndicator extends Decoration {
 
   @override
   Decoration lerpFrom(Decoration a, double t) {
+    BorderSide bs = BorderSide(
+        width: width ?? borderSide.width, color: color ?? borderSide.color);
+
     if (a is IUnderlineTabIndicator) {
       return IUnderlineTabIndicator(
-        borderSide: BorderSide.lerp(a.borderSide, borderSide, t),
+        borderSide: BorderSide.lerp(a.borderSide, bs, t),
         insets: EdgeInsetsGeometry.lerp(a.insets, insets, t),
       );
     }
@@ -45,9 +49,13 @@ class IUnderlineTabIndicator extends Decoration {
 
   @override
   Decoration lerpTo(Decoration b, double t) {
+
+    BorderSide bs = BorderSide(
+        width: width ?? borderSide.width, color: color ?? borderSide.color);
+
     if (b is IUnderlineTabIndicator) {
       return IUnderlineTabIndicator(
-        borderSide: BorderSide.lerp(borderSide, b.borderSide, t),
+        borderSide: BorderSide.lerp(bs, b.borderSide, t),
         insets: EdgeInsetsGeometry.lerp(insets, b.insets, t),
       );
     }
@@ -55,7 +63,7 @@ class IUnderlineTabIndicator extends Decoration {
   }
 
   @override
-  _UnderlinePainter createBoxPainter([ VoidCallback onChanged ]) {
+  _UnderlinePainter createBoxPainter([VoidCallback onChanged]) {
     return _UnderlinePainter(this, onChanged);
   }
 }
@@ -89,10 +97,9 @@ class _UnderlinePainter extends BoxPainter {
     assert(configuration.size != null);
     final Rect rect = offset & configuration.size;
     final TextDirection textDirection = configuration.textDirection;
-    final Rect indicator = _indicatorRectFor(rect, textDirection).deflate(
-        borderSide.width / 2.0);
-    final Paint paint = borderSide.toPaint()
-      ..strokeCap = StrokeCap.square;
+    final Rect indicator =
+        _indicatorRectFor(rect, textDirection).deflate(borderSide.width / 2.0);
+    final Paint paint = borderSide.toPaint()..strokeCap = StrokeCap.square;
     canvas.drawLine(indicator.bottomLeft, indicator.bottomRight, paint);
   }
 }
