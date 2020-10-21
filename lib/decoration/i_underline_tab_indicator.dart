@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
- 
+
 ///
 ///  kayo_package
 ///  i_underline_tab_indicator.dart
@@ -15,9 +15,11 @@ class IUnderlineTabIndicator extends Decoration {
   ///
   /// The [borderSide] and [insets] arguments must not be null.
   const IUnderlineTabIndicator({
-    this.borderSide = const BorderSide(width: 2.0, color: Colors.white),
+    this.borderSide = const BorderSide(
+        width: 2.0, color: Color(0xff1E6FF4)),
     this.insets = EdgeInsets.zero,
-  }) : assert(borderSide != null),
+  })
+      : assert(borderSide != null),
         assert(insets != null);
 
   /// The color and weight of the horizontal line drawn below the selected tab.
@@ -57,6 +59,7 @@ class IUnderlineTabIndicator extends Decoration {
     return _UnderlinePainter(this, onChanged);
   }
 }
+
 class _UnderlinePainter extends BoxPainter {
   _UnderlinePainter(this.decoration, VoidCallback onChanged)
       : assert(decoration != null),
@@ -65,6 +68,7 @@ class _UnderlinePainter extends BoxPainter {
   final IUnderlineTabIndicator decoration;
 
   BorderSide get borderSide => decoration.borderSide;
+
   EdgeInsetsGeometry get insets => decoration.insets;
 
   Rect _indicatorRectFor(Rect rect, TextDirection textDirection) {
@@ -85,8 +89,10 @@ class _UnderlinePainter extends BoxPainter {
     assert(configuration.size != null);
     final Rect rect = offset & configuration.size;
     final TextDirection textDirection = configuration.textDirection;
-    final Rect indicator = _indicatorRectFor(rect, textDirection).deflate(borderSide.width / 2.0);
-    final Paint paint = borderSide.toPaint()..strokeCap = StrokeCap.square;
+    final Rect indicator = _indicatorRectFor(rect, textDirection).deflate(
+        borderSide.width / 2.0);
+    final Paint paint = borderSide.toPaint()
+      ..strokeCap = StrokeCap.square;
     canvas.drawLine(indicator.bottomLeft, indicator.bottomRight, paint);
   }
 }
