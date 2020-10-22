@@ -548,19 +548,22 @@ class _DatePickerState extends State<_DatePickerComponent> {
                 widget.pickerModel.leftDivider(),
                 style: theme.itemStyle,
               ),
-              _renderColumnView(
-                  ValueKey(widget.pickerModel.currentLeftIndex()),
-                  theme,
-                  widget.pickerModel.middleStringAtIndex,
-                  middleScrollCtrl,
-                  widget.pickerModel.layoutProportions()[1], (index) {
-                widget.pickerModel.setMiddleIndex(index);
-              }, (index) {
-                setState(() {
-                  refreshScrollOffset();
-                  _notifyDateChanged();
-                });
-              }),
+              Visibility(
+                visible: (length > 1 && widget.formatType.contains('m')),
+                child: _renderColumnView(
+                    ValueKey(widget.pickerModel.currentLeftIndex()),
+                    theme,
+                    widget.pickerModel.middleStringAtIndex,
+                    middleScrollCtrl,
+                    widget.pickerModel.layoutProportions()[1], (index) {
+                  widget.pickerModel.setMiddleIndex(index);
+                }, (index) {
+                  setState(() {
+                    refreshScrollOffset();
+                    _notifyDateChanged();
+                  });
+                }),
+              ),
               Text(
                 widget.pickerModel.rightDivider(),
                 style: theme.itemStyle,
