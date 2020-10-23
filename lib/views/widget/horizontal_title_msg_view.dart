@@ -321,11 +321,14 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
         VisibleView(
           visible: widget.bottomLine ? Visible.visible : Visible.gone,
           child: Container(
-            margin: widget.bottomLineMargin,
-            width: double.infinity,
-            height: .5,
-            color:
-                widget.bottomLineColor ?? BaseColorUtils.colorGreyLiteLiteLite,
+            color: widget.bgColor,
+            child: Container(
+              margin: widget.bottomLineMargin,
+              width: double.infinity,
+              height: .5,
+              color: widget.bottomLineColor ??
+                  BaseColorUtils.colorGreyLiteLiteLite,
+            ),
           ),
         ),
       ],
