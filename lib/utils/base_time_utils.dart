@@ -97,8 +97,8 @@ class BaseTimeUtils {
   }
 
   /*
-  * 获取年 
-  * 
+  * 获取年
+  *
   * */
   static DateTime getYear({DateTime now, bool start = true}) {
     now = now ?? DateTime.now();
@@ -126,7 +126,7 @@ class BaseTimeUtils {
 
   /*
   * 格式化时间戳
-  * 
+  *
   * */
   static String timeFormat(String time, {String format = formatDefault}) {
     if (null == time) return '无';
@@ -136,7 +136,7 @@ class BaseTimeUtils {
 
   /*
   * Timestamp转时间戳
-  * 
+  *
   * */
   static String timestampToTimeStr(int timestamp, {String format}) {
     format = format ?? formatDefault;
@@ -149,13 +149,16 @@ class BaseTimeUtils {
     } catch (e) {
       print(e);
     } finally {
+      if (time.contains('1970')) {
+        time = '无';
+      }
       return time;
     }
   }
 
   /*
   * 时间戳转DateTime
-  * 
+  *
   * */
   static DateTime timeStrToDateTime(String time,
       {String format = formatDefault}) {
@@ -175,7 +178,7 @@ class BaseTimeUtils {
 
   /*
   * 时间戳转Timestamp
-  * 
+  *
   * */
   static int timeStrToTimestamp(String string, {String format}) {
     format = format ?? formatDefault;
@@ -194,7 +197,7 @@ class BaseTimeUtils {
 
   /*
   * DateTime转时间戳
-  * 
+  *
   * */
   static String dateToTimeStr(DateTime dateTime,
       {String format = formatDefault}) {
@@ -215,7 +218,7 @@ class BaseTimeUtils {
   /*
   * 获取时间
   * start 是否是开始时间
-  * 
+  *
   * */
   static DateTime getDateTime(
       {DateTime dateTime,
