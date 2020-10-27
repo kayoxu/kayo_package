@@ -38,6 +38,7 @@ class ToolBar extends StatefulWidget {
   final Widget leadingIcon;
   final bool noAppBar;
   final Widget leading;
+  final bool noBack;
 
   ToolBar({
     @required this.child,
@@ -64,6 +65,7 @@ class ToolBar extends StatefulWidget {
     this.leadingIcon,
     this.noAppBar,
     this.leading,
+    this.noBack,
   });
 
   @override
@@ -77,29 +79,32 @@ class ToolBarState extends State<ToolBar> {
         ? AppBar(
             actions: widget.actions,
             elevation: widget.elevation,
-            leading: widget.leading != null
-                ? widget.leading
-                : (widget.iosBack || null != widget.leadingIcon
-                    ? IconButton(
-                        icon: null != widget.leadingIcon
-                            ? widget.leadingIcon
-                            : Icon(
-                                Icons.arrow_back_ios,
-                              ),
-                        iconSize: 22,
-                        color: Color(
-                            widget.darkStatusText ? 0xff50525c : 0xffffffff),
-                        onPressed: null == widget.backClick
-                            ? () async {
-                                if (Navigator.canPop(context)) {
-                                  return Navigator.of(context).pop();
-                                } else {
-                                  return await SystemNavigator.pop();
-                                }
-                              }
-                            : widget.backClick, // null disables the button
-                      )
-                    : null),
+            leading: widget.noBack == true
+                ? Container()
+                : widget.leading != null
+                    ? widget.leading
+                    : (widget.iosBack || null != widget.leadingIcon
+                        ? IconButton(
+                            icon: null != widget.leadingIcon
+                                ? widget.leadingIcon
+                                : Icon(
+                                    Icons.arrow_back_ios,
+                                  ),
+                            iconSize: 22,
+                            color: Color(widget.darkStatusText
+                                ? 0xff50525c
+                                : 0xffffffff),
+                            onPressed: null == widget.backClick
+                                ? () async {
+                                    if (Navigator.canPop(context)) {
+                                      return Navigator.of(context).pop();
+                                    } else {
+                                      return await SystemNavigator.pop();
+                                    }
+                                  }
+                                : widget.backClick, // null disables the button
+                          )
+                        : null),
             brightness:
                 widget.darkStatusText ? Brightness.light : Brightness.dark,
             centerTitle: widget.centerTitle ?? true,
@@ -188,6 +193,12 @@ class ToolBarState extends State<ToolBar> {
     );
     return null == widget.onWillPop
         ? scaffold
-        : WillPopScope(child: scaffold, onWillPop: widget.onWillPop);
+        : WillPopScope(
+            child: scaffold,
+            onWillPop: widget.noBack == true
+                ? () {
+                    return;
+                  }
+                : widget.onWillPop);
   }
 }
