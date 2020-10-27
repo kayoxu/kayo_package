@@ -37,6 +37,7 @@ class ToolBar extends StatefulWidget {
   final Function onWillPop;
   final Widget leadingIcon;
   final bool noAppBar;
+  final bool noBack;
 
   ToolBar({
     @required this.child,
@@ -62,6 +63,7 @@ class ToolBar extends StatefulWidget {
     this.onWillPop,
     this.leadingIcon,
     this.noAppBar,
+    this.noBack,
   });
 
   @override
@@ -75,27 +77,29 @@ class ToolBarState extends State<ToolBar> {
         ? AppBar(
             actions: widget.actions,
             elevation: widget.elevation,
-            leading: widget.iosBack || null != widget.leadingIcon
-                ? IconButton(
-                    icon: null != widget.leadingIcon
-                        ? widget.leadingIcon
-                        : Icon(
-                            Icons.arrow_back_ios,
-                          ),
-                    iconSize: 22,
-                    color:
-                        Color(widget.darkStatusText ? 0xff50525c : 0xffffffff),
-                    onPressed: null == widget.backClick
-                        ? () async {
-                            if (Navigator.canPop(context)) {
-                              return Navigator.of(context).pop();
-                            } else {
-                              return await SystemNavigator.pop();
-                            }
-                          }
-                        : widget.backClick, // null disables the button
-                  )
-                : null,
+            leading: widget.noBack == true
+                ? Container()
+                : (widget.iosBack || null != widget.leadingIcon
+                    ? IconButton(
+                        icon: null != widget.leadingIcon
+                            ? widget.leadingIcon
+                            : Icon(
+                                Icons.arrow_back_ios,
+                              ),
+                        iconSize: 22,
+                        color: Color(
+                            widget.darkStatusText ? 0xff50525c : 0xffffffff),
+                        onPressed: null == widget.backClick
+                            ? () async {
+                                if (Navigator.canPop(context)) {
+                                  return Navigator.of(context).pop();
+                                } else {
+                                  return await SystemNavigator.pop();
+                                }
+                              }
+                            : widget.backClick, // null disables the button
+                      )
+                    : null),
             brightness:
                 widget.darkStatusText ? Brightness.light : Brightness.dark,
             centerTitle: widget.centerTitle ?? true,
