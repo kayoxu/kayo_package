@@ -196,8 +196,8 @@ class ToolBarState extends State<ToolBar> {
         : WillPopScope(
             child: scaffold,
             onWillPop: widget.noBack == true && widget.onWillPop == null
-                ? () {
-                    return;
+                ? ()async {
+                    return false;
                   }
                 : widget.onWillPop);
   }
