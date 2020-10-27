@@ -191,11 +191,11 @@ class ToolBarState extends State<ToolBar> {
             ),
       floatingActionButton: widget.floatingActionButton,
     );
-    return null == widget.onWillPop
+    return widget.noBack != true && null == widget.onWillPop
         ? scaffold
         : WillPopScope(
             child: scaffold,
-            onWillPop: widget.noBack == true
+            onWillPop: widget.noBack == true && widget.onWillPop == null
                 ? () {
                     return;
                   }
