@@ -37,7 +37,7 @@ class ToolBar extends StatefulWidget {
   final Function onWillPop;
   final Widget leadingIcon;
   final bool noAppBar;
-  final bool noBack;
+  final Widget leading;
 
   ToolBar({
     @required this.child,
@@ -63,7 +63,7 @@ class ToolBar extends StatefulWidget {
     this.onWillPop,
     this.leadingIcon,
     this.noAppBar,
-    this.noBack,
+    this.leading,
   });
 
   @override
@@ -77,8 +77,8 @@ class ToolBarState extends State<ToolBar> {
         ? AppBar(
             actions: widget.actions,
             elevation: widget.elevation,
-            leading: widget.noBack == true
-                ? Container()
+            leading: widget.leading != null
+                ? widget.leading
                 : (widget.iosBack || null != widget.leadingIcon
                     ? IconButton(
                         icon: null != widget.leadingIcon
