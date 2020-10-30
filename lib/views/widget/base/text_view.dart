@@ -74,7 +74,7 @@ class TextViewState extends State<TextView> {
   @override
   Widget build(BuildContext context) {
     var text = Text(
-      widget.text,
+      widget.text ?? '',
       maxLines: widget.maxLine,
       overflow: widget.overflow ?? TextOverflow.ellipsis,
       softWrap: true,
