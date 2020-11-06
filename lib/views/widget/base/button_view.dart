@@ -3,13 +3,11 @@ import 'package:kayo_package/utils/base_color_utils.dart';
 
 import 'clickable.dart';
 
-/**
- *  flutter_demo
- *
- *
- *  Created by kayoxu on 2019/1/23.
- *  Copyright © 2019 kayoxu. All rights reserved.
- */
+///  flutter_demo
+///
+///
+///  Created by kayoxu on 2019/1/23.
+///  Copyright © 2019 kayoxu. All rights reserved.
 
 class ButtonView extends StatefulWidget {
   VoidCallback onPressed;
