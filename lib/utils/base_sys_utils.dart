@@ -46,6 +46,17 @@ class BaseSysUtils {
   }
 
   /*
+  * 包含
+  * */
+  static bool contains(String str, String str2) {
+    if (null == str || null == str2) {
+      return false;
+    } else {
+      return str.contains(str2);
+    }
+  }
+
+  /*
    *  md5 加密
    * */
   static String getMd5(String data) {
@@ -105,9 +116,7 @@ class BaseSysUtils {
   static bool isCnChar(String str) {
     if (BaseSysUtils.empty(str)) return false;
 
-    return new RegExp(
-            '^[\u4e00-\u9fa5]+\$')
-        .hasMatch(str);
+    return new RegExp('^[\u4e00-\u9fa5]+\$').hasMatch(str);
   }
 
   /*
