@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-
+@Deprecated('Use `Other` widget instead')
 class TextWithDrawable extends StatelessWidget {
   final String text;
   final Color fontColor;
@@ -114,6 +114,8 @@ class TextWithDrawable extends StatelessWidget {
     );
   }
 }
+
+@Deprecated('Use `Other` widget instead')
 class ShowInfoRow extends StatelessWidget {
   final String left;
   final Widget leftWidget;
@@ -212,6 +214,8 @@ class ShowInfoRow extends StatelessWidget {
     return child;
   }
 }
+
+@Deprecated('Use `Other` widget instead')
 class TextWithBg extends StatelessWidget {
   final double width;
   final double height;
