@@ -12,6 +12,7 @@ export 'shadow_view.dart';
 export 'text_view.dart';
 export 'dash_path_border.dart';
 export 'dot_view.dart';
+export 'text_with_drawable.dart';
 
 /**
  *  kayo_package
