@@ -1,11 +1,8 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
-import 'package:kayo_package/kayo_package.dart';
+import 'package:flutter/material.dart';
 
 extension BaseObjectExtension on Object {
-  Object defaultValue({@required Object data}) {
-    if (null == this) {
+  T defaultValue<T>({@required T data}) {
+    if (null == this || this is! T) {
       return data;
     } else {
       return this;
@@ -13,7 +10,10 @@ extension BaseObjectExtension on Object {
   }
 
   int defaultInt({int data = 0}) {
-    if (null == this) {
+    if (null == this || this is! int) {
+      if(this is double){
+        return (this as double).toInt();
+      }
       return data;
     } else {
       return this;
@@ -21,7 +21,10 @@ extension BaseObjectExtension on Object {
   }
 
   String defaultStr({String data = '无'}) {
-    if (null == this || '' == this) {
+    if (null == this || '' == this || this is! String) {
+      if (this is num) {
+        return this.toString();
+      }
       return data;
     } else {
       return this;
@@ -29,35 +32,38 @@ extension BaseObjectExtension on Object {
   }
 
   double defaultDouble({double data = 0}) {
-    if (null == this) {
+    if (null == this || this is! double) {
+      if (this is int) {
+        return (this as int).toDouble();
+      }
       return data;
     } else {
       return this;
     }
   }
 
-  dynamic findFirst() {
+  T findFirst<T>() {
     if (null != this && this is List) {
       if ((this as List).length > 0) {
-        return (this as List).first;
+        return (this as List).first as T;
       }
     }
     return null;
   }
 
-  dynamic findLast() {
+  T findLast<T>() {
     if (null != this && this is List) {
       if ((this as List).length > 0) {
-        return (this as List).last;
+        return (this as List).last as T;
       }
     }
     return null;
   }
 
-  dynamic findData(int index) {
+  T findData<T>(int index) {
     if (null != this && this is List) {
       if ((this as List).length > 0 && index < (this as List).length) {
-        return (this as List)[index];
+        return (this as List)[index] as T;
       }
     }
     return null;

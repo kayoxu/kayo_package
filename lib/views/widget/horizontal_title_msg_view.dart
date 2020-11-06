@@ -81,6 +81,9 @@ class HorizontalTitleMsgView extends StatefulWidget {
   String msg;
   bool rightIcon;
   Color rightIconColor;
+  String rightIconSrc;
+  double rightIconWidth;
+  double rightIconHeight;
   Visible leftIcon;
   String leftIconSrc;
   EdgeInsets leftIconMargin;
@@ -133,6 +136,9 @@ class HorizontalTitleMsgView extends StatefulWidget {
     @required this.title,
     this.msg = '',
     this.rightIcon = false,
+    this.rightIconSrc,
+    this.rightIconHeight,
+    this.rightIconWidth,
     this.rightIconColor = BaseColorUtils.colorBlackLite,
     this.padding,
     this.margin,
@@ -310,9 +316,9 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                         )),
                   Visibility(
                     child: ImageView(
-                      src: 'assets/ic_arrow_right.png',
-                      width: 6,
-                      height: 11,
+                      src: widget.rightIconSrc ?? 'assets/ic_arrow_right.png',
+                      width: widget.rightIconWidth ?? 6,
+                      height: widget.rightIconHeight ?? 11,
                       color: widget.rightIconColor,
                     ),
                     visible: widget.rightIcon,
