@@ -103,4 +103,17 @@ extension BaseStringExtension on String {
       return this ?? 0;
     }
   }
+
+  String replaceExceptFirst(Pattern from, String replace) {
+    if (this.contains(from)) {
+      List<String> arr = this.split(from);
+      String value = '';
+      arr.forEach((f) {
+        value += '$f${value.contains(from) ? replace : from}';
+      });
+      return value;
+    } else {
+      return this;
+    }
+  }
 }

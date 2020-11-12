@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:kayo_package/kayo_package.dart';
 
 ///价格输入框和数量输入框的限制
 class PrecisionLimitFormatter extends TextInputFormatter {
@@ -46,5 +47,28 @@ class PrecisionLimitFormatter extends TextInputFormatter {
       return oldValue;
     }
     return newValue;
+  }
+}
+
+
+class DecimalDigitsTextInputFormatter extends TextInputFormatter {
+  final int decimalDigits;
+
+  DecimalDigitsTextInputFormatter(
+      this.decimalDigits,
+      );
+
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue,
+      TextEditingValue newValue,
+      ) {
+    String newTxt = newValue.text.replaceExceptFirst('.', '');
+    List<String> newArr = newTxt.split('.');
+    if(newArr.length != 1 && newArr[1].length > decimalDigits){
+      String value = '${newArr[0]}.${newArr[1].substring(0, decimalDigits)}';
+      return TextEditingValue(text: value,selection: TextSelection.collapsed(offset: value.length));
+    }
+    return TextEditingValue(text: newTxt,selection: TextSelection.collapsed(offset: newTxt.length));
   }
 }

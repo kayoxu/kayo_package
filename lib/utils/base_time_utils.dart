@@ -277,4 +277,9 @@ class BaseTimeUtils {
     }
     return season;
   }
+
+  ///获取间隔天数
+  static int intervalDay(DateTime date1, DateTime date2){
+    return ((date1.millisecondsSinceEpoch - date2.millisecondsSinceEpoch).abs()/(1000 * 60 * 60 * 24)).floor();
+  }
 }
