@@ -7,7 +7,7 @@ typedef DataChangedCallback2(int index, dynamic data);
 const double _kDataPickerHeight = 210.0;
 const double _kDataPickerTitleHeight = 44.0;
 const double _kDataPickerItemHeight = 36.0;
-const double _kDataPickerFontSize = 18.0;
+const double _kDataPickerFontSize = 15.0;
 
 class DataPicker {
   static void showDataPicker(
