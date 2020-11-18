@@ -182,6 +182,7 @@ class HorizontalTitleMsgView extends StatefulWidget {
     this.onSubmitted,
     this.topLineColor,
     this.bottomLineColor,
+    this.msgMaxLine,
     this.msgPadding = const EdgeInsets.only(left: 10),
   }) : super(key: key);
 
