@@ -130,6 +130,7 @@ class HorizontalTitleMsgView extends StatefulWidget {
   ValueChanged<String> onSubmitted;
   Color topLineColor;
   Color bottomLineColor;
+  int msgMaxLine;
 
   HorizontalTitleMsgView({
     Key key,
@@ -309,7 +310,7 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                             fontWeight: widget.msgFontWeight,
                             color: widget.msgColor,
                             size: widget.msgSize,
-                            maxLine: 2,
+                            maxLine: widget.msgMaxLine ?? 2,
                           ),
                           onTap: widget.onMsgClick,
                           bgColor: widget.msgBgColor,
