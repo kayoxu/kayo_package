@@ -91,6 +91,8 @@ class HorizontalTitleMsgView extends StatefulWidget {
   double leftIconWidth;
   double legtIconRadius;
   String subTitle;
+  bool msgEditableFull;
+  TextInputType msgInputType;
 
   Color titleColor;
   double titleSize;
@@ -172,6 +174,8 @@ class HorizontalTitleMsgView extends StatefulWidget {
     this.height,
     this.width,
     this.msgEditable = false,
+    this.msgEditableFull = false,
+    this.msgInputType,
     this.msgHintText,
     this.msgController,
     this.onMsgClick,
@@ -193,6 +197,28 @@ class HorizontalTitleMsgView extends StatefulWidget {
 class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
   @override
   Widget build(BuildContext context) {
+    var _msgEditContainer = Container(
+      child: EditView(
+        text: widget.msg,
+        onEditingComplete: widget.onEditingComplete,
+        onSubmitted: widget.onSubmitted,
+        focusNode: widget.focusNode,
+        onClick: widget.onMsgFocus,
+        hintText: widget.msgHintText,
+        keyboardType: widget.msgInputType,
+//                          alignment: Alignment.centerRight,
+        showLine: false,
+        textAlign: TextAlign.right,
+        controller: widget.msgController,
+        margin: EdgeInsets.only(right: widget.rightIcon ? 8 : 0),
+        textColor: widget.msgColor,
+        textSize: widget.msgSize,
+        maxLines: 1,
+        onChanged: widget.onMsgChanged,
+      ),
+      width: 150,
+      alignment: Alignment.centerRight,
+    );
     var column = Column(
       children: <Widget>[
         VisibleView(
@@ -276,28 +302,9 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                         : Visible.visible,
                   ),
                   widget.msgEditable
-                      ? Container(
-                          child: EditView(
-                            text: widget.msg,
-                            onEditingComplete: widget.onEditingComplete,
-                            onSubmitted: widget.onSubmitted,
-                            focusNode: widget.focusNode,
-                            onClick: widget.onMsgFocus,
-                            hintText: widget.msgHintText,
-//                          alignment: Alignment.centerRight,
-                            showLine: false,
-                            textAlign: TextAlign.right,
-                            controller: widget.msgController,
-                            margin: EdgeInsets.only(
-                                right: widget.rightIcon ? 8 : 0),
-                            textColor: widget.msgColor,
-                            textSize: widget.msgSize,
-                            maxLines: 1,
-                            onChanged: widget.onMsgChanged,
-                          ),
-                          width: 150,
-                          alignment: Alignment.centerRight,
-                        )
+                      ? (widget.msgEditableFull == true
+                          ? Expanded(child: _msgEditContainer)
+                          : _msgEditContainer)
                       : Expanded(
                           child: Clickable(
                           radius: 5,
