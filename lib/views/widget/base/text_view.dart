@@ -14,12 +14,13 @@ class TextView extends StatefulWidget {
       this.borderColor,
       this.borderWidth = 1,
       this.size = 16,
-      this.height = null,
-      this.width = null,
+      this.height,
+      this.width,
       this.padding = const EdgeInsets.all(0),
       this.margin = const EdgeInsets.all(0),
       this.textAlign = TextAlign.left,
       this.fontWeight,
+      this.borderRadius,
       this.bgColor,
       this.radius = 0,
       this.maxLine,
@@ -46,6 +47,7 @@ class TextView extends StatefulWidget {
   EdgeInsets margin;
   TextAlign textAlign;
   FontWeight fontWeight;
+  BorderRadius borderRadius;
 
   Color bgColor;
   double radius;
@@ -102,7 +104,8 @@ class TextViewState extends State<TextView> {
       decoration: ((null != widget.bgColor || true == widget.border)
           ? BoxDecoration(
               color: widget.bgColor,
-              borderRadius: BorderRadius.circular(widget.radius),
+              borderRadius:
+                  widget.borderRadius ?? BorderRadius.circular(widget.radius),
               border: widget.border != true
                   ? null
                   : Border.all(
