@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' as m;
+import 'package:flutter/services.dart';
 import 'package:kayo_package/kayo_package.dart';
 
 ///
@@ -55,7 +56,7 @@ class DialogUtilsFlutter {
           var actions = <Widget>[
             CupertinoActionSheetAction(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  _finish(context);
                   onCancel?.call();
                 },
                 child: TextView(
@@ -66,7 +67,7 @@ class DialogUtilsFlutter {
                 )),
             CupertinoActionSheetAction(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  _finish(context);
                   onOk?.call();
                 },
                 child: TextView(
@@ -101,5 +102,14 @@ class DialogUtilsFlutter {
 
           return dialog;
         });
+  }
+
+  static Future _finish(BuildContext context) {
+    if (Navigator.canPop(context)) {
+      Navigator.of(context).pop();
+      return Future.value();
+    } else {
+      return SystemNavigator.pop();
+    }
   }
 }
