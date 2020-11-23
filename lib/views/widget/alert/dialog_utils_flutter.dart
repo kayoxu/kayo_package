@@ -28,6 +28,7 @@ class DialogUtilsFlutter {
     Color cancelColor,
     Function onCancel,
     bool showOk = true,
+    bool useDefaultPop = true,
     String okText,
     Color okColor,
     Function onOk,
@@ -56,7 +57,7 @@ class DialogUtilsFlutter {
           var actions = <Widget>[
             CupertinoActionSheetAction(
                 onPressed: () {
-                  _finish(context);
+                  if (useDefaultPop == true) _finish(context);
                   onCancel?.call();
                 },
                 child: TextView(
@@ -67,7 +68,7 @@ class DialogUtilsFlutter {
                 )),
             CupertinoActionSheetAction(
                 onPressed: () {
-                  _finish(context);
+                  if (useDefaultPop == true) _finish(context);
                   onOk?.call();
                 },
                 child: TextView(
