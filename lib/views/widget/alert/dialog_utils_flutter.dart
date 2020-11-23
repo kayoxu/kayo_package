@@ -46,7 +46,7 @@ class DialogUtilsFlutter {
           );
           var subTitleView = TextView(
             subTitle ?? '',
-            maxLine: 3,
+            maxLine: 10,
             size: subTitleSize ?? 14,
             fontWeight: subTitleFontWeight ?? FontWeight.w600,
             color: subTitleColor ?? BaseColorUtils.colorBlackLiteLite,
