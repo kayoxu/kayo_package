@@ -53,13 +53,13 @@ extension BaseStringExtension on String {
         } else if (this.length == 8 &&
             int.tryParse(this.substring(0, 8), radix: 16) != null) {
           //        ff000000
-          return Color(int.parse(this.substring(0, 8), radix: 16)).withOpacity(
-              opacity);
+          return Color(int.parse(this.substring(0, 8), radix: 16))
+              .withOpacity(opacity);
         } else if (this.length == 9 &&
             int.tryParse(this.substring(1, 9), radix: 16) != null) {
           //        #ff000000
-          return Color(int.parse(this.substring(1, 9), radix: 16)).withOpacity(
-              opacity);
+          return Color(int.parse(this.substring(1, 9), radix: 16))
+              .withOpacity(opacity);
         } else {
           return defaultColor.withOpacity(opacity);
         }
@@ -80,7 +80,7 @@ extension BaseStringExtension on String {
           } else if (this.length == 13) {
             return BaseTimeUtils.timestampToTimeStr(t, format: format);
           } else {
-            return BaseTimeUtils.timestampToTimeStr((t - 60 * 60 * 8) * 1000,
+            return BaseTimeUtils.timestampToTimeStr((t - 60 * 60 * 0) * 1000,
                 format: format);
           }
         } else {
