@@ -18,8 +18,9 @@ class BaseColorUtils {
   static const Color colorWindow = Color(0xFFf8f8f8);
   static const Color colorWindowWhite = Color(0xFFFFFFFF);
 
-  static const Color colorBlack = Color(0xFF0A0E11);
-  static const Color colorBlackLite = Color(0xFF484555);
+  static const Color colorBlack = Color(0xFF333333);
+  static const Color colorBlackLite = Color(0xFF666666);
+  static const Color colorBlackLiteLite = Color(0xFF999999);
 
   static const Color colorWhite = Color(0xFFFFFFFF);
   static const Color colorWhiteLite = Color(0xFFE6E7ED);
