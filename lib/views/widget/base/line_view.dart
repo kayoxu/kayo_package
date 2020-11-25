@@ -37,7 +37,7 @@ class LineViewState extends State<LineView> {
   Widget build(BuildContext context) {
     widget.height = widget.height ?? .5;
     widget.width = widget.width ?? double.infinity;
-    widget.color = widget.color ?? BaseColorUtils.colorGreyLiteLite;
+    widget.color = widget.color ?? BaseColorUtils.colorGreyLiteLiteLite;
     widget.visible = widget.visible ?? Visible.visible;
 
     return VisibleView(
