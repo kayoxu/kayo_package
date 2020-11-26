@@ -37,36 +37,36 @@ class TextView extends StatefulWidget {
       this.overflow,
       this.rightIconColor});
 
-  Color color;
-  Color borderColor;
-  String text;
-  double size;
-  double height;
-  double width;
-  EdgeInsets padding;
-  EdgeInsets margin;
-  TextAlign textAlign;
-  FontWeight fontWeight;
-  BorderRadius borderRadius;
+  final Color color;
+  final Color borderColor;
+  final String text;
+  final double size;
+  final double height;
+  final double width;
+  final EdgeInsets padding;
+  final EdgeInsets margin;
+  final TextAlign textAlign;
+  final FontWeight fontWeight;
+  final BorderRadius borderRadius;
 
-  Color bgColor;
-  double radius;
-  double borderWidth;
+  final Color bgColor;
+  final double radius;
+  final double borderWidth;
 
-  int maxLine;
+  final int maxLine;
 
-  Widget left;
-  Gradient gradient;
-  bool border;
-  Alignment alignment;
-  MainAxisSize mainAxisSize;
-  String rightIcon;
-  double rightIconHeight;
-  double rightIconWidth;
-  EdgeInsets rightIconMargin;
-  Function onTap;
-  Color rightIconColor;
-  TextOverflow overflow;
+  final Widget left;
+  final Gradient gradient;
+  final bool border;
+  final Alignment alignment;
+  final MainAxisSize mainAxisSize;
+  final String rightIcon;
+  final double rightIconHeight;
+  final double rightIconWidth;
+  final EdgeInsets rightIconMargin;
+  final Function onTap;
+  final Color rightIconColor;
+  final TextOverflow overflow;
 
   @override
   TextViewState createState() => TextViewState();
