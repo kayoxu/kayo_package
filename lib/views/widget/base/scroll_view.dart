@@ -8,24 +8,25 @@ import 'package:kayo_package/utils/base_color_utils.dart';
 ///  Copyright © 2019 kayoxu. All rights reserved.
 
 class Scrollview extends StatelessWidget {
-  List<Widget> children;
-  EdgeInsets padding;
-  EdgeInsets margin;
-  Axis orientation;
-  Color bgColor;
-  Decoration decoration;
-  Widget headerView;
-  double height;
+  final List<Widget> children;
+  final EdgeInsets padding;
+  final EdgeInsets margin;
+  final Axis orientation;
+  final Color bgColor;
+  final Decoration decoration;
+  final Widget headerView;
+  final double height;
 
-  Scrollview({Key key,
-    @required this.children,
-    this.padding = const EdgeInsets.all(0),
-    this.margin = const EdgeInsets.all(0),
-    this.orientation = Axis.vertical,
-    this.bgColor = BaseColorUtils.colorWindow,
-    this.decoration,
-    this.height,
-    this.headerView})
+  Scrollview(
+      {Key key,
+      @required this.children,
+      this.padding,
+      this.margin,
+      this.orientation,
+      this.bgColor,
+      this.decoration,
+      this.height,
+      this.headerView})
       : super(key: key);
 
   @override
@@ -33,13 +34,13 @@ class Scrollview extends StatelessWidget {
     if (null != headerView) children.insert(0, headerView);
 
     return Container(
-      color: bgColor,
-      padding: padding,
+      color: bgColor ?? BaseColorUtils.colorWindow,
+      padding: padding ?? EdgeInsets.all(0),
       height: height,
-      margin: margin,
+      margin: margin ?? EdgeInsets.all(0),
       decoration: decoration,
       child: ListView(
-        scrollDirection: orientation,
+        scrollDirection: orientation ?? Axis.vertical,
         children: children,
         reverse: false,
         shrinkWrap: false,

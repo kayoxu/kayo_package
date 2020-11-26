@@ -9,23 +9,23 @@ import 'package:kayo_package/views/widget/visible_view.dart';
 ///  Copyright © 2019 kayoxu. All rights reserved.
 
 class LineView extends StatefulWidget {
-  Visible visible;
-  EdgeInsets margin;
-  EdgeInsets padding;
-  double height;
-  double width;
-  Color color;
-  double radius;
+  final Visible visible;
+  final EdgeInsets margin;
+  final EdgeInsets padding;
+  final double height;
+  final double width;
+  final Color color;
+  final double radius;
 
-  LineView(
+  const LineView(
       {Key key,
       this.visible,
       this.margin,
       this.padding,
       this.height,
       this.width,
-      this.radius,
-      this.color})
+      this.color,
+      this.radius})
       : super(key: key);
 
   @override
@@ -35,20 +35,15 @@ class LineView extends StatefulWidget {
 class LineViewState extends State<LineView> {
   @override
   Widget build(BuildContext context) {
-    widget.height = widget.height ?? .5;
-    widget.width = widget.width ?? double.infinity;
-    widget.color = widget.color ?? BaseColorUtils.colorGreyLiteLiteLite;
-    widget.visible = widget.visible ?? Visible.visible;
-
     return VisibleView(
-      visible: widget.visible,
+      visible: widget.visible ?? Visible.visible,
       child: Container(
         margin: widget.margin,
         padding: widget.padding,
-        width: widget.width,
-        height: widget.height,
+        width: widget.width ?? double.infinity,
+        height: widget.height ?? .5,
         decoration: BoxDecoration(
-            color: widget.color,
+            color: widget.color ?? BaseColorUtils.colorGreyLiteLiteLite,
             borderRadius:
                 BorderRadius.all(Radius.circular(widget.radius ?? 0))),
       ),
