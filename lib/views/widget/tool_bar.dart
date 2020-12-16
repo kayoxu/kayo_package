@@ -31,6 +31,8 @@ class ToolBar extends StatefulWidget {
   final String toolbarSrc;
   final Color toolbarStartBgColor;
   final Color toolbarEndBgColor;
+  final Alignment toolbarStartBgColorAlignment;
+  final Alignment toolbarEndBgColorAlignment;
   final Widget toolbarSubView;
   final double marginToolbarTop;
   final bool centerTitle;
@@ -57,6 +59,8 @@ class ToolBar extends StatefulWidget {
     this.toolbarSrc,
     this.toolbarStartBgColor,
     this.toolbarEndBgColor,
+    this.toolbarEndBgColorAlignment,
+    this.toolbarStartBgColorAlignment,
     this.toolbarSubView,
     this.marginToolbarTop,
     this.floatingActionButton,
@@ -144,12 +148,18 @@ class ToolBarState extends State<ToolBar> {
                       decoration: (null != widget.toolbarStartBgColor ||
                               null != widget.toolbarEndBgColor)
                           ? BoxDecoration(
-                              gradient: LinearGradient(colors: [
-                                widget.toolbarStartBgColor ??
-                                    widget.toolbarEndBgColor,
-                                widget.toolbarEndBgColor ??
-                                    widget.toolbarStartBgColor
-                              ]),
+                              gradient: LinearGradient(
+                                colors: [
+                                  widget.toolbarStartBgColor ??
+                                      widget.toolbarEndBgColor,
+                                  widget.toolbarEndBgColor ??
+                                      widget.toolbarStartBgColor
+                                ],
+                                begin: widget.toolbarStartBgColorAlignment ??
+                                    Alignment.centerLeft,
+                                end: widget.toolbarEndBgColorAlignment ??
+                                    Alignment.centerRight,
+                              ),
 //                              borderRadius: BorderRadius.circular(widget.radius)
                             )
                           : BoxDecoration(
@@ -196,7 +206,7 @@ class ToolBarState extends State<ToolBar> {
         : WillPopScope(
             child: scaffold,
             onWillPop: widget.noBack == true && widget.onWillPop == null
-                ? ()async {
+                ? () async {
                     return false;
                   }
                 : widget.onWillPop);
