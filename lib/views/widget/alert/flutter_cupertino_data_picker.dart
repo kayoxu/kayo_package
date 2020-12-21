@@ -19,7 +19,7 @@ class DataPicker {
       DataChangedCallback onConfirm,
       DataChangedCallback2 onConfirm2,
       String suffix: '',
-      String title ,
+      String title,
       String locale: 'zh',
       bool bottomSheet: true}) {
     if (true == bottomSheet) {
@@ -52,7 +52,7 @@ class DataPicker {
             onConfirm2: onConfirm2,
             locale: locale,
             suffix: suffix,
-            title: title??'',
+            title: title ?? '',
             theme: Theme.of(context, shadowThemeOnly: true),
             barrierLabel:
                 MaterialLocalizations.of(context).modalBarrierDismissLabel,
@@ -473,6 +473,8 @@ class _BottomSheetSingleState extends State<BottomSheetSingleWidget> {
                   child: TextView(
                 widget.title ?? '请选择',
                 maxLine: 2,
+                textAlign: TextAlign.center,
+                alignment: Alignment.center,
                 color: BaseColorUtils.colorBlack,
                 size: 17,
                 fontWeight: FontWeight.w600,
