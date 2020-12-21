@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kayo_package/kayo_package.dart';
 
 typedef DataChangedCallback(dynamic data);
 typedef DataChangedCallback2(int index, dynamic data);
@@ -10,34 +11,52 @@ const double _kDataPickerItemHeight = 36.0;
 const double _kDataPickerFontSize = 15.0;
 
 class DataPicker {
-  static void showDataPicker(
-    BuildContext context, {
-    bool showTitleActions: true,
-    @required List<dynamic> datas,
-    int selectedIndex: 0,
-    DataChangedCallback onChanged,
-    DataChangedCallback onConfirm,
-    DataChangedCallback2 onConfirm2,
-    suffix: '',
-    title: '',
-    locale: 'zh',
-  }) {
-    Navigator.push(
-        context,
-        new _DataPickerRoute(
-          showTitleActions: showTitleActions,
-          initialData: selectedIndex,
-          datas: datas,
-          onChanged: onChanged,
-          onConfirm: onConfirm,
-          onConfirm2: onConfirm2,
-          locale: locale,
-          suffix: suffix,
-          title: title,
-          theme: Theme.of(context, shadowThemeOnly: true),
-          barrierLabel:
-              MaterialLocalizations.of(context).modalBarrierDismissLabel,
-        ));
+  static void showDataPicker(BuildContext context,
+      {bool showTitleActions: true,
+      @required List<dynamic> datas,
+      int selectedIndex: 0,
+      DataChangedCallback onChanged,
+      DataChangedCallback onConfirm,
+      DataChangedCallback2 onConfirm2,
+      String suffix: '',
+      String title: '',
+      String locale: 'zh',
+      bool bottomSheet: true}) {
+    if (true == bottomSheet) {
+      showModalBottomSheet(
+          context: context,
+          isDismissible: true,
+          isScrollControlled: false,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(12), topRight: Radius.circular(12))),
+          builder: (BuildContext context) {
+            return BottomSheetSingleWidget(
+              datas: datas,
+              selectedIndex: selectedIndex,
+              onChanged: onChanged,
+              onConfirm2: onConfirm2,
+              onConfirm: onConfirm,
+            );
+          });
+    } else {
+      Navigator.push(
+          context,
+          new _DataPickerRoute(
+            showTitleActions: showTitleActions,
+            initialData: selectedIndex,
+            datas: datas,
+            onChanged: onChanged,
+            onConfirm: onConfirm,
+            onConfirm2: onConfirm2,
+            locale: locale,
+            suffix: suffix,
+            title: title,
+            theme: Theme.of(context, shadowThemeOnly: true),
+            barrierLabel:
+                MaterialLocalizations.of(context).modalBarrierDismissLabel,
+          ));
+    }
   }
 }
 
@@ -380,5 +399,143 @@ class _BottomPickerLayout extends SingleChildLayoutDelegate {
   @override
   bool shouldRelayout(_BottomPickerLayout oldDelegate) {
     return progress != oldDelegate.progress;
+  }
+}
+
+class BottomSheetSingleWidget extends StatefulWidget {
+  final int selectedIndex;
+  final List<dynamic> datas;
+  final String title;
+
+  final DataChangedCallback onChanged;
+  final DataChangedCallback onConfirm;
+  final DataChangedCallback2 onConfirm2;
+
+  const BottomSheetSingleWidget(
+      {Key key,
+      this.datas,
+      this.selectedIndex,
+      this.title,
+      this.onChanged,
+      this.onConfirm,
+      this.onConfirm2})
+      : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _BottomSheetSingleState();
+}
+
+class _BottomSheetSingleState extends State<BottomSheetSingleWidget> {
+  double itemHeight = 56;
+  double marginBottom = 20;
+  double viewHeight = 0;
+  int selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedIndex = widget.selectedIndex;
+
+    viewHeight = itemHeight * (widget.datas?.length ?? 0) + marginBottom;
+
+    if (viewHeight > 300) {
+      viewHeight = 300;
+    } else if (viewHeight < 100) {
+      viewHeight = 100;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+        child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          height: itemHeight,
+          child: Row(
+            children: [
+              TextView(
+                '取消',
+                color: BaseColorUtils.colorAccent,
+                radius: 10,
+                size: 15,
+                fontWeight: FontWeight.w600,
+                padding:
+                    EdgeInsets.only(left: 17, right: 17, bottom: 12, top: 12),
+                margin: EdgeInsets.only(left: 6),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              Expanded(
+                  child: TextView(
+                widget.title ?? '',
+                maxLine: 2,
+                color: BaseColorUtils.colorBlack,
+                size: 17,
+                fontWeight: FontWeight.w600,
+                margin: EdgeInsets.only(left: 16, right: 16),
+              )),
+              TextView(
+                '确定',
+                radius: 10,
+                color: BaseColorUtils.colorAccent,
+                size: 15,
+                fontWeight: FontWeight.w600,
+                padding:
+                    EdgeInsets.only(left: 17, right: 17, bottom: 12, top: 12),
+                margin: EdgeInsets.only(right: 6),
+                onTap: () {
+                  widget?.onConfirm?.call(widget.datas[selectedIndex]);
+                  widget?.onConfirm2
+                      ?.call(selectedIndex, widget.datas[selectedIndex]);
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        ),
+        Container(
+          height: viewHeight,
+          child: ListView.builder(
+            itemBuilder: (context, index) {
+              return ListTile(
+                contentPadding: EdgeInsets.only(left: 32, right: 32),
+                title: TextView(
+                  widget.datas[index].toString(),
+                  size: 15,
+                  color: selectedIndex == index
+                      ? BaseColorUtils.colorAccent
+                      : BaseColorUtils.colorBlack,
+                  fontWeight: selectedIndex == index
+                      ? FontWeight.w600
+                      : FontWeight.normal,
+                ),
+                trailing: selectedIndex == index
+                    ? ImageView(
+                        height: 17,
+                        width: 17,
+                        src: 'packages/kayo_package/assets/base_ic_checked.png',
+                        // src: 'assets/ic_moren.png',
+                      )
+                    : Container(
+                        height: 17,
+                        width: 17,
+                      ),
+                onTap: () {
+                  setState(() {
+                    selectedIndex = index;
+                    widget?.onChanged?.call(widget.datas[index]);
+                  });
+                },
+              );
+            },
+            itemExtent: itemHeight,
+            itemCount: (widget.datas?.length ?? 0),
+          ),
+        )
+      ],
+    ));
   }
 }
