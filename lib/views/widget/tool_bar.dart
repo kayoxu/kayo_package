@@ -41,9 +41,11 @@ class ToolBar extends StatefulWidget {
   final bool noAppBar;
   final Widget leading;
   final bool noBack;
+  final Key key;
 
   ToolBar({
     @required this.child,
+    this.key,
     this.title = '',
     this.titelWidget,
     this.appBar,
@@ -70,7 +72,7 @@ class ToolBar extends StatefulWidget {
     this.noAppBar,
     this.leading,
     this.noBack,
-  });
+  }) : super(key: key);
 
   @override
   ToolBarState createState() => ToolBarState();
@@ -133,6 +135,7 @@ class ToolBarState extends State<ToolBar> {
         : widget.appBar;
 
     var scaffold = Scaffold(
+      key: widget.key,
       resizeToAvoidBottomPadding: widget.resizeToAvoidBottomPadding,
       backgroundColor: null != widget.backgroundColor
           ? widget.backgroundColor
