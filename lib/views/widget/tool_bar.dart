@@ -42,6 +42,7 @@ class ToolBar extends StatefulWidget {
   final Widget leading;
   final bool noBack;
   final Key key;
+  final double titleSpacing;
 
   ToolBar({
     @required this.child,
@@ -72,6 +73,7 @@ class ToolBar extends StatefulWidget {
     this.noAppBar,
     this.leading,
     this.noBack,
+    this.titleSpacing,
   }) : super(key: key);
 
   @override
@@ -85,6 +87,8 @@ class ToolBarState extends State<ToolBar> {
         ? AppBar(
             actions: widget.actions,
             elevation: widget.elevation,
+            titleSpacing:
+                widget.titleSpacing ?? NavigationToolbar.kMiddleSpacing,
             leading: widget.noBack == true
                 ? Container()
                 : widget.leading != null

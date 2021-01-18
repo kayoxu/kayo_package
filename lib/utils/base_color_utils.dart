@@ -42,7 +42,7 @@ class BaseColorUtils {
   static const Color colorGrey = Color(0xFF666666);
   static const Color colorGreyLite = Color(0xFF8F8F8F);
   static const Color colorGreyLiteLite = Color(0xFFB8B8B8);
-  static const Color colorGreyLiteLiteLite = Color(0xFFDEDEDE);
+  static const Color colorGreyLiteLiteLite = Color(0x88DEDEDE);
 
   static const Color colorTransparent = Color(0x00000000);
   static const Color transparent = Color(0x00000000);
