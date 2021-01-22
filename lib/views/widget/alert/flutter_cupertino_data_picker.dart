@@ -33,6 +33,7 @@ class DataPicker {
           builder: (BuildContext context) {
             return BottomSheetSingleWidget(
               datas: datas,
+              isEN: !BaseSysUtils.equals('zh', locale),
               selectedIndex: selectedIndex,
               onChanged: onChanged,
               onConfirm2: onConfirm2,
