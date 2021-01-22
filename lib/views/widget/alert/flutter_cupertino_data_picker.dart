@@ -411,6 +411,7 @@ class BottomSheetSingleWidget extends StatefulWidget {
   final DataChangedCallback onChanged;
   final DataChangedCallback onConfirm;
   final DataChangedCallback2 onConfirm2;
+  final bool isEN;
 
   const BottomSheetSingleWidget(
       {Key key,
@@ -419,7 +420,8 @@ class BottomSheetSingleWidget extends StatefulWidget {
       this.title,
       this.onChanged,
       this.onConfirm,
-      this.onConfirm2})
+      this.onConfirm2,
+      this.isEN})
       : super(key: key);
 
   @override
@@ -457,7 +459,7 @@ class _BottomSheetSingleState extends State<BottomSheetSingleWidget> {
           child: Row(
             children: [
               TextView(
-                '取消',
+                widget.isEN == true ? 'Cancel' : '取消',
                 color: BaseColorUtils.colorAccent,
                 radius: 10,
                 size: 15,
@@ -471,7 +473,7 @@ class _BottomSheetSingleState extends State<BottomSheetSingleWidget> {
               ),
               Expanded(
                   child: TextView(
-                widget.title ?? '请选择',
+                widget.title ?? (widget.isEN == true ? 'SELECT' : '请选择'),
                 maxLine: 2,
                 textAlign: TextAlign.center,
                 alignment: Alignment.center,
@@ -481,7 +483,7 @@ class _BottomSheetSingleState extends State<BottomSheetSingleWidget> {
                 margin: EdgeInsets.only(left: 16, right: 16),
               )),
               TextView(
-                '确定',
+                widget.isEN == true ? 'Confirm' : '确定',
                 radius: 10,
                 color: BaseColorUtils.colorAccent,
                 size: 15,
