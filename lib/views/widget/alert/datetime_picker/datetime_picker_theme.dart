@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class DatePickerTheme with Diagnosticable {
   final TextStyle cancelStyle;
+  final TextStyle doneStyle;
   final Color doneColor;
   final TextStyle itemStyle;
   final Color backgroundColor;
@@ -17,7 +18,10 @@ class DatePickerTheme with Diagnosticable {
   final double doneBtnHeight;
 
   const DatePickerTheme({
-    this.cancelStyle = const TextStyle(color: Color(0xff999999), fontSize: 18),
+    this.cancelStyle = const TextStyle(
+        color: Color(0xff1E6FF4), fontSize: 15, fontWeight: FontWeight.bold),
+    this.doneStyle = const TextStyle(
+        color: Color(0xff1E6FF4), fontSize: 15, fontWeight: FontWeight.bold),
     this.doneColor = const Color(0xff1E6FF4),
     this.itemStyle = const TextStyle(
         color: Color(0xFF333333), fontSize: 15, fontWeight: FontWeight.w500),
@@ -28,6 +32,6 @@ class DatePickerTheme with Diagnosticable {
     this.timeTitleHeight = 27.0,
     this.timeTimeHeight = 27.0,
     this.centerLineHeight = 28.0, //32
-    this.doneBtnHeight = 66,
+    this.doneBtnHeight = 0, //66
   });
 }

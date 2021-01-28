@@ -487,8 +487,6 @@ class _DatePickerState extends State<_DatePickerComponent> {
   Widget _renderItemView(DatePickerTheme theme) {
     var length = widget.pickerModel2.layoutProportions().length;
 
-    String done = _localeDone();
-
     return Container(
       color: theme.backgroundColor ?? Colors.white,
       child: Column(
@@ -732,16 +730,62 @@ class _DatePickerState extends State<_DatePickerComponent> {
               ],
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  // Title View
+  Widget _renderTitleActionsView(DatePickerTheme theme) {
+    String cancel = _localeCancel();
+    String done = _localeDone();
+
+    return Container(
+      height: theme.titleHeight,
+      decoration: BoxDecoration(
+          color: theme.backgroundColor ?? Colors.white,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
           Container(
-            height: theme.doneBtnHeight,
-            child: ButtonView(
-              width: double.infinity,
-              margin: EdgeInsets.only(left: 30, right: 30, top: 5, bottom: 17),
-              text: '$done',
-              bgColor: theme.doneColor,
-              radius: 32,
-              showShadow: false,
-              color: Colors.white,
+            height: theme.titleHeight,
+            child: CupertinoButton(
+              pressedOpacity: 0.3,
+              padding: EdgeInsets.only(left: 16, top: 0),
+              child: Text(
+                '$cancel',
+                style: theme.cancelStyle,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+                if (null != widget.onCancel) widget.onCancel();
+              },
+            ),
+          ),
+          Expanded(
+              child: Container(
+            alignment: Alignment.center,
+            padding: EdgeInsets.only(left: 16, top: 0),
+            height: theme.titleHeight,
+            child: TextView(
+              widget.title ??
+                  (widget.onlyStart ? _chooseTimeOlnyStart() : _chooseTime()),
+              color: Color(0xff191D2D),
+              size: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          )),
+          Container(
+            height: theme.titleHeight,
+            child: CupertinoButton(
+              pressedOpacity: 0.3,
+              padding: EdgeInsets.only(right: 16, top: 0),
+              child: Text(
+                '$done',
+                style: theme.doneStyle,
+              ),
               onPressed: () {
                 if (widget.pickerModel
                         .finalTime()
@@ -770,51 +814,6 @@ class _DatePickerState extends State<_DatePickerComponent> {
                   print(
                       '🌶️，${widget.pickerModel.finalTime()} ----- ${widget.pickerModel2.finalTime()}');
                 }
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // Title View
-  Widget _renderTitleActionsView(DatePickerTheme theme) {
-    String cancel = _localeCancel();
-
-    return Container(
-      height: theme.titleHeight,
-      decoration: BoxDecoration(
-          color: theme.backgroundColor ?? Colors.white,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10), topRight: Radius.circular(10))),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Container(
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.only(left: 16, top: 0),
-            height: theme.titleHeight,
-            child: TextView(
-              widget.title ??
-                  (widget.onlyStart ? _chooseTimeOlnyStart() : _chooseTime()),
-              color: Color(0xff191D2D),
-              size: 18,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          Container(
-            height: theme.titleHeight,
-            child: CupertinoButton(
-              pressedOpacity: 0.3,
-              padding: EdgeInsets.only(right: 16, top: 0),
-              child: Text(
-                '$cancel',
-                style: theme.cancelStyle,
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-                if (null != widget.onCancel) widget.onCancel();
               },
             ),
           ),
