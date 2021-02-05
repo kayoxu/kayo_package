@@ -16,6 +16,7 @@ class ToolBar extends StatefulWidget {
   final String title;
   final Widget titelWidget;
   final Widget floatingActionButton;
+  final FloatingActionButtonLocation floatingActionButtonLocation;
 
   final Widget appBar;
 
@@ -67,6 +68,7 @@ class ToolBar extends StatefulWidget {
     this.toolbarSubView,
     this.marginToolbarTop,
     this.floatingActionButton,
+    this.floatingActionButtonLocation,
     this.centerTitle = true,
     this.onWillPop,
     this.leadingIcon,
@@ -207,6 +209,7 @@ class ToolBarState extends State<ToolBar> {
               child: widget.child,
             ),
       floatingActionButton: widget.floatingActionButton,
+      floatingActionButtonLocation: widget.floatingActionButtonLocation,
     );
     return widget.noBack != true && null == widget.onWillPop
         ? scaffold
