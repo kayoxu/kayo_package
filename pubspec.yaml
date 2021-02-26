@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  intl: ^0.16.1               # Jan 6, 2020
+  intl: ^0.17.0               # Jan 6, 2020
 #  flutter_svg: ^0.17.3+1        # Mar 9, 2020
   fluro: ^1.6.1               # Mar 28, 2020
 #  cupertino_icons: ^0.1.2     # Apr 5, 2018
