@@ -44,6 +44,7 @@ class ImageView extends StatefulWidget {
   EdgeInsets imagePadding;
   Color imagePaddingColor;
   double imagePaddingRadius;
+  String defaultImage;
 
   var isDown = false;
 
@@ -69,6 +70,7 @@ class ImageView extends StatefulWidget {
     this.imagePadding,
     this.imagePaddingColor,
     this.imagePaddingRadius,
+    this.defaultImage,
     this.aspectRatio = -1,
     this.useCache = false,
   }) : super(key: key);
@@ -91,7 +93,7 @@ class ImageViewState extends State<ImageView> {
       if (widget.useCache) {
         image = CachedNetworkImage(
           placeholder: (context, str) {
-            return Image.asset(source('ic_moren'));
+            return Image.asset(widget.defaultImage??source('ic_moren'));
           },
           imageUrl: widget.url,
           width: widget.width,
@@ -100,7 +102,7 @@ class ImageViewState extends State<ImageView> {
         );
       } else {
         image = FadeInImage.assetNetwork(
-          placeholder: source('ic_moren'),
+          placeholder:widget.defaultImage?? source('ic_moren'),
           image: widget.url,
           width: widget.width,
           height: widget.height,
@@ -133,7 +135,7 @@ class ImageViewState extends State<ImageView> {
           height: widget.height,
           fit: widget.fit);
     } else {
-      image = Image.asset('assets/ic_moren.png',
+      image = Image.asset(widget.defaultImage??'assets/ic_moren.png',
           color: widget.color,
           width: widget.width,
           height: widget.height,
