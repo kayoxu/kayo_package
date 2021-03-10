@@ -27,6 +27,7 @@ class BaseViewUtils {
             margin: EdgeInsets.only(bottom: marginImageTop),
             width: width ?? 120,
             height: height ?? 120,
+            fit: BoxFit.fitWidth,
           ),
           TextView(
             msg ?? '',
