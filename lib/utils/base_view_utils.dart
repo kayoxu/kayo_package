@@ -19,8 +19,8 @@ class BaseViewUtils {
     return Container(
       alignment: Alignment.topCenter,
       margin: null == margin ? EdgeInsets.only(top: 60) : margin,
-      child: Stack(
-        alignment: Alignment.center,
+      child: Column(
+        // alignment: Alignment.center,
         children: <Widget>[
           ImageView(
             src: source(src ?? 'ic_no_data'),
@@ -28,13 +28,11 @@ class BaseViewUtils {
             width: width ?? 120,
             height: height ?? 120,
           ),
-          Positioned(
-            child: TextView(
-              msg ?? '',
-              size: msgSize ?? 14,
-              color: msgColor ?? BaseColorUtils.colorGreyLite,
-            ),
-            bottom: 0,
+          TextView(
+            msg ?? '',
+            size: msgSize ?? 13,
+            margin: EdgeInsets.only(top: 4),
+            color: msgColor ?? BaseColorUtils.colorBlackLiteLite,
           )
         ],
       ),
