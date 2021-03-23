@@ -9,6 +9,8 @@ class TabBarWidget extends StatefulWidget {
   ///底部模式type
   static const int BOTTOM_TAB = 1;
 
+  static const int BOTTOM_TAB_CAN_NULL = 5;
+
   ///顶部模式type
   static const int TOP_TAB = 2;
   static const int TOP_TAB_NO_TITLE = 4;
@@ -118,8 +120,9 @@ class TabBarWidgetState extends State<TabBarWidget>
         }
       }
     };
-
-    _tabController.addListener(_tabControllerChangeCallBack);
+    if (this.widget.type != TabBarWidget.BOTTOM_TAB_CAN_NULL) {
+      _tabController.addListener(_tabControllerChangeCallBack);
+    }
   }
 
   ///整个页面dispose时，记得把控制器也dispose掉，释放内存
@@ -304,6 +307,42 @@ class TabBarWidgetState extends State<TabBarWidget>
                 ),
               ),
             ),
+          ));
+    } else if (this.widget.type == TabBarWidget.BOTTOM_TAB_CAN_NULL) {
+      ///顶部tab bar
+      return new Scaffold(
+          floatingActionButton: widget.floatingActionButton,
+          persistentFooterButtons: widget.tarWidgetControl == null
+              ? null
+              : widget.tarWidgetControl.footerButton,
+          body: Column(
+            children: [
+              Expanded(
+                  child: new PageView(
+                controller: widget.topPageControl ?? _pageController,
+                children: widget.tabViews,
+                physics: NeverScrollableScrollPhysics(),
+              )),
+              new TabBar(
+                  controller: _tabController,
+                  tabs: widget.tabItems,
+                  physics: NeverScrollableScrollPhysics(),
+                  indicatorColor: widget.indicatorColor,
+                  indicator: null,
+                  onTap: (index) {
+                    var view = widget.tabViews[index];
+                    if (!(view is Container)) {
+                      if (_pageController.hasClients &&
+                          index != _pageController.page) {
+                        _pageController?.animateToPage(index,
+                            duration: Duration(milliseconds: 300),
+                            curve: Curves.easeInOutQuint);
+                        widget.onPageChanged?.call(index);
+                      }
+                    }
+                    widget.onTabChanged.call(index);
+                  })
+            ],
           ));
     } else {
       ///隐藏Tab
