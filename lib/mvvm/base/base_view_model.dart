@@ -1,4 +1,6 @@
+import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
+import 'package:kayo_package/mvvm/base/base_view_model_bus_event.dart';
 
 ///
 ///  kayo_package
@@ -25,6 +27,10 @@ class BaseViewModel with ChangeNotifier {
       : _viewState = (viewState ?? ViewState.idle),
         context = context {
     debugPrint('BaseViewModel---constructor--->$runtimeType');
+
+    BaseViewModelBusEvent?.handleFunction(
+        viewModel: '$runtimeType',
+        type: BaseViewModelBusEvent.BASE_VIEW_MODEL_PUSH);
   }
 
   /// ViewState
@@ -33,7 +39,6 @@ class BaseViewModel with ChangeNotifier {
   setBuildContext(BuildContext context) {
     this.context = context;
   }
-
 
   set viewState(ViewState viewState) {
 //    _viewStateError = null;
@@ -72,6 +77,10 @@ class BaseViewModel with ChangeNotifier {
   void dispose() {
     _disposed = true;
     debugPrint('BaseViewModel dispose -->$runtimeType');
+
+    BaseViewModelBusEvent?.handleFunction(
+        viewModel: '$runtimeType',
+        type: BaseViewModelBusEvent.BASE_VIEW_MODEL_POP);
     super.dispose();
   }
 
