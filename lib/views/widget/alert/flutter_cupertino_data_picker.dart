@@ -54,7 +54,7 @@ class DataPicker {
             locale: locale,
             suffix: suffix,
             title: title ?? '',
-            theme: Theme.of(context, shadowThemeOnly: true),
+            theme: Theme.of(context/*, shadowThemeOnly: true*/),
             barrierLabel:
                 MaterialLocalizations.of(context).modalBarrierDismissLabel,
           ));

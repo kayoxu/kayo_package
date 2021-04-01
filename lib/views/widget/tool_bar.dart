@@ -142,7 +142,8 @@ class ToolBarState extends State<ToolBar> {
 
     var scaffold = Scaffold(
       key: widget.key,
-      resizeToAvoidBottomPadding: widget.resizeToAvoidBottomPadding,
+      // resizeToAvoidBottomPadding: widget.resizeToAvoidBottomPadding,
+      resizeToAvoidBottomInset: widget.resizeToAvoidBottomPadding,
       backgroundColor: null != widget.backgroundColor
           ? widget.backgroundColor
           : BaseColorUtils.colorWindow,

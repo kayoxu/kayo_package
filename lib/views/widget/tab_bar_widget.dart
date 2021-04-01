@@ -323,25 +323,26 @@ class TabBarWidgetState extends State<TabBarWidget>
                 children: widget.tabViews,
                 physics: NeverScrollableScrollPhysics(),
               )),
-              new TabBar(
-                  controller: _tabController,
-                  tabs: widget.tabItems,
-                  physics: NeverScrollableScrollPhysics(),
-                  indicatorColor: widget.indicatorColor,
-                  indicator: null,
-                  onTap: (index) {
-                    var view = widget.tabViews[index];
-                    if (!(view is Container)) {
-                      if (_pageController.hasClients &&
-                          index != _pageController.page) {
-                        _pageController?.animateToPage(index,
-                            duration: Duration(milliseconds: 300),
-                            curve: Curves.easeInOutQuint);
-                        widget.onPageChanged?.call(index);
-                      }
-                    }
-                    widget.onTabChanged.call(index);
-                  })
+              SafeArea(
+                  child: new TabBar(
+                      controller: _tabController,
+                      tabs: widget.tabItems,
+                      physics: NeverScrollableScrollPhysics(),
+                      indicatorColor: widget.indicatorColor,
+                      indicator: null,
+                      onTap: (index) {
+                        var view = widget.tabViews[index];
+                        if (!(view is Container)) {
+                          if (_pageController.hasClients &&
+                              index != _pageController.page) {
+                            _pageController?.animateToPage(index,
+                                duration: Duration(milliseconds: 300),
+                                curve: Curves.easeInOutQuint);
+                            widget.onPageChanged?.call(index);
+                          }
+                        }
+                        widget.onTabChanged.call(index);
+                      }))
             ],
           ));
     } else {

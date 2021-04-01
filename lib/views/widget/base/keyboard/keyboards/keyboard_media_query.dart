@@ -26,7 +26,7 @@ class KeyboardMediaQueryState extends State<KeyboardMediaQuery >{
   Widget build(BuildContext context) {
     
     // TODO: implement build
-    var data = MediaQuery.of(context, nullOk: true);
+    var data = MediaQuery.of(context/*, nullOk: true*/);
     if(data == null){
       data = MediaQueryData.fromWindow(WidgetsBinding.instance.window);
     }
