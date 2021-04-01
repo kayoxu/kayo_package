@@ -158,7 +158,7 @@ class DatePicker {
     }, onDateTimeChange: (s, e) {
       onChanged?.call(s, time2: e);
       onChanged2?.call(s, time2: e);
-    }, onCancel: onCancel, showEnd: onlyStart == true);
+    }, onCancel: onCancel, showEnd: onlyStart != true);
   }
 
   ///
