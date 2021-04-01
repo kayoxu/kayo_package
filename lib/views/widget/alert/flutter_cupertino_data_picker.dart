@@ -13,13 +13,13 @@ const double _kDataPickerFontSize = 15.0;
 class DataPicker {
   static void showDataPicker(BuildContext context,
       {bool showTitleActions: true,
-      @required List<dynamic> datas,
+      required List<dynamic> datas,
       int selectedIndex: 0,
-      DataChangedCallback onChanged,
-      DataChangedCallback onConfirm,
-      DataChangedCallback2 onConfirm2,
+      DataChangedCallback? onChanged,
+      DataChangedCallback? onConfirm,
+      DataChangedCallback2? onConfirm2,
       String suffix: '',
-      String title,
+      String? title,
       String locale: 'zh',
       bool bottomSheet: true}) {
     if (true == bottomSheet) {
@@ -54,7 +54,7 @@ class DataPicker {
             locale: locale,
             suffix: suffix,
             title: title ?? '',
-            theme: Theme.of(context/*, shadowThemeOnly: true*/),
+            theme: Theme.of(context /*, shadowThemeOnly: true*/),
             barrierLabel:
                 MaterialLocalizations.of(context).modalBarrierDismissLabel,
           ));
@@ -75,19 +75,19 @@ class _DataPickerRoute<T> extends PopupRoute<T> {
     this.locale,
     this.suffix,
     this.title,
-    RouteSettings settings,
+    RouteSettings? settings,
   }) : super(settings: settings);
 
-  final List<dynamic> datas;
-  final bool showTitleActions;
-  final int initialData;
-  final DataChangedCallback onChanged;
-  final DataChangedCallback onConfirm;
-  final DataChangedCallback2 onConfirm2;
-  final ThemeData theme;
-  final String locale;
-  final String suffix;
-  final String title;
+  final List<dynamic>? datas;
+  final bool? showTitleActions;
+  final int? initialData;
+  final DataChangedCallback? onChanged;
+  final DataChangedCallback? onConfirm;
+  final DataChangedCallback2? onConfirm2;
+  final ThemeData? theme;
+  final String? locale;
+  final String? suffix;
+  final String? title;
 
   @override
   Duration get transitionDuration => const Duration(milliseconds: 200);
@@ -96,20 +96,20 @@ class _DataPickerRoute<T> extends PopupRoute<T> {
   bool get barrierDismissible => true;
 
   @override
-  final String barrierLabel;
+  final String? barrierLabel;
 
   @override
   Color get barrierColor => Colors.black54;
 
-  AnimationController _animationController;
+  // AnimationController? _animationController;
 
-  @override
-  AnimationController createAnimationController() {
-    assert(_animationController == null);
-    _animationController =
-        BottomSheet.createAnimationController(navigator.overlay);
-    return _animationController;
-  }
+  // @override
+  // AnimationController createAnimationController() {
+  //   // assert(_animationController == null);
+  //   // _animationController =
+  //   //     BottomSheet.createAnimationController(navigator.overlay);
+  //   // return _animationController;
+  // }
 
   @override
   Widget buildPage(BuildContext context, Animation<double> animation,
@@ -128,7 +128,7 @@ class _DataPickerRoute<T> extends PopupRoute<T> {
       ),
     );
     if (theme != null) {
-      bottomSheet = new Theme(data: theme, child: bottomSheet);
+      bottomSheet = new Theme(data: theme!, child: bottomSheet);
     }
     return bottomSheet;
   }
@@ -136,8 +136,8 @@ class _DataPickerRoute<T> extends PopupRoute<T> {
 
 class _DataPickerComponent extends StatefulWidget {
   _DataPickerComponent({
-    Key key,
-    @required this.route,
+    Key? key,
+     required this.route,
     this.initialData: 0,
     this.datas,
     this.onChanged,
@@ -146,42 +146,42 @@ class _DataPickerComponent extends StatefulWidget {
     this.title,
   });
 
-  final DataChangedCallback onChanged;
-  final int initialData;
-  final List<dynamic> datas;
+  final DataChangedCallback? onChanged;
+  final int? initialData;
+  final List<dynamic>? datas;
 
-  final _DataPickerRoute route;
+  final _DataPickerRoute? route;
 
-  final String locale;
-  final String suffix;
-  final String title;
+  final String? locale;
+  final String? suffix;
+  final String? title;
 
   @override
   State<StatefulWidget> createState() => _DataPickerState(this.initialData);
 }
 
 class _DataPickerState extends State<_DataPickerComponent> {
-  int _initialIndex;
-  FixedExtentScrollController dataScrollCtrl;
+  int? _initialIndex;
+  FixedExtentScrollController? dataScrollCtrl;
 
   _DataPickerState(this._initialIndex) {
-    if (this._initialIndex < 0) {
+    if ((this._initialIndex ?? 0) < 0) {
       this._initialIndex = 0;
     }
     dataScrollCtrl =
-        new FixedExtentScrollController(initialItem: _initialIndex);
+        new FixedExtentScrollController(initialItem: _initialIndex ?? 0);
   }
 
   @override
   Widget build(BuildContext context) {
     return new GestureDetector(
       child: new AnimatedBuilder(
-        animation: widget.route.animation,
-        builder: (BuildContext context, Widget child) {
+        animation: widget.route!.animation!,
+        builder: (BuildContext? context, Widget? child) {
           return new ClipRect(
             child: new CustomSingleChildLayout(
-              delegate: new _BottomPickerLayout(widget.route.animation.value,
-                  showTitleActions: widget.route.showTitleActions),
+              delegate: new _BottomPickerLayout(widget.route!.animation!.value,
+                  showTitleActions: widget.route!.showTitleActions),
               child: new GestureDetector(
                 child: Material(
                   color: Colors.transparent,
@@ -205,13 +205,13 @@ class _DataPickerState extends State<_DataPickerComponent> {
 
   void _notifyDataChanged() {
     if (widget.onChanged != null) {
-      widget.onChanged(widget.datas[_initialIndex]);
+      widget.onChanged!(widget.datas![_initialIndex ?? 0]);
     }
   }
 
   Widget _renderPickerView() {
     Widget itemView = _renderItemView();
-    if (widget.route.showTitleActions) {
+    if (widget.route!.showTitleActions == true) {
       return Column(
         children: <Widget>[
           _renderTitleActionsView(),
@@ -236,7 +236,7 @@ class _DataPickerState extends State<_DataPickerComponent> {
             onSelectedItemChanged: (int index) {
               _setData(index);
             },
-            children: List.generate(widget.datas.length, (int index) {
+            children: List.generate(widget.datas!.length, (int index) {
               return Container(
                 height: _kDataPickerItemHeight,
                 alignment: Alignment.center,
@@ -244,7 +244,7 @@ class _DataPickerState extends State<_DataPickerComponent> {
                   children: <Widget>[
                     new Expanded(
                         child: Text(
-                      '${widget.datas[index]}$suffixAppend',
+                      '${widget.datas![index]}$suffixAppend',
                       style: TextStyle(
                           color: Color(0xFF000046),
                           fontSize: _kDataPickerFontSize),
@@ -261,7 +261,7 @@ class _DataPickerState extends State<_DataPickerComponent> {
   }
 
   Widget _renderItemView() {
-    return _renderDataPickerComponent(widget.suffix);
+    return _renderDataPickerComponent(widget.suffix!);
   }
 
   // Title View
@@ -292,7 +292,7 @@ class _DataPickerState extends State<_DataPickerComponent> {
             alignment: Alignment.center,
             height: _kDataPickerTitleHeight,
             child: Text(
-              widget.title,
+              widget.title??'',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 16.0,
@@ -310,12 +310,12 @@ class _DataPickerState extends State<_DataPickerComponent> {
                 ),
               ),
               onPressed: () {
-                if (widget.route.onConfirm != null) {
-                  widget.route.onConfirm(widget.datas[_initialIndex]);
+                if (widget.route!.onConfirm != null) {
+                  widget.route!.onConfirm!(widget.datas![_initialIndex ?? 0]);
                 }
-                if (widget.route.onConfirm2 != null) {
-                  widget.route
-                      .onConfirm2(_initialIndex, widget.datas[_initialIndex]);
+                if (widget.route!.onConfirm2 != null) {
+                  widget.route!.onConfirm2!(
+                      _initialIndex ?? 0, widget.datas![_initialIndex ?? 0]);
                 }
                 Navigator.pop(context);
               },
@@ -331,7 +331,7 @@ class _DataPickerState extends State<_DataPickerComponent> {
       return '确定';
     }
 
-    String lang = widget.locale.split('_').first;
+    String lang = widget.locale!.split('_').first;
 
     switch (lang) {
       case 'en':
@@ -353,7 +353,7 @@ class _DataPickerState extends State<_DataPickerComponent> {
       return '取消';
     }
 
-    String lang = widget.locale.split('_').first;
+    String lang = widget.locale!.split('_').first;
 
     switch (lang) {
       case 'en':
@@ -374,14 +374,14 @@ class _DataPickerState extends State<_DataPickerComponent> {
 class _BottomPickerLayout extends SingleChildLayoutDelegate {
   _BottomPickerLayout(this.progress, {this.itemCount, this.showTitleActions});
 
-  final double progress;
-  final int itemCount;
-  final bool showTitleActions;
+  final double? progress;
+  final int? itemCount;
+  final bool? showTitleActions;
 
   @override
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
     double maxHeight = _kDataPickerHeight;
-    if (showTitleActions) {
+    if (showTitleActions == true) {
       maxHeight += _kDataPickerTitleHeight;
     }
 
@@ -394,7 +394,7 @@ class _BottomPickerLayout extends SingleChildLayoutDelegate {
 
   @override
   Offset getPositionForChild(Size size, Size childSize) {
-    double height = size.height - childSize.height * progress;
+    double height = size.height - childSize.height * progress!;
     return new Offset(0.0, height);
   }
 
@@ -405,17 +405,17 @@ class _BottomPickerLayout extends SingleChildLayoutDelegate {
 }
 
 class BottomSheetSingleWidget extends StatefulWidget {
-  final int selectedIndex;
-  final List<dynamic> datas;
-  final String title;
+  final int? selectedIndex;
+  final List<dynamic>? datas;
+  final String? title;
 
-  final DataChangedCallback onChanged;
-  final DataChangedCallback onConfirm;
-  final DataChangedCallback2 onConfirm2;
-  final bool isEN;
+  final DataChangedCallback? onChanged;
+  final DataChangedCallback? onConfirm;
+  final DataChangedCallback2? onConfirm2;
+  final bool? isEN;
 
   const BottomSheetSingleWidget(
-      {Key key,
+      {Key? key,
       this.datas,
       this.selectedIndex,
       this.title,
@@ -438,7 +438,7 @@ class _BottomSheetSingleState extends State<BottomSheetSingleWidget> {
   @override
   void initState() {
     super.initState();
-    selectedIndex = widget.selectedIndex;
+    selectedIndex = widget.selectedIndex ?? 0;
 
     viewHeight = itemHeight * (widget.datas?.length ?? 0) + marginBottom;
 
@@ -493,9 +493,9 @@ class _BottomSheetSingleState extends State<BottomSheetSingleWidget> {
                     EdgeInsets.only(left: 17, right: 17, bottom: 12, top: 12),
                 margin: EdgeInsets.only(right: 6),
                 onTap: () {
-                  widget?.onConfirm?.call(widget.datas[selectedIndex]);
+                  widget?.onConfirm?.call(widget.datas?[selectedIndex]);
                   widget?.onConfirm2
-                      ?.call(selectedIndex, widget.datas[selectedIndex]);
+                      ?.call(selectedIndex, widget.datas?[selectedIndex]);
                   Navigator.pop(context);
                 },
               ),
@@ -509,7 +509,7 @@ class _BottomSheetSingleState extends State<BottomSheetSingleWidget> {
               return ListTile(
                 contentPadding: EdgeInsets.only(left: 32, right: 32),
                 title: TextView(
-                  widget.datas[index].toString(),
+                  widget.datas?[index]?.toString() ?? '',
                   size: 15,
                   color: selectedIndex == index
                       ? BaseColorUtils.colorAccent
@@ -532,7 +532,7 @@ class _BottomSheetSingleState extends State<BottomSheetSingleWidget> {
                 onTap: () {
                   setState(() {
                     selectedIndex = index;
-                    widget?.onChanged?.call(widget.datas[index]);
+                    widget?.onChanged?.call(widget.datas?[index]);
                   });
                 },
               );

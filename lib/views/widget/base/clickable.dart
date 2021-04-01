@@ -9,37 +9,37 @@ import 'package:kayo_package/views/widget/base/shadow_view.dart';
 ///  Copyright © 2019 kayoxu. All rights reserved.
 
 class Clickable extends StatefulWidget {
-  final Widget child;
-  final GestureTapCallback onTap;
-  final GestureTapCallback onDoubleTap;
-  final GestureLongPressCallback onLongPress;
-  final GestureTapDownCallback onTapDown;
-  final GestureTapCancelCallback onTapCancel;
-  final ValueChanged<bool> onHighlightChanged;
-  final Color highlightColor;
-  final Color splashColor;
-  final InteractiveInkFeatureFactory splashFactory;
-  double radius;
+  final Widget? child;
+  final GestureTapCallback? onTap;
+  final GestureTapCallback? onDoubleTap;
+  final GestureLongPressCallback? onLongPress;
+  final GestureTapDownCallback? onTapDown;
+  final GestureTapCancelCallback? onTapCancel;
+  final ValueChanged<bool>? onHighlightChanged;
+  final Color? highlightColor;
+  final Color? splashColor;
+  final InteractiveInkFeatureFactory? splashFactory;
+  double? radius;
 
-  final BorderRadius borderRadius;
-  final ShapeBorder customBorder;
-  final bool enableFeedback;
+  final BorderRadius? borderRadius;
+  final ShapeBorder? customBorder;
+  final bool? enableFeedback;
 
-  final bool excludeFromSemantics;
+  final bool? excludeFromSemantics;
 
-  final EdgeInsets margin;
-  final EdgeInsets padding;
-  Color bgColor;
-  double elevation;
-  Color shadowColor;
-  Decoration decoration;
-  Alignment alignment;
+  final EdgeInsets? margin;
+  final EdgeInsets? padding;
+  Color? bgColor;
+  double? elevation;
+  Color? shadowColor;
+  Decoration? decoration;
+  Alignment? alignment;
 
-  Color selectColor;
-  bool selected;
+  Color? selectColor;
+  bool? selected;
 
   Clickable({
-    Key key,
+    Key? key,
     @required this.child,
     this.onTap,
     this.onDoubleTap,
@@ -92,7 +92,7 @@ class ClickableState extends State<Clickable> {
               elevation: widget.elevation,
               shadowColor: widget.shadowColor,
               bgColor: widget.bgColor,
-              borderRadius: BorderRadius.circular(widget.radius),
+              borderRadius: BorderRadius.circular(widget.radius ?? 0),
               child: Container(
                 child: widget.child,
                 padding: widget.padding,
@@ -105,7 +105,7 @@ class ClickableState extends State<Clickable> {
                   ? widget.selectColor
                   : widget.bgColor,
               inkWell: true,
-              borderRadius: BorderRadius.circular(widget.radius),
+              borderRadius: BorderRadius.circular(widget.radius ?? 0),
               child: Container(
                 child: InkWell(
                   child: Container(
@@ -130,10 +130,10 @@ class ClickableState extends State<Clickable> {
 //                borderRadius: widget.borderRadius,
                   borderRadius: null != widget.borderRadius
                       ? widget.borderRadius
-                      : BorderRadius.all(Radius.circular(widget.radius)),
+                      : BorderRadius.all(Radius.circular(widget.radius ?? 0)),
                   customBorder: widget.customBorder,
                   enableFeedback: widget.enableFeedback,
-                  excludeFromSemantics: widget.excludeFromSemantics,
+                  excludeFromSemantics: widget.excludeFromSemantics ?? false,
                 ),
               ),
             ),

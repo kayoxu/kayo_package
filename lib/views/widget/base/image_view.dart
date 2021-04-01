@@ -20,36 +20,36 @@ source(String src, {String suffix = '.png'}) {
 }
 
 class ImageView extends StatefulWidget {
-  String src;
-  String url;
-  bool useCache;
-  File file;
-  double width;
-  double height;
-  double rootwidth;
-  double rootHeight;
+  String? src;
+  String? url;
+  bool? useCache;
+  File? file;
+  double? width;
+  double? height;
+  double? rootwidth;
+  double? rootHeight;
   BoxFit fit;
   double radius;
-  Color color;
+  Color? color;
   EdgeInsets margin;
   EdgeInsets padding;
 
-  VoidCallback onClick;
-  VoidCallback onLongClick;
+  VoidCallback? onClick;
+  VoidCallback? onLongClick;
 
-  double elevation;
-  Color shadowColor;
-  double aspectRatio;
-  Color bgColor;
-  EdgeInsets imagePadding;
-  Color imagePaddingColor;
-  double imagePaddingRadius;
-  String defaultImage;
+  double? elevation;
+  Color? shadowColor;
+  double? aspectRatio;
+  Color? bgColor;
+  EdgeInsets? imagePadding;
+  Color? imagePaddingColor;
+  double? imagePaddingRadius;
+  String? defaultImage;
 
   var isDown = false;
 
   ImageView({
-    Key key,
+    Key? key,
     this.src,
     this.url,
     this.file,
@@ -89,11 +89,11 @@ class ImageViewState extends State<ImageView> {
   @override
   Widget build(BuildContext context) {
     var image;
-    if (null != widget.url && widget.url != '' && widget.url.length > 10) {
-      if (widget.useCache) {
+    if (null != widget.url && widget.url != '' && widget.url!.length > 10) {
+      if (widget.useCache == true) {
         image = CachedNetworkImage(
           placeholder: (context, str) {
-            return Image.asset(widget.defaultImage??source('ic_moren'));
+            return Image.asset(widget.defaultImage ?? source('ic_moren'));
           },
           imageUrl: widget.url,
           width: widget.width,
@@ -102,8 +102,8 @@ class ImageViewState extends State<ImageView> {
         );
       } else {
         image = FadeInImage.assetNetwork(
-          placeholder:widget.defaultImage?? source('ic_moren'),
-          image: widget.url,
+          placeholder: widget.defaultImage ?? source('ic_moren'),
+          image: widget.url ?? '',
           width: widget.width,
           height: widget.height,
           fit: widget.fit,
@@ -119,9 +119,9 @@ class ImageViewState extends State<ImageView> {
 //        );
 //      } else
 
-        {
+      {
         image = Image.asset(
-          widget.src,
+          widget.src ?? '',
           color: widget.color,
           width: widget.width,
           height: widget.height,
@@ -129,13 +129,13 @@ class ImageViewState extends State<ImageView> {
         );
       }
     } else if (null != widget.file) {
-      image = Image.file(widget.file,
+      image = Image.file(widget.file!,
           color: widget.color,
           width: widget.width,
           height: widget.height,
           fit: widget.fit);
     } else {
-      image = Image.asset(widget.defaultImage??'assets/ic_moren.png',
+      image = Image.asset(widget.defaultImage ?? 'assets/ic_moren.png',
           color: widget.color,
           width: widget.width,
           height: widget.height,
@@ -151,61 +151,62 @@ class ImageViewState extends State<ImageView> {
         child: null == widget.onClick
             ? image
             : AnimatedContainer(
-          duration: Duration(milliseconds: 100),
-          foregroundDecoration: BoxDecoration(
-            color: widget.isDown
-                ? Colors.white.withOpacity(0.5)
-                : Colors.transparent,
-          ),
-          child: image,
-        ),
+                duration: Duration(milliseconds: 100),
+                foregroundDecoration: BoxDecoration(
+                  color: widget.isDown
+                      ? Colors.white.withOpacity(0.5)
+                      : Colors.transparent,
+                ),
+                child: image,
+              ),
       ),
     );
 
     var container2 = -1 == widget.aspectRatio
         ? container
-        : AspectRatio(aspectRatio: widget.aspectRatio, child: container);
+        : AspectRatio(aspectRatio: widget.aspectRatio ?? 1, child: container);
 
     return null != widget.imagePadding
         ? Container(
-      decoration: BoxDecoration(
-        color: widget.imagePaddingColor ?? Colors.transparent,
-        borderRadius: BorderRadius.circular(widget.imagePaddingRadius ?? 0),
-      ),
-      padding: widget.imagePadding,
-      alignment: Alignment.center,
-      child: image,
-    )
+            decoration: BoxDecoration(
+              color: widget.imagePaddingColor ?? Colors.transparent,
+              borderRadius:
+                  BorderRadius.circular(widget.imagePaddingRadius ?? 0),
+            ),
+            padding: widget.imagePadding,
+            alignment: Alignment.center,
+            child: image,
+          )
         : Clickable(
-      margin: widget.margin,
-      padding: widget.padding,
-      child: container2,
-      radius: widget.radius,
-      onTap: widget.onClick,
-      onLongPress: widget.onLongClick,
-      bgColor: Colors.transparent,
-      elevation: widget.elevation,
-      shadowColor: widget.shadowColor,
+            margin: widget.margin,
+            padding: widget.padding,
+            child: container2,
+            radius: widget.radius,
+            onTap: widget.onClick,
+            onLongPress: widget.onLongClick,
+            bgColor: Colors.transparent,
+            elevation: widget.elevation,
+            shadowColor: widget.shadowColor,
 
-      onTapDown: (d) {
-        setState(() {
-          widget.isDown = true;
-        });
-      },
+            onTapDown: (d) {
+              setState(() {
+                widget.isDown = true;
+              });
+            },
 
-      onHighlightChanged: (b) {
-        if (!b) {
-          setState(() {
-            widget.isDown = false;
-          });
-        }
-      },
-      //      onTapUp: (d) => setState(() => this.isDown = false),
-      onTapCancel: () {
-        setState(() {
-          widget.isDown = false;
-        });
-      },
-    );
+            onHighlightChanged: (b) {
+              if (!b) {
+                setState(() {
+                  widget.isDown = false;
+                });
+              }
+            },
+            //      onTapUp: (d) => setState(() => this.isDown = false),
+            onTapCancel: () {
+              setState(() {
+                widget.isDown = false;
+              });
+            },
+          );
   }
 }

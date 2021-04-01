@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kayo_package/kayo_package.dart';
+import 'package:kayo_package/views/widget/base/keyboard/cool_ui.dart';
 
 import 'keyboard_tools.dart';
 
@@ -11,7 +12,7 @@ class KeyboardPhone extends StatefulWidget {
     ;
   }
 
-  final KeyboardController controller;
+  final KeyboardController? controller;
 
   const KeyboardPhone({this.controller});
 
@@ -83,7 +84,7 @@ class KeyboardPhoneState extends State<KeyboardPhone> {
                               color: BaseColorUtils.colorGrey,
                             ),
                             onPressed: () {
-                              widget.controller.doneAction();
+                              widget.controller?.doneAction();
                             }))
                   ],
                 ),
@@ -143,7 +144,7 @@ class KeyboardPhoneState extends State<KeyboardPhone> {
               child: Icon(Icons.backspace),
             ),
             onTap: () {
-              widget.controller.deleteOne();
+              widget.controller?.deleteOne();
             },
           ))
         ],
@@ -151,7 +152,7 @@ class KeyboardPhoneState extends State<KeyboardPhone> {
     ];
   }
 
-  Widget buildButton(String title, {String value, int flex = 1}) {
+  Widget buildButton(String title, {String? value, int flex = 1}) {
     if (value == null) {
       value = title;
     }
@@ -175,7 +176,7 @@ class KeyboardPhoneState extends State<KeyboardPhone> {
           ),
           onTap: () {
             badKeyboard = false;
-            widget.controller.addText(value);
+            widget.controller?.addText(value!);
           },
         ));
   }

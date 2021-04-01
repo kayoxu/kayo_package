@@ -988,7 +988,7 @@ final _i18nModel = {
   },
 };
 //get international object
-Map<String, dynamic> i18nObjInLocale(LocaleType type) {
+Map<String, dynamic>? i18nObjInLocale(LocaleType? type) {
   switch (type) {
     case LocaleType.fa:
       return _i18nModel['fa'];

@@ -12,38 +12,38 @@ import 'base/image_view.dart';
 ///  Copyright © 2019 kayoxu. All rights reserved.
 
 class ToolBar extends StatefulWidget {
-  final Widget child;
-  final String title;
-  final Widget titelWidget;
-  final Widget floatingActionButton;
-  final FloatingActionButtonLocation floatingActionButtonLocation;
+  final Widget? child;
+  final String? title;
+  final Widget? titelWidget;
+  final Widget? floatingActionButton;
+  final FloatingActionButtonLocation? floatingActionButtonLocation;
 
-  final Widget appBar;
+  final PreferredSizeWidget? appBar;
 
-  final bool iosBack;
-  final VoidCallback backClick;
-  final Color backgroundColor;
-  final Color appbarColor;
-  final List<Widget> actions;
-  final bool resizeToAvoidBottomPadding;
-  final double elevation;
-  final bool darkStatusText;
-  final double toolbarHeight;
-  final String toolbarSrc;
-  final Color toolbarStartBgColor;
-  final Color toolbarEndBgColor;
-  final Alignment toolbarStartBgColorAlignment;
-  final Alignment toolbarEndBgColorAlignment;
-  final Widget toolbarSubView;
-  final double marginToolbarTop;
-  final bool centerTitle;
-  final Function onWillPop;
-  final Widget leadingIcon;
-  final bool noAppBar;
-  final Widget leading;
-  final bool noBack;
-  final Key key;
-  final double titleSpacing;
+  final bool? iosBack;
+  final VoidCallback? backClick;
+  final Color? backgroundColor;
+  final Color? appbarColor;
+  final List<Widget>? actions;
+  final bool? resizeToAvoidBottomPadding;
+  final double? elevation;
+  final bool? darkStatusText;
+  final double? toolbarHeight;
+  final String? toolbarSrc;
+  final Color? toolbarStartBgColor;
+  final Color? toolbarEndBgColor;
+  final Alignment? toolbarStartBgColorAlignment;
+  final Alignment? toolbarEndBgColorAlignment;
+  final Widget? toolbarSubView;
+  final double? marginToolbarTop;
+  final bool? centerTitle;
+  final WillPopCallback? onWillPop;
+  final Widget? leadingIcon;
+  final bool? noAppBar;
+  final Widget? leading;
+  final bool? noBack;
+  final Key? key;
+  final double? titleSpacing;
 
   ToolBar({
     @required this.child,
@@ -85,7 +85,7 @@ class ToolBar extends StatefulWidget {
 class ToolBarState extends State<ToolBar> {
   @override
   Widget build(BuildContext context) {
-    var toolbar = null == widget.appBar
+    PreferredSizeWidget toolbar = null == widget.appBar
         ? AppBar(
             actions: widget.actions,
             elevation: widget.elevation,
@@ -95,15 +95,15 @@ class ToolBarState extends State<ToolBar> {
                 ? Container()
                 : widget.leading != null
                     ? widget.leading
-                    : (widget.iosBack || null != widget.leadingIcon
+                    : (widget.iosBack == true || null != widget.leadingIcon
                         ? IconButton(
                             icon: null != widget.leadingIcon
-                                ? widget.leadingIcon
+                                ? widget.leadingIcon!
                                 : Icon(
                                     Icons.arrow_back_ios,
                                   ),
                             iconSize: 22,
-                            color: Color(widget.darkStatusText
+                            color: Color(widget.darkStatusText == true
                                 ? 0xff50525c
                                 : 0xffffffff),
                             onPressed: null == widget.backClick
@@ -117,28 +117,29 @@ class ToolBarState extends State<ToolBar> {
                                 : widget.backClick, // null disables the button
                           )
                         : null),
-            brightness:
-                widget.darkStatusText ? Brightness.light : Brightness.dark,
+            brightness: widget.darkStatusText == true
+                ? Brightness.light
+                : Brightness.dark,
             centerTitle: widget.centerTitle ?? true,
             backgroundColor: null != widget.appbarColor
                 ? widget.appbarColor
                 : BaseColorUtils.colorWindowWhite,
             iconTheme: IconThemeData(
-                color: widget.darkStatusText
+                color: widget.darkStatusText == true
                     ? BaseColorUtils.colorBlack
                     : BaseColorUtils.white),
             title: (null == widget.titelWidget)
                 ? Text(
-                    widget.title,
+                    widget.title ?? '',
                     style: TextStyle(
-                        color: widget.darkStatusText
+                        color: widget.darkStatusText == true
                             ? BaseColorUtils.colorBlack
                             : BaseColorUtils.white),
                     textAlign: TextAlign.center,
                   )
                 : widget.titelWidget,
           )
-        : widget.appBar;
+        : widget.appBar!;
 
     var scaffold = Scaffold(
       key: widget.key,
@@ -161,9 +162,9 @@ class ToolBarState extends State<ToolBar> {
                               gradient: LinearGradient(
                                 colors: [
                                   widget.toolbarStartBgColor ??
-                                      widget.toolbarEndBgColor,
+                                      widget.toolbarEndBgColor!,
                                   widget.toolbarEndBgColor ??
-                                      widget.toolbarStartBgColor
+                                      widget.toolbarStartBgColor!
                                 ],
                                 begin: widget.toolbarStartBgColorAlignment ??
                                     Alignment.centerLeft,
@@ -174,7 +175,8 @@ class ToolBarState extends State<ToolBar> {
                             )
                           : BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage(source(widget.toolbarSrc)),
+                                  image: AssetImage(
+                                      source(widget.toolbarSrc ?? '')),
                                   fit: BoxFit.fill)),
                       width: double.infinity,
                       height: double.infinity,
@@ -190,18 +192,18 @@ class ToolBarState extends State<ToolBar> {
                                         preferredSize: Size.fromHeight(0),
                                       ),
                                       Expanded(
-                                        child: widget.toolbarSubView,
+                                        child: widget.toolbarSubView!,
                                       )
                                     ]
                                   : <Widget>[
                                       toolbar,
                                       Expanded(
-                                        child: widget.toolbarSubView,
+                                        child: widget.toolbarSubView!,
                                       )
                                     ],
                             ),
                     ),
-              preferredSize: Size.fromHeight(widget.toolbarHeight),
+              preferredSize: Size.fromHeight(widget.toolbarHeight ?? 0),
             ),
       body: null == widget.marginToolbarTop
           ? widget.child

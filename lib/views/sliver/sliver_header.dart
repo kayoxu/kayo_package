@@ -14,8 +14,8 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
 
   double miniHeight;
 
-  Widget child;
-  bool shouldRebuildWidget;
+  Widget? child;
+  bool? shouldRebuildWidget;
 
   SliverHeader(
       {this.maxHeight = 50.0,
@@ -26,7 +26,7 @@ class SliverHeader extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return this.child;
+    return this.child!;
   } // 头部展示内容
 
   @override

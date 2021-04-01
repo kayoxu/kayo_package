@@ -9,17 +9,17 @@ import 'package:kayo_package/utils/base_color_utils.dart';
 
 class Scrollview extends StatelessWidget {
   final List<Widget> children;
-  final EdgeInsets padding;
-  final EdgeInsets margin;
-  final Axis orientation;
-  final Color bgColor;
-  final Decoration decoration;
-  final Widget headerView;
-  final double height;
+  final EdgeInsets? padding;
+  final EdgeInsets? margin;
+  final Axis? orientation;
+  final Color? bgColor;
+  final Decoration? decoration;
+  final Widget? headerView;
+  final double? height;
 
   Scrollview(
-      {Key key,
-      @required this.children,
+      {Key? key,
+      required this.children,
       this.padding,
       this.margin,
       this.orientation,
@@ -31,7 +31,7 @@ class Scrollview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (null != headerView) children.insert(0, headerView);
+    if (null != headerView) children.insert(0, headerView!);
 
     return Container(
       color: bgColor ?? BaseColorUtils.colorWindow,

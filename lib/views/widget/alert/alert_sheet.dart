@@ -18,13 +18,13 @@ class AlertSheet {
   * */
   static sheet(context,
       {String title = '提示',
-      @required List<Widget> children,
+      required List<Widget> children,
       bool showCancel = false,
       bool textBold = true,
       double textSize = 14,
       String cancelText = '取消',
       Color cancelColor = BaseColorUtils.colorRed,
-      VoidCallback cancelCallback}) {
+      VoidCallback? cancelCallback}) {
     cancelCallback = cancelCallback ?? () => hide(context);
 
     showModalBottomSheet(
@@ -93,12 +93,12 @@ class AlertSheet {
   static hide(context) => Navigator.of(context).pop();
 
   static Widget sheetAction(
-      {@required String text,
-      @required VoidCallback callback,
+      { required String text,
+       required VoidCallback? callback,
       Color color = BaseColorUtils.colorBlackLite,
       bool textBold = true,
-      double textSize,
-      EdgeInsets padding,
+      double? textSize,
+      EdgeInsets? padding,
       bool showLine = true}) {
     var action = ButtonView(
       text: text,
@@ -111,7 +111,7 @@ class AlertSheet {
       margin: EdgeInsets.all(0),
       padding: padding ?? EdgeInsets.only(top: 12, bottom: 12),
       width: double.infinity,
-      onPressed: callback,
+      onPressed: callback!,
     );
 
     return !showLine

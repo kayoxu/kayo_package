@@ -5,7 +5,7 @@ bool badKeyboard = false;
 class KeyboardController extends ValueNotifier<TextEditingValue> {
   final InputClient client;
 
-  KeyboardController({TextEditingValue value, this.client})
+  KeyboardController({TextEditingValue? value, required this.client})
       : super(value == null ? TextEditingValue.empty : value);
 
   /// The current string the user is editing.
@@ -96,7 +96,6 @@ class KeyboardController extends ValueNotifier<TextEditingValue> {
     } else {
       if (selection.baseOffset == 0) return;
       String newText = '';
-
       if (selection.baseOffset != selection.extentOffset) {
         newText = selection.textBefore(text) + selection.textAfter(text);
         value = TextEditingValue(

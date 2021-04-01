@@ -18,7 +18,7 @@ enum Visible {
 
 class VisibleView extends StatelessWidget {
   Visible visible;
-  final Widget child;
+  final Widget? child;
 
   VisibleView({
     @required this.child,

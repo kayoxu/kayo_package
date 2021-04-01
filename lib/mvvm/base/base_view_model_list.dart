@@ -26,9 +26,9 @@ abstract class BaseViewModelList<T> extends BaseViewModel {
 
   // 下拉刷新
   refresh(
-      {ValueChanged<List<T>> onSuccess,
-      ValueChanged<List<T>> onCache,
-      ValueChanged<String> onError}) async {
+      {ValueChanged<List<T>>? onSuccess,
+      ValueChanged<List<T>>? onCache,
+      ValueChanged<String>? onError}) async {
     var hasMoreData = hasMore() == true;
     setBusy();
 
@@ -88,9 +88,9 @@ abstract class BaseViewModelList<T> extends BaseViewModel {
 
   /// 上拉加载更多
   loadMore(
-      {ValueChanged<List<T>> onSuccess,
-      ValueChanged<List<T>> onCache,
-      ValueChanged<String> onError}) async {
+      {ValueChanged<List<T>>? onSuccess,
+      ValueChanged<List<T>>? onCache,
+      ValueChanged<String>? onError}) async {
     try {
       loadData(
           pageIndex: ++_currentPageNum,
@@ -140,7 +140,7 @@ abstract class BaseViewModelList<T> extends BaseViewModel {
 
   /// 加载数据
   loadData(
-      {int pageIndex,
+      {int? pageIndex,
       ValueChanged<List<T>> onSuccess,
       ValueChanged<List<T>> onCache,
       ValueChanged<String> onError});

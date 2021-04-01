@@ -14,29 +14,30 @@ import 'base/text_view.dart';
 ///
 
 class SuperScriptView extends StatelessWidget {
-  Function onTap;
-  String iconSrc;
-  Color iconTint;
-  double iconSize;
+  Function()? onTap;
+  String? iconSrc;
+  Color? iconTint;
+  double? iconSize;
   double countSize;
-  String count;
-  Color countColor;
-  Color countBgColor;
-  EdgeInsets margin;
-  EdgeInsets padding;
-  EdgeInsets iconPadding;
+  String? count;
+  Color? countColor;
+  Color? countBgColor;
+  EdgeInsets? margin;
+  EdgeInsets? padding;
+  EdgeInsets? iconPadding;
 
-  SuperScriptView({this.onTap,
-    this.iconTint,
-    this.iconSrc,
-    this.count,
-    this.margin,
-    this.countBgColor,
-    this.padding,
-    this.iconPadding,
-    this.iconSize,
-    this.countSize = 8,
-    this.countColor});
+  SuperScriptView(
+      {this.onTap,
+      this.iconTint,
+      this.iconSrc,
+      this.count,
+      this.margin,
+      this.countBgColor,
+      this.padding,
+      this.iconPadding,
+      this.iconSize,
+      this.countSize = 8,
+      this.countColor});
 
   @override
   Widget build(BuildContext context) {
@@ -52,12 +53,12 @@ class SuperScriptView extends StatelessWidget {
         children: <Widget>[
           Positioned(
               child: ImageView(
-                margin: iconPadding,
-                height: iconSize ?? 24,
-                width: iconSize ?? 24,
-                color: iconTint,
-                src: iconSrc,
-              )),
+            margin: iconPadding ?? EdgeInsets.all(0),
+            height: iconSize ?? 24,
+            width: iconSize ?? 24,
+            color: iconTint,
+            src: iconSrc,
+          )),
           Positioned(
               right: 1,
               top: 3,

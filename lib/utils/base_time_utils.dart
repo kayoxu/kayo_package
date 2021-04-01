@@ -13,7 +13,7 @@ class BaseTimeUtils {
   static const formatShort = 'yy-MM-dd HH:mm';
 
   ///获取时间
-  static DateTime getTime({@required int after, @required bool start}) {
+  static DateTime getTime({required int after, required bool start}) {
     DateTime dateTime = getToday(start: start);
     return dateTime.add(Duration(days: after));
   }
@@ -35,7 +35,7 @@ class BaseTimeUtils {
   /*
   * 获取周
   * */
-  static DateTime getWeek({DateTime now, bool start = true}) {
+  static DateTime getWeek({DateTime? now, bool start = true}) {
     now = now ?? DateTime.now();
     var dateTime = DateTime(
         now.year,
@@ -49,7 +49,7 @@ class BaseTimeUtils {
   /*
   * 获取月
   * */
-  static DateTime getMonth({DateTime now, bool start = true}) {
+  static DateTime getMonth({DateTime? now, bool start = true}) {
     now = now ?? DateTime.now();
 
     var dateTime =
@@ -62,7 +62,7 @@ class BaseTimeUtils {
   * 获取季度
   * */
   static DateTime getSeason(
-      {DateTime now, bool start = true, bool lastSeason = false}) {
+      {DateTime? now, bool start = true, bool lastSeason = false}) {
     now = now ?? DateTime.now();
     var season = _getSeason(now: now);
 
@@ -100,7 +100,7 @@ class BaseTimeUtils {
   * 获取年
   *
   * */
-  static DateTime getYear({DateTime now, bool start = true}) {
+  static DateTime getYear({DateTime? now, bool start = true}) {
     now = now ?? DateTime.now();
 
     var dateTime = DateTime(now.year,
@@ -112,7 +112,7 @@ class BaseTimeUtils {
   /*
   * now的时间戳
   * */
-  static String nowTimeStr({String format}) {
+  static String nowTimeStr({String? format}) {
     return timestampToTimeStr(DateTime.now().millisecondsSinceEpoch,
         format: format);
   }
@@ -138,7 +138,7 @@ class BaseTimeUtils {
   * Timestamp转时间戳
   *
   * */
-  static String timestampToTimeStr(int timestamp, {String format}) {
+  static String timestampToTimeStr(int timestamp, {String? format}) {
     format = format ?? formatDefault;
 
     DateFormat dateFormat = getDateFormat(format);
@@ -180,7 +180,7 @@ class BaseTimeUtils {
   * 时间戳转Timestamp
   *
   * */
-  static int timeStrToTimestamp(String string, {String format}) {
+  static int timeStrToTimestamp(String string, {String? format}) {
     format = format ?? formatDefault;
 
     DateFormat dateFormat = getDateFormat(format);
@@ -221,8 +221,8 @@ class BaseTimeUtils {
   *
   * */
   static DateTime getDateTime(
-      {DateTime dateTime,
-      bool start,
+      {DateTime? dateTime,
+      bool? start,
       int h = 0,
       int m = 0,
       int s = 0,
@@ -246,7 +246,7 @@ class BaseTimeUtils {
   /*
   * 获取季度
   * */
-  static int _getSeason({DateTime now}) {
+  static int _getSeason({DateTime? now}) {
     now = now ?? DateTime.now();
     int season = 0;
     int month = now.month;
@@ -279,7 +279,10 @@ class BaseTimeUtils {
   }
 
   ///获取间隔天数
-  static int intervalDay(DateTime date1, DateTime date2){
-    return ((date1.millisecondsSinceEpoch - date2.millisecondsSinceEpoch).abs()/(1000 * 60 * 60 * 24)).floor();
+  static int intervalDay(DateTime date1, DateTime date2) {
+    return ((date1.millisecondsSinceEpoch - date2.millisecondsSinceEpoch)
+                .abs() /
+            (1000 * 60 * 60 * 24))
+        .floor();
   }
 }

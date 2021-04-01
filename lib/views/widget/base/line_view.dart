@@ -9,16 +9,16 @@ import 'package:kayo_package/views/widget/visible_view.dart';
 ///  Copyright © 2019 kayoxu. All rights reserved.
 
 class LineView extends StatefulWidget {
-  final Visible visible;
-  final EdgeInsets margin;
-  final EdgeInsets padding;
-  final double height;
-  final double width;
-  final Color color;
-  final double radius;
+  final Visible? visible;
+  final EdgeInsets? margin;
+  final EdgeInsets? padding;
+  final double? height;
+  final double? width;
+  final Color? color;
+  final double? radius;
 
   const LineView(
-      {Key key,
+      {Key? key,
       this.visible,
       this.margin,
       this.padding,

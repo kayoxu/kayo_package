@@ -18,7 +18,7 @@ class BaseViewModelBusEvent {
 
   static final EventBus eventBus = new EventBus();
 
-  static handleFunction({@required int type, @required String viewModel}) {
+  static handleFunction({required int type, required String viewModel}) {
     eventBus.fire(new BaseViewModelBusEvent(type, viewModel));
   }
 }

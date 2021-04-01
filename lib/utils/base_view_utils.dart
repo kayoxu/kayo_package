@@ -8,13 +8,13 @@ import 'package:kayo_package/kayo_package.dart';
 ///  Copyright © 2019 kayoxu. All rights reserved.
 class BaseViewUtils {
   static Widget noData(
-      {String src,
+      {String? src,
       String msg = 'No Data',
-      EdgeInsets margin,
-      Color msgColor,
-      double msgSize,
-      double width,
-      double height,
+      EdgeInsets? margin,
+      Color? msgColor,
+      double? msgSize,
+      double? width,
+      double? height,
       double marginImageTop = 0}) {
     return Container(
       alignment: Alignment.topCenter,

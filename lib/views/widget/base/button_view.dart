@@ -10,38 +10,38 @@ import 'clickable.dart';
 ///  Copyright © 2019 kayoxu. All rights reserved.
 
 class ButtonView extends StatefulWidget {
-  VoidCallback onPressed;
-  Color bgColor;
-  Color color;
-  String text;
-  double width;
-  double height;
-  double radius;
-  BorderRadius borderRadius;
+  VoidCallback? onPressed;
+  Color? bgColor;
+  Color? color;
+  String? text;
+  double? width;
+  double? height;
+  double? radius;
+  BorderRadius? borderRadius;
 
-  EdgeInsets margin;
-  EdgeInsets padding;
+  EdgeInsets? margin;
+  EdgeInsets? padding;
 
-  Alignment alignment;
+  Alignment? alignment;
 
-  bool showShadow;
+  bool? showShadow;
 
-  double textSize;
+  double? textSize;
 
-  FontWeight fontWeight;
+  FontWeight? fontWeight;
 
-  Widget left;
-  bool safeArea;
-  Color borderColor;
-  double borderWidth;
-  Color bgStartColor;
-  Color bgEndColor;
+  Widget? left;
+  bool? safeArea;
+  Color? borderColor;
+  double? borderWidth;
+  Color? bgStartColor;
+  Color? bgEndColor;
 
   ButtonView({
-    Key key,
+    Key? key,
     this.bgColor = BaseColorUtils.colorAccent,
     this.color = BaseColorUtils.colorWhite,
-    @required VoidCallback this.onPressed,
+    required VoidCallback this.onPressed,
     this.text = '提交',
     this.width,
     this.height,
@@ -80,11 +80,11 @@ class ButtonViewState extends State<ButtonView> {
       child: null == widget.borderColor
           ? RaisedButton(
               onPressed: widget.onPressed,
-              elevation: widget.showShadow ? 3 : 0,
-              highlightElevation: widget.showShadow ? 8 : 0,
+              elevation: (widget.showShadow == true) ? 3 : 0,
+              highlightElevation: widget.showShadow == true ? 8 : 0,
               disabledElevation: 0,
               child: Padding(
-                padding: widget.padding,
+                padding: widget.padding ?? EdgeInsets.only(left: 0),
                 child: Container(
                   width: widget.width,
                   height: widget.height,
@@ -93,38 +93,39 @@ class ButtonViewState extends State<ButtonView> {
                       ? text()
                       : Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[widget.left, text()],
+                          children: <Widget>[widget.left!, text()],
                         ),
                 ),
               ),
               color: widget.bgColor,
               shape: RoundedRectangleBorder(
                   borderRadius: null == widget.borderRadius
-                      ? BorderRadius.circular(widget.radius)
-                      : widget.borderRadius),
+                      ? BorderRadius.circular(widget.radius ?? 0)
+                      : widget.borderRadius!),
             )
           : Clickable(
-              radius: widget.radius,
+              radius: widget.radius ?? 0,
               bgColor: BaseColorUtils.transparent,
               decoration: (null != widget.borderColor &&
                       null == widget.bgStartColor &&
                       null == widget.bgEndColor)
                   ? ShapeDecoration(
                       shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(widget.radius)),
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(widget.radius ?? 0)),
                           side: BorderSide(
-                              color: widget.borderColor,
+                              color: widget.borderColor!,
                               style: BorderStyle.solid,
-                              width: widget.borderWidth)))
+                              width: widget.borderWidth!)))
                   : (null == widget.bgStartColor && null == widget.bgEndColor
                       ? null
                       : BoxDecoration(
                           gradient: LinearGradient(colors: [
-                            widget.bgStartColor ?? widget.bgColor,
-                            widget.bgEndColor ?? widget.bgColor
+                            widget.bgStartColor ?? widget.bgColor!,
+                            widget.bgEndColor ?? widget.bgColor!
                           ]),
-                          borderRadius: BorderRadius.circular(widget.radius))),
+                          borderRadius:
+                              BorderRadius.circular(widget.radius ?? 0))),
               onTap: widget.onPressed,
               child: Container(
                 width: widget.width,
@@ -134,7 +135,7 @@ class ButtonViewState extends State<ButtonView> {
                     ? text()
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[widget.left, text()],
+                        children: <Widget>[widget.left!, text()],
                       ),
               ),
             ),
@@ -143,7 +144,7 @@ class ButtonViewState extends State<ButtonView> {
 
   Text text() {
     return Text(
-      widget.text,
+      widget.text ?? '',
       textAlign: TextAlign.center,
       style: TextStyle(
           color: widget.color,

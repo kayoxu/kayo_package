@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kayo_package/kayo_package.dart';
+import 'package:kayo_package/views/widget/base/keyboard/boards/keyboard_tools.dart';
+import 'package:kayo_package/views/widget/base/keyboard/cool_ui.dart';
 
-import 'keyboard_tools.dart';
 
 class KeyboardCarNumBad extends StatefulWidget {
   static double getHeight(BuildContext ctx) {
@@ -9,7 +10,7 @@ class KeyboardCarNumBad extends StatefulWidget {
     return 48.0 + 8 + 8 + 4 * 48; //mediaQuery.size.width / 3 / 2 * 5 + 20;
   }
 
-  final KeyboardController controller;
+  final KeyboardController? controller;
 
   const KeyboardCarNumBad({this.controller});
 
@@ -90,7 +91,7 @@ class KeyboardCarNumBadState extends State<KeyboardCarNumBad> {
                               color: BaseColorUtils.colorGrey,
                             ),
                             onPressed: () {
-                              widget.controller.doneAction();
+                              widget.controller?.doneAction();
                             }))
                   ],
                 ),
@@ -199,7 +200,7 @@ class KeyboardCarNumBadState extends State<KeyboardCarNumBad> {
                 ),
                 onTap: () {
                   badKeyboard = true;
-                  widget.controller.deleteOne();
+                  widget.controller?.deleteOne();
                 },
               ))
         ],
@@ -309,7 +310,7 @@ class KeyboardCarNumBadState extends State<KeyboardCarNumBad> {
                 ),
                 onTap: () {
                   badKeyboard = true;
-                  widget.controller.deleteOne();
+                  widget.controller?.deleteOne();
                 },
               ))
         ],
@@ -317,7 +318,7 @@ class KeyboardCarNumBadState extends State<KeyboardCarNumBad> {
     ];
   }
 
-  Widget buildButton(String title, {String value, int flex = 1}) {
+  Widget buildButton(String title, {String? value, int flex = 1}) {
     if (value == null) {
       value = title;
     }
@@ -341,7 +342,7 @@ class KeyboardCarNumBadState extends State<KeyboardCarNumBad> {
           ),
           onTap: () {
             badKeyboard = true;
-            widget.controller.addText(value);
+            widget.controller?.addText(value!);
           },
         ));
   }

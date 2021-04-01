@@ -6,21 +6,21 @@ import 'clickable.dart';
 import 'text_view.dart';
 
 class RadioView extends StatelessWidget {
-  ValueChanged<int> onChanged;
+  ValueChanged<int?> onChanged;
   int value;
   String name;
   int groupValue;
   Color activeColor;
   Color nameColor;
   int nameSize;
-  bool single;
+  bool? single;
 
   RadioView(
-      {@required this.value,
-      @required this.name,
-      @required this.groupValue,
-      @required this.activeColor,
-      @required this.onChanged,
+      {required this.value,
+      required this.name,
+      required this.groupValue,
+      required this.activeColor,
+      required this.onChanged,
       this.nameColor = BaseColorUtils.colorBlack,
       this.nameSize = 14});
 
@@ -55,19 +55,19 @@ class RadioView extends StatelessWidget {
 }
 
 class CheckBoxView extends StatelessWidget {
-  ValueChanged<bool> onChanged;
+  ValueChanged<bool?> onChanged;
   bool value;
   String name;
   Color activeColor;
   Color nameColor;
-  EdgeInsets padding;
+  EdgeInsets? padding;
   double nameSize;
 
   CheckBoxView(
-      {@required this.value,
-      @required this.name,
-      @required this.activeColor,
-      @required this.onChanged,
+      {required this.value,
+      required this.name,
+      required this.activeColor,
+      required this.onChanged,
       this.nameColor = BaseColorUtils.colorBlack,
       this.nameSize = 14,
       this.padding});

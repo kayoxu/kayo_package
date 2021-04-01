@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 extension BaseObjectExtension on Object {
-  T defaultValue<T>({@required T data}) {
+  T defaultValue<T>({required T data}) {
     if (null == this || this is! T) {
       return data;
     } else {
-      return this;
+      return this as T;
     }
   }
 
@@ -16,7 +16,7 @@ extension BaseObjectExtension on Object {
       }
       return data;
     } else {
-      return this;
+      return this as int;
     }
   }
 
@@ -27,7 +27,7 @@ extension BaseObjectExtension on Object {
       }
       return data;
     } else {
-      return this;
+      return this as String;
     }
   }
 
@@ -38,11 +38,11 @@ extension BaseObjectExtension on Object {
       }
       return data;
     } else {
-      return this;
+      return this as double;
     }
   }
 
-  T findFirst<T>() {
+  T? findFirst<T>() {
     if (null != this && this is List) {
       if ((this as List).length > 0) {
         return (this as List).first as T;
@@ -51,7 +51,7 @@ extension BaseObjectExtension on Object {
     return null;
   }
 
-  T findLast<T>() {
+  T? findLast<T>() {
     if (null != this && this is List) {
       if ((this as List).length > 0) {
         return (this as List).last as T;
@@ -60,7 +60,7 @@ extension BaseObjectExtension on Object {
     return null;
   }
 
-  T findData<T>(int index) {
+  T? findData<T>(int index) {
     if (null != this && this is List) {
       if ((this as List).length > 0 && index < (this as List).length) {
         return (this as List)[index] as T;

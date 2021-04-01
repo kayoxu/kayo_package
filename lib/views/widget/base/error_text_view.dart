@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
- import 'package:kayo_package/views/widget/base/image_view.dart';
+import 'package:kayo_package/views/widget/base/image_view.dart';
 
 ///  kayo_plugin
 ///  views.widget
@@ -20,8 +20,8 @@ class ErrorTextView extends StatefulWidget {
 
   EdgeInsets margin;
 
-  ErrorTextView(@required this.text,
-      {Key key,
+  ErrorTextView(this.text,
+      {Key? key,
       this.showIcon = false,
       this.center = true,
       this.height = 40,

@@ -7,7 +7,7 @@ extension BaseStringExtension on String {
   int toInt({int value = 0}) {
     try {
       if (this?.isNotEmpty == true) {
-        value = int.tryParse(this);
+        value = int.tryParse(this) ?? 0;
       }
     } catch (e) {
       print(e);
@@ -19,7 +19,7 @@ extension BaseStringExtension on String {
   double toDouble({double value = 0}) {
     try {
       if (this?.isNotEmpty == true) {
-        value = double.tryParse(this);
+        value = double.tryParse(this) ?? 0.0;
       }
     } catch (e) {
       print(e);
@@ -63,6 +63,8 @@ extension BaseStringExtension on String {
         } else {
           return defaultColor.withOpacity(opacity);
         }
+      } else {
+        return defaultColor;
       }
     } catch (e) {
       print(e);
@@ -70,7 +72,7 @@ extension BaseStringExtension on String {
     }
   }
 
-  String toTimeStr({String format, String defaultTime = '无'}) {
+  String toTimeStr({String? format, String defaultTime = '无'}) {
     try {
       if (this?.isNotEmpty == true) {
         if (BaseSysUtils.isNumber(this)) {
@@ -100,7 +102,7 @@ extension BaseStringExtension on String {
       var timestamp = BaseTimeUtils.timeStrToTimestamp(this, format: format);
       return second == true ? timestamp ~/ 1000 : timestamp;
     } else {
-      return this ?? 0;
+      return (this ?? 0) as int;
     }
   }
 

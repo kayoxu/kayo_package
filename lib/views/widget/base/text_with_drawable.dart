@@ -8,21 +8,21 @@ class TextWithDrawable extends StatelessWidget {
   final Color fontColor;
   final double fontSize;
   final FontWeight fontWeight;
-  final Widget drawableStart;
-  final Widget drawableTop;
-  final Widget drawableEnd;
-  final Widget drawableBottom;
-  final double drawableStartPadding;
-  final double drawableTopPadding;
-  final double drawableEndPadding;
-  final double drawableBottomPadding;
+  final Widget? drawableStart;
+  final Widget? drawableTop;
+  final Widget? drawableEnd;
+  final Widget? drawableBottom;
+  final double? drawableStartPadding;
+  final double? drawableTopPadding;
+  final double? drawableEndPadding;
+  final double? drawableBottomPadding;
   final double drawablePadding;
-  final EdgeInsets padding;
-  final EdgeInsets margin;
-  final Decoration decoration;
+  final EdgeInsets? padding;
+  final EdgeInsets? margin;
+  final Decoration? decoration;
   final int maxLines;
   final bool isFill;
-  final TextAlign textAlign;
+  final TextAlign? textAlign;
 
   TextWithDrawable({
     this.text = '',
@@ -67,7 +67,7 @@ class TextWithDrawable extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        if (null != drawableStart) drawableStart,
+        if (null != drawableStart) drawableStart!,
         SizedBox(
             width: null == drawableStartPadding
                 ? drawablePadding
@@ -77,14 +77,14 @@ class TextWithDrawable extends StatelessWidget {
             width: null == drawableEndPadding
                 ? drawablePadding
                 : drawableEndPadding),
-        if (null != drawableEnd) drawableEnd,
+        if (null != drawableEnd) drawableEnd!,
       ],
     );
     Widget onlyColumnWidget = Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        if (null != drawableTop) drawableTop,
+        if (null != drawableTop) drawableTop!,
         SizedBox(
             height: null == drawableTopPadding
                 ? drawablePadding
@@ -94,7 +94,7 @@ class TextWithDrawable extends StatelessWidget {
             height: null == drawableBottomPadding
                 ? drawablePadding
                 : drawableBottomPadding),
-        if (null != drawableBottom) drawableBottom,
+        if (null != drawableBottom) drawableBottom!,
       ],
     );
     Widget child;
@@ -118,23 +118,23 @@ class TextWithDrawable extends StatelessWidget {
 
 @Deprecated('Use `Other` widget instead')
 class ShowInfoRow extends StatelessWidget {
-  final String left;
-  final Widget leftWidget;
-  final String right;
-  final Widget rightWidget;
+  final String? left;
+  final Widget? leftWidget;
+  final String? right;
+  final Widget? rightWidget;
   final int leftFlex;
   final int rightFlex;
   final Color bgColor;
-  final BorderRadiusGeometry borderRadius;
-  final EdgeInsetsGeometry padding;
-  final EdgeInsetsGeometry margin;
+  final BorderRadiusGeometry? borderRadius;
+  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? margin;
   final Color leftColor;
   final Color rightColor;
   final double leftFontSize;
   final double rightFontSize;
   final FontWeight leftFontWeight;
   final FontWeight rightFontWeight;
-  final GestureTapCallback onTap;
+  final GestureTapCallback? onTap;
 
   ShowInfoRow({
     this.left,
@@ -173,7 +173,7 @@ class ShowInfoRow extends StatelessWidget {
             flex: leftFlex,
             child: leftWidget ??
                 Text(
-                  left,
+                  left ?? '',
                   textAlign: TextAlign.start,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -189,7 +189,7 @@ class ShowInfoRow extends StatelessWidget {
             flex: rightFlex,
             child: rightWidget ??
                 Text(
-                  right,
+                  right ?? '',
                   textAlign: TextAlign.end,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -218,23 +218,23 @@ class ShowInfoRow extends StatelessWidget {
 
 @Deprecated('Use `Other` widget instead')
 class TextWithBg extends StatelessWidget {
-  final double width;
-  final double height;
-  final AlignmentGeometry alignment;
-  final EdgeInsetsGeometry padding;
-  final EdgeInsetsGeometry margin;
+  final double? width;
+  final double? height;
+  final AlignmentGeometry? alignment;
+  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? margin;
   final String text;
   final double fontSize;
-  final Color fontColor;
-  final FontWeight fontWeight;
-  final TextAlign textAlign;
-  final String bgImg;
-  final Color bgColor;
-  final BoxBorder border;
-  final BorderRadiusGeometry borderRadius;
-  final List<BoxShadow> boxShadow;
+  final Color? fontColor;
+  final FontWeight? fontWeight;
+  final TextAlign? textAlign;
+  final String? bgImg;
+  final Color? bgColor;
+  final BoxBorder? border;
+  final BorderRadiusGeometry? borderRadius;
+  final List<BoxShadow>? boxShadow;
   final BoxShape shape;
-  final Gradient gradient;
+  final Gradient? gradient;
   final int maxLines;
 
   TextWithBg({
@@ -269,7 +269,7 @@ class TextWithBg extends StatelessWidget {
       decoration: BoxDecoration(
         image: null == bgImg
             ? null
-            : DecorationImage(image: AssetImage(bgImg), fit: BoxFit.cover),
+            : DecorationImage(image: AssetImage(bgImg!), fit: BoxFit.cover),
         color: bgColor,
         border: border,
         borderRadius: borderRadius,
@@ -300,9 +300,9 @@ class IncludeWidget {
   static Widget line({
     Color color = const Color(0xFFF4F4F4),
     bool isHor = true,
-    double width,
-    double height,
-    EdgeInsets margin,
+    double? width,
+    double? height,
+    EdgeInsets? margin,
   }) {
     double w;
     double h;
@@ -334,23 +334,23 @@ class IncludeWidget {
   /// [TextWithBg]
   @Deprecated('Use `Other` widget instead')
   static Widget textWithBg({
-    double width,
-    double height,
+    double? width,
+    double? height,
     AlignmentGeometry alignment = Alignment.center,
-    EdgeInsetsGeometry padding,
-    EdgeInsetsGeometry margin,
+    EdgeInsetsGeometry? padding,
+    EdgeInsetsGeometry? margin,
     String text = "",
     double fontSize = 14,
-    Color fontColor,
+    Color? fontColor,
     FontWeight fontWeight = FontWeight.normal,
     TextAlign textAlign = TextAlign.center,
-    String bgImg,
-    Color bgColor,
-    BoxBorder border,
-    BorderRadiusGeometry borderRadius,
-    List<BoxShadow> boxShadow,
+    String? bgImg,
+    Color? bgColor,
+    BoxBorder? border,
+    BorderRadiusGeometry? borderRadius,
+    List<BoxShadow>? boxShadow,
     BoxShape shape = BoxShape.rectangle,
-    Gradient gradient,
+    Gradient? gradient,
   }) {
     return UnconstrainedBox(
       child: Container(
@@ -387,13 +387,13 @@ class IncludeWidget {
   /// [ShowInfoRow]
   @Deprecated('Use `Other` widget instead')
   static Widget showInfoKeyValue({
-    String key,
-    String value,
+    String? key,
+    String? value,
     int keyFlex = 1,
     int valueFlex = 2,
     Color bgColor = Colors.transparent,
     EdgeInsetsGeometry padding = const EdgeInsets.only(top: 20, bottom: 20),
-    EdgeInsetsGeometry margin,
+    EdgeInsetsGeometry? margin,
     Color keyColor = const Color(0xff333333),
     Color valueColor = const Color(0xff666666),
     double fontSize = 14,
@@ -411,7 +411,7 @@ class IncludeWidget {
           Expanded(
             flex: keyFlex,
             child: Text(
-              key,
+              key ?? '',
               textAlign: TextAlign.start,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -426,7 +426,7 @@ class IncludeWidget {
           Expanded(
             flex: valueFlex,
             child: Text(
-              value,
+              value ?? '',
               textAlign: TextAlign.end,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -446,23 +446,23 @@ class IncludeWidget {
   /// [InputInfoRow]
   @Deprecated('Use `Other` widget instead')
   static Widget inputKeyValue({
-    String key,
-    String value,
-    String hintText,
-    String unit,
-    TextInputType inputType,
-    TextEditingController controller,
+    String? key,
+    String? value,
+    String? hintText,
+    String? unit,
+    TextInputType? inputType,
+    TextEditingController? controller,
     int keyFlex = 1,
     int valueFlex = 2,
     Color bgColor = Colors.transparent,
-    EdgeInsetsGeometry margin,
+    EdgeInsetsGeometry? margin,
     Color keyColor = const Color(0xff333333),
     Color valueColor = const Color(0xff666666),
     Color hintColor = const Color(0xff999999),
     double fontSize = 14,
     FontWeight keyFontWeight = FontWeight.w600,
     bool showArrowRight = false,
-    GestureTapCallback onTap,
+    GestureTapCallback? onTap,
     EdgeInsetsGeometry contentPadding =
         const EdgeInsets.only(left: 10, top: 20, bottom: 20),
   }) {
@@ -479,7 +479,7 @@ class IncludeWidget {
       );
     }
     bool readOnly = null != onTap;
-    Pattern reg;
+    Pattern? reg;
     if (inputType == TextInputType.number || inputType == TextInputType.phone) {
       reg = RegExp('[0-9.]');
     }
@@ -525,7 +525,7 @@ class IncludeWidget {
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  key,
+                  key ?? '',
                   textAlign: TextAlign.start,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -569,31 +569,31 @@ class IncludeWidget {
 
 @Deprecated('Use `Other` widget instead')
 class InputInfoRow extends StatelessWidget {
-  final String left;
-  final String right;
-  final String hintText;
-  final String unit;
-  final TextInputType inputType;
-  final TextEditingController controller;
+  final String? left;
+  final String? right;
+  final String? hintText;
+  final String? unit;
+  final TextInputType? inputType;
+  final TextEditingController? controller;
   final int leftFlex;
   final int rightFlex;
   final Color bgColor;
-  final EdgeInsetsGeometry padding;
-  final EdgeInsetsGeometry margin;
+  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? margin;
   final Color leftColor;
   final Color rightColor;
   final Color hintColor;
   final double fontSize;
   final FontWeight leftFontWeight;
   final bool showArrowRight;
-  final GestureTapCallback onTap;
+  final GestureTapCallback? onTap;
   final EdgeInsetsGeometry contentPadding;
   final bool required;
-  final ValueChanged<String> onChange;
-  final String regStr;
+  final ValueChanged<String>? onChange;
+  final String? regStr;
 
   ///输入内容最大长度
-  final int maxLength;
+  final int? maxLength;
 
   InputInfoRow({
     this.left,
@@ -631,7 +631,7 @@ class InputInfoRow extends StatelessWidget {
         selection: TextSelection.fromPosition(
           TextPosition(
             affinity: TextAffinity.downstream,
-            offset: right.length,
+            offset: right!.length,
           ),
         ),
       );
@@ -645,7 +645,7 @@ class InputInfoRow extends StatelessWidget {
       readOnly: readOnly,
       inputFormatters: [
         if (null != maxLength) LengthLimitingTextInputFormatter(maxLength),
-        if (null != regStr) WhitelistingTextInputFormatter(RegExp(regStr)),
+        if (null != regStr) WhitelistingTextInputFormatter(RegExp(regStr!)),
       ],
       decoration: InputDecoration(
         hintText: hintText,
@@ -684,7 +684,7 @@ class InputInfoRow extends StatelessWidget {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      left,
+                      left ?? '',
                       textAlign: TextAlign.start,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

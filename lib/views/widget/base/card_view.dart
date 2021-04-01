@@ -10,25 +10,25 @@ import 'package:kayo_package/views/widget/base/image_view.dart';
 ///  Copyright © 2020 kayoxu. All rights reserved.
 
 class CardView extends StatelessWidget {
-  final Widget child;
-  final EdgeInsets margin;
-  final EdgeInsets padding;
-  final Color shadowColor;
-  final double elevation;
-  final double shadowRadius;
-  final double radius;
-  final VoidCallback onPressed;
-  final LinearGradient linearGradient;
-  final List<Color> bgColors;
-  final Alignment colorAlignmentBegin;
-  final Alignment colorAlignmentEnd;
-  final String bgImg;
-  final BoxFit bgImgFit;
-  final double width;
+  final Widget? child;
+  final EdgeInsets? margin;
+  final EdgeInsets? padding;
+  final Color? shadowColor;
+  final double? elevation;
+  final double? shadowRadius;
+  final double? radius;
+  final VoidCallback? onPressed;
+  final LinearGradient? linearGradient;
+  final List<Color>? bgColors;
+  final Alignment? colorAlignmentBegin;
+  final Alignment? colorAlignmentEnd;
+  final String? bgImg;
+  final BoxFit? bgImgFit;
+  final double? width;
 
   const CardView({
-    @required this.child,
-    Key key,
+    required this.child,
+    Key? key,
     this.margin,
     this.padding,
     this.shadowRadius,
@@ -79,7 +79,7 @@ class CardView extends StatelessWidget {
                           BorderRadius.all(Radius.circular(radius ?? 0)),
                       color: Colors.transparent,
                       image: DecorationImage(
-                          image: AssetImage(bgImg),
+                          image: AssetImage(bgImg!),
                           fit: bgImgFit ?? BoxFit.contain)),
                   child: child,
                 ),

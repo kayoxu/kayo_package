@@ -8,18 +8,18 @@ class TabMenuView extends StatefulWidget {
   final List<TabMenu> menus;
   final int checkedIndex;
   final ValueChanged<TabMenu> onItemClick;
-  final TabMenuBuilder builder;
+  final TabMenuBuilder? builder;
   double height;
   EdgeInsets margin;
   BorderRadius borderRadius;
-  final double radius;
+  final double? radius;
   Color bgColor;
 
   TabMenuView({
-    Key key,
-    @required this.menus,
-    @required this.checkedIndex,
-    @required this.onItemClick,
+    Key? key,
+    required this.menus,
+    required this.checkedIndex,
+    required this.onItemClick,
     this.builder,
     this.height = 50,
     this.margin = const EdgeInsets.only(bottom: 10),
@@ -42,14 +42,14 @@ class _TabMenuViewState extends State<TabMenuView> {
       decoration: BoxDecoration(
           color: widget.bgColor,
           borderRadius: null != widget.radius
-              ? BorderRadius.all(Radius.circular(widget.radius))
+              ? BorderRadius.all(Radius.circular(widget.radius??0))
               : BorderRadius.only(
                   bottomLeft: Radius.circular(10),
                   bottomRight: Radius.circular(10))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: _getTabCount(context, widget.menus, widget.checkedIndex,
-            widget.onItemClick, widget.builder),
+            widget.onItemClick, widget.builder!),
       ),
     );
   }

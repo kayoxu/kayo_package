@@ -18,18 +18,18 @@ import 'base/edit_view.dart';
 //enum Visible { visible, invisible, gone }
 
 Container HorizontalTitleMsgView2({
-  @required String title,
-  @required String msg,
-  Color titleColor,
-  Color msgColor,
-  Color lineColor,
-  double height,
-  bool showLine,
-  EdgeInsets padding,
+  required String title,
+  required String msg,
+  Color? titleColor,
+  Color? msgColor,
+  Color? lineColor,
+  double? height,
+  bool? showLine,
+  EdgeInsets? padding,
   EdgeInsets msgPadding = const EdgeInsets.only(left: 10),
-  FontWeight titleFontWeight,
-  FontWeight msgFontWeight,
-  EdgeInsets margin,
+  FontWeight? titleFontWeight,
+  FontWeight? msgFontWeight,
+  EdgeInsets? margin,
   double titleSize = 14,
   double msgSize = 14,
 }) {
@@ -42,26 +42,26 @@ Container HorizontalTitleMsgView2({
       children: <Widget>[
         Expanded(
             child: Row(
-              children: <Widget>[
-                TextView(
-                  title ?? '',
-                  size: titleSize,
-                  fontWeight: titleFontWeight,
-                  color: titleColor ?? BaseColorUtils.colorBlackLite,
-                ),
-                Expanded(
-                  child: TextView(
-                    msg ?? '',
-                    padding: msgPadding,
-                    size: msgSize,
-                    fontWeight: msgFontWeight,
-                    textAlign: TextAlign.end,
-                    maxLine: 2,
-                    color: msgColor ?? BaseColorUtils.colorBlack,
-                  ),
-                )
-              ],
-            )),
+          children: <Widget>[
+            TextView(
+              title ?? '',
+              size: titleSize,
+              fontWeight: titleFontWeight,
+              color: titleColor ?? BaseColorUtils.colorBlackLite,
+            ),
+            Expanded(
+              child: TextView(
+                msg ?? '',
+                padding: msgPadding,
+                size: msgSize,
+                fontWeight: msgFontWeight,
+                textAlign: TextAlign.end,
+                maxLine: 2,
+                color: msgColor ?? BaseColorUtils.colorBlack,
+              ),
+            )
+          ],
+        )),
         VisibleView(
           child: LineView(
             height: .5,
@@ -75,70 +75,70 @@ Container HorizontalTitleMsgView2({
 }
 
 class HorizontalTitleMsgView extends StatefulWidget {
-  EdgeInsets padding;
-  EdgeInsets margin;
+  EdgeInsets? padding;
+  EdgeInsets? margin;
 
   String title;
   String msg;
   bool rightIcon;
   Color rightIconColor;
-  String rightIconSrc;
-  double rightIconWidth;
-  double rightIconHeight;
+  String? rightIconSrc;
+  double? rightIconWidth;
+  double? rightIconHeight;
   Visible leftIcon;
   String leftIconSrc;
   EdgeInsets leftIconMargin;
   double leftIconHeight;
   double leftIconWidth;
   double legtIconRadius;
-  String subTitle;
+  String? subTitle;
   bool msgEditableFull;
-  TextInputType msgInputType;
+  TextInputType? msgInputType;
 
   Color titleColor;
   double titleSize;
-  FontWeight titleFontWeight;
+  FontWeight? titleFontWeight;
 
   Color msgColor;
   double msgSize;
-  FontWeight msgFontWeight;
+  FontWeight? msgFontWeight;
   EdgeInsets msgPadding;
 
-  String subMsg;
+  String? subMsg;
   Color subMsgColor;
   double subMsgSize;
-  FontWeight subMsgFontWeight;
-  Function subMsgClick;
-  double subMsgWidth;
+  FontWeight? subMsgFontWeight;
+  Function()? subMsgClick;
+  double? subMsgWidth;
 
   Color bgColor;
-  Color msgBgColor = Colors.transparent;
+  Color? msgBgColor = Colors.transparent;
   bool topLine;
   bool bottomLine;
 
   EdgeInsets topLineMargin;
   EdgeInsets bottomLineMargin;
-  VoidCallback onClick;
-  double height;
-  double width;
+  VoidCallback? onClick;
+  double? height;
+  double? width;
   bool msgEditable;
-  String msgHintText;
-  TextEditingController msgController;
+  String? msgHintText;
+  TextEditingController? msgController;
 
-  Function onMsgClick;
-  Function onMsgFocus;
-  ValueChanged<String> onMsgChanged;
-  FocusNode focusNode;
-  VoidCallback onEditingComplete;
-  ValueChanged<String> onSubmitted;
-  Color topLineColor;
-  Color bottomLineColor;
-  int msgMaxLine;
-  List<TextInputFormatter> msgInputFormatters;
+  Function()? onMsgClick;
+  Function()? onMsgFocus;
+  ValueChanged<String>? onMsgChanged;
+  FocusNode? focusNode;
+  VoidCallback? onEditingComplete;
+  ValueChanged<String>? onSubmitted;
+  Color? topLineColor;
+  Color? bottomLineColor;
+  int? msgMaxLine;
+  List<TextInputFormatter>? msgInputFormatters;
 
   HorizontalTitleMsgView({
-    Key key,
-    @required this.title,
+    Key? key,
+    required this.title,
     this.msg = '',
     this.rightIcon = false,
     this.rightIconSrc,
@@ -233,7 +233,7 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
               width: double.infinity,
               height: .5,
               color:
-              widget.topLineColor ?? BaseColorUtils.colorGreyLiteLiteLite,
+                  widget.topLineColor ?? BaseColorUtils.colorGreyLiteLiteLite,
             ),
             color: widget.bgColor,
           ),
@@ -262,7 +262,7 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                   TextView(
                     widget.title,
                     margin: widget.leftIcon == Visible.gone
-                        ? null
+                        ? EdgeInsets.only(left: 0)
                         : EdgeInsets.only(right: 6),
                     fontWeight: widget.titleFontWeight,
                     color: widget.titleColor,
@@ -271,7 +271,7 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                   Visibility(
                       visible: null != widget.subTitle,
                       child: TextView(
-                        widget.subTitle,
+                        widget.subTitle ?? '',
                         size: 13,
                         margin: EdgeInsets.all(0),
 //                        bgColor: ColorUtils.colorGreen,
@@ -283,64 +283,61 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
               ),
               Expanded(
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      VisibleView(
-                        child: Clickable(
-                          child: TextView(
-                            null == widget.subMsg ? 'NULL' : widget.subMsg,
-                            bgColor: widget.msgBgColor,
-                            maxLine: 5,
-                            width: widget.subMsgWidth,
-                            textAlign: TextAlign.right,
-                            padding: EdgeInsets.only(
-                                right: !BaseSysUtils.empty(widget.msg)
-                                    ? 16
-                                    : 0),
-                            fontWeight: widget.subMsgFontWeight,
-                            color: widget.subMsgColor,
-                            size: widget.subMsgSize,
-                          ),
-                          onTap: widget.subMsgClick,
-                        ),
-                        visible: BaseSysUtils.empty(widget.subMsg)
-                            ? Visible.gone
-                            : Visible.visible,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  VisibleView(
+                    child: Clickable(
+                      child: TextView(
+                        null == widget.subMsg ? 'NULL' : widget.subMsg!,
+                        bgColor: widget.msgBgColor,
+                        maxLine: 5,
+                        width: widget.subMsgWidth,
+                        textAlign: TextAlign.right,
+                        padding: EdgeInsets.only(
+                            right: !BaseSysUtils.empty(widget.msg) ? 16 : 0),
+                        fontWeight: widget.subMsgFontWeight,
+                        color: widget.subMsgColor,
+                        size: widget.subMsgSize,
                       ),
-                      widget.msgEditable
-                          ? (widget.msgEditableFull == true
+                      onTap: widget.subMsgClick,
+                    ),
+                    visible: BaseSysUtils.empty(widget.subMsg)
+                        ? Visible.gone
+                        : Visible.visible,
+                  ),
+                  widget.msgEditable
+                      ? (widget.msgEditableFull == true
                           ? Expanded(child: _msgEditContainer)
                           : _msgEditContainer)
-                          : Expanded(
+                      : Expanded(
                           child: Clickable(
-                            radius: 5,
-                            child: TextView(
-                              null == widget.msg ? '无' : widget.msg,
-                              bgColor: widget.msgBgColor,
-                              textAlign: TextAlign.right,
-                              padding: widget.msgPadding,
-                              margin: EdgeInsets.only(
-                                  left: 8, right: widget.rightIcon ? 8 : 0),
-                              fontWeight: widget.msgFontWeight,
-                              color: widget.msgColor,
-                              size: widget.msgSize,
-                              maxLine: widget.msgMaxLine ?? 2,
-                            ),
-                            onTap: widget.onMsgClick,
+                          radius: 5,
+                          child: TextView(
+                            null == widget.msg ? '无' : widget.msg,
                             bgColor: widget.msgBgColor,
-                          )),
-                      Visibility(
-                        child: ImageView(
-                          src: widget.rightIconSrc ??
-                              'assets/ic_arrow_right.png',
-                          width: widget.rightIconWidth ?? 6,
-                          height: widget.rightIconHeight ?? 11,
-                          color: widget.rightIconColor,
-                        ),
-                        visible: widget.rightIcon,
-                      ),
-                    ],
-                  )),
+                            textAlign: TextAlign.right,
+                            padding: widget.msgPadding,
+                            margin: EdgeInsets.only(
+                                left: 8, right: widget.rightIcon ? 8 : 0),
+                            fontWeight: widget.msgFontWeight,
+                            color: widget.msgColor,
+                            size: widget.msgSize,
+                            maxLine: widget.msgMaxLine ?? 2,
+                          ),
+                          onTap: widget.onMsgClick,
+                          bgColor: widget.msgBgColor,
+                        )),
+                  Visibility(
+                    child: ImageView(
+                      src: widget.rightIconSrc ?? 'assets/ic_arrow_right.png',
+                      width: widget.rightIconWidth ?? 6,
+                      height: widget.rightIconHeight ?? 11,
+                      color: widget.rightIconColor,
+                    ),
+                    visible: widget.rightIcon,
+                  ),
+                ],
+              )),
             ],
           ),
         ),
@@ -372,11 +369,11 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                   child: column),
             ),
     );*/
-      Clickable(
-        bgColor: widget.bgColor,
-        margin: widget.margin,
-        child: column,
-        onTap: widget.onClick,
-      );
+        Clickable(
+      bgColor: widget.bgColor,
+      margin: widget.margin,
+      child: column,
+      onTap: widget.onClick,
+    );
   }
 }

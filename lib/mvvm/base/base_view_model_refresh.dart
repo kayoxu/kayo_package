@@ -11,7 +11,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 ///
 
 abstract class BaseViewModelRefresh<T> extends BaseViewModel {
-  T data;
+  late T data;
 
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
@@ -20,9 +20,9 @@ abstract class BaseViewModelRefresh<T> extends BaseViewModel {
 
   // 下拉刷新
   refresh(
-      {ValueChanged<T> onSuccess,
-      ValueChanged<T> onCache,
-      ValueChanged<String> onError}) async {
+      {ValueChanged<T>? onSuccess,
+      ValueChanged<T>? onCache,
+      ValueChanged<String>? onError}) async {
     setBusy();
     try {
       loadData(onSuccess: (data) {

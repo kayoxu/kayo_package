@@ -17,9 +17,9 @@ import 'package:kayo_package/views/widget/base/text_view.dart';
 class AlertCenter {
   static showVisitorCheckDialog(
     BuildContext context, {
-    Function onOk,
-    ValueChanged<int> onDataChanged,
-    TextEditingController controller,
+    Function()? onOk,
+    ValueChanged<int>? onDataChanged,
+    TextEditingController? controller,
   }) {
     String checkStatus = '请选择审核意见';
 
@@ -48,13 +48,13 @@ class AlertCenter {
                     onTap: () {
                       DataPicker.showDataPicker(context, datas: ['通过', '拒绝'],
                           onConfirm: (data) {
-                        int d = null;
+                        int? d;
                         if (data == '通过') {
                           d = 2;
                         } else if (data == '拒绝') {
                           d = 3;
                         }
-                        onDataChanged(d);
+                        onDataChanged?.call(d ?? 0);
                         state(() {
                           checkStatus = data;
                         });
@@ -84,18 +84,18 @@ class AlertCenter {
   }
 
   static showMsgDialog(BuildContext context,
-      {@required String title,
-      String message,
-      bool showCancel,
-      String okTitle,
-      Widget content,
-      String cancelTitle,
+      {required String title,
+      String? message,
+      bool? showCancel,
+      String? okTitle,
+      Widget? content,
+      String? cancelTitle,
       bool cancelable = false,
-      EdgeInsets margin,
+      EdgeInsets? margin,
       Color cancelColor = BaseColorUtils.colorBlack,
       Color okColor = BaseColorUtils.colorBlack,
-      Function onOk,
-      Function onCancel}) {
+      Function()? onOk,
+      Function()? onCancel}) {
     showDialog(
         context: context,
         barrierDismissible: cancelable,
@@ -117,18 +117,18 @@ class AlertCenter {
 }
 
 Widget AlertDefaultView(
-  BuildContext context, {
+  BuildContext? context, {
   var title,
   var message,
-  Widget content,
-  Function onOK,
-  Function onCancel,
-  bool showCancel,
-  String okTitle,
-  Color cancelColor,
-  Color okColor,
-  String cancelTitle,
-  EdgeInsets margin,
+  Widget? content,
+  Function()? onOK,
+  Function()? onCancel,
+  bool? showCancel,
+  String? okTitle,
+  Color? cancelColor,
+  Color? okColor,
+  String? cancelTitle,
+  EdgeInsets? margin,
 }) {
   return new Container(
       margin: margin,
@@ -173,7 +173,7 @@ Widget AlertDefaultView(
                                   margin: EdgeInsets.only(left: 16, right: 16),
                                 )),
                             VisibleView(
-                              child: content,
+                              child: content!,
                               visible: null != content
                                   ? Visible.visible
                                   : Visible.gone,
@@ -199,17 +199,17 @@ Widget AlertDefaultView(
 class AlertDefault extends Dialog {
   var title;
   var message;
-  Widget content;
-  Function onOK;
-  Function onCancel;
-  bool showCancel;
-  String okTitle;
-  String cancelTitle;
-  EdgeInsets margin;
+  Widget? content;
+  Function()? onOK;
+  Function()? onCancel;
+  bool? showCancel;
+  String? okTitle;
+  String? cancelTitle;
+  EdgeInsets? margin;
 
   AlertDefault({
-    Key key,
-    @required this.title,
+    Key? key,
+    required this.title,
     this.message,
     this.content,
     this.showCancel = true,
@@ -265,7 +265,7 @@ class AlertDefault extends Dialog {
                                         EdgeInsets.only(left: 16, right: 16),
                                   )),
                               VisibleView(
-                                child: content,
+                                child: content!,
                                 visible: null != content
                                     ? Visible.visible
                                     : Visible.gone,
@@ -288,20 +288,20 @@ class AlertDefault extends Dialog {
 }
 
 List<Widget> buildButtonAction(context,
-    {bool showCancel,
-    String okTitle,
-    String cancelTitle,
-    Function onOk,
-    Color cancelColor,
-    Color okColor,
-    Function onCancel}) {
+    {bool? showCancel,
+    String? okTitle,
+    String? cancelTitle,
+    Function()? onOk,
+    Color? cancelColor,
+    Color? okColor,
+    Function()? onCancel}) {
   if (null == onOk) onOk = () {};
   if (null == onCancel) onCancel = () {};
 
   if (null == okTitle) okTitle = '确定';
   if (null == cancelTitle) cancelTitle = '取消';
 
-  List<Widget> widgets = List();
+  List<Widget> widgets = [];
 
   var ok =
       _buttonAction(title: okTitle, left: false, onClick: onOk, color: okColor);
@@ -315,22 +315,22 @@ List<Widget> buildButtonAction(context,
 }
 
 Widget _buttonAction(
-    {String title,
-    Color color = BaseColorUtils.colorBlack,
-    Color bgColor = BaseColorUtils.white,
-    Function onClick,
-    bool left}) {
+    {String? title,
+    Color? color,
+    Color? bgColor,
+    Function()? onClick,
+    bool? left}) {
   return Expanded(
       child: ButtonView(
-    text: title,
+    text: title ?? '',
     height: double.infinity,
     borderRadius: BorderRadius.only(
         bottomLeft: Radius.circular(true == left ? 8 : 0),
         bottomRight: Radius.circular(false == left ? 8 : 0)),
     margin: EdgeInsets.only(top: 16),
-    bgColor: bgColor,
+    bgColor: bgColor ?? BaseColorUtils.white,
     showShadow: true,
-    color: color,
-    onPressed: onClick,
+    color: color ?? BaseColorUtils.colorBlack,
+    onPressed: onClick!,
   ));
 }

@@ -9,14 +9,14 @@ import 'package:flutter/material.dart';
 ///
 
 class DotView extends StatelessWidget {
-  final double width;
-  final double height;
-  final Color color;
-  final double radius;
-  final EdgeInsets margin;
+  final double? width;
+  final double? height;
+  final Color? color;
+  final double? radius;
+  final EdgeInsets? margin;
 
   const DotView(
-      {Key key, this.width, this.height, this.color, this.radius, this.margin})
+      {Key? key, this.width, this.height, this.color, this.radius, this.margin})
       : super(key: key);
 
   @override

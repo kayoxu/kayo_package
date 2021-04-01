@@ -10,19 +10,19 @@ import 'package:kayo_package/views/widget/base/clickable.dart';
 
 @Deprecated('Use `CardView` method instead')
 class CardItem extends StatelessWidget {
-  final Widget child;
-  final EdgeInsets margin;
-  final EdgeInsets padding;
-  final Color color;
-  final Color shadowColor;
-  final RoundedRectangleBorder shape;
-  final double elevation;
-  final VoidCallback onPressed;
-  final Decoration decoration;
+  final Widget? child;
+  final EdgeInsets? margin;
+  final EdgeInsets? padding;
+  final Color? color;
+  final Color? shadowColor;
+  final RoundedRectangleBorder? shape;
+  final double? elevation;
+  final VoidCallback? onPressed;
+  final Decoration? decoration;
 
   const CardItem(
-      {@required this.child,
-      Key key,
+      {required this.child,
+      Key? key,
       this.margin,
       this.padding,
       this.color,
@@ -35,11 +35,11 @@ class CardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    EdgeInsets margin = this.margin;
-    EdgeInsets padding = this.padding;
+    EdgeInsets? margin = this.margin;
+    EdgeInsets? padding = this.padding;
 
-    RoundedRectangleBorder shape = this.shape;
-    Color color = this.color;
+    RoundedRectangleBorder? shape = this.shape;
+    Color? color = this.color;
     margin ??= EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 0);
 
     padding ??= EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0, bottom: 8.0);

@@ -1,7 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:kayo_package/kayo_package.dart';
+ import 'package:flutter/material.dart';
+import 'package:kayo_package/utils/base_color_utils.dart';
+import 'package:kayo_package/views/widget/base/clickable.dart';
+import 'package:kayo_package/views/widget/base/keyboard/boards/keyboard_tools.dart';
+ import 'package:kayo_package/views/widget/base/text_view.dart';
 
-import 'keyboard_tools.dart';
+import '../cool_ui.dart';
+
 
 class KeyboardCarNum extends StatefulWidget {
   static double getHeight(BuildContext ctx) {
@@ -9,7 +13,7 @@ class KeyboardCarNum extends StatefulWidget {
     return 48.0 + 8 + 8 + 4 * 48; //mediaQuery.size.width / 3 / 2 * 5 + 20;
   }
 
-  final KeyboardController controller;
+  final KeyboardController? controller;
 
   const KeyboardCarNum({this.controller});
 
@@ -90,7 +94,7 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
                               color: BaseColorUtils.colorGrey,
                             ),
                             onPressed: () {
-                              widget.controller.doneAction();
+                              widget.controller?.doneAction();
                             }))
                   ],
                 ),
@@ -198,7 +202,7 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
                   child: Icon(Icons.backspace),
                 ),
                 onTap: () {
-                  widget.controller.deleteOne();
+                  widget.controller?.deleteOne();
                 },
               ))
         ],
@@ -307,7 +311,7 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
                   child: Icon(Icons.backspace),
                 ),
                 onTap: () {
-                  widget.controller.deleteOne();
+                  widget.controller?.deleteOne();
                 },
               ))
         ],
@@ -315,7 +319,7 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
     ];
   }
 
-  Widget buildButton(String title, {String value, int flex = 1}) {
+  Widget buildButton(String title, {String? value, int flex = 1}) {
     if (value == null) {
       value = title;
     }
@@ -339,7 +343,7 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
           ),
           onTap: () {
             badKeyboard = false;
-            widget.controller.addText(value);
+            widget.controller?.addText(value!);
           },
         ));
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
- 
+
 ///  kayo_plugin
 ///  views.widget.base
 ///
@@ -8,12 +8,12 @@ import 'package:kayo_package/utils/base_color_utils.dart';
 ///  Copyright © 2019 kayoxu. All rights reserved.
 
 class ShadowView extends StatefulWidget {
-  Widget child;
-  double radius;
-  double elevation;
-  Color shadowColor;
-  Color bgColor;
-  BorderRadius borderRadius;
+  Widget? child;
+  double? radius;
+  double? elevation;
+  Color? shadowColor;
+  Color? bgColor;
+  BorderRadius? borderRadius;
 
   /*
   * 水波纹
@@ -21,8 +21,8 @@ class ShadowView extends StatefulWidget {
   bool inkWell;
 
   ShadowView({
-    Key key,
-    @required this.child,
+    Key? key,
+    required this.child,
     this.radius = 0,
     this.elevation = 0,
     this.shadowColor = BaseColorUtils.colorGreyLite,
@@ -39,13 +39,13 @@ class ShadowViewState extends State<ShadowView> {
   @override
   Widget build(BuildContext context) {
     return (null == widget.elevation || 0 == widget.elevation) &&
-            !widget.inkWell
-        ? widget.child
+            (true != widget.inkWell)
+        ? widget.child!
         : Material(
             borderRadius: null != widget.borderRadius
                 ? widget.borderRadius
-                : BorderRadius.circular(widget.radius),
-            elevation: widget.elevation,
+                : BorderRadius.circular(widget.radius ?? 0),
+            elevation: widget.elevation ?? 0,
             shadowColor: widget.shadowColor,
             color: widget.bgColor,
             child: widget.child,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:path_drawing/path_drawing.dart';
-export 'package:path_drawing/path_drawing.dart';
 
 ///  kayo_package
 ///  views.widget.base
@@ -9,7 +8,7 @@ export 'package:path_drawing/path_drawing.dart';
 ///  Copyright © 2019 kayoxu. All rights reserved.
 class DashPathBorder extends Border {
   DashPathBorder({
-    @required this.dashArray,
+    required this.dashArray,
     BorderSide top = BorderSide.none,
     BorderSide left = BorderSide.none,
     BorderSide right = BorderSide.none,
@@ -23,7 +22,7 @@ class DashPathBorder extends Border {
 
   factory DashPathBorder.all({
     BorderSide borderSide = const BorderSide(),
-    @required CircularIntervalList<double> dashArray,
+    required CircularIntervalList<double> dashArray,
   }) {
     return DashPathBorder(
       dashArray: dashArray,
@@ -40,9 +39,9 @@ class DashPathBorder extends Border {
   void paint(
     Canvas canvas,
     Rect rect, {
-    TextDirection textDirection,
+    TextDirection? textDirection,
     BoxShape shape = BoxShape.rectangle,
-    BorderRadius borderRadius,
+    BorderRadius? borderRadius,
   }) {
     if (isUniform) {
       switch (top.style) {
@@ -87,11 +86,11 @@ class DashPathBorder extends Border {
 }
 
 Widget dashLine(BuildContext context,
-    {Color color,
-    double rootHeight,
-    double dashHeight,
-    double dashWidth,
-    double dashSpace}) {
+    {Color? color,
+    double? rootHeight,
+    double? dashHeight,
+    double? dashWidth,
+    double? dashSpace}) {
   dashSpace = dashSpace ?? 3;
   dashHeight = dashHeight ?? 1;
   dashWidth = dashWidth ?? 2;
@@ -109,11 +108,11 @@ Widget dashLine(BuildContext context,
 }
 
 class DashPainter extends CustomPainter {
-  final Color color;
-  final double rootHeight;
-  final double dashHeight;
-  final double dashSpace;
-  final double dashWidth;
+  final Color? color;
+  final double? rootHeight;
+  final double? dashHeight;
+  final double? dashSpace;
+  final double? dashWidth;
 
   DashPainter(
       {this.color,
@@ -125,7 +124,7 @@ class DashPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint() // 创建一个画笔并配置其属性
-      ..strokeWidth = this.dashHeight // 画笔的宽度
+      ..strokeWidth = this.dashHeight??1 // 画笔的宽度
       ..isAntiAlias = true // 是否抗锯齿
       ..color = this.color ?? Color(0xffECECEC); // 画笔颜色
 
@@ -133,11 +132,11 @@ class DashPainter extends CustomPainter {
     var dashWidth = this.dashWidth;
     var dashSpace = this.dashSpace;
     double startX = 0;
-    final space = (dashSpace + dashWidth);
+    final space = (dashSpace! + dashWidth!);
 
     while (startX < max) {
-      canvas.drawLine(Offset(startX, rootHeight / 2),
-          Offset(startX + dashWidth, rootHeight / 2), paint);
+      canvas.drawLine(Offset(startX, rootHeight! / 2),
+          Offset(startX + dashWidth, rootHeight! / 2), paint);
       startX += space;
     }
   }

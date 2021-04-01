@@ -18,9 +18,9 @@ const TextStyle _kDefaultStyle = TextStyle(
 
 abstract class PinDecoration {
   /// The style of painting text.
-  final TextStyle textStyle;
+  final TextStyle? textStyle;
 
-  final ObscureStyle obscureStyle;
+  final ObscureStyle? obscureStyle;
 
   PinEntryType get pinEntryType;
 
@@ -56,11 +56,11 @@ class UnderlineDecoration extends PinDecoration {
   final double lineHeight;
 
   /// The underline changed color when user enter pin.
-  final Color enteredColor;
+  final Color? enteredColor;
 
   const UnderlineDecoration({
-    TextStyle textStyle,
-    ObscureStyle obscureStyle,
+    TextStyle? textStyle,
+    ObscureStyle? obscureStyle,
     this.enteredColor,
     this.gapSpace: 16.0,
     this.color: Colors.cyan,
@@ -86,11 +86,11 @@ class BoxTightDecoration extends PinDecoration {
   final Color strokeColor;
 
   /// The box inside solid color.
-  final Color solidColor;
+  final Color? solidColor;
 
   const BoxTightDecoration({
-    TextStyle textStyle,
-    ObscureStyle obscureStyle,
+    TextStyle? textStyle,
+    ObscureStyle? obscureStyle,
     this.solidColor,
     this.strokeWidth: 1.0,
     this.radius: const Radius.circular(8.0),
@@ -119,14 +119,14 @@ class BoxLooseDecoration extends PinDecoration {
   final Color strokeColor;
 
   /// The box inside solid color.
-  final Color solidColor;
+  final Color? solidColor;
 
   /// The border changed color when user enter pin.
-  final Color enteredColor;
+  final Color? enteredColor;
 
   const BoxLooseDecoration({
-    TextStyle textStyle,
-    ObscureStyle obscureStyle,
+    TextStyle? textStyle,
+    ObscureStyle? obscureStyle,
     this.enteredColor,
     this.solidColor,
     this.radius: const Radius.circular(4.0),
@@ -145,16 +145,16 @@ class BoxLooseDecoration extends PinDecoration {
 /// Helper class to handle inner or outside controller.
 class PinEditingController extends TextEditingController {
   /// Determine whether this class is defined inner.
-  bool _inner;
+  bool? _inner;
 
   /// Control the maxLength of pin.
-  int _pinMaxLength;
+  int? _pinMaxLength;
 
-  PinEditingController._inner({String text, bool inner})
-      : _inner = inner,
+  PinEditingController._inner({String? text, bool? inner})
+      : _inner = inner!,
         super(text: text);
 
-  PinEditingController({String text})
+  PinEditingController({String? text})
       : _inner = false,
         super(text: text);
 
@@ -163,7 +163,7 @@ class PinEditingController extends TextEditingController {
     /// Cut the parameter string if the length is longer than [_pinMaxLength].
     if (newText != null &&
         _pinMaxLength != null &&
-        newText.length > _pinMaxLength) {
+        newText.length > _pinMaxLength!) {
       newText = newText.substring(0, _pinMaxLength);
     }
     super.text = newText;
@@ -171,15 +171,15 @@ class PinEditingController extends TextEditingController {
 }
 
 class PinInputTextField extends StatefulWidget {
-  final double width;
+  final double? width;
 
-  final double height;
+  final double? height;
 
   /// The max length of pin.
   final int pinLength;
 
   /// The callback will execute when user click done.
-  final ValueChanged<String> onSubmit;
+  final ValueChanged<String>? onSubmit;
 
   /// Decorate the pin.
   final PinDecoration decoration;
@@ -188,7 +188,7 @@ class PinInputTextField extends StatefulWidget {
 //  final List<TextInputFormatter> inputFormatters;
 
   /// Just like [TextField]'s keyboardType.
-  final TextInputType keyboardType;
+  final TextInputType? keyboardType;
 
   /// Controls the pin being edited.
   ///
@@ -196,10 +196,10 @@ class PinInputTextField extends StatefulWidget {
   final PinEditingController pinEditingController;
 
   /// Same as [TextField]'s autoFocus.
-  final bool autoFocus;
+  final bool? autoFocus;
 
   /// Same as [TextField]'s focusNode.
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
 
   PinInputTextField({
     this.pinLength: 6,
@@ -207,7 +207,7 @@ class PinInputTextField extends StatefulWidget {
     this.height,
     this.onSubmit,
     this.decoration: const BoxLooseDecoration(),
-    List<TextInputFormatter> inputFormatter,
+    List<TextInputFormatter>? inputFormatter,
     this.keyboardType,
     pinEditingController,
     this.focusNode,
@@ -225,26 +225,26 @@ class PinInputTextField extends StatefulWidget {
 }
 
 class _PinInputTextFieldState extends State<PinInputTextField> {
-  PinEditingController _controller;
-  String _text;
+  PinEditingController? _controller;
+  String? _text;
 
   @override
   void initState() {
     super.initState();
     _controller = widget.pinEditingController;
-    _controller._pinMaxLength = widget.pinLength;
+    _controller?._pinMaxLength = widget.pinLength;
 
-    _controller.addListener(() {
+    _controller?.addListener(() {
       /// Reset the cursor position when in needed.
       /// Relevant issue see [https://github.com/flutter/flutter/issues/11416],
       /// Only work in Android.
       setState(() {
-        _text = _controller.text;
+        _text = _controller?.text;
         if (Platform.isAndroid &&
-            _controller.text != null &&
-            _controller.selection.start < _controller.text.length) {
-          _controller.selection = TextSelection.fromPosition(
-            TextPosition(offset: _controller.text.length),
+            _controller?.text != null &&
+            _controller!.selection.start < _controller!.text.length) {
+          _controller!.selection = TextSelection.fromPosition(
+            TextPosition(offset: _controller!.text.length),
           );
         }
       });
@@ -256,7 +256,8 @@ class _PinInputTextFieldState extends State<PinInputTextField> {
     super.didUpdateWidget(oldWidget);
     // If the controller change from inside to outside,
     // we should dispose the controller to prevent leak;
-    if (!_controller._inner && oldWidget.pinEditingController._inner) {
+    if ((true != _controller?._inner) &&
+        (true == oldWidget.pinEditingController._inner)) {
       oldWidget.pinEditingController.dispose();
     }
   }
@@ -264,8 +265,8 @@ class _PinInputTextFieldState extends State<PinInputTextField> {
   @override
   void dispose() {
     /// Only work in inner controller.
-    if (_controller._inner) {
-      _controller.dispose();
+    if (_controller?._inner == true) {
+      _controller?.dispose();
     }
     super.dispose();
   }
@@ -314,7 +315,7 @@ class _PinInputTextFieldState extends State<PinInputTextField> {
 
           focusNode: widget.focusNode,
 
-          autofocus: widget.autoFocus,
+          autofocus: widget.autoFocus ?? false,
 
           /// Clear default text decoration.
           decoration: InputDecoration(
@@ -333,14 +334,14 @@ class _PinInputTextFieldState extends State<PinInputTextField> {
 }
 
 class _PinPaint extends CustomPainter {
-  String text;
-  final int pinLength;
-  final double space;
-  final PinEntryType type;
-  final PinDecoration decoration;
+  String? text;
+  final int? pinLength;
+  final double? space;
+  final PinEntryType? type;
+  final PinDecoration? decoration;
 
   _PinPaint({
-    String text,
+    String? text,
     this.pinLength,
     this.decoration,
     this.space: 1.0,
@@ -364,10 +365,10 @@ class _PinPaint extends CustomPainter {
       ..isAntiAlias = true;
 
     /// Assign paint if [solidColor] is not null
-    Paint insidePaint;
+    Paint? insidePaint;
     if (dr.solidColor != null) {
       insidePaint = Paint()
-        ..color = dr.solidColor
+        ..color = dr.solidColor!
         ..strokeWidth = dr.strokeWidth
         ..style = PaintingStyle.fill
         ..isAntiAlias = true;
@@ -389,9 +390,9 @@ class _PinPaint extends CustomPainter {
 
     /// Calculate the width of each underline.
     double singleWidth =
-        (size.width - dr.strokeWidth * (pinLength + 1)) / pinLength;
+        (size.width - dr.strokeWidth * (pinLength! + 1)) / pinLength!;
 
-    for (int i = 1; i < pinLength; i++) {
+    for (int i = 1; i < pinLength!; i++) {
       double offsetX = singleWidth +
           dr.strokeWidth * i +
           dr.strokeWidth / 2 +
@@ -406,22 +407,22 @@ class _PinPaint extends CustomPainter {
     var startX = 0.0;
 
     /// Determine whether display obscureText.
-    bool obscureOn;
-    obscureOn = decoration.obscureStyle != null &&
-        decoration.obscureStyle.isTextObscure;
+    bool? obscureOn;
+    obscureOn = decoration?.obscureStyle != null &&
+        decoration!.obscureStyle!.isTextObscure;
 
     /// The text style of pin.
-    TextStyle textStyle;
-    if (decoration.textStyle == null) {
+    TextStyle? textStyle;
+    if (decoration?.textStyle == null) {
       textStyle = _kDefaultStyle;
     } else {
-      textStyle = decoration.textStyle;
+      textStyle = decoration?.textStyle;
     }
 
-    text.runes.forEach((rune) {
-      String code;
-      if (obscureOn) {
-        code = decoration.obscureStyle.obscureText;
+    text?.runes.forEach((rune) {
+      String? code;
+      if (obscureOn == true) {
+        code = decoration!.obscureStyle?.obscureText;
       } else {
         code = String.fromCharCode(rune);
       }
@@ -460,27 +461,27 @@ class _PinPaint extends CustomPainter {
       ..isAntiAlias = true;
 
     /// Assign paint if [solidColor] is not null
-    Paint insidePaint;
+    Paint? insidePaint;
     if (dr.solidColor != null) {
       insidePaint = Paint()
-        ..color = dr.solidColor
+        ..color = dr.solidColor!
         ..style = PaintingStyle.fill
         ..isAntiAlias = true;
     }
 
     /// Calculate the width of each underline.
     double singleWidth = (size.width -
-            dr.strokeWidth * 2 * pinLength -
-            ((pinLength - 1) * dr.gapSpace)) /
-        pinLength;
+            dr.strokeWidth * 2 * pinLength! -
+            ((pinLength! - 1) * dr.gapSpace)) /
+        pinLength!;
 
     var startX = dr.strokeWidth / 2;
     var startY = size.height - dr.strokeWidth / 2;
 
     /// Draw the each rect of pin.
-    for (int i = 0; i < pinLength; i++) {
-      if (i < text.length && dr.enteredColor != null) {
-        borderPaint.color = dr.enteredColor;
+    for (int i = 0; i < pinLength!; i++) {
+      if (i < text!.length && dr.enteredColor != null) {
+        borderPaint.color = dr.enteredColor!;
       } else {
         borderPaint.color = dr.strokeColor;
       }
@@ -505,21 +506,21 @@ class _PinPaint extends CustomPainter {
 
     /// Determine whether display obscureText.
     bool obscureOn;
-    obscureOn = decoration.obscureStyle != null &&
-        decoration.obscureStyle.isTextObscure;
+    obscureOn = decoration?.obscureStyle != null &&
+        decoration?.obscureStyle?.isTextObscure == true;
 
     /// The text style of pin.
     TextStyle textStyle;
-    if (decoration.textStyle == null) {
+    if (decoration?.textStyle == null) {
       textStyle = _kDefaultStyle;
     } else {
-      textStyle = decoration.textStyle;
+      textStyle = decoration!.textStyle!;
     }
 
-    text.runes.forEach((rune) {
-      String code;
+    text?.runes.forEach((rune) {
+      String? code;
       if (obscureOn) {
-        code = decoration.obscureStyle.obscureText;
+        code = decoration?.obscureStyle?.obscureText;
       } else {
         code = String.fromCharCode(rune);
       }
@@ -564,11 +565,11 @@ class _PinPaint extends CustomPainter {
 
     /// Calculate the width of each underline.
     double singleWidth =
-        (size.width - (pinLength - 1) * dr.gapSpace) / pinLength;
+        (size.width - (pinLength! - 1) * dr.gapSpace) / pinLength!;
 
-    for (int i = 0; i < pinLength; i++) {
-      if (i < text.length && dr.enteredColor != null) {
-        underlinePaint.color = dr.enteredColor;
+    for (int i = 0; i < pinLength!; i++) {
+      if (i < (text ?? '').length && dr.enteredColor != null) {
+        underlinePaint.color = dr.enteredColor!;
       } else {
         underlinePaint.color = dr.color;
       }
@@ -584,21 +585,21 @@ class _PinPaint extends CustomPainter {
 
     /// Determine whether display obscureText.
     bool obscureOn;
-    obscureOn = decoration.obscureStyle != null &&
-        decoration.obscureStyle.isTextObscure;
+    obscureOn = decoration?.obscureStyle != null &&
+        decoration!.obscureStyle!.isTextObscure;
 
     /// The text style of pin.
     TextStyle textStyle;
-    if (decoration.textStyle == null) {
+    if (decoration?.textStyle == null) {
       textStyle = _kDefaultStyle;
     } else {
-      textStyle = decoration.textStyle;
+      textStyle = decoration!.textStyle!;
     }
 
-    text.runes.forEach((rune) {
-      String code;
+    text?.runes.forEach((rune) {
+      String? code;
       if (obscureOn) {
-        code = decoration.obscureStyle.obscureText;
+        code = decoration?.obscureStyle?.obscureText;
       } else {
         code = String.fromCharCode(rune);
       }
@@ -631,7 +632,7 @@ class _PinPaint extends CustomPainter {
   void paint(Canvas canvas, Size size2) {
     var size = Size(size2.width, 24);
 
-    switch (decoration.pinEntryType) {
+    switch (decoration!.pinEntryType) {
       case PinEntryType.boxTight:
         {
           _drawBoxTight(canvas, size);

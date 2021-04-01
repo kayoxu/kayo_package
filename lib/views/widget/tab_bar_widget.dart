@@ -18,48 +18,48 @@ class TabBarWidget extends StatefulWidget {
   ///
   static const int HIDE_TAB = 3;
 
-  final int type;
+  final int? type;
 
-  final List<Widget> tabItems;
+  final List<Widget>? tabItems;
 
-  final List<Widget> tabViews;
+  final List<Widget>? tabViews;
 
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
-  final Color indicatorColor;
+  final Color? indicatorColor;
 
-  final Widget title;
+  final Widget? title;
 
-  final Widget drawer;
+  final Widget? drawer;
 
-  final PreferredSizeWidget appBar;
+  final PreferredSizeWidget? appBar;
 
-  final Widget floatingActionButton;
+  final Widget? floatingActionButton;
 
-  final TarWidgetControl tarWidgetControl;
+  final TarWidgetControl? tarWidgetControl;
 
-  final PageController topPageControl;
+  final PageController? topPageControl;
 
-  final ValueChanged<int> onPageChanged;
+  final ValueChanged<int>? onPageChanged;
 
-  final ValueChanged<int> onTabChanged;
+  final ValueChanged<int>? onTabChanged;
 
-  final int initialIndex;
+  final int? initialIndex;
 
-  final bool animate;
-  final bool scrollable;
-  final bool showBack;
-  final bool centerTitle;
-  final bool darkStatusText;
-  final double elevation;
-  final String titleStr;
-  final List<Widget> actions;
-  final bool showLine;
-  final Color bgColor;
-  final Function backClick;
+  final bool? animate;
+  final bool? scrollable;
+  final bool? showBack;
+  final bool? centerTitle;
+  final bool? darkStatusText;
+  final double? elevation;
+  final String? titleStr;
+  final List<Widget>? actions;
+  final bool? showLine;
+  final Color? bgColor;
+  final Function()? backClick;
 
   TabBarWidget({
-    Key key,
+    Key? key,
     this.type,
     this.tabItems,
     this.tabViews,
@@ -93,27 +93,28 @@ class TabBarWidget extends StatefulWidget {
 
 class TabBarWidgetState extends State<TabBarWidget>
     with SingleTickerProviderStateMixin {
-  TabController _tabController;
-  PageController _pageController;
+  TabController? _tabController;
+  PageController? _pageController;
 
-  VoidCallback _tabControllerChangeCallBack;
+  VoidCallback? _tabControllerChangeCallBack;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(
       vsync: this,
-      initialIndex: widget.initialIndex,
-      length: widget.tabItems.length,
+      initialIndex: widget.initialIndex ?? 0,
+      length: widget.tabItems?.length ?? 0,
     );
 
-    _pageController = PageController(initialPage: widget.initialIndex);
+    _pageController = PageController(initialPage: widget.initialIndex ?? 0);
 
     _tabControllerChangeCallBack = () {
-      if (!_tabController.indexIsChanging) {
-        int _index = _tabController.index;
-        this.widget.onPageChanged(_index);
-        if (_pageController.hasClients && _index != _pageController.page) {
+      if (true != _tabController?.indexIsChanging) {
+        int _index = _tabController?.index ?? 0;
+        this.widget.onPageChanged?.call(_index);
+        if ((_pageController?.hasClients == true) &&
+            _index != (_pageController?.page ?? 0)) {
           _pageController?.animateToPage(_index,
               duration: Duration(milliseconds: 300),
               curve: Curves.easeInOutQuint);
@@ -121,7 +122,7 @@ class TabBarWidgetState extends State<TabBarWidget>
       }
     };
     if (this.widget.type != TabBarWidget.BOTTOM_TAB_CAN_NULL) {
-      _tabController.addListener(_tabControllerChangeCallBack);
+      _tabController?.addListener(_tabControllerChangeCallBack!);
     }
   }
 
@@ -129,16 +130,16 @@ class TabBarWidgetState extends State<TabBarWidget>
   @override
   void dispose() {
 //    _tabController.removeListener(_tabControllerChangeCallBack);
-    _tabController.dispose();
+    _tabController?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate) {
-      _tabController.animateTo(widget.initialIndex);
+    if (widget.animate == true) {
+      _tabController?.animateTo(widget.initialIndex ?? 0);
     } else {
-      _tabController.index = widget.initialIndex;
+      _tabController?.index = widget.initialIndex ?? 0;
     }
 
     if (this.widget.type == TabBarWidget.TOP_TAB) {
@@ -147,7 +148,7 @@ class TabBarWidgetState extends State<TabBarWidget>
         floatingActionButton: widget.floatingActionButton,
         persistentFooterButtons: widget.tarWidgetControl == null
             ? null
-            : widget.tarWidgetControl.footerButton,
+            : widget.tarWidgetControl?.footerButton,
         appBar: AppBar(
           elevation: widget.elevation ?? 0.5,
           actions: widget.actions,
@@ -159,7 +160,8 @@ class TabBarWidgetState extends State<TabBarWidget>
                     Icons.arrow_back_ios,
                   ),
                   iconSize: 22,
-                  color: Color(widget.darkStatusText ? 0xff50525c : 0xffffffff),
+                  color: Color(
+                      widget.darkStatusText == true ? 0xff50525c : 0xffffffff),
                   onPressed: widget.backClick ??
                       () async {
                         if (Navigator.canPop(context)) {
@@ -170,20 +172,21 @@ class TabBarWidgetState extends State<TabBarWidget>
                       }, // null disables the button
                 )
               : null,
-          brightness:
-              widget.darkStatusText ? Brightness.light : Brightness.dark,
+          brightness: widget.darkStatusText == true
+              ? Brightness.light
+              : Brightness.dark,
           title: widget.title ??
               Text(
-                widget.titleStr,
+                widget.titleStr ?? '',
                 style: TextStyle(
-                    color: widget.darkStatusText
+                    color: widget.darkStatusText == true
                         ? BaseColorUtils.colorBlack
                         : BaseColorUtils.white),
                 textAlign: TextAlign.center,
               ),
           bottom: new TabBar(
             controller: _tabController,
-            tabs: widget.tabItems,
+            tabs: widget.tabItems ?? [],
             indicatorColor: widget.indicatorColor,
             indicator: null,
             onTap: widget.onTabChanged,
@@ -191,12 +194,12 @@ class TabBarWidgetState extends State<TabBarWidget>
         ),
         body: new PageView(
           controller: widget.topPageControl ?? _pageController,
-          children: widget.tabViews,
+          children: widget.tabViews ?? [],
           onPageChanged: (index) {
-            if (widget.animate) {
-              _tabController.animateTo(index);
+            if (widget.animate == true) {
+              _tabController?.animateTo(index);
             } else {
-              _tabController.index = index;
+              _tabController?.index = index;
             }
 //            widget.onPageChanged?.call(index);
           },
@@ -208,7 +211,7 @@ class TabBarWidgetState extends State<TabBarWidget>
         floatingActionButton: widget.floatingActionButton,
         persistentFooterButtons: widget.tarWidgetControl == null
             ? null
-            : widget.tarWidgetControl.footerButton,
+            : widget.tarWidgetControl?.footerButton,
         appBar: AppBar(
           elevation: widget.elevation ?? 0.5,
           actions: widget.actions,
@@ -221,7 +224,8 @@ class TabBarWidgetState extends State<TabBarWidget>
                     Icons.arrow_back_ios,
                   ),
                   iconSize: 22,
-                  color: Color(widget.darkStatusText ? 0xff50525c : 0xffffffff),
+                  color: Color(
+                      widget.darkStatusText == true ? 0xff50525c : 0xffffffff),
                   onPressed: () async {
                     if (Navigator.canPop(context)) {
                       return Navigator.of(context).pop();
@@ -231,11 +235,12 @@ class TabBarWidgetState extends State<TabBarWidget>
                   }, // null disables the button
                 )
               : null,
-          brightness:
-              widget.darkStatusText ? Brightness.light : Brightness.dark,
+          brightness: widget.darkStatusText == true
+              ? Brightness.light
+              : Brightness.dark,
           title: TabBar(
             controller: _tabController,
-            tabs: widget.tabItems,
+            tabs: widget.tabItems ?? [],
             indicatorColor: widget.indicatorColor,
             labelStyle: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
             unselectedLabelStyle:
@@ -248,12 +253,12 @@ class TabBarWidgetState extends State<TabBarWidget>
         ),
         body: new PageView(
           controller: widget.topPageControl ?? _pageController,
-          children: widget.tabViews,
+          children: widget.tabViews ?? [],
           onPageChanged: (index) {
-            if (widget.animate) {
-              _tabController.animateTo(index);
+            if (widget.animate == true) {
+              _tabController?.animateTo(index);
             } else {
-              _tabController.index = index;
+              _tabController?.index = index;
             }
 //            widget.onPageChanged?.call(index);
           },
@@ -267,10 +272,11 @@ class TabBarWidgetState extends State<TabBarWidget>
           appBar: widget.appBar,
           body: TabBarView(
               //TabBarView呈现内容，因此放到Scaffold的body中
-              physics:
-                  widget.scrollable ? null : NeverScrollableScrollPhysics(),
+              physics: widget.scrollable == true
+                  ? null
+                  : NeverScrollableScrollPhysics(),
               controller: _tabController, //配置控制器
-              children: widget.tabViews),
+              children: widget.tabViews ?? []),
           bottomNavigationBar: Material(
             //为了适配主题风格，包一层Material实现风格套用
             color: widget.bgColor ?? BaseColorUtils.colorWindow, //底部导航栏主题颜色
@@ -284,7 +290,7 @@ class TabBarWidgetState extends State<TabBarWidget>
                     BoxShadow(
                       color: widget.showLine == true
                           ? const Color(0xFFf1f1f1)
-                          : widget.bgColor,
+                          : widget.bgColor ?? BaseColorUtils.white,
                       blurRadius: 0.1,
                       spreadRadius: 0,
                       offset: Offset(-0.2, -0.2), //-1,-1
@@ -303,7 +309,7 @@ class TabBarWidgetState extends State<TabBarWidget>
                   labelColor: Theme.of(context).primaryColor,
                   unselectedLabelColor: const Color(0xFF8E8E8E),
                   isScrollable: false,
-                  tabs: widget.tabItems,
+                  tabs: widget.tabItems ?? [],
                 ),
               ),
             ),
@@ -314,34 +320,34 @@ class TabBarWidgetState extends State<TabBarWidget>
           floatingActionButton: widget.floatingActionButton,
           persistentFooterButtons: widget.tarWidgetControl == null
               ? null
-              : widget.tarWidgetControl.footerButton,
+              : widget.tarWidgetControl?.footerButton,
           body: Column(
             children: [
               Expanded(
                   child: new PageView(
                 controller: widget.topPageControl ?? _pageController,
-                children: widget.tabViews,
+                children: widget.tabViews ?? [],
                 physics: NeverScrollableScrollPhysics(),
               )),
               SafeArea(
                   child: new TabBar(
                       controller: _tabController,
-                      tabs: widget.tabItems,
+                      tabs: widget.tabItems ?? [],
                       physics: NeverScrollableScrollPhysics(),
                       indicatorColor: widget.indicatorColor,
                       indicator: null,
                       onTap: (index) {
-                        var view = widget.tabViews[index];
+                        var view = widget.tabViews?[index];
                         if (!(view is Container)) {
-                          if (_pageController.hasClients &&
-                              index != _pageController.page) {
+                          if ((_pageController?.hasClients == true) &&
+                              index != _pageController?.page) {
                             _pageController?.animateToPage(index,
                                 duration: Duration(milliseconds: 300),
                                 curve: Curves.easeInOutQuint);
                             widget.onPageChanged?.call(index);
                           }
                         }
-                        widget.onTabChanged.call(index);
+                        widget.onTabChanged?.call(index);
                       }))
             ],
           ));
@@ -353,7 +359,7 @@ class TabBarWidgetState extends State<TabBarWidget>
               backgroundColor: BaseColorUtils.colorWindow,
               drawer: widget.drawer,
               appBar: widget.appBar,
-              body: widget.tabViews[0]);
+              body: widget.tabViews?[0]);
     }
   }
 }

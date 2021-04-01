@@ -1,8 +1,8 @@
 class TabMenu {
-  int count;
+  int? count;
   var name;
   var id;
-  int index;
+  int? index;
 
   TabMenu({this.count, this.name, this.id,this.index});
 

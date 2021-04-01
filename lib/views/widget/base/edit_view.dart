@@ -11,51 +11,51 @@ import 'package:kayo_package/views/widget/base/image_view.dart';
 ///  Copyright © 2019 kayoxu. All rights reserved.
 
 class EditView extends StatefulWidget {
-  bool obscureText;
+  bool? obscureText;
 
-  String text;
-  String hintText;
-  String errorText;
-  Color hintTextColor;
-  double hintTextSize;
+  String? text;
+  String? hintText;
+  String? errorText;
+  Color? hintTextColor;
+  double? hintTextSize;
 
-  Color textColor;
-  double textSize;
+  Color? textColor;
+  double? textSize;
 
-  ValueChanged<String> onChanged;
+  ValueChanged<String>? onChanged;
 
-  TextStyle textStyle;
+  TextStyle? textStyle;
 
-  TextEditingController controller;
-  TextInputType keyboardType;
+  TextEditingController? controller;
+  TextInputType? keyboardType;
 
-  EdgeInsets margin;
-  EdgeInsets padding;
+  EdgeInsets? margin;
+  EdgeInsets? padding;
 
-  int maxLength;
+  int? maxLength;
 
-  String src;
-  InputBorder inputBorder;
-  int maxLines;
-  double radius;
-  Alignment alignment;
+  String? src;
+  InputBorder? inputBorder;
+  int? maxLines;
+  double? radius;
+  Alignment? alignment;
 
-  VoidCallback onClick;
+  VoidCallback? onClick;
 
-  bool showBorder;
-  bool showLine;
-  Color lineColor;
-  TextAlign textAlign;
-  FocusNode focusNode;
-  VoidCallback onEditingComplete;
-  ValueChanged<String> onSubmitted;
-  bool useDefaultEditController;
-  bool editable;
-  bool showLabelText;
-  List<TextInputFormatter> inputFormatters;
+  bool? showBorder;
+  bool? showLine;
+  Color? lineColor;
+  TextAlign? textAlign;
+  FocusNode? focusNode;
+  VoidCallback? onEditingComplete;
+  ValueChanged<String>? onSubmitted;
+  bool? useDefaultEditController;
+  bool? editable;
+  bool? showLabelText;
+  List<TextInputFormatter>? inputFormatters;
 
   EditView({
-    Key key,
+    Key? key,
     this.text,
     this.hintText,
     this.errorText,
@@ -104,7 +104,8 @@ class EditViewState extends State<EditView> {
   }
 
   void initController() {
-    if ((widget.useDefaultEditController || !widget.editable) &&
+    if (((widget.useDefaultEditController == true) ||
+            (true != widget.editable)) &&
         null == widget.controller) {
       widget.controller = TextEditingController(text: widget.text ?? '');
       print('flutter TextEditingController initState');
@@ -113,9 +114,10 @@ class EditViewState extends State<EditView> {
 
   @override
   void dispose() {
-    if ((widget.useDefaultEditController || !widget.editable) &&
+    if (((widget.useDefaultEditController == true) ||
+            (true != widget.editable)) &&
         null != widget.controller) {
-      widget.controller.dispose();
+      widget.controller?.dispose();
       widget.controller = null;
       print('flutter TextEditingController dispose');
     }
@@ -129,14 +131,14 @@ class EditViewState extends State<EditView> {
     return Container(
       alignment: widget.alignment,
       child: Padding(
-        padding: widget.margin,
+        padding: widget.margin ?? EdgeInsets.only(left: 0),
         child: Container(
 //           height: 1 == widget.maxLines ? 42 : null,
           padding: widget.padding,
           decoration: true == widget.showBorder
               ? BoxDecoration(
                   color: BaseColorUtils.colorWhite,
-                  borderRadius: BorderRadius.circular(widget.radius),
+                  borderRadius: BorderRadius.circular(widget.radius ?? 0),
                   boxShadow: [
                       BoxShadow(
                           color: BaseColorUtils.colorWhiteDark,
@@ -158,7 +160,7 @@ class EditViewState extends State<EditView> {
               onEditingComplete: widget.onEditingComplete,
               onSubmitted: widget.onSubmitted,
               focusNode: widget.focusNode,
-              textAlign: widget.textAlign,
+              textAlign: widget.textAlign ?? TextAlign.start,
               maxLength: widget.maxLength,
               maxLengthEnforced: false,
               maxLines: widget.maxLines,
@@ -166,8 +168,8 @@ class EditViewState extends State<EditView> {
               keyboardType: widget.keyboardType,
               controller: widget.controller,
               onChanged: widget.onChanged,
-              obscureText: widget.obscureText,
-              decoration: widget.showLabelText
+              obscureText: widget.obscureText ?? false,
+              decoration: (widget.showLabelText == true)
                   ? InputDecoration(labelText: widget.hintText)
                   : InputDecoration(
                       hasFloatingPlaceholder: false,
@@ -176,7 +178,7 @@ class EditViewState extends State<EditView> {
                           : ImageView(
                               width: 25,
                               height: 25,
-                              src: widget.src,
+                              src: widget.src ?? '',
                             ),
                       hintStyle: TextStyle(
                           color: widget.hintTextColor,
