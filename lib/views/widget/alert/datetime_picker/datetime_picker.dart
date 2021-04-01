@@ -38,6 +38,25 @@ class DatePicker {
       String formatType = ymdw,
       bool onlyStart = false,
       bool showWeek = false}) {
+    if (true) {
+      _showNewTimePicker(
+          formatType,
+          context,
+          minTime,
+          maxTime,
+          currentTime,
+          minTime2,
+          maxTime2,
+          currentTime2,
+          onConfirm,
+          onChanged,
+          onChanged2,
+          onCancel,
+          onlyStart);
+
+      return Future.value(1);
+    }
+
     return Navigator.push(
             context,
             new _DatePickerRoute(
@@ -71,6 +90,77 @@ class DatePicker {
         ;
   }
 
+  static void _showNewTimePicker(
+      String? formatType,
+      BuildContext context,
+      DateTime? minTime,
+      DateTime? maxTime,
+      DateTime? currentTime,
+      DateTime? minTime2,
+      DateTime? maxTime2,
+      DateTime? currentTime2,
+      DateChangedCallback? onConfirm,
+      DateChangedCallback? onChanged,
+      DateChangedCallback? onChanged2,
+      Function()? onCancel,
+      bool? onlyStart) {
+    String format = formatType ?? 'ymdw';
+
+    // dateFormat = 'yyyy年-MM月-dd日 HH时:mm分:ss秒',
+
+    var f = '';
+
+    if (format.contains('y')) {
+      f += 'yyyy年';
+    }
+    if (format.contains('y') && format.contains('m')) {
+      f += '-';
+    }
+    if ((format.contains('y') && format.contains('m')) ||
+        (format.contains('m') && format.contains('d'))) {
+      f += 'MM月';
+    }
+    if (format.contains('m') && format.contains('d')) {
+      f += '-';
+    }
+    if (format.contains('d')) {
+      f += 'dd日';
+    }
+    if (format.contains('d') && format.contains('h')) {
+      f += ' ';
+    }
+    if (format.contains('h')) {
+      f += 'HH时';
+    }
+    if (format.contains('h') && format.contains('m')) {
+      f += ':';
+    }
+    if ((format.contains('h') && format.contains('m')) ||
+        (format.contains('m') && format.contains('s')))  {
+      f += 'mm分';
+    }
+    if (format.contains('m') && format.contains('s')) {
+      f += ':';
+    }
+    if (format.contains('s')) {
+      f += 'ss秒';
+    }
+
+    DateTimePicker.show(context,
+        minStartDate: minTime,
+        maxStartDate: maxTime,
+        nowStartDate: currentTime,
+        minEndDate: minTime2,
+        maxEndDate: maxTime2,
+        dateFormat: f,
+        nowEndDate: currentTime2, onDateTimePick: (s, e) {
+      onConfirm?.call(s, time2: e);
+    }, onDateTimeChange: (s, e) {
+      onChanged?.call(s, time2: e);
+      onChanged2?.call(s, time2: e);
+    }, onCancel: onCancel, showEnd: onlyStart == true);
+  }
+
   ///
   /// Display time picker bottom sheet.
   ///
@@ -92,6 +182,25 @@ class DatePicker {
     String? startTitle,
     String? endTitle,
   }) {
+    if (true) {
+      _showNewTimePicker(
+          formatType,
+          context,
+          null,
+          null,
+          currentTime,
+          null,
+          null,
+          currentTime2,
+          onConfirm,
+          onChanged,
+          onChanged2,
+          null,
+          onlyStart);
+
+      return Future.value(1);
+    }
+
     return Navigator.push(
         context,
         new _DatePickerRoute(
@@ -142,6 +251,25 @@ class DatePicker {
     String? startTitle,
     String? endTitle,
   }) {
+    if (true) {
+      _showNewTimePicker(
+          formatType,
+          context,
+          minTime,
+          maxTime,
+          currentTime,
+          minTime2,
+          maxTime2,
+          currentTime2,
+          onConfirm,
+          onChanged,
+          onChanged2,
+          null,
+          onlyStart);
+
+      return Future.value(1);
+    }
+
     return Navigator.push(
         context,
         new _DatePickerRoute(
@@ -397,7 +525,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
                 child: Material(
                   color: Colors.transparent,
                   child: _renderPickerView(theme!, widget.formatType!,
-                      widget.title!, widget.startTitle!, widget.endTitle!),
+                      widget.title, widget.startTitle, widget.endTitle),
                 ),
               ),
             ),
@@ -416,8 +544,8 @@ class _DatePickerState extends State<_DatePickerComponent> {
     }
   }
 
-  Widget _renderPickerView(DatePickerTheme theme, String formatType,
-      String title, String startTitle, String endTitle) {
+  Widget _renderPickerView(DatePickerTheme theme, String? formatType,
+      String? title, String? startTitle, String? endTitle) {
     Widget itemView = _renderItemView(theme);
     if (widget.route!.showTitleActions == true) {
       return Column(

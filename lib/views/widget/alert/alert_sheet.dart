@@ -17,13 +17,13 @@ class AlertSheet {
   * 
   * */
   static sheet(context,
-      {String title = '提示',
+      {String? title = '提示',
       required List<Widget> children,
-      bool showCancel = false,
-      bool textBold = true,
-      double textSize = 14,
-      String cancelText = '取消',
-      Color cancelColor = BaseColorUtils.colorRed,
+      bool? showCancel = false,
+      bool? textBold = true,
+      double? textSize = 14,
+      String? cancelText = '取消',
+      Color? cancelColor = BaseColorUtils.colorRed,
       VoidCallback? cancelCallback}) {
     cancelCallback = cancelCallback ?? () => hide(context);
 
@@ -69,7 +69,8 @@ class AlertSheet {
                   children: children,
                 ),
                 VisibleView(
-                    visible: showCancel ? Visible.visible : Visible.gone,
+                    visible:
+                        showCancel == true ? Visible.visible : Visible.gone,
                     child: Column(
                       children: <Widget>[
                         LineView(
@@ -77,10 +78,10 @@ class AlertSheet {
                           color: BaseColorUtils.colorWindow,
                         ),
                         sheetAction(
-                            text: cancelText,
-                            color: cancelColor,
+                            text: cancelText ?? '',
+                            color: cancelColor ?? BaseColorUtils.colorBlack,
                             showLine: false,
-                            textBold: textBold,
+                            textBold: textBold ?? true,
                             callback: cancelCallback),
                       ],
                     ))
@@ -93,18 +94,18 @@ class AlertSheet {
   static hide(context) => Navigator.of(context).pop();
 
   static Widget sheetAction(
-      { required String text,
-       required VoidCallback? callback,
-      Color color = BaseColorUtils.colorBlackLite,
-      bool textBold = true,
+      {required String text,
+      required VoidCallback? callback,
+      Color? color = BaseColorUtils.colorBlackLite,
+      bool? textBold = true,
       double? textSize,
       EdgeInsets? padding,
-      bool showLine = true}) {
+      bool? showLine = true}) {
     var action = ButtonView(
       text: text,
       showShadow: false,
       textSize: textSize,
-      fontWeight: textBold ? FontWeight.w600 : FontWeight.normal,
+      fontWeight: textBold==true ? FontWeight.w600 : FontWeight.normal,
       color: color,
       bgColor: BaseColorUtils.white,
       radius: 0,
@@ -114,7 +115,7 @@ class AlertSheet {
       onPressed: callback!,
     );
 
-    return !showLine
+    return  showLine!=true
         ? action
         : Column(
             children: <Widget>[

@@ -13,6 +13,9 @@ export 'text_view.dart';
 export 'dash_path_border.dart';
 export 'dot_view.dart';
 export 'text_with_drawable.dart';
+export 'keyboard/_index_widget_keyboard.dart';
+export 'package:path_drawing/path_drawing.dart';
+
 
 /**
  *  kayo_package

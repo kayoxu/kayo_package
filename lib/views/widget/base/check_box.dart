@@ -55,13 +55,13 @@ class RadioView extends StatelessWidget {
 }
 
 class CheckBoxView extends StatelessWidget {
-  ValueChanged<bool?> onChanged;
-  bool value;
-  String name;
-  Color activeColor;
+  ValueChanged<bool?>? onChanged;
+  bool? value;
+  String? name;
+  Color? activeColor;
   Color nameColor;
   EdgeInsets? padding;
-  double nameSize;
+  double? nameSize;
 
   CheckBoxView(
       {required this.value,
@@ -96,7 +96,7 @@ class CheckBoxView extends StatelessWidget {
         ],
       ),
       onTap: () {
-        onChanged(!value2);
+        onChanged?.call(!value2);
       },
     );
   }

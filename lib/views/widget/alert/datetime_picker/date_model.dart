@@ -60,10 +60,10 @@ class CommonPickerModel extends BasePickerModel {
   late List<String> rightList;
   late List<String> rightList01;
   DateTime? currentTime;
-  late int _currentLeftIndex;
-  late int _currentMiddleIndex;
-  late int _currentRightIndex;
-  late int _currentRightIndex01;
+  int? _currentLeftIndex;
+  int? _currentMiddleIndex;
+  int? _currentRightIndex;
+  int? _currentRightIndex01;
 
   LocaleType locale;
 
@@ -175,7 +175,7 @@ class DatePickerModel extends CommonPickerModel {
 
     currentTime = currentTime ?? DateTime.now();
     if (currentTime != null) {
-      if (currentTime.compareTo(this.maxTime! ) > 0) {
+      if (currentTime.compareTo(this.maxTime!) > 0) {
         currentTime = this.maxTime;
       } else if (currentTime.compareTo(this.minTime!) < 0) {
         currentTime = this.minTime;
@@ -194,7 +194,8 @@ class DatePickerModel extends CommonPickerModel {
   }
 
   void _fillLeftLists() {
-    this.leftList = List.generate(maxTime!.year - minTime!.year + 1, (int index) {
+    this.leftList =
+        List.generate(maxTime!.year - minTime!.year + 1, (int index) {
       // print('LEFT LIST... ${minTime.year + index}${_localeYear()}');
       return '${minTime!.year + index}${_localeYear()}';
     });
@@ -461,10 +462,20 @@ class TimePickerModel extends CommonPickerModel {
   @override
   DateTime finalTime() {
     return currentTime!.isUtc
-        ? DateTime.utc(currentTime!.year, currentTime!.month, currentTime!.day,
-            _currentLeftIndex, _currentMiddleIndex, _currentRightIndex)
-        : DateTime(currentTime!.year, currentTime!.month, currentTime!.day,
-            _currentLeftIndex, _currentMiddleIndex, _currentRightIndex);
+        ? DateTime.utc(
+            currentTime!.year,
+            currentTime!.month,
+            currentTime!.day,
+            _currentLeftIndex ?? 0,
+            _currentMiddleIndex ?? 0,
+            _currentRightIndex ?? 0)
+        : DateTime(
+            currentTime!.year,
+            currentTime!.month,
+            currentTime!.day,
+            _currentLeftIndex ?? 0,
+            _currentMiddleIndex ?? 0,
+            _currentRightIndex ?? 0);
   }
 }
 
@@ -499,8 +510,8 @@ class DateTimePickerModel extends CommonPickerModel {
     print(
         'flutter DateTimePickerModel  index: ${index} ----    currentTime: ${currentTime} ----   dateTime: ${dateTime}');
 
-    if (dateTime.isBefore(
-            DateTime(maxTime!.year, maxTime!.month, maxTime!.day, 23, 59, 60)) &&
+    if (dateTime.isBefore(DateTime(
+            maxTime!.year, maxTime!.month, maxTime!.day, 23, 59, 60)) &&
         dateTime.isAfter(DateTime(
             minTime!.year, minTime!.month, minTime!.day - 1, 23, 59, 59))) {
       DateTime time = dateTime;
@@ -539,12 +550,17 @@ class DateTimePickerModel extends CommonPickerModel {
 
   @override
   DateTime? finalTime() {
-    DateTime time = currentTime!.add(Duration(days: _currentLeftIndex));
+    DateTime time = currentTime!.add(Duration(days: _currentLeftIndex ?? 0));
     return currentTime!.isUtc
-        ? DateTime.utc(time.year, time.month, time.day, _currentMiddleIndex,
-            _currentRightIndex, _currentRightIndex01)
-        : DateTime(time.year, time.month, time.day, _currentMiddleIndex,
-            _currentRightIndex, _currentRightIndex01);
+        ? DateTime.utc(
+            time.year,
+            time.month,
+            time.day,
+            _currentMiddleIndex ?? 0,
+            _currentRightIndex ?? 0,
+            _currentRightIndex01 ?? 0)
+        : DateTime(time.year, time.month, time.day, _currentMiddleIndex ?? 0,
+            _currentRightIndex ?? 0, _currentRightIndex01 ?? 0);
   }
 
   @override

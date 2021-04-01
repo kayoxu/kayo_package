@@ -5,15 +5,15 @@ typedef TabMenuBuilder = Widget Function(
     BuildContext context, TabMenu data, bool checked);
 
 class TabMenuView extends StatefulWidget {
-  final List<TabMenu> menus;
-  final int checkedIndex;
-  final ValueChanged<TabMenu> onItemClick;
+  final List<TabMenu>? menus;
+  final int? checkedIndex;
+  final ValueChanged<TabMenu>? onItemClick;
   final TabMenuBuilder? builder;
-  double height;
-  EdgeInsets margin;
-  BorderRadius borderRadius;
+  double? height;
+  EdgeInsets? margin;
+  BorderRadius? borderRadius;
   final double? radius;
-  Color bgColor;
+  Color? bgColor;
 
   TabMenuView({
     Key? key,
@@ -42,25 +42,25 @@ class _TabMenuViewState extends State<TabMenuView> {
       decoration: BoxDecoration(
           color: widget.bgColor,
           borderRadius: null != widget.radius
-              ? BorderRadius.all(Radius.circular(widget.radius??0))
+              ? BorderRadius.all(Radius.circular(widget.radius ?? 0))
               : BorderRadius.only(
                   bottomLeft: Radius.circular(10),
                   bottomRight: Radius.circular(10))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: _getTabCount(context, widget.menus, widget.checkedIndex,
-            widget.onItemClick, widget.builder!),
+        children: _getTabCount(context, widget.menus ?? [],
+            widget.checkedIndex ?? 0, widget.onItemClick, widget.builder),
       ),
     );
   }
 }
 
 List<Widget> _getTabCount(
-    BuildContext context,
-    List<TabMenu> menus,
-    int checkedIndex,
-    ValueChanged<TabMenu> onItemClick,
-    TabMenuBuilder builder) {
+    BuildContext? context,
+    List<TabMenu>? menus,
+    int? checkedIndex,
+    ValueChanged<TabMenu>? onItemClick,
+    TabMenuBuilder? builder) {
   var list = <Widget>[];
 
   if (menus != null && menus.length > 0) {
@@ -81,20 +81,20 @@ List<Widget> _getTabCount(
 }
 
 Widget _tabMenuItem(
-  int index,
-  TabMenu data,
-  int checkedIndex,
-  List<TabMenu> menus,
-  ValueChanged<TabMenu> onItemClick,
-  TabMenuBuilder builder,
-  BuildContext context,
+  int? index,
+  TabMenu? data,
+  int? checkedIndex,
+  List<TabMenu>? menus,
+  ValueChanged<TabMenu>? onItemClick,
+  TabMenuBuilder? builder,
+  BuildContext? context,
 ) {
   return Clickable(
       onTap: () {
-        return onItemClick(menus[index]);
+        onItemClick?.call(menus![index!]);
       },
       child: null != builder
-          ? builder(context, data, index == checkedIndex)
+          ? builder(context!, data!, index == checkedIndex)
           : Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.end,
