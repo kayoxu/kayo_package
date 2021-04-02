@@ -26,7 +26,7 @@ dependencies:
 #  dio: ^2.1.13                # Jul 10, 2019
   dio: ^3.0.9                # Feb 24, 2020
   event_bus: ^1.1.1          # Jan 21, 2020
-  path_drawing: ^0.5.0-nullsafety.0     # May 7, 2019
+  path_drawing: ^0.5.0-nullsafety.0
 #  cached_network_image: ^1.1.2+1    #  Oct 17, 2019
   cached_network_image: ^2.0.0    #   Dec 31, 2019
   back_button_interceptor: ^5.0.0
