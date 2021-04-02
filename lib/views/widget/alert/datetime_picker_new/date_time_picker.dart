@@ -44,9 +44,9 @@ class DateTimePicker {
     double heightTime = 110;
 
     var height = heightTitle +
-        (heightTitleTime +
+        (heightTitleTime * ((showEnd ?? true) ? 1 : 0) +
                 heightTime +
-                ((/*showWeek*/ false) ? heightTitleWeek : 0.0)) *
+                heightTitleWeek * ((true) ? 0 : 0)) *
             ((showEnd ?? true) ? 2 : 1);
 
     nowStartDate = nowStartDate ?? DateTime.now();
@@ -91,7 +91,7 @@ class DateTimePicker {
                       child: Text(
                         title ??
                             (locale == DateTimePickerLocale.zh_cn
-                                ? '选择时间段'
+                                ? ('选择时间${(showEnd ?? true) ? '段' : ''}')
                                 : ''),
                         style: TextStyle(
                             color: Color(0xff333333),
