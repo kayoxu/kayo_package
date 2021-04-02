@@ -67,7 +67,7 @@ class SuperScriptView extends StatelessWidget {
                       ? Visible.invisible
                       : Visible.visible,
                   child: TextView(
-                    '${superScriptValue}',
+                    '$superScriptValue',
                     radius: 20,
                     size: countSize,
                     height: countSize + 2,

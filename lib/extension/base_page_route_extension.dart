@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kayo_package/kayo_package.dart';
 
-extension BasePageRoute on Widget {
+extension BasePageRoute on Widget? {
   ///
   Route<dynamic> addPageRouteCupertino() {
     var widget = this;
@@ -23,7 +23,7 @@ extension BasePageRoute on Widget {
                 ),
               ));
     } else {
-      return CupertinoPageRoute(builder: (context) => this);
+      return CupertinoPageRoute(builder: (context) => this ?? Container());
     }
   }
 }

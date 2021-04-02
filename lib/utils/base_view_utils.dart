@@ -9,13 +9,13 @@ import 'package:kayo_package/kayo_package.dart';
 class BaseViewUtils {
   static Widget noData(
       {String? src,
-      String msg = 'No Data',
+      String? msg = 'No Data',
       EdgeInsets? margin,
       Color? msgColor,
       double? msgSize,
       double? width,
       double? height,
-      double marginImageTop = 0}) {
+      double? marginImageTop = 0}) {
     return Container(
       alignment: Alignment.topCenter,
       margin: null == margin ? EdgeInsets.only(top: 60) : margin,
@@ -24,7 +24,7 @@ class BaseViewUtils {
         children: <Widget>[
           ImageView(
             src: source(src ?? 'ic_no_data'),
-            margin: EdgeInsets.only(bottom: marginImageTop),
+            margin: EdgeInsets.only(bottom: marginImageTop ?? 0),
             width: width ?? 120,
             height: height ?? 120,
             fit: BoxFit.fitWidth,

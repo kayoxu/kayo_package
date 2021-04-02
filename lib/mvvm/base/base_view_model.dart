@@ -20,12 +20,12 @@ enum ViewState {
 class BaseViewModel with ChangeNotifier {
   late bool _disposed = false;
   late ViewState _viewState;
-  late BuildContext context;
+  BuildContext? context;
   late bool autoLoadData;
 
   BaseViewModel({ViewState? viewState, BuildContext? context})
       : _viewState = (viewState ?? ViewState.idle),
-        context = context! {
+        context = context {
     debugPrint('BaseViewModel---constructor--->$runtimeType');
 
     BaseViewModelBusEvent?.handleFunction(

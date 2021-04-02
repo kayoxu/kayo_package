@@ -6,13 +6,13 @@ import 'clickable.dart';
 import 'text_view.dart';
 
 class RadioView extends StatelessWidget {
-  ValueChanged<int?> onChanged;
-  int value;
-  String name;
-  int groupValue;
-  Color activeColor;
-  Color nameColor;
-  int nameSize;
+  ValueChanged<int?>? onChanged;
+  int? value;
+  String? name;
+  int? groupValue;
+  Color? activeColor;
+  Color? nameColor;
+  int? nameSize;
   bool? single;
 
   RadioView(
@@ -27,7 +27,7 @@ class RadioView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var radio = Radio(
-      value: value,
+      value: value ?? 0,
       activeColor: activeColor,
       groupValue: groupValue,
       onChanged: onChanged,
@@ -42,13 +42,13 @@ class RadioView extends StatelessWidget {
           radio,
           TextView(
             name ?? '',
-            color: nameColor,
+            color: nameColor ?? BaseColorUtils.colorBlack,
             size: 14,
           ),
         ],
       ),
       onTap: () {
-        onChanged(value);
+        onChanged?.call(value);
       },
     );
   }

@@ -12,7 +12,7 @@ class ProviderWidget<T extends ChangeNotifier> extends StatefulWidget {
   final Function(T model)? onModelReady;
   final bool autoDispose;
   final bool autoInitState;
-  final bool autoLoadData;
+  final bool? autoLoadData;
   final Function? initState;
   final Function? dispose;
 

@@ -87,8 +87,7 @@ class KeyboardController extends ValueNotifier<TextEditingValue> {
     String newText = '';
 
     if (badKeyboard == true) {
-      newText =
-          text.length > 0 ? (text.substring(0, text.length - 1) ?? '') : '';
+      newText = text.length > 0 ? (text.substring(0, text.length - 1)) : '';
       value = TextEditingValue(
           text: newText,
           selection: selection.copyWith(

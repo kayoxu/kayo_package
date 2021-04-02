@@ -1,9 +1,9 @@
 import 'package:kayo_package/kayo_package.dart';
 
-extension BaseListExtension on List {
+extension BaseListExtension on List? {
   bool get isList => null != this || !(this is List);
 
-  List get dealNotList => isList ? this : [];
+  List get dealNotList => isList == true ? this! : [];
 
   String toStringWith({String splitUnit = '、', String def = '无'}) {
     String str = this.dealNotList.toString();

@@ -18,8 +18,8 @@ import 'base/edit_view.dart';
 //enum Visible { visible, invisible, gone }
 
 Container HorizontalTitleMsgView2({
-  required String title,
-  required String msg,
+  required String? title,
+  required String? msg,
   Color? titleColor,
   Color? msgColor,
   Color? lineColor,

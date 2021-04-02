@@ -5,7 +5,6 @@ import 'dart:ui';
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:kayo_package/kayo_package.dart';
 
 ///  smart_community
@@ -48,7 +47,7 @@ class BaseSysUtils {
   /*
   * 包含
   * */
-  static bool contains(String str, String str2) {
+  static bool contains(String? str, String? str2) {
     if (null == str || null == str2) {
       return false;
     } else {
@@ -96,9 +95,8 @@ class BaseSysUtils {
       d = String.fromCharCodes(base64Decode(data));
     } catch (e) {
       print(e);
-    } finally {
-      return d ?? data;
     }
+    return d;
   }
 
   /*
@@ -141,7 +139,7 @@ class BaseSysUtils {
     }
   }
 
-  static bool isNumber(String str) {
+  static bool isNumber(String? str) {
     if (str == null) {
       return false;
     }
@@ -182,7 +180,7 @@ class BaseSysUtils {
   /*
   * int 转 string
   * */
-  static String int2Str(int value) {
+  static String int2Str(int? value) {
     if (null != value) {
       return value.toString();
     } else {
@@ -193,15 +191,13 @@ class BaseSysUtils {
   /*
   * string 转 int
   * */
-  static int str2Int(String value, {int defaultValue = -1}) {
-    int v = defaultValue;
+  static int str2Int(String? value, {int? defaultValue = -1}) {
+    int v = defaultValue ?? -1;
     if (null != value) {
       try {
-        v = int.parse(value);
+        v = int.tryParse(value) ?? v;
       } catch (e) {
         print(e);
-      } finally {
-        return v;
       }
     }
     return v;
@@ -232,10 +228,10 @@ class BaseSysUtils {
   /// - [colorString] 颜色值
   /// - [alpha] 透明度(默认1，0-1)
   /// 可以输入多种格式的颜色代码，如: 0x000000,0xff000000,#000000
-  static Color getColor(String colorString, {double alpha = 1.0}) {
+  static Color getColor(String? colorString, {double alpha = 1.0}) {
     if ((colorString ?? '').isEmpty) return BaseColorUtils.colorAccent;
 
-    String colorStr = colorString;
+    String colorStr = colorString!;
     // colorString未带0xff前缀并且长度为6
     if (!colorStr.startsWith('0xff') && colorStr.length == 6) {
       colorStr = '0xff' + colorStr;
@@ -275,7 +271,7 @@ class BaseSysUtils {
 
   static int last = 0;
 
-  static Future<bool> doubleClickBack(Function onClickBack) {
+  static Future<bool> doubleClickBack(Function()? onClickBack) {
     int now = DateTime.now().millisecondsSinceEpoch;
     if (now - last > 1500) {
       last = DateTime.now().millisecondsSinceEpoch;
@@ -292,7 +288,7 @@ class BaseSysUtils {
     } else if (data > 99) {
       return '99';
     } else {
-      return '${data}';
+      return '$data';
     }
   }
 

@@ -17,7 +17,7 @@ enum Visible {
 }
 
 class VisibleView extends StatelessWidget {
-  Visible visible;
+  Visible? visible;
   final Widget? child;
 
   VisibleView({

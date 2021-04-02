@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-extension BaseObjectExtension on Object {
+extension BaseObjectExtension on Object? {
   T defaultValue<T>({required T data}) {
     if (null == this || this is! T) {
       return data;

@@ -39,7 +39,7 @@ class TextView extends StatefulWidget {
 
   final Color color;
   final Color? borderColor;
-  final String text;
+  final String? text;
   final double size;
   final double? height;
   final double? width;

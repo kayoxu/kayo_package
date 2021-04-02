@@ -137,7 +137,7 @@ class _DataPickerRoute<T> extends PopupRoute<T> {
 class _DataPickerComponent extends StatefulWidget {
   _DataPickerComponent({
     Key? key,
-     required this.route,
+    required this.route,
     this.initialData: 0,
     this.datas,
     this.onChanged,
@@ -277,7 +277,7 @@ class _DataPickerState extends State<_DataPickerComponent> {
         children: <Widget>[
           Container(
             height: _kDataPickerTitleHeight,
-            child: FlatButton(
+            child: TextButton(
               child: Text(
                 '$cancel',
                 style: TextStyle(
@@ -292,7 +292,7 @@ class _DataPickerState extends State<_DataPickerComponent> {
             alignment: Alignment.center,
             height: _kDataPickerTitleHeight,
             child: Text(
-              widget.title??'',
+              widget.title ?? '',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 16.0,
@@ -301,7 +301,7 @@ class _DataPickerState extends State<_DataPickerComponent> {
           ),
           Container(
             height: _kDataPickerTitleHeight,
-            child: FlatButton(
+            child: TextButton(
               child: Text(
                 '$done',
                 style: TextStyle(
@@ -336,15 +336,12 @@ class _DataPickerState extends State<_DataPickerComponent> {
     switch (lang) {
       case 'en':
         return 'Done';
-        break;
 
       case 'zh':
         return '确定';
-        break;
 
       default:
         return '';
-        break;
     }
   }
 
@@ -358,15 +355,12 @@ class _DataPickerState extends State<_DataPickerComponent> {
     switch (lang) {
       case 'en':
         return 'Cancel';
-        break;
 
       case 'zh':
         return '取消';
-        break;
 
       default:
         return '';
-        break;
     }
   }
 }
@@ -493,8 +487,8 @@ class _BottomSheetSingleState extends State<BottomSheetSingleWidget> {
                     EdgeInsets.only(left: 17, right: 17, bottom: 12, top: 12),
                 margin: EdgeInsets.only(right: 6),
                 onTap: () {
-                  widget?.onConfirm?.call(widget.datas?[selectedIndex]);
-                  widget?.onConfirm2
+                  widget.onConfirm?.call(widget.datas?[selectedIndex]);
+                  widget.onConfirm2
                       ?.call(selectedIndex, widget.datas?[selectedIndex]);
                   Navigator.pop(context);
                 },
@@ -532,7 +526,7 @@ class _BottomSheetSingleState extends State<BottomSheetSingleWidget> {
                 onTap: () {
                   setState(() {
                     selectedIndex = index;
-                    widget?.onChanged?.call(widget.datas?[index]);
+                    widget.onChanged?.call(widget.datas?[index]);
                   });
                 },
               );
