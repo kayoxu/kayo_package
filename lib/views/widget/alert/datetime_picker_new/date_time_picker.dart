@@ -128,7 +128,12 @@ class DateTimePicker {
                         }),
                   ],
                 ),
-                _titleTime(
+                showEnd != true
+                    ? SizedBox(
+                  height: 0,
+                  width: 0,
+                )
+                    :   _titleTime(
                     heightTitleTime,
                     startTitle ??
                         (locale == DateTimePickerLocale.zh_cn
