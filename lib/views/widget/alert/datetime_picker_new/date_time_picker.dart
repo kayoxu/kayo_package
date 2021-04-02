@@ -21,23 +21,23 @@ typedef OnDateTimePick(DateTime startDateTime, DateTime endDateTime);
 ///
 
 class DateTimePicker {
-  static show(
-    BuildContext context, {
-    bool? showEnd,
-    DateTimePickerLocale locale = DateTimePickerLocale.zh_cn,
-    // bool? showWeek,
-    String? title,
-    DateTime? maxStartDate,
-    DateTime? minStartDate,
-    DateTime? nowStartDate,
-    DateTime? maxEndDate,
-    DateTime? minEndDate,
-    DateTime? nowEndDate,
-    String? dateFormat = 'yyyy年-MM月-dd日 HH时:mm分:ss秒',
-    OnDateTimePick? onDateTimePick,
-    OnDateTimePick? onDateTimeChange,
-    Function()? onCancel,
-  }) {
+  static show(BuildContext context,
+      {bool? showEnd,
+      DateTimePickerLocale locale = DateTimePickerLocale.zh_cn,
+      // bool? showWeek,
+      String? title,
+      DateTime? maxStartDate,
+      DateTime? minStartDate,
+      DateTime? nowStartDate,
+      DateTime? maxEndDate,
+      DateTime? minEndDate,
+      DateTime? nowEndDate,
+      String? dateFormat = 'yyyy年-MM月-dd日 HH时:mm分:ss秒',
+      OnDateTimePick? onDateTimePick,
+      OnDateTimePick? onDateTimeChange,
+      Function()? onCancel,
+      String? startTitle,
+      String? endTitle}) {
     double heightTitle = 56;
     double heightTitleTime = 56;
     double heightTitleWeek = 56;
@@ -130,9 +130,10 @@ class DateTimePicker {
                 ),
                 _titleTime(
                     heightTitleTime,
-                    locale == DateTimePickerLocale.zh_cn
-                        ? '开始时间'
-                        : 'Start Time'),
+                    startTitle ??
+                        (locale == DateTimePickerLocale.zh_cn
+                            ? '开始时间'
+                            : 'Start Time')),
                 Container(
                   height: heightTime,
                   child: DateTimePickerWidget(
@@ -150,25 +151,39 @@ class DateTimePicker {
                     },
                   ),
                 ),
-                _titleTime(heightTitleTime,
-                    locale == DateTimePickerLocale.zh_cn ? '结束时间' : 'End Time'),
-                Container(
-                  height: heightTime,
-                  child: DateTimePickerWidget(
-                    minDateTime: minEndDate,
-                    maxDateTime: maxEndDate,
-                    initDateTime: nowEndDate,
-                    dateFormat: dateFormat ?? 'yyyy-MM-dd HH:mm:ss',
-                    pickerTheme: DateTimePickerTheme(
-                      showTitle: false,
-                      backgroundColor: Colors.transparent,
-                    ),
-                    onChange: (dateTime, selectedIndex) {
-                      nowEndDate = dateTime;
-                      onDateTimeChange?.call(nowStartDate!, nowEndDate!);
-                    },
-                  ),
-                ),
+                showEnd != true
+                    ? SizedBox(
+                        height: 0,
+                        width: 0,
+                      )
+                    : _titleTime(
+                        heightTitleTime,
+                        endTitle ??
+                            (locale == DateTimePickerLocale.zh_cn
+                                ? '结束时间'
+                                : 'End Time')),
+                showEnd != true
+                    ? SizedBox(
+                        height: 0,
+                        width: 0,
+                      )
+                    : Container(
+                        height: heightTime,
+                        child: DateTimePickerWidget(
+                          minDateTime: minEndDate,
+                          maxDateTime: maxEndDate,
+                          initDateTime: nowEndDate,
+                          dateFormat: dateFormat ?? 'yyyy-MM-dd HH:mm:ss',
+                          pickerTheme: DateTimePickerTheme(
+                            showTitle: false,
+                            backgroundColor: Colors.transparent,
+                          ),
+                          onChange: (dateTime, selectedIndex) {
+                            nowEndDate = dateTime;
+                            onDateTimeChange?.call(nowStartDate!, nowEndDate!);
+                          },
+                        ),
+                      ),
               ],
             ),
           )),

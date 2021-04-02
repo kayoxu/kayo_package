@@ -54,7 +54,9 @@ class DatePicker {
           onChanged2,
           onCancel,
           onlyStart,
-          locale);
+          locale,
+          null,
+          null);
 
       return Future.value(1);
     }
@@ -105,7 +107,9 @@ class DatePicker {
       DateChangedCallback? onChanged2,
       Function()? onCancel,
       bool? onlyStart,
-      LocaleType? localeType) {
+      LocaleType? localeType,
+      String? startTitle,
+      String? endTitle) {
     String format = formatType ?? 'ymdw';
 
     // dateFormat = 'yyyy年-MM月-dd日 HH时:mm分:ss秒',
@@ -202,7 +206,9 @@ class DatePicker {
           onChanged2,
           null,
           onlyStart,
-          locale);
+          locale,
+          startTitle,
+          endTitle);
 
       return Future.value(1);
     }
@@ -272,7 +278,9 @@ class DatePicker {
           onChanged2,
           null,
           onlyStart,
-          locale);
+          locale,
+          startTitle,
+          endTitle);
 
       return Future.value(1);
     }
