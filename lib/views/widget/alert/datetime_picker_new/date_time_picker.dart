@@ -104,10 +104,15 @@ class DateTimePicker {
                         height: heightTitle,
                         title: DatePickerI18n.getLocaleDone(locale),
                         onTap: () {
-                          Navigator.pop(context);
-
                           var startDateTime = (nowStartDate ?? DateTime.now());
                           var endDateTime = nowEndDate ?? DateTime.now();
+
+                          if (nowStartDate?.isAfter(endDateTime) == true) {
+                            // FlutterToast
+                            return;
+                          }
+
+                          Navigator.pop(context);
 
                           startDateTime = DateTime(
                               startDateTime.year,
@@ -130,15 +135,15 @@ class DateTimePicker {
                 ),
                 showEnd != true
                     ? SizedBox(
-                  height: 0,
-                  width: 0,
-                )
-                    :   _titleTime(
-                    heightTitleTime,
-                    startTitle ??
-                        (locale == DateTimePickerLocale.zh_cn
-                            ? '开始时间'
-                            : 'Start Time')),
+                        height: 0,
+                        width: 0,
+                      )
+                    : _titleTime(
+                        heightTitleTime,
+                        startTitle ??
+                            (locale == DateTimePickerLocale.zh_cn
+                                ? '开始时间'
+                                : 'Start Time')),
                 Container(
                   height: heightTime,
                   child: DateTimePickerWidget(
