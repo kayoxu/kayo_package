@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kayo_package/kayo_package.dart';
 
 typedef DataChangedCallback(dynamic data);
+typedef DataChangedCallbackMore<T>(List<int> indexes, List<T> data);
 typedef DataChangedCallback2(int index, dynamic data);
 
 const double _kDataPickerHeight = 210.0;
@@ -11,14 +12,17 @@ const double _kDataPickerItemHeight = 36.0;
 const double _kDataPickerFontSize = 15.0;
 
 class DataPicker {
-  static void showDataPicker(BuildContext context,
+  static void showDataPicker<T>(BuildContext context,
       {bool showTitleActions: true,
-      required List<dynamic> datas,
+      required List<T> datas,
       int selectedIndex: 0,
+      List<int>? selectedIndexes,
       DataChangedCallback? onChanged,
       DataChangedCallback? onConfirm,
+      DataChangedCallbackMore<T>? onConfirmMore,
       DataChangedCallback2? onConfirm2,
       String suffix: '',
+      bool? multipleChoice,
       String? title,
       String locale: 'zh',
       bool bottomSheet: true}) {
@@ -35,10 +39,13 @@ class DataPicker {
               datas: datas,
               isEN: !BaseSysUtils.equals('zh', locale),
               selectedIndex: selectedIndex,
+              selectedIndexes: selectedIndexes,
               onChanged: onChanged,
               onConfirm2: onConfirm2,
+              multipleChoice: multipleChoice,
               title: title,
               onConfirm: onConfirm,
+              onConfirmMore: onConfirmMore,
             );
           });
     } else {
@@ -398,42 +405,52 @@ class _BottomPickerLayout extends SingleChildLayoutDelegate {
   }
 }
 
-class BottomSheetSingleWidget extends StatefulWidget {
+class BottomSheetSingleWidget<T> extends StatefulWidget {
   final int? selectedIndex;
-  final List<dynamic>? datas;
+  final List<int>? selectedIndexes;
+  final List<T>? datas;
   final String? title;
 
   final DataChangedCallback? onChanged;
   final DataChangedCallback? onConfirm;
+  final DataChangedCallbackMore<T>? onConfirmMore;
   final DataChangedCallback2? onConfirm2;
   final bool? isEN;
+  final bool? multipleChoice;
 
   const BottomSheetSingleWidget(
       {Key? key,
       this.datas,
       this.selectedIndex,
+      this.selectedIndexes,
       this.title,
       this.onChanged,
+      this.multipleChoice,
       this.onConfirm,
+      this.onConfirmMore,
       this.onConfirm2,
       this.isEN})
       : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _BottomSheetSingleState();
+  State<StatefulWidget> createState() => _BottomSheetSingleState<T>();
 }
 
-class _BottomSheetSingleState extends State<BottomSheetSingleWidget> {
+class _BottomSheetSingleState<T> extends State<BottomSheetSingleWidget<T>> {
   double itemHeight = 56;
   double marginBottom = 20;
   double viewHeight = 0;
-  int selectedIndex = 0;
+
+  // int selectedIndex = 0;
+  late List<int> selectedIndexes;
+  bool multipleChoice = false;
 
   @override
   void initState() {
     super.initState();
-    selectedIndex = widget.selectedIndex ?? 0;
-
+    // selectedIndex = widget.selectedIndex ?? 0;
+    selectedIndexes = widget.selectedIndexes ?? [widget.selectedIndex ?? 0];
+    multipleChoice = widget.multipleChoice ?? false;
     viewHeight = itemHeight * (widget.datas?.length ?? 0) + marginBottom;
 
     if (viewHeight > 300) {
@@ -487,9 +504,18 @@ class _BottomSheetSingleState extends State<BottomSheetSingleWidget> {
                     EdgeInsets.only(left: 17, right: 17, bottom: 12, top: 12),
                 margin: EdgeInsets.only(right: 6),
                 onTap: () {
-                  widget.onConfirm?.call(widget.datas?[selectedIndex]);
-                  widget.onConfirm2
-                      ?.call(selectedIndex, widget.datas?[selectedIndex]);
+                  widget.onConfirm?.call(widget.datas?[selectedIndexes[0]]);
+                  widget.onConfirm2?.call(
+                      selectedIndexes[0], widget.datas?[selectedIndexes[0]]);
+                  List<T> d = [];
+                  List<int> indexes = [];
+                  for (int i = 0; i < (widget.datas ?? []).length; i++) {
+                    if (selectedIndexes.contains(i)) {
+                      d.add(widget.datas![i]);
+                      indexes.add(i);
+                    }
+                  }
+                  widget.onConfirmMore?.call(indexes, d);
                   Navigator.pop(context);
                 },
               ),
@@ -505,14 +531,14 @@ class _BottomSheetSingleState extends State<BottomSheetSingleWidget> {
                 title: TextView(
                   widget.datas?[index]?.toString() ?? '',
                   size: 15,
-                  color: selectedIndex == index
+                  color: selectedIndexes.contains(index)
                       ? BaseColorUtils.colorAccent
                       : BaseColorUtils.colorBlack,
-                  fontWeight: selectedIndex == index
+                  fontWeight: selectedIndexes.contains(index)
                       ? FontWeight.w600
                       : FontWeight.normal,
                 ),
-                trailing: selectedIndex == index
+                trailing: selectedIndexes.contains(index)
                     ? ImageView(
                         height: 17,
                         width: 17,
@@ -525,7 +551,15 @@ class _BottomSheetSingleState extends State<BottomSheetSingleWidget> {
                       ),
                 onTap: () {
                   setState(() {
-                    selectedIndex = index;
+                    if (multipleChoice == true) {
+                      selectedIndexes.contains(index)
+                          ? selectedIndexes.remove(index)
+                          : selectedIndexes.add(index);
+                    } else {
+                      selectedIndexes.clear();
+                      selectedIndexes.add(index);
+                    }
+                    // selectedIndex = index;
                     widget.onChanged?.call(widget.datas?[index]);
                   });
                 },
