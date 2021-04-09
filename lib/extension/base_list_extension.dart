@@ -10,6 +10,6 @@ extension BaseListExtension on List? {
     return str
         .substring(1, str.length - 1)
         .replaceAll(', ', splitUnit)
-        .defaultStr();
+        .defaultStr(data: def);
   }
 }
