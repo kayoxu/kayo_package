@@ -62,7 +62,7 @@ abstract class BaseViewModelList<T> extends BaseViewModel {
   }
 
   void _setData(List<T>? data, {bool loadData = true}) {
-    if (data?.isEmpty == true) {
+    if ((data?.length ?? 0) == 0) {
       refreshController.refreshCompleted(resetFooterState: true);
       this.data.clear();
       if (loadData == true) {
