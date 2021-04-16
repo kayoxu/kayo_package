@@ -61,8 +61,8 @@ abstract class BaseViewModelList<T> extends BaseViewModel {
     }
   }
 
-  void _setData(List<T> data, {bool loadData = true}) {
-    if (data.isEmpty) {
+  void _setData(List<T>? data, {bool loadData = true}) {
+    if (data?.isEmpty == true) {
       refreshController.refreshCompleted(resetFooterState: true);
       this.data.clear();
       if (loadData == true) {
@@ -71,7 +71,7 @@ abstract class BaseViewModelList<T> extends BaseViewModel {
     } else {
 //      onCompleted(data);
       this.data.clear();
-      this.data.addAll(data);
+      this.data.addAll(data!);
       refreshController.refreshCompleted();
       // 小于分页的数量,禁止上拉加载更多
       if (data.length < pageSize) {
