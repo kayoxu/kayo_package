@@ -44,6 +44,7 @@ class ToolBar extends StatefulWidget {
   final bool? noBack;
   final Key? key;
   final double? titleSpacing;
+  final Widget? dragView;
 
   ToolBar({
     @required this.child,
@@ -76,6 +77,7 @@ class ToolBar extends StatefulWidget {
     this.leading,
     this.noBack,
     this.titleSpacing,
+    this.dragView,
   }) : super(key: key);
 
   @override
@@ -141,6 +143,12 @@ class ToolBarState extends State<ToolBar> {
           )
         : widget.appBar!;
 
+    var body2 = null == widget.marginToolbarTop
+        ? widget.child
+        : Container(
+            margin: EdgeInsets.only(top: widget.marginToolbarTop ?? 0),
+            child: widget.child,
+          );
     var scaffold = Scaffold(
       key: widget.key,
       // resizeToAvoidBottomPadding: widget.resizeToAvoidBottomPadding,
@@ -205,11 +213,10 @@ class ToolBarState extends State<ToolBar> {
                     ),
               preferredSize: Size.fromHeight(widget.toolbarHeight ?? 0),
             ),
-      body: null == widget.marginToolbarTop
-          ? widget.child
-          : Container(
-              margin: EdgeInsets.only(top: widget.marginToolbarTop ?? 0),
-              child: widget.child,
+      body: null == widget.dragView
+          ? body2
+          : Stack(
+              children: [body2!, widget.dragView!],
             ),
       floatingActionButton: widget.floatingActionButton,
       floatingActionButtonLocation: widget.floatingActionButtonLocation,
