@@ -292,6 +292,101 @@ class BaseSysUtils {
     }
   }
 
+  //fileExt 文件后缀名
+  static ContentType? getContentType(String? fileExt) {
+    if (fileExt == null) {
+      return null;
+    }
+    fileExt = fileExt.toLowerCase();
+    if (fileExt.endsWith(".jpg") ||
+        fileExt.endsWith(".jpeg") ||
+        fileExt.endsWith(".jpe")) {
+      return new ContentType("image", "jpeg");
+    } else if (fileExt.endsWith(".png")) {
+      return new ContentType("image", "png");
+    } else if (fileExt.endsWith(".bmp")) {
+      return new ContentType("image", "bmp");
+    } else if (fileExt.endsWith(".gif")) {
+      return new ContentType("image", "gif");
+    } else if (fileExt.endsWith(".json")) {
+      return new ContentType("application", "json");
+    } else if (fileExt.endsWith(".svg") || fileExt.endsWith(".svgz")) {
+      return new ContentType("image", "svg+xml");
+    } else if (fileExt.endsWith(".mp3")) {
+      return new ContentType("audio", "mpeg");
+    } else if (fileExt.endsWith(".mp4")) {
+      return new ContentType("video", "mp4");
+    } else if (fileExt.endsWith(".mov")) {
+      return new ContentType("video", "mov");
+    } else if (fileExt.endsWith(".html")) {
+      return new ContentType("text", "html");
+    } else if (fileExt.endsWith(".css")) {
+      return new ContentType("text", "css");
+    } else if (fileExt.endsWith(".csv")) {
+      return new ContentType("text", "csv");
+    } else if (fileExt.endsWith(".txt") ||
+        fileExt.endsWith(".text") ||
+        fileExt.endsWith(".conf") ||
+        fileExt.endsWith(".def") ||
+        fileExt.endsWith(".log") ||
+        fileExt.endsWith(".in")) {
+      return new ContentType("text", "plain");
+    }
+  }
+
+  //fileExt 文件后缀名
+  static String? getSubType(String? fileExt) {
+    if (fileExt == null) {
+      return null;
+    }
+    fileExt = fileExt.toLowerCase();
+    if (fileExt.endsWith(".jpg")) {
+      return '.jpg';
+    } else if (fileExt.endsWith(".jpeg")) {
+      return '.jpeg';
+    } else if (fileExt.endsWith(".jpe")) {
+      return '.jpe';
+    } else if (fileExt.endsWith(".png")) {
+      return '.png';
+    } else if (fileExt.endsWith(".bmp")) {
+      return '.bmp';
+    } else if (fileExt.endsWith(".gif")) {
+      return '.gif';
+    } else if (fileExt.endsWith(".json")) {
+      return '.json';
+    } else if (fileExt.endsWith(".svg")) {
+      return '.svg';
+    } else if (fileExt.endsWith(".svgz")) {
+      return '.svgz';
+    } else if (fileExt.endsWith(".mp3")) {
+      return '.mp3';
+    } else if (fileExt.endsWith(".mp4")) {
+      return '.mp4';
+    } else if (fileExt.endsWith(".mov")) {
+      return '.mov';
+    } else if (fileExt.endsWith(".html")) {
+      return '.html';
+    } else if (fileExt.endsWith(".css")) {
+      return '.css';
+    } else if (fileExt.endsWith(".csv")) {
+      return '.csv';
+    } else if (fileExt.endsWith(".txt")) {
+      return '.txt';
+    } else if (fileExt.endsWith(".text")) {
+      return '.text';
+    } else if (fileExt.endsWith(".conf")) {
+      return '.conf';
+    } else if (fileExt.endsWith(".def")) {
+      return '.def';
+    } else if (fileExt.endsWith(".log")) {
+      return '.log';
+    } else if (fileExt.endsWith(".in")) {
+      return '.in';
+    } else {
+      return null;
+    }
+  }
+
 //  static SystemNavigatorPop() async {
 //    return await SystemNavigator.pop();
 //  }
