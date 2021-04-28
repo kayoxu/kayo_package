@@ -5,13 +5,8 @@ class DashLine extends StatelessWidget {
   final Color color;
   final double strokeWidth;
   final double gap;
-  final bool? vertical;
 
-  DashLine(
-      {this.color = Colors.black,
-      this.strokeWidth = 1.0,
-      this.gap = 5.0,
-      this.vertical});
+  DashLine({this.color = Colors.black, this.strokeWidth = 1.0, this.gap = 5.0});
 
   @override
   Widget build(BuildContext context) {
