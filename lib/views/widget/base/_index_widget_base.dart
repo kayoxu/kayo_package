@@ -1,4 +1,5 @@
 // export 'package:kayo_package/views/widget/base/keyboard/_index_widget_keyboard.dart';
+export 'dash_line.dart';
 export 'button_view.dart';
 export 'card_item.dart';
 export 'card_view.dart';
