@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kayo_package/kayo_package.dart';
 import 'package:kayo_package/views/widget/alert/datetime_picker_new/flutter_cupertino_datetime_picker.dart';
 
 ///
@@ -38,16 +39,26 @@ class DateTimePicker {
       Function()? onCancel,
       String? startTitle,
       String? endTitle}) {
-    double heightTitle = 56;
-    double heightTitleTime = 56;
-    double heightTitleWeek = 56;
+    double heightTitle = 46;
+    double heightTitleTime = 46;
+    double heightTitleWeek = 46;
     double heightTime = 110;
-
+    double wHeight = BaseSysUtils.getHeight(context) / 2 - 1;
     var height = heightTitle +
         (heightTitleTime * ((showEnd ?? true) ? 1 : 0) +
                 heightTime +
                 heightTitleWeek * ((true) ? 0 : 0)) *
             ((showEnd ?? true) ? 2 : 1);
+
+    if (height >= wHeight) {
+      var d = height - wHeight;
+      heightTime = heightTime - (d / ((showEnd ?? true) ? 2 : 1));
+      height = heightTitle +
+          (heightTitleTime * ((showEnd ?? true) ? 1 : 0) +
+                  heightTime +
+                  heightTitleWeek * ((true) ? 0 : 0)) *
+              ((showEnd ?? true) ? 2 : 1);
+    }
 
     nowStartDate = nowStartDate ?? DateTime.now();
     nowEndDate = nowEndDate ?? DateTime.now();
@@ -206,7 +217,7 @@ class DateTimePicker {
     return Container(
       height: heightTitleTime,
       alignment: Alignment.center,
-      width: 75,
+      // width: 120,
       child: Text(
         title ?? '',
         style: TextStyle(

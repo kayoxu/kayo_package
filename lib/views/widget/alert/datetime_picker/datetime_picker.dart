@@ -150,9 +150,9 @@ class DatePicker {
     if (format.contains('m') && format.contains('s')) {
       f += ':';
     }
-    if (format.contains('s')) {
-      f += (isCn ? 'ss秒' : 'ss');
-    }
+    // if (format.contains('s')) {
+    //   f += (isCn ? 'ss秒' : 'ss');
+    // }
 
     DateTimePicker.show(context,
         minStartDate: minTime,
