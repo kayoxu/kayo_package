@@ -198,8 +198,11 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
       );
       pickers.add(pickerColumn);
     });
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween, children: pickers);
+    return Container(
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: pickers),
+        margin: EdgeInsets.only(left: 20, right: 20));
   }
 
   Widget _renderDatePickerColumnComponent({
@@ -211,7 +214,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
     return Expanded(
       flex: 1,
       child: Container(
-        padding: EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(0.0),
         height: widget.pickerTheme.pickerHeight,
         decoration: BoxDecoration(color: widget.pickerTheme.backgroundColor),
         child: CupertinoPicker.builder(

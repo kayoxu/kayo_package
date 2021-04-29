@@ -270,8 +270,11 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
       );
       pickers.add(pickerColumn);
     });
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween, children: pickers);
+    return Container(
+      margin: EdgeInsets.only(left: 20,right: 20),
+      child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween, children: pickers),
+    );
   }
 
   Widget _renderDatePickerColumnComponent({
@@ -292,7 +295,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
     };
 
     Widget columnWidget = Container(
-      padding: EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(0.0),
       width: double.infinity,
       height: widget.pickerTheme.pickerHeight,
       decoration: BoxDecoration(color: widget.pickerTheme.backgroundColor),
@@ -302,7 +305,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
         selectionOverlay: Container(
             decoration: BoxDecoration(
                 border: Border.symmetric(
-                    horizontal: BorderSide(color: Colors.black26)))),
+                    horizontal: BorderSide(color: Color(0xffe8e8e8))))),
         itemExtent: widget.pickerTheme.itemHeight,
         onSelectedItemChanged: valueChanged,
         childCount: format.contains('m')
