@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 ///  Copyright © 2021 kayoxu. All rights reserved.
 ///
 
-// NotificationCenter.share.addObserver<LockData>('postName', (data) {
+// LiveDataBus.share.addObserver<LockData>('postName', (data) {
 // LogUtils.info(tag: 'postName', msg: data.name);
 // });
 
-// NotificationCenter.share
+// LiveDataBus.share
 //     .post('postName', LockData(name: '111111'));
 
-// NotificationCenter.share.remove('postName');
+// LiveDataBus.share.remove('postName');
 
 
 typedef PostData = Function(dynamic object);
