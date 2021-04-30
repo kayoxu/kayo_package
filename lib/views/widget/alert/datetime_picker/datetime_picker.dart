@@ -147,9 +147,9 @@ class DatePicker {
         (format.contains('m') && format.contains('s'))) {
       f += (isCn ? 'mm分' : 'mm');
     }
-    if (format.contains('m') && format.contains('s')) {
-      f += ':';
-    }
+    // if (format.contains('m') && format.contains('s')) {
+    //   f += ':';
+    // }
     // if (format.contains('s')) {
     //   f += (isCn ? 'ss秒' : 'ss');
     // }
