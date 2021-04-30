@@ -56,8 +56,8 @@ class _ProviderWidgetState<T extends ChangeNotifier>
 
   @override
   void dispose() {
-    if (widget.autoDispose) model.dispose();
     super.dispose();
+    if (widget.autoDispose) model.dispose();
     if (null != widget.dispose) {
       widget.dispose?.call();
     }
