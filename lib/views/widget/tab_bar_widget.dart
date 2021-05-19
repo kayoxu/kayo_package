@@ -329,26 +329,36 @@ class TabBarWidgetState extends State<TabBarWidget>
                 children: widget.tabViews ?? [],
                 physics: NeverScrollableScrollPhysics(),
               )),
-              SafeArea(
-                  child: new TabBar(
-                      controller: _tabController,
-                      tabs: widget.tabItems ?? [],
-                      physics: NeverScrollableScrollPhysics(),
-                      indicatorColor: widget.indicatorColor,
-                      indicator: null,
-                      onTap: (index) {
-                        var view = widget.tabViews?[index];
-                        if (!(view is Container)) {
-                          if ((_pageController?.hasClients == true) &&
-                              index != _pageController?.page) {
-                            _pageController?.animateToPage(index,
-                                duration: Duration(milliseconds: 300),
-                                curve: Curves.easeInOutQuint);
-                            widget.onPageChanged?.call(index);
+              Container(
+                padding: EdgeInsets.only(top: 3),
+                decoration: BoxDecoration(
+                  border:
+                      Border(top: BorderSide(color: Colors.grey, width: .1)),
+                  color: widget.backgroundColor,
+                ),
+                child: SafeArea(
+                    top: false,
+                    child: TabBar(
+                        controller: _tabController,
+                        tabs: widget.tabItems ?? [],
+                        physics: NeverScrollableScrollPhysics(),
+                        indicatorColor: widget.indicatorColor,
+                        indicator: null,
+                        onTap: (index) {
+                          var view = widget.tabViews?[index];
+                          if (!(view is Container)) {
+                            if ((_pageController?.hasClients == true) &&
+                                index != _pageController?.page) {
+                              _pageController?.animateToPage(index,
+                                  duration: Duration(milliseconds: 300),
+                                  curve: Curves.easeInOutQuint);
+                              widget.onPageChanged?.call(index);
+                            }
                           }
-                        }
-                        widget.onTabChanged?.call(index);
-                      }))
+                          widget.onTabChanged?.call(index);
+                        })),
+              ) // SafeArea(
+              //     child: )
             ],
           ));
     } else {
