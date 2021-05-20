@@ -129,7 +129,7 @@ class BaseTimeUtils {
   *
   * */
   static String timeFormat(String time, {String format = formatDefault}) {
-    if (null == time) return '无';
+    if (null == time) return 'null';
     var timestamp = timeStrToTimestamp(time);
     return timestampToTimeStr(timestamp, format: format);
   }
@@ -150,7 +150,7 @@ class BaseTimeUtils {
       print(e);
     } finally {
       if (time.contains('1970')) {
-        time = '无';
+        time = 'null';
       }
       return time;
     }

@@ -72,7 +72,7 @@ extension BaseStringExtension on String? {
     }
   }
 
-  String toTimeStr({String? format, String defaultTime = '无'}) {
+  String toTimeStr({String? format, String defaultTime = 'null'}) {
     try {
       if (_isNotEmpty(this)) {
         if (BaseSysUtils.isNumber(this!)) {

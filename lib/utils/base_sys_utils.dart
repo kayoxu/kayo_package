@@ -131,7 +131,7 @@ class BaseSysUtils {
 
   static String getIdCardPrivacy(String str) {
     if (BaseSysUtils.empty(str) || str.length < 6) {
-      return '无';
+      return 'null';
     } else {
       return str.substring(0, 4) +
           "**********" +

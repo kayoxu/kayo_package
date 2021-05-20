@@ -20,7 +20,7 @@ extension BaseObjectExtension on Object? {
     }
   }
 
-  String defaultStr({String data = '无'}) {
+  String defaultStr({String data = 'null'}) {
     if (null == this || '' == this || this is! String) {
       if (this is num) {
         return this.toString();

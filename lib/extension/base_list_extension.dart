@@ -5,7 +5,7 @@ extension BaseListExtension on List? {
 
   List get dealNotList => isList == true ? this! : [];
 
-  String toStringWith({String splitUnit = '、', String def = '无'}) {
+  String toStringWith({String splitUnit = '、', String def = 'null'}) {
     String str = this.dealNotList.toString();
     return str
         .substring(1, str.length - 1)

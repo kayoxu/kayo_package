@@ -313,7 +313,7 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                           child: Clickable(
                           radius: 5,
                           child: TextView(
-                            null == widget.msg ? '无' : widget.msg,
+                            null == widget.msg ? 'null' : widget.msg,
                             bgColor: widget.msgBgColor,
                             textAlign: TextAlign.right,
                             padding: widget.msgPadding,
