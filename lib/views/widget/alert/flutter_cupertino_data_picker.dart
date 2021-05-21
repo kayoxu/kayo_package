@@ -50,7 +50,7 @@ class DataPicker {
         bottomSheet: bottomSheet);
   }
 
-  @Deprecated('用show')
+  @Deprecated('用show代替showDataPicker')
   static void showDataPicker<T>(BuildContext context,
       {bool showTitleActions: true,
       required List<T> datas,
