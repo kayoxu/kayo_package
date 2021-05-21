@@ -20,6 +20,37 @@ class DataPickerLocale {
 }
 
 class DataPicker {
+  static void show<T>(BuildContext context,
+      {bool showTitleActions: true,
+      required List<T> datas,
+      int selectedIndex: 0,
+      List<int>? selectedIndexes,
+      DataChangedCallback? onChanged,
+      DataChangedCallback? onConfirm,
+      DataChangedCallbackMore<T>? onConfirmMore,
+      DataChangedCallback2? onConfirm2,
+      String suffix: '',
+      bool? multipleChoice,
+      String? title,
+      String locale: DataPickerLocale.zh_cn,
+      bool bottomSheet: true}) {
+    showDataPicker(context,
+        showTitleActions: showTitleActions,
+        datas: datas,
+        selectedIndex: selectedIndex,
+        selectedIndexes: selectedIndexes,
+        onChanged: onChanged,
+        onConfirm: onConfirm,
+        onConfirmMore: onConfirmMore,
+        onConfirm2: onConfirm2,
+        suffix: suffix,
+        multipleChoice: multipleChoice,
+        title: title,
+        locale: locale,
+        bottomSheet: bottomSheet);
+  }
+
+  @Deprecated('用show')
   static void showDataPicker<T>(BuildContext context,
       {bool showTitleActions: true,
       required List<T> datas,
