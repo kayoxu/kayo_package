@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kayo_package/kayo_package.dart';
 import 'package:kayo_package/views/widget/alert/datetime_picker_new/flutter_cupertino_datetime_picker.dart';
 
@@ -119,8 +120,13 @@ class DateTimePicker {
                           var startDateTime = (nowStartDate ?? DateTime.now());
                           var endDateTime = nowEndDate ?? DateTime.now();
 
-                          if (nowStartDate?.isAfter(endDateTime) == true) {
+                          if (nowStartDate?.isAfter(endDateTime) == true &&
+                              showEnd == true) {
                             // FlutterToast
+                            Fluttertoast.showToast(
+                                msg: locale != DateTimePickerLocale.zh_cn
+                                    ? 'The end time cannot be earlier than the start time'
+                                    : '结束时间不能早于开始时间');
                             return;
                           }
 
