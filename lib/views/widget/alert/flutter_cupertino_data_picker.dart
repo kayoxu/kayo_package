@@ -11,6 +11,14 @@ const double _kDataPickerTitleHeight = 44.0;
 const double _kDataPickerItemHeight = 36.0;
 const double _kDataPickerFontSize = 15.0;
 
+class DataPickerLocale {
+  /// English (EN) United States
+  static const String en_us = 'en';
+
+  /// Chinese (ZH) Simplified
+  static const String zh_cn = 'zh';
+}
+
 class DataPicker {
   static void showDataPicker<T>(BuildContext context,
       {bool showTitleActions: true,
