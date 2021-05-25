@@ -1,16 +1,37 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+/*
+
+Container(
+width: 1,
+height: 200,
+// color: ColorUtils.colorBlue,
+child:
+DashLine(color: ColorUtils.colorBlue, strokeWidth: 1, gap: 3.0)
+)
+
+*/
+
 class DashLine extends StatelessWidget {
   final Color color;
   final double strokeWidth;
   final double gap;
+  final double? width;
+  final double? height;
 
-  DashLine({this.color = Colors.black, this.strokeWidth = 1.0, this.gap = 5.0});
+  DashLine(
+      {this.color = Colors.black,
+      this.strokeWidth = 1.0,
+      this.gap = 5.0,
+      this.width,
+      this.height});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: width,
+      height: height,
       child: Padding(
         padding: EdgeInsets.all(strokeWidth / 2),
         child: CustomPaint(

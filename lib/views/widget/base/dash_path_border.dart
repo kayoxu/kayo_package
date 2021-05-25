@@ -85,6 +85,7 @@ class DashPathBorder extends Border {
   }
 }
 
+@Deprecated('Use DashLine')
 Widget dashLine(BuildContext context,
     {Color? color,
     double? rootHeight,
