@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kayo_package/kayo_package.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
 import 'package:kayo_package/views/widget/visible_view.dart';
 import 'package:kayo_package/views/widget/base/clickable.dart';
 import 'package:kayo_package/views/widget/base/image_view.dart';
 import 'package:kayo_package/views/widget/base/text_view.dart';
 
+import '../../kayo_package.dart';
 import 'base/edit_view.dart';
 
 ///  kayo_plugin
@@ -288,7 +288,9 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                   VisibleView(
                     child: Clickable(
                       child: TextView(
-                        null == widget.subMsg ? KayoPackage.share.nullText : widget.subMsg!,
+                        null == widget.subMsg
+                            ? KayoPackage.share.nullText
+                            : widget.subMsg!,
                         bgColor: widget.msgBgColor,
                         maxLine: 5,
                         width: widget.subMsgWidth,
@@ -313,7 +315,9 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                           child: Clickable(
                           radius: 5,
                           child: TextView(
-                            null == widget.msg ? KayoPackage.share.nullText : widget.msg,
+                            null == widget.msg
+                                ? KayoPackage.share.nullText
+                                : widget.msg,
                             bgColor: widget.msgBgColor,
                             textAlign: TextAlign.right,
                             padding: widget.msgPadding,
