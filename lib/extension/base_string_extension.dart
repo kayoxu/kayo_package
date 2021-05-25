@@ -72,7 +72,7 @@ extension BaseStringExtension on String? {
     }
   }
 
-  String toTimeStr({String? format, String defaultTime = 'null'}) {
+  String toTimeStr({String? format, String? defaultTime}) {
     try {
       if (_isNotEmpty(this)) {
         if (BaseSysUtils.isNumber(this!)) {
@@ -89,10 +89,10 @@ extension BaseStringExtension on String? {
           return this!;
         }
       }
-      return defaultTime;
+      return defaultTime ?? KayoPackage.share.nullText;
     } catch (e) {
       print(e);
-      return this ?? defaultTime;
+      return this ?? (defaultTime ?? KayoPackage.share.nullText);
     }
   }
 

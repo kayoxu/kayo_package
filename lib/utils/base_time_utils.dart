@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../kayo_package.dart';
+
 ///  kayo_package
 ///
 ///
@@ -129,7 +131,7 @@ class BaseTimeUtils {
   *
   * */
   static String timeFormat(String time, {String format = formatDefault}) {
-    if (null == time) return 'null';
+    if (null == time) return KayoPackage.share.nullText;
     var timestamp = timeStrToTimestamp(time);
     return timestampToTimeStr(timestamp, format: format);
   }
@@ -150,7 +152,7 @@ class BaseTimeUtils {
       print(e);
     } finally {
       if (time.contains('1970')) {
-        time = 'null';
+        time = KayoPackage.share.nullText;
       }
       return time;
     }

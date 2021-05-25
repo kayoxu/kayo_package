@@ -288,7 +288,7 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                   VisibleView(
                     child: Clickable(
                       child: TextView(
-                        null == widget.subMsg ? 'NULL' : widget.subMsg!,
+                        null == widget.subMsg ? KayoPackage.share.nullText : widget.subMsg!,
                         bgColor: widget.msgBgColor,
                         maxLine: 5,
                         width: widget.subMsgWidth,
@@ -313,7 +313,7 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                           child: Clickable(
                           radius: 5,
                           child: TextView(
-                            null == widget.msg ? 'null' : widget.msg,
+                            null == widget.msg ? KayoPackage.share.nullText : widget.msg,
                             bgColor: widget.msgBgColor,
                             textAlign: TextAlign.right,
                             padding: widget.msgPadding,

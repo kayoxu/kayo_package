@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../kayo_package.dart';
+
 extension BaseObjectExtension on Object? {
   T defaultValue<T>({required T data}) {
     if (null == this || this is! T) {
@@ -11,7 +13,7 @@ extension BaseObjectExtension on Object? {
 
   int defaultInt({int data = 0}) {
     if (null == this || this is! int) {
-      if(this is double){
+      if (this is double) {
         return (this as double).toInt();
       }
       return data;
@@ -20,12 +22,12 @@ extension BaseObjectExtension on Object? {
     }
   }
 
-  String defaultStr({String data = 'null'}) {
+  String defaultStr({String? data}) {
     if (null == this || '' == this || this is! String) {
       if (this is num) {
         return this.toString();
       }
-      return data;
+      return data ?? KayoPackage.share.nullText;
     } else {
       return this as String;
     }
