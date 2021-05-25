@@ -19,19 +19,22 @@ class DashLine extends StatelessWidget {
   final double gap;
   final double? width;
   final double? height;
+  final EdgeInsets? margin;
 
   DashLine(
       {this.color = Colors.black,
       this.strokeWidth = 1.0,
       this.gap = 5.0,
       this.width,
-      this.height});
+      this.height,
+      this.margin});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: width,
       height: height,
+      margin: margin,
       child: Padding(
         padding: EdgeInsets.all(strokeWidth / 2),
         child: CustomPaint(
