@@ -47,9 +47,11 @@ class RadioView extends StatelessWidget {
           ),
         ],
       ),
-      onTap: () {
-        onChanged?.call(value);
-      },
+      onTap: null == onChanged
+          ? null
+          : () {
+              onChanged?.call(value);
+            },
     );
   }
 }
