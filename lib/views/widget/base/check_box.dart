@@ -47,11 +47,9 @@ class RadioView extends StatelessWidget {
           ),
         ],
       ),
-      onTap: null == onChanged
-          ? null
-          : () {
-              onChanged?.call(value);
-            },
+      onTap: () {
+        onChanged?.call(value);
+      },
     );
   }
 }
@@ -97,9 +95,11 @@ class CheckBoxView extends StatelessWidget {
           ),
         ],
       ),
-      onTap: () {
-        onChanged?.call(!value2);
-      },
+      onTap: null == onChanged
+          ? null
+          : () {
+              onChanged?.call(!value2);
+            },
     );
   }
 }
