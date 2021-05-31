@@ -9,7 +9,7 @@ import '../kayo_package.dart';
 ///  Created by kayoxu on 2019-07-20 19:35.
 ///  Copyright © 2019 kayoxu. All rights reserved.
 class BaseTimeUtils {
-  static const formatDefault = 'yyyy-MM-dd HH:mm:ss';
+  static String formatDefault = 'yyyy-MM-dd HH:mm:ss';
   static const formatYMD = 'yyyy-MM-dd';
   static const formatMD = 'MM.dd';
   static const formatShort = 'yy-MM-dd HH:mm';

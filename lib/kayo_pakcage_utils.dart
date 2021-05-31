@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kayo_package/kayo_package.dart';
 
 ///
 ///  kayo_package
@@ -23,7 +24,8 @@ class KayoPackage {
 
   String nullText = '无';
 
-  init({String? nullText}) {
+  init({String? nullText, String? formatDefault}) {
     this.nullText = nullText ?? this.nullText;
+    BaseTimeUtils.formatDefault = formatDefault ?? BaseTimeUtils.formatDefault;
   }
 }
