@@ -130,7 +130,8 @@ class BaseTimeUtils {
   * 格式化时间戳
   *
   * */
-  static String timeFormat(String time, {String format = formatDefault}) {
+  static String timeFormat(String time, {String? format}) {
+    format = format ?? formatDefault;
     if (null == time) return KayoPackage.share.nullText;
     var timestamp = timeStrToTimestamp(time);
     return timestampToTimeStr(timestamp, format: format);
@@ -162,8 +163,8 @@ class BaseTimeUtils {
   * 时间戳转DateTime
   *
   * */
-  static DateTime timeStrToDateTime(String time,
-      {String format = formatDefault}) {
+  static DateTime timeStrToDateTime(String time, {String? format}) {
+    format = format ?? formatDefault;
     DateFormat dateFormat = getDateFormat(format);
 
     var dateTime = DateTime.now();
@@ -201,8 +202,8 @@ class BaseTimeUtils {
   * DateTime转时间戳
   *
   * */
-  static String dateToTimeStr(DateTime dateTime,
-      {String format = formatDefault}) {
+  static String dateToTimeStr(DateTime dateTime, {String? format}) {
+    format = format ?? formatDefault;
     if (null == dateTime) return '';
 
     var dateFormat = getDateFormat(format);

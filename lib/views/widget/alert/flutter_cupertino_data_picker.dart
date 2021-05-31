@@ -20,6 +20,8 @@ class DataPickerLocale {
 }
 
 class DataPicker {
+  static String defaultDataPickerLocale = DataPickerLocale.zh_cn;
+
   static void show<T>(BuildContext context,
       {bool showTitleActions: true,
       required List<T> datas,
@@ -32,8 +34,9 @@ class DataPicker {
       String suffix: '',
       bool? multipleChoice,
       String? title,
-      String locale: DataPickerLocale.zh_cn,
+      String? locale,
       bool bottomSheet: true}) {
+    locale = locale ?? defaultDataPickerLocale;
     showDataPicker(context,
         showTitleActions: showTitleActions,
         datas: datas,
@@ -63,8 +66,9 @@ class DataPicker {
       String suffix: '',
       bool? multipleChoice,
       String? title,
-      String locale: 'zh',
+      String? locale,
       bool bottomSheet: true}) {
+    locale = locale ?? defaultDataPickerLocale;
     if (true == bottomSheet) {
       showModalBottomSheet(
           context: context,

@@ -96,8 +96,8 @@ extension BaseStringExtension on String? {
     }
   }
 
-  int toTimestamp(
-      {bool second = true, String format = BaseTimeUtils.formatDefault}) {
+  int toTimestamp({bool second = true, String? format}) {
+    format = format ?? BaseTimeUtils.formatDefault;
     if (_isNotEmpty(this)) {
       var timestamp = BaseTimeUtils.timeStrToTimestamp(this!, format: format);
       return second == true ? timestamp ~/ 1000 : timestamp;

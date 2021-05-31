@@ -23,9 +23,12 @@ typedef OnDateTimePick(DateTime startDateTime, DateTime endDateTime);
 ///
 
 class DateTimePicker {
+  static DateTimePickerLocale defaultDateTimePickerLocale =
+      DateTimePickerLocale.zh_cn;
+
   static show(BuildContext context,
       {bool? showEnd,
-      DateTimePickerLocale locale = DateTimePickerLocale.zh_cn,
+      DateTimePickerLocale? locale,
       // bool? showWeek,
       String? title,
       DateTime? maxStartDate,
@@ -41,6 +44,8 @@ class DateTimePicker {
       Function()? onCancel,
       String? startTitle,
       String? endTitle}) {
+    locale = locale ?? defaultDateTimePickerLocale;
+
     double heightTitle = 46;
     double heightTitleTime = 46;
     double heightTitleWeek = 46;
@@ -93,7 +98,7 @@ class DateTimePicker {
                   children: [
                     _inkWell(
                         height: heightTitle,
-                        title: DatePickerI18n.getLocaleCancel(locale),
+                        title: DatePickerI18n.getLocaleCancel(locale!),
                         onTap: () {
                           Navigator.pop(context);
                           onCancel?.call();
