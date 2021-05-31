@@ -37,7 +37,7 @@ class DateTimePicker {
       DateTime? maxEndDate,
       DateTime? minEndDate,
       DateTime? nowEndDate,
-      String? dateFormat = 'yyyy年-MM月-dd日 HH时:mm分',
+      String? dateFormat,
       // String? dateFormat = 'yyyy年-MM月-dd日 HH时:mm分:ss秒',
       OnDateTimePick? onDateTimePick,
       OnDateTimePick? onDateTimeChange,
@@ -45,6 +45,7 @@ class DateTimePicker {
       String? startTitle,
       String? endTitle}) {
     locale = locale ?? defaultDateTimePickerLocale;
+    dateFormat = dateFormat ?? BaseTimeUtils.formatDefault;
 
     double heightTitle = 46;
     double heightTitleTime = 46;
@@ -173,7 +174,7 @@ class DateTimePicker {
                     minDateTime: minStartDate ?? DateTime(2000),
                     maxDateTime: maxStartDate ?? DateTime(2049),
                     initDateTime: nowStartDate,
-                    dateFormat: dateFormat ?? 'yyyy-MM-dd HH:mm:ss',
+                    dateFormat: dateFormat!,
                     pickerTheme: DateTimePickerTheme(
                       showTitle: false,
                       backgroundColor: Colors.transparent,
@@ -206,7 +207,7 @@ class DateTimePicker {
                           minDateTime: minEndDate ?? DateTime(2000),
                           maxDateTime: maxEndDate ?? DateTime(2049),
                           initDateTime: nowEndDate,
-                          dateFormat: dateFormat ?? 'yyyy-MM-dd HH:mm:ss',
+                          dateFormat: dateFormat,
                           pickerTheme: DateTimePickerTheme(
                             showTitle: false,
                             backgroundColor: Colors.transparent,
