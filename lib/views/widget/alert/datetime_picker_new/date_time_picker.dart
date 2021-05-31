@@ -172,7 +172,8 @@ class DateTimePicker {
                   height: heightTime,
                   child: DateTimePickerWidget(
                     minDateTime: minStartDate ?? DateTime(2000),
-                    maxDateTime: maxStartDate ?? DateTime(2049),
+                    maxDateTime:
+                        maxStartDate ?? DateTime(2049, 12, 31, 23, 59, 59),
                     initDateTime: nowStartDate,
                     dateFormat: dateFormat!,
                     pickerTheme: DateTimePickerTheme(
@@ -205,7 +206,8 @@ class DateTimePicker {
                         height: heightTime,
                         child: DateTimePickerWidget(
                           minDateTime: minEndDate ?? DateTime(2000),
-                          maxDateTime: maxEndDate ?? DateTime(2049),
+                          maxDateTime:
+                              maxEndDate ?? DateTime(2049, 12, 31, 23, 59, 59),
                           initDateTime: nowEndDate,
                           dateFormat: dateFormat,
                           pickerTheme: DateTimePickerTheme(

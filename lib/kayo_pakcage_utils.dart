@@ -51,4 +51,9 @@ class KayoPackage {
     DataPicker.defaultDataPickerLocale =
         dataPickerLocale ?? DataPicker.defaultDataPickerLocale;
   }
+
+  setBuddhist(bool buddhist) {
+    BaseTimeUtils.calendarType =
+        buddhist == true ? CalendarType.Buddhist : CalendarType.normal;
+  }
 }

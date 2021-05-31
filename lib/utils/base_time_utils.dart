@@ -8,11 +8,16 @@ import '../kayo_package.dart';
 ///
 ///  Created by kayoxu on 2019-07-20 19:35.
 ///  Copyright © 2019 kayoxu. All rights reserved.
+///
+
+enum CalendarType { normal, Buddhist }
+
 class BaseTimeUtils {
   static String formatDefault = 'yyyy-MM-dd HH:mm:ss';
   static const formatYMD = 'yyyy-MM-dd';
   static const formatMD = 'MM.dd';
   static const formatShort = 'yy-MM-dd HH:mm';
+  static CalendarType calendarType = CalendarType.normal;
 
   ///获取时间
   static DateTime getTime({required int after, required bool start}) {
@@ -146,6 +151,13 @@ class BaseTimeUtils {
 
     DateFormat dateFormat = getDateFormat(format);
     var date = DateTime.fromMillisecondsSinceEpoch(timestamp);
+
+    if (BaseTimeUtils.calendarType == CalendarType.Buddhist) {
+      var year = date.year + 543;
+      date = DateTime(
+          year, date.month, date.day, date.hour, date.minute, date.second);
+    }
+
     var time = '';
     try {
       time = dateFormat.format(date);
