@@ -22,7 +22,7 @@ class DataPickerLocale {
 class DataPicker {
   static String defaultDataPickerLocale = DataPickerLocale.zh_cn;
 
-  static void show<T>(BuildContext context,
+  static Future show<T>(BuildContext context,
       {bool showTitleActions: true,
       required List<T> datas,
       int selectedIndex: 0,
@@ -37,7 +37,7 @@ class DataPicker {
       String? locale,
       bool bottomSheet: true}) {
     locale = locale ?? defaultDataPickerLocale;
-    showDataPicker(context,
+    return showDataPicker(context,
         showTitleActions: showTitleActions,
         datas: datas,
         selectedIndex: selectedIndex,
@@ -54,7 +54,7 @@ class DataPicker {
   }
 
   @Deprecated('用show代替showDataPicker')
-  static void showDataPicker<T>(BuildContext context,
+  static Future showDataPicker<T>(BuildContext context,
       {bool showTitleActions: true,
       required List<T> datas,
       int selectedIndex: 0,
@@ -70,7 +70,7 @@ class DataPicker {
       bool bottomSheet: true}) {
     locale = locale ?? defaultDataPickerLocale;
     if (true == bottomSheet) {
-      showModalBottomSheet(
+      return showModalBottomSheet(
           context: context,
           isDismissible: true,
           isScrollControlled: false,
@@ -92,7 +92,7 @@ class DataPicker {
             );
           });
     } else {
-      Navigator.push(
+      return Navigator.push(
           context,
           new _DataPickerRoute(
             showTitleActions: showTitleActions,
