@@ -175,13 +175,13 @@ class BaseTimeUtils {
   * 时间戳转DateTime
   *
   * */
-  static DateTime timeStrToDateTime(String time, {String? format}) {
+  static DateTime timeStrToDateTime(String? time, {String? format}) {
     format = format ?? formatDefault;
     DateFormat dateFormat = getDateFormat(format);
 
     var dateTime = DateTime.now();
     try {
-      dateTime = dateFormat.parse(time);
+      dateTime = dateFormat.parse(time ?? '');
       return dateTime;
     } catch (e) {
       print(e);

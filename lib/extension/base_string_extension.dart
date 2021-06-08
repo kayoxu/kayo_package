@@ -96,6 +96,29 @@ extension BaseStringExtension on String? {
     }
   }
 
+  DateTime? toDate({String? format, String? defaultTime}) {
+    try {
+      if (_isNotEmpty(this)) {
+        if (BaseSysUtils.isNumber(this!)) {
+          var t = BaseSysUtils.str2Int(this!);
+          if (this!.length == 10) {
+            return DateTime.fromMillisecondsSinceEpoch(t * 1000);
+          } else if (this!.length == 13) {
+            return DateTime.fromMillisecondsSinceEpoch(t);
+          } else {
+            return null;
+          }
+        } else {
+          return BaseTimeUtils.timeStrToDateTime(this, format: defaultTime);
+        }
+      }
+      return null;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
   int toTimestamp({bool second = true, String? format}) {
     format = format ?? BaseTimeUtils.formatDefault;
     if (_isNotEmpty(this)) {
