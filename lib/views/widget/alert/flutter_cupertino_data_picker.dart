@@ -528,7 +528,10 @@ class _BottomSheetSingleState<T> extends State<BottomSheetSingleWidget<T>> {
               ),
               Expanded(
                   child: TextView(
-                widget.title ?? (widget.isEN == true ? 'SELECT' : '请选择'),
+                widget.title ??
+                    (widget.isEN == true
+                        ? 'SELECT'
+                        : '请选择${multipleChoice == true ? '(可多选)' : ''}'),
                 maxLine: 2,
                 textAlign: TextAlign.center,
                 alignment: Alignment.center,
