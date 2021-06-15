@@ -56,4 +56,8 @@ class KayoPackage {
     BaseTimeUtils.calendarType =
         buddhist == true ? CalendarType.Buddhist : CalendarType.normal;
   }
+
+  setDateFormat(String? format) {
+    BaseTimeUtils.formatDefault = format ?? BaseTimeUtils.formatDefault;
+  }
 }
