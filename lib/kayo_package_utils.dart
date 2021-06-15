@@ -4,7 +4,7 @@ import 'package:kayo_package/views/widget/alert/datetime_picker_new/flutter_cupe
 
 ///
 ///  kayo_package
-///  kayo_pakcage_utils.dart
+///  kayo_package_utils.dart
 ///
 ///  Created by kayoxu on 2021/5/25 at 4:40 下午
 ///  Copyright © 2021 kayoxu. All rights reserved.
