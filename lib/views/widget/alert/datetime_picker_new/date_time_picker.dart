@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kayo_package/kayo_package.dart';
+import 'package:kayo_package/views/widget/alert/datetime_picker/date_format.dart';
 import 'package:kayo_package/views/widget/alert/datetime_picker_new/flutter_cupertino_datetime_picker.dart';
 
 ///
@@ -45,7 +46,8 @@ class DateTimePicker {
       String? startTitle,
       String? endTitle}) {
     locale = locale ?? defaultDateTimePickerLocale;
-    dateFormat = dateFormat ?? BaseTimeUtils.formatDefault;
+    dateFormat =
+        (dateFormat ?? BaseTimeUtils.formatDefault).replaceAll('hh', 'HH');
 
     double heightTitle = 46;
     double heightTitleTime = 46;
