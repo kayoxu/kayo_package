@@ -85,25 +85,45 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
                     ),
                     Positioned(
                         top: 0,
-                        left: 20,
-                        right: 60,
-                        child: TextView(widget.controller?.text ?? '',height: 48,textAlign: TextAlign.left,alignment: Alignment.centerLeft,)),
-                    Positioned(
-                        top: 0,
-                        right: 8,
-                        child: FloatingActionButton(
-                            mini: true,
-                            backgroundColor: BaseColorUtils.white,
-                            child: Icon(
-                              Icons.keyboard_hide,
-                              color: BaseColorUtils.colorGrey,
-                            ),
-                            onPressed: () {
-                             setState(() {
-                               widget.controller?.doneAction();
-                             });
-                            }))
-                  ],
+                        left: 0,
+                        right: 0,
+                        child: Container(
+                          color: Colors.white,
+                          padding: EdgeInsets.only(left: 20,right: 20 ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  child: TextView(
+                                widget.controller?.text
+                                    .defaultStr(data: '请输入车牌号码'),
+                                height: 38,
+                                margin: EdgeInsets.only(right: 12),
+                                borderColor: Colors.black12,
+                                radius: 6,
+                                color:
+                                    BaseSysUtils.empty(widget.controller?.text)
+                                        ? BaseColorUtils.colorBlackLiteLite
+                                        : BaseColorUtils.colorBlack,
+                                padding: EdgeInsets.only(left: 16, right: 16),
+                                border: true,
+                                textAlign: TextAlign.left,
+                                alignment: Alignment.centerLeft,
+                              )),
+                              FloatingActionButton(
+                                  mini: true,
+                                  backgroundColor: BaseColorUtils.white,
+                                  child: Icon(
+                                    Icons.keyboard_hide,
+                                    color: BaseColorUtils.colorGrey,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      widget.controller?.doneAction();
+                                    });
+                                  })
+                            ],
+                          ),
+                        )),],
                 ),
               )),
         ));
@@ -209,9 +229,9 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
                   child: Icon(Icons.backspace),
                 ),
                 onTap: () {
-                 setState(() {
-                   widget.controller?.deleteOne();
-                 });
+                  setState(() {
+                    widget.controller?.deleteOne();
+                  });
                 },
               ))
         ],
@@ -320,9 +340,9 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
                   child: Icon(Icons.backspace),
                 ),
                 onTap: () {
-                setState(() {
-                  widget.controller?.deleteOne();
-                });
+                  setState(() {
+                    widget.controller?.deleteOne();
+                  });
                 },
               ))
         ],
