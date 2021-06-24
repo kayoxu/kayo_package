@@ -1,11 +1,11 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:kayo_package/kayo_package.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
 import 'package:kayo_package/views/widget/base/clickable.dart';
 import 'package:kayo_package/views/widget/base/keyboard/boards/keyboard_tools.dart';
- import 'package:kayo_package/views/widget/base/text_view.dart';
+import 'package:kayo_package/views/widget/base/text_view.dart';
 
 import '../cool_ui.dart';
-
 
 class KeyboardCarNum extends StatefulWidget {
   static double getHeight(BuildContext ctx) {
@@ -85,6 +85,11 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
                     ),
                     Positioned(
                         top: 0,
+                        left: 20,
+                        right: 60,
+                        child: TextView(widget.controller?.text ?? '',height: 48,textAlign: TextAlign.left,alignment: Alignment.centerLeft,)),
+                    Positioned(
+                        top: 0,
                         right: 8,
                         child: FloatingActionButton(
                             mini: true,
@@ -94,7 +99,9 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
                               color: BaseColorUtils.colorGrey,
                             ),
                             onPressed: () {
-                              widget.controller?.doneAction();
+                             setState(() {
+                               widget.controller?.doneAction();
+                             });
                             }))
                   ],
                 ),
@@ -202,7 +209,9 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
                   child: Icon(Icons.backspace),
                 ),
                 onTap: () {
-                  widget.controller?.deleteOne();
+                 setState(() {
+                   widget.controller?.deleteOne();
+                 });
                 },
               ))
         ],
@@ -311,7 +320,9 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
                   child: Icon(Icons.backspace),
                 ),
                 onTap: () {
+                setState(() {
                   widget.controller?.deleteOne();
+                });
                 },
               ))
         ],
@@ -343,7 +354,9 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
           ),
           onTap: () {
             badKeyboard = false;
-            widget.controller?.addText(value!);
+            setState(() {
+              widget.controller?.addText(value!);
+            });
           },
         ));
   }
