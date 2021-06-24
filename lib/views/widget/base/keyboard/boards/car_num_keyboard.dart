@@ -100,7 +100,7 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
                                 margin: EdgeInsets.only(right: 12),
                                 borderColor: Colors.black12,
                                 radius: 6,
-                                size: 18,
+                                size: 16,
                                 fontWeight: FontWeight.bold,
                                 color:
                                     BaseSysUtils.empty(widget.controller?.text)
