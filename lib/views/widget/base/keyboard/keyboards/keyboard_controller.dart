@@ -129,7 +129,14 @@ class KeyboardController extends ValueNotifier<TextEditingValue> {
   /// 完成
   doneAction() {
     badKeyboard = false;
-    CoolKeyboard.sendPerformAction(TextInputAction.done);
+    CoolKeyboard.hideKeyboard();
+    // CoolKeyboard.sendPerformAction(TextInputAction.done);
+  }
+
+  /// 搜索
+  searchAction() {
+    badKeyboard = false;
+    CoolKeyboard.sendPerformAction(TextInputAction.search);
   }
 
   /// 下一个

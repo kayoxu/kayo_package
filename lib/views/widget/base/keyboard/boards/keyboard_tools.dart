@@ -15,6 +15,8 @@ import 'car_num_keyboard_bad.dart';
 class FlutterKeyboard {
   static const CKTextInputType carNum =
       const CKTextInputType(name: 'CarNumKeyboard');
+  static const CKTextInputType carNumWithSearch =
+      const CKTextInputType(name: 'CarNumKeyboardWithSearch');
   static const CKTextInputType carNumBad =
       const CKTextInputType(name: 'CarNumKeyboardBad');
   static const CKTextInputType number =
