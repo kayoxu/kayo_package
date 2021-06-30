@@ -16,10 +16,10 @@ extension BaseStringExtension on String? {
     }
   }
 
-  double toDouble({double value = 0}) {
+  double toDouble({double value = 0.0}) {
     try {
       if (_isNotEmpty(this)) {
-        value = double.tryParse(this!) ?? 0.0;
+        value = double.tryParse(this!) ?? value;
       }
     } catch (e) {
       print(e);
