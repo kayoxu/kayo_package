@@ -7,11 +7,11 @@ extension BaseStringExtension on String? {
   int toInt({int value = 0}) {
     try {
       if (_isNotEmpty(this)) {
-        value = int.tryParse(this!) ?? 0;
+        value = int.tryParse('$this') ?? value;
       }
+      return value;
     } catch (e) {
       print(e);
-    } finally {
       return value;
     }
   }
