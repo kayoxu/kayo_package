@@ -23,7 +23,9 @@ class BaseViewUtils {
         // alignment: Alignment.center,
         children: <Widget>[
           ImageView(
-            src: source(src ?? 'ic_no_data'),
+            src: BaseSysUtils.empty(src)
+                ? 'packages/kayo_package/assets/ic_no_data.png'
+                : source(src!),
             margin: EdgeInsets.only(bottom: marginImageTop ?? 0),
             width: width ?? 120,
             height: height ?? 120,

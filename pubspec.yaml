@@ -11,41 +11,35 @@ dependencies:
   flutter:
     sdk: flutter
 
-  intl: ^0.17.0               # Jan 6, 2020
-#  flutter_svg: ^0.17.3+1        # Mar 9, 2020
-  fluro: ^1.6.1               # Mar 28, 2020
-#  cupertino_icons: ^0.1.2     # Apr 5, 2018
-#  flutter_redux: ^0.6.0       # Dec 4, 2019
-  connectivity: ^0.4.8+2      # Mar 9, 2020
-  url_launcher: ^5.4.10        # May 21, 2020
-#  flutter_markdown: ^0.3.4    # Feb 25, 2020
-  flutter_spinkit: ^4.1.2+1  # Mar 26, 2020
-  pub_semver: ">=1.4.4 <=3.0.0"          # Mar 16, 2020
-#  flutter_statusbar: ^0.0.1   # Jul 11, 2018
-  flutter_slidable: ^0.5.5    # Oct 6, 2019
-#  dio: ^2.1.13                # Jul 10, 2019
-  dio: ">=2.1.0 <=5.0.0"
-  event_bus: ^1.1.1          # Jan 21, 2020
-  path_drawing: ^0.5.0-nullsafety.0
-#  cached_network_image: ^1.1.2+1    #  Oct 17, 2019
-  cached_network_image: ^2.0.0    #   Dec 31, 2019
-  back_button_interceptor: ^5.0.0
+  intl: ^0.17.0               # Feb 3, 2021
+  fluro: ">=1.6.1  <=10.0.0"      #  Mar 1, 2021  2.0.3
+  connectivity: ">=0.4.8+2 <=10.0.0"   # May 26, 2021  3.0.6
+  url_launcher: ">=5.4.10 <=10.0.0"   # Jul 4, 2021  6.0.9
+  flutter_spinkit: ">=4.1.2+1 <=10.0.0"    #  Mar 4, 2021     5.0.0
+  pub_semver: ">=1.4.4 <=10.0.0"          #Feb 5, 2021   2.0.0
+  flutter_slidable: ">=0.5.5 <=10.0.0"      # Jul 18, 2021 0.6.0
+  dio: ">=2.1.0 <=10.0.0"                   #Mar 28, 2021   4.0.0
+  event_bus: ">=1.1.1 <=10.0.0"          # Mar 4, 2021  2.0.0
+  path_drawing: ">=0.5.1   <=10.0.0"       #  May 5, 2021 0.5.1
+  cached_network_image: ">=2.0.0   <=10.0.0"       #  May 5, 2021 3.1.0
+  back_button_interceptor: ^5.0.1
 
-  convert: ">=2.1.0 <=4.0.0"             # Dec 19, 2018
-  crypto: ">=2.1.5 <=4.0.0"              # Feb 2, 2021
-  json_annotation: ">=3.0.1 <=5.0.0"     # Dec 23, 2019
-  provider: ">=4.0.0 <=10.0.0"
-  pull_to_refresh: ^1.5.8      # Jan 13, 2020
-  fluttertoast:  ">=3.1.2 <=20.0.0"        # Aug 29, 2019
+  convert: ">=2.1.0 <=10.0.0"             # Jun 24, 2021  3.0.1
+  crypto: ">=2.1.5 <=10.0.0"              #Apr 1, 2021  3.0.1
+  json_annotation: ">=3.0.1 <=10.0.0"     # Jul 13, 2021   4.1.0
+  provider: ">=4.0.0 <=10.0.0"            # Jul 12, 2021  5.0.0 / 6.0.0-dev
+  pull_to_refresh: ">=1.5.8 <=10.0.0"       # May 7, 2021 2.0.0
+  fluttertoast: ">=3.1.2 <=20.0.0"        # May 19, 2021   8.0.7
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  build_runner: ^1.8.0        #  Mar 5, 2020
-  json_serializable: ^3.0.1   # Dec 23, 2019
+  build_runner: ">=1.8.0 <=20.0.0"  # Jul 9, 2021  2.0.6
+  json_serializable: ">=3.0.1 <=20.0.0"     # Jul 13, 2021   5.0.0
 
 flutter:
+  uses-material-design: true
 
   assets:
     - assets/

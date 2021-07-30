@@ -95,7 +95,7 @@ class ImageViewState extends State<ImageView> {
           placeholder: (context, str) {
             return Image.asset(widget.defaultImage ?? source('ic_moren'));
           },
-          imageUrl: widget.url,
+          imageUrl: widget.url!,
           width: widget.width,
           height: widget.height,
           fit: widget.fit,

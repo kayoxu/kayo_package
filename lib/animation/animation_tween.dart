@@ -38,15 +38,18 @@ class _AnimationTweenState extends State<AnimationTween>
 
   initState() {
     super.initState();
-    controller = new AnimationController(
+    controller = AnimationController(
         duration: Duration(milliseconds: widget.milliseconds), vsync: this);
-    animation = new Tween(begin: 0.0, end: widget.size).animate(controller)
+    animation = Tween(begin: 0.0, end: widget.size).animate(controller)
       ..addListener(() {
         setState(() {
           // the state that has changed here is the animation object’s value
         });
       });
     widget.controller?.call(controller);
+    if (null == widget.controller) {
+      controller.forward();
+    }
   }
 
   Widget build(BuildContext context) {

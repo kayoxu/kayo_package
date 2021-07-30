@@ -2,6 +2,8 @@ export 'base_sys_utils.dart';
 export 'base_color_utils.dart';
 export 'base_time_utils.dart';
 export 'base_view_utils.dart';
+export 'base_refresh_utils.dart';
+export 'platform_utils.dart';
 export 'notification/_index_notification.dart';
 
 /**

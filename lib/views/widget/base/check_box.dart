@@ -80,6 +80,11 @@ class CheckBoxView extends StatelessWidget {
       onChanged: onChanged,
       value: value2,
     );
+    var nt = name ?? '';
+    double? w;
+    // if (nt.length > 22) {
+    //   w = 300;
+    // }
     return Clickable(
       radius: 12,
       bgColor: Colors.transparent,
@@ -88,10 +93,14 @@ class CheckBoxView extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           check,
-          TextView(
-            name ?? '',
-            color: nameColor,
-            size: nameSize ?? 14,
+          Flexible(
+            child: TextView(
+              name ?? '',
+              maxLine: 10,
+              color: nameColor,
+              // width: w,
+              size: nameSize ?? 14,
+            ),
           ),
         ],
       ),
