@@ -6,14 +6,14 @@ import 'clickable.dart';
 import 'text_view.dart';
 
 class RadioView extends StatelessWidget {
-  ValueChanged<int?>? onChanged;
-  int? value;
-  String? name;
-  int? groupValue;
-  Color? activeColor;
-  Color? nameColor;
-  int? nameSize;
-  bool? single;
+  final ValueChanged<int?>? onChanged;
+  final int? value;
+  final String? name;
+  final int? groupValue;
+  final Color? activeColor;
+  final Color? nameColor;
+  final int? nameSize;
+  final bool? single;
 
   RadioView(
       {required this.value,
@@ -22,7 +22,8 @@ class RadioView extends StatelessWidget {
       required this.activeColor,
       required this.onChanged,
       this.nameColor = BaseColorUtils.colorBlack,
-      this.nameSize = 14});
+      this.nameSize = 14,
+      this.single});
 
   @override
   Widget build(BuildContext context) {
@@ -55,13 +56,13 @@ class RadioView extends StatelessWidget {
 }
 
 class CheckBoxView extends StatelessWidget {
-  ValueChanged<bool?>? onChanged;
-  bool? value;
-  String? name;
-  Color? activeColor;
-  Color nameColor;
-  EdgeInsets? padding;
-  double? nameSize;
+  final ValueChanged<bool?>? onChanged;
+  final bool? value;
+  final String? name;
+  final Color? activeColor;
+  final Color nameColor;
+  final EdgeInsets? padding;
+  final double? nameSize;
 
   CheckBoxView(
       {required this.value,
@@ -80,11 +81,6 @@ class CheckBoxView extends StatelessWidget {
       onChanged: onChanged,
       value: value2,
     );
-    var nt = name ?? '';
-    double? w;
-    // if (nt.length > 22) {
-    //   w = 300;
-    // }
     return Clickable(
       radius: 12,
       bgColor: Colors.transparent,

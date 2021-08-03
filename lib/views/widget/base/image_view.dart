@@ -19,34 +19,36 @@ source(String src, {String suffix = '.png'}) {
   return 'assets/${src}$suffix';
 }
 
+@immutable
 class ImageView extends StatefulWidget {
-  String? src;
-  String? url;
-  bool? useCache;
-  File? file;
-  double? width;
-  double? height;
-  double? rootwidth;
-  double? rootHeight;
-  BoxFit fit;
-  double radius;
-  Color? color;
-  EdgeInsets margin;
-  EdgeInsets padding;
+  final String? src;
+  final String? url;
+  final bool? useCache;
+  final File? file;
+  final double? width;
+  final double? height;
+  @Deprecated('用rootWidth代替')
+  final double? rootwidth;
+  final double? rootWidth;
+  final double? rootHeight;
+  final ImageProvider? imageProvider;
+  final BoxFit fit;
+  final double radius;
+  final Color? color;
+  final EdgeInsets margin;
+  final EdgeInsets padding;
 
-  VoidCallback? onClick;
-  VoidCallback? onLongClick;
+  final VoidCallback? onClick;
+  final VoidCallback? onLongClick;
 
-  double? elevation;
-  Color? shadowColor;
-  double? aspectRatio;
-  Color? bgColor;
-  EdgeInsets? imagePadding;
-  Color? imagePaddingColor;
-  double? imagePaddingRadius;
-  String? defaultImage;
-
-  var isDown = false;
+  final double? elevation;
+  final Color? shadowColor;
+  final double? aspectRatio;
+  final Color? bgColor;
+  final EdgeInsets? imagePadding;
+  final Color? imagePaddingColor;
+  final double? imagePaddingRadius;
+  final String? defaultImage;
 
   ImageView({
     Key? key,
@@ -56,6 +58,7 @@ class ImageView extends StatefulWidget {
     this.width,
     this.height,
     this.rootwidth,
+    this.rootWidth,
     this.rootHeight,
     this.fit = BoxFit.fitHeight,
     this.radius = 0,
@@ -73,6 +76,7 @@ class ImageView extends StatefulWidget {
     this.defaultImage,
     this.aspectRatio = -1,
     this.useCache = false,
+    this.imageProvider,
   }) : super(key: key);
 
   @override
@@ -86,30 +90,43 @@ class ImageViewState extends State<ImageView> {
 //  ClipRRect borderRadius: BorderRadius.circular(10),
 //  BoxDecoration BoxShape.circle
 
+  bool isDown = false;
+
   @override
   Widget build(BuildContext context) {
     var image;
-    if (null != widget.url && widget.url != '' && widget.url!.length > 10) {
-      if (widget.useCache == true) {
-        image = CachedNetworkImage(
-          placeholder: (context, str) {
-            return Image.asset(widget.defaultImage ?? source('ic_moren'));
-          },
-          imageUrl: widget.url!,
+    if (null != widget.imageProvider) {
+      image = Image(
+          image: widget.imageProvider!,
           width: widget.width,
           height: widget.height,
-          fit: widget.fit,
-        );
-      } else {
-        image = FadeInImage.assetNetwork(
-          placeholder: widget.defaultImage ?? source('ic_moren'),
-          image: widget.url ?? '',
-          width: widget.width,
-          height: widget.height,
-          fit: widget.fit,
-        );
-      }
-    } else if ((widget.src ?? '') != '') {
+          color: widget.color,
+          fit: widget.fit);
+    } else {
+      if (null != widget.url && widget.url != '' && widget.url!.length > 10) {
+        if (widget.useCache == true) {
+          image = CachedNetworkImage(
+            placeholder: (context, str) {
+              return Image.asset(widget.defaultImage ??
+                  'packages/kayo_package/assets/ic_no_data.png');
+            },
+            imageUrl: widget.url!,
+            width: widget.width,
+            height: widget.height,
+            color: widget.color,
+            fit: widget.fit,
+          );
+        } else {
+          image = FadeInImage.assetNetwork(
+            placeholder: widget.defaultImage ??
+                'packages/kayo_package/assets/ic_no_data.png',
+            image: widget.url ?? '',
+            width: widget.width,
+            height: widget.height,
+            fit: widget.fit,
+          );
+        }
+      } else if ((widget.src ?? '') != '') {
 //      if (widget.src.endsWith('.svg')) {
 //        image = SvgPicture.asset(
 //          widget.src,
@@ -119,32 +136,35 @@ class ImageViewState extends State<ImageView> {
 //        );
 //      } else
 
-      {
+        {
+          image = Image.asset(
+            widget.src ?? '',
+            color: widget.color,
+            width: widget.width,
+            height: widget.height,
+            fit: widget.fit,
+          );
+        }
+      } else if (null != widget.file) {
+        image = Image.file(widget.file!,
+            color: widget.color,
+            width: widget.width,
+            height: widget.height,
+            fit: widget.fit);
+      } else {
         image = Image.asset(
-          widget.src ?? '',
-          color: widget.color,
-          width: widget.width,
-          height: widget.height,
-          fit: widget.fit,
-        );
+            widget.defaultImage ??
+                'packages/kayo_package/assets/ic_no_data.png',
+            color: widget.color,
+            width: widget.width,
+            height: widget.height,
+            fit: widget.fit);
       }
-    } else if (null != widget.file) {
-      image = Image.file(widget.file!,
-          color: widget.color,
-          width: widget.width,
-          height: widget.height,
-          fit: widget.fit);
-    } else {
-      image = Image.asset(widget.defaultImage ?? 'assets/ic_moren.png',
-          color: widget.color,
-          width: widget.width,
-          height: widget.height,
-          fit: widget.fit);
     }
 
     var container = Container(
       height: widget.rootHeight,
-      width: widget.rootwidth,
+      width: widget.rootwidth ?? widget.rootWidth,
       color: widget.bgColor,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(widget.radius),
@@ -153,8 +173,8 @@ class ImageViewState extends State<ImageView> {
             : AnimatedContainer(
                 duration: Duration(milliseconds: 100),
                 foregroundDecoration: BoxDecoration(
-                  color: widget.isDown
-                      ? Colors.white.withOpacity(0.5)
+                  color: isDown
+                      ? Colors.grey.withOpacity(0.1)
                       : Colors.transparent,
                 ),
                 child: image,
@@ -187,24 +207,24 @@ class ImageViewState extends State<ImageView> {
             bgColor: Colors.transparent,
             elevation: widget.elevation,
             shadowColor: widget.shadowColor,
-
+            materialBtn: false,
             onTapDown: (d) {
               setState(() {
-                widget.isDown = true;
+                isDown = true;
               });
             },
 
             onHighlightChanged: (b) {
               if (!b) {
                 setState(() {
-                  widget.isDown = false;
+                  isDown = false;
                 });
               }
             },
             //      onTapUp: (d) => setState(() => this.isDown = false),
             onTapCancel: () {
               setState(() {
-                widget.isDown = false;
+                isDown = false;
               });
             },
           );

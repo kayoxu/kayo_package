@@ -14,17 +14,17 @@ import 'base/text_view.dart';
 ///
 
 class SuperScriptView extends StatelessWidget {
-  Function()? onTap;
-  String? iconSrc;
-  Color? iconTint;
-  double? iconSize;
-  double countSize;
-  String? count;
-  Color? countColor;
-  Color? countBgColor;
-  EdgeInsets? margin;
-  EdgeInsets? padding;
-  EdgeInsets? iconPadding;
+ final Function()? onTap;
+ final String? iconSrc;
+ final  Color? iconTint;
+ final  double? iconSize;
+ final double countSize;
+ final String? count;
+ final Color? countColor;
+ final  Color? countBgColor;
+ final  EdgeInsets? margin;
+ final  EdgeInsets? padding;
+ final EdgeInsets? iconPadding;
 
   SuperScriptView(
       {this.onTap,

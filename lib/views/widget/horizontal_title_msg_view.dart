@@ -75,66 +75,66 @@ Container HorizontalTitleMsgView2({
 }
 
 class HorizontalTitleMsgView extends StatefulWidget {
-  EdgeInsets? padding;
-  EdgeInsets? margin;
+final  EdgeInsets? padding;
+final EdgeInsets? margin;
 
-  String title;
-  String msg;
-  bool rightIcon;
-  Color rightIconColor;
-  String? rightIconSrc;
-  double? rightIconWidth;
-  double? rightIconHeight;
-  Visible leftIcon;
-  String leftIconSrc;
-  EdgeInsets leftIconMargin;
-  double leftIconHeight;
-  double leftIconWidth;
-  double legtIconRadius;
-  String? subTitle;
-  bool msgEditableFull;
-  TextInputType? msgInputType;
+final  String title;
+final  String msg;
+final  bool rightIcon;
+final  Color rightIconColor;
+final String? rightIconSrc;
+final double? rightIconWidth;
+final  double? rightIconHeight;
+final  Visible leftIcon;
+final  String leftIconSrc;
+final  EdgeInsets leftIconMargin;
+final double leftIconHeight;
+final  double leftIconWidth;
+final double legtIconRadius;
+final  String? subTitle;
+final  bool msgEditableFull;
+final  TextInputType? msgInputType;
 
-  Color titleColor;
-  double titleSize;
-  FontWeight? titleFontWeight;
+final  Color titleColor;
+final  double titleSize;
+final  FontWeight? titleFontWeight;
 
-  Color msgColor;
-  double msgSize;
-  FontWeight? msgFontWeight;
-  EdgeInsets msgPadding;
+final Color msgColor;
+final  double msgSize;
+final  FontWeight? msgFontWeight;
+final  EdgeInsets msgPadding;
 
-  String? subMsg;
-  Color subMsgColor;
-  double subMsgSize;
-  FontWeight? subMsgFontWeight;
-  Function()? subMsgClick;
-  double? subMsgWidth;
+final  String? subMsg;
+final  Color subMsgColor;
+final  double subMsgSize;
+final  FontWeight? subMsgFontWeight;
+final  Function()? subMsgClick;
+final  double? subMsgWidth;
 
-  Color bgColor;
-  Color? msgBgColor = Colors.transparent;
-  bool topLine;
-  bool bottomLine;
+final  Color bgColor;
+final  Color? msgBgColor;
+final  bool topLine;
+final  bool bottomLine;
 
-  EdgeInsets topLineMargin;
-  EdgeInsets bottomLineMargin;
-  VoidCallback? onClick;
-  double? height;
-  double? width;
-  bool msgEditable;
-  String? msgHintText;
-  TextEditingController? msgController;
+final  EdgeInsets topLineMargin;
+final  EdgeInsets bottomLineMargin;
+final  VoidCallback? onClick;
+final double? height;
+final double? width;
+final  bool msgEditable;
+final  String? msgHintText;
+final  TextEditingController? msgController;
 
-  Function()? onMsgClick;
-  Function()? onMsgFocus;
-  ValueChanged<String>? onMsgChanged;
-  FocusNode? focusNode;
-  VoidCallback? onEditingComplete;
-  ValueChanged<String>? onSubmitted;
-  Color? topLineColor;
-  Color? bottomLineColor;
-  int? msgMaxLine;
-  List<TextInputFormatter>? msgInputFormatters;
+final  Function()? onMsgClick;
+final  Function()? onMsgFocus;
+final  ValueChanged<String>? onMsgChanged;
+final  FocusNode? focusNode;
+final  VoidCallback? onEditingComplete;
+final  ValueChanged<String>? onSubmitted;
+final  Color? topLineColor;
+final Color? bottomLineColor;
+final  int? msgMaxLine;
+final  List<TextInputFormatter>? msgInputFormatters;
 
   HorizontalTitleMsgView({
     Key? key,
@@ -167,7 +167,7 @@ class HorizontalTitleMsgView extends StatefulWidget {
     this.subMsg,
     this.subMsgWidth,
     this.bgColor = Colors.transparent,
-    this.msgBgColor,
+    this.msgBgColor  = Colors.transparent,
     this.topLine = false,
     this.bottomLine = false,
     this.topLineMargin = const EdgeInsets.only(left: 16, right: 16),

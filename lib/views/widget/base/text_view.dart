@@ -8,7 +8,7 @@ import 'package:kayo_package/utils/base_color_utils.dart';
 ///  Created by kayoxu on 2019/2/1 11:26 AM.
 ///  Copyright © 2019 kayoxu. All rights reserved.
 
-class TextView extends StatefulWidget {
+class TextView extends StatelessWidget {
   TextView(this.text,
       {this.color = BaseColorUtils.colorGrey,
       this.borderColor,
@@ -69,76 +69,68 @@ class TextView extends StatefulWidget {
   final TextOverflow? overflow;
 
   @override
-  TextViewState createState() => TextViewState();
-}
-
-class TextViewState extends State<TextView> {
-  @override
   Widget build(BuildContext context) {
-    var text = Text(
-      widget.text ?? '',
-      maxLines: widget.maxLine,
-      overflow: widget.overflow ?? TextOverflow.ellipsis,
+    var tv = Text(
+      text ?? '',
+      maxLines: maxLine,
+      overflow: overflow ?? TextOverflow.ellipsis,
       softWrap: true,
-      textAlign: widget.textAlign,
+      textAlign: textAlign,
       style: TextStyle(
-        color: widget.color,
-        fontSize: widget.size,
-        fontWeight: widget.fontWeight,
+        color: color,
+        fontSize: size,
+        fontWeight: fontWeight,
         decoration: TextDecoration.none,
         /*background:Paint()..color = Colors.yellowAccent*/
       ),
     );
 
-    var v = null == widget.left
-        ? text
+    var v = null == left
+        ? tv
         : Row(
-            mainAxisSize: widget.mainAxisSize ?? MainAxisSize.max,
-            children: <Widget>[widget.left!, text],
+            mainAxisSize: mainAxisSize ?? MainAxisSize.max,
+            children: <Widget>[left!, tv],
           );
 
     var c = Container(
-      alignment: widget.alignment,
-      width: widget.width,
-      height: widget.height,
-      decoration: ((null != widget.bgColor || true == widget.border)
+      alignment: alignment,
+      width: width,
+      height: height,
+      decoration: ((null != bgColor || true == border)
           ? BoxDecoration(
-              color: widget.bgColor,
-              borderRadius:
-                  widget.borderRadius ?? BorderRadius.circular(widget.radius),
-              border: widget.border != true
+              color: bgColor,
+              borderRadius: borderRadius ?? BorderRadius.circular(radius),
+              border: border != true
                   ? null
-                  : Border.all(
-                      width: widget.borderWidth,
-                      color: widget.borderColor ?? widget.color),
-              gradient: widget.gradient,
+                  : Border.all(width: borderWidth, color: borderColor ?? color),
+              gradient: gradient,
             )
           : null),
-      padding: widget.padding,
-      margin: null == widget.onTap ? widget.margin : null,
-      child: null == widget.rightIcon
+      padding: padding,
+      margin: null == onTap ? margin : null,
+      child: null == rightIcon
           ? v
           : Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 v,
                 ImageView(
-                  height: widget.rightIconHeight,
-                  width: widget.rightIconWidth,
-                  margin: widget.rightIconMargin,
-                  src: widget.rightIcon,
-                  color: widget.rightIconColor,
+                  height: rightIconHeight,
+                  width: rightIconWidth,
+                  margin: rightIconMargin,
+                  src: rightIcon,
+                  color: rightIconColor,
                 )
               ],
             ),
     );
 
-    return null == widget.onTap
+    return null == onTap
         ? c
         : Clickable(
-            radius: widget.radius,
-            margin: null == widget.onTap ? null : widget.margin,
-            onTap: widget.onTap,
+            radius: radius,
+            margin: null == onTap ? null : margin,
+            onTap: onTap,
             bgColor: BaseColorUtils.transparent,
             child: c,
           );

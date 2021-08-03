@@ -17,23 +17,24 @@ enum Visible {
 }
 
 class VisibleView extends StatelessWidget {
-  Visible? visible;
+  final Visible? visible;
   final Widget? child;
+  final Key? key;
 
   VisibleView({
-    @required this.child,
+    required this.child,
     this.visible = Visible.visible,
-  });
+    this.key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    visible = visible ?? Visible.visible;
-
     return Visibility(
-        visible: visible != Visible.gone,
-        child: Container(
-            child: new Opacity(
-                opacity: visible == Visible.visible ? 1.0 : 0.0,
-                child: child)));
+        key: key,
+        visible: (visible ?? Visible.visible) != Visible.gone,
+        child: visible != Visible.invisible
+            ? child!
+            : Opacity(
+                opacity: visible == Visible.visible ? 1.0 : 0.0, child: child));
   }
 }

@@ -14,7 +14,9 @@ import 'base/image_view.dart';
 class ToolBar extends StatefulWidget {
   final Widget? child;
   final String? title;
+  @Deprecated('用titleWidget代替')
   final Widget? titelWidget;
+  final Widget? titleWidget;
   final Widget? floatingActionButton;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
 
@@ -51,6 +53,7 @@ class ToolBar extends StatefulWidget {
     this.key,
     this.title = '',
     this.titelWidget,
+    this.titleWidget,
     this.appBar,
     this.iosBack = false,
     this.backClick,
@@ -130,7 +133,7 @@ class ToolBarState extends State<ToolBar> {
                 color: widget.darkStatusText == true
                     ? BaseColorUtils.colorBlack
                     : BaseColorUtils.white),
-            title: (null == widget.titelWidget)
+            title: (null == widget.titelWidget && null == widget.titleWidget)
                 ? Text(
                     widget.title ?? '',
                     style: TextStyle(
@@ -139,7 +142,7 @@ class ToolBarState extends State<ToolBar> {
                             : BaseColorUtils.white),
                     textAlign: TextAlign.center,
                   )
-                : widget.titelWidget,
+                : (widget.titelWidget ?? widget.titleWidget),
           )
         : widget.appBar!;
 

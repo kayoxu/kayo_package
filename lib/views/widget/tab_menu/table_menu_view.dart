@@ -9,11 +9,11 @@ class TabMenuView extends StatefulWidget {
   final int? checkedIndex;
   final ValueChanged<TabMenu>? onItemClick;
   final TabMenuBuilder? builder;
-  double? height;
-  EdgeInsets? margin;
-  BorderRadius? borderRadius;
+  final double? height;
+  final  EdgeInsets? margin;
+  final  BorderRadius? borderRadius;
   final double? radius;
-  Color? bgColor;
+  final Color? bgColor;
 
   TabMenuView({
     Key? key,

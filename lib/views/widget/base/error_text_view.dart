@@ -9,20 +9,18 @@ import 'package:kayo_package/views/widget/base/image_view.dart';
 ///  Copyright © 2019 kayoxu. All rights reserved.
 
 class ErrorTextView extends StatefulWidget {
-  String text;
-  bool showIcon;
-  bool center;
-  double height;
-  Color textColor;
-  Color bgColor;
-  bool visible;
-  double radius;
+  final String? text;
+  final bool? center;
+  final double? height;
+  final Color? textColor;
+  final Color? bgColor;
+  final bool? visible;
+  final double? radius;
 
-  EdgeInsets margin;
+  final EdgeInsets? margin;
 
   ErrorTextView(this.text,
       {Key? key,
-      this.showIcon = false,
       this.center = true,
       this.height = 40,
       this.bgColor = BaseColorUtils.colorRedLite,
@@ -37,9 +35,11 @@ class ErrorTextView extends StatefulWidget {
 }
 
 class ErrorTextViewState extends State<ErrorTextView> {
+  bool? showIcon = false;
+
   sss() {
     setState(() {
-      widget.showIcon = false;
+      showIcon = false;
     });
   }
 
@@ -47,21 +47,21 @@ class ErrorTextViewState extends State<ErrorTextView> {
   Widget build(BuildContext context) {
     return Visibility(
         maintainState: true,
-        visible: widget.visible,
+        visible: widget.visible ?? false,
         child: Container(
           margin: widget.margin,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(widget.radius),
+              borderRadius: BorderRadius.circular(widget.radius ?? 0),
               color: widget.bgColor),
           height: widget.height,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: widget.center
+            mainAxisAlignment: (widget.center ?? false)
                 ? MainAxisAlignment.center
                 : MainAxisAlignment.start,
             children: <Widget>[
               Visibility(
-                visible: widget.showIcon ? true : false,
+                visible: showIcon ?? false,
                 child: Padding(
                   padding: EdgeInsets.only(left: 8),
                   child: ImageView(
@@ -76,7 +76,7 @@ class ErrorTextViewState extends State<ErrorTextView> {
               Padding(
                 padding: EdgeInsets.only(left: 8, right: 8),
                 child: Text(
-                  widget.text,
+                  widget.text ?? '',
                   style: TextStyle(color: widget.textColor, fontSize: 16),
                 ),
               )

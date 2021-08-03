@@ -8,17 +8,17 @@ import 'package:kayo_package/utils/base_color_utils.dart';
 ///  Copyright © 2019 kayoxu. All rights reserved.
 
 class ShadowView extends StatefulWidget {
-  Widget? child;
-  double? radius;
-  double? elevation;
-  Color? shadowColor;
-  Color? bgColor;
-  BorderRadius? borderRadius;
+  final Widget? child;
+  final double? radius;
+  final double? elevation;
+  final Color? shadowColor;
+  final Color? bgColor;
+  final BorderRadius? borderRadius;
 
   /*
   * 水波纹
   * */
-  bool inkWell;
+  // final bool inkWell;
 
   ShadowView({
     Key? key,
@@ -28,7 +28,7 @@ class ShadowView extends StatefulWidget {
     this.shadowColor = BaseColorUtils.colorGreyLite,
     this.bgColor,
     this.borderRadius,
-    this.inkWell = false,
+    // this.inkWell = false,
   }) : super(key: key);
 
   @override
@@ -38,17 +38,18 @@ class ShadowView extends StatefulWidget {
 class ShadowViewState extends State<ShadowView> {
   @override
   Widget build(BuildContext context) {
-    return (null == widget.elevation || 0 == widget.elevation) &&
+    return /*(null == widget.elevation || 0 == widget.elevation) &&
             (true != widget.inkWell)
         ? widget.child!
-        : Material(
-            borderRadius: null != widget.borderRadius
-                ? widget.borderRadius
-                : BorderRadius.circular(widget.radius ?? 0),
-            elevation: widget.elevation ?? 0,
-            shadowColor: widget.shadowColor,
-            color: widget.bgColor,
-            child: widget.child,
-          );
+        :*/
+        Material(
+      borderRadius: null != widget.borderRadius
+          ? widget.borderRadius
+          : BorderRadius.circular(widget.radius ?? 0),
+      elevation: widget.elevation ?? 0,
+      shadowColor: widget.shadowColor,
+      color: widget.bgColor,
+      child: widget.child,
+    );
   }
 }
