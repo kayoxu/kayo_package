@@ -21,9 +21,9 @@ extension BaseStringExtension on String? {
       if (_isNotEmpty(this)) {
         value = double.tryParse(this!) ?? value;
       }
+      return value;
     } catch (e) {
       print(e);
-    } finally {
       return value;
     }
   }
