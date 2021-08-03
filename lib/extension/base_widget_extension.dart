@@ -130,11 +130,13 @@ extension BaseWidgetExtension on Widget? {
     }
     return this;
   }
+
   ///外面包一层Flexible
-  Widget? addFlexible({int? flex, Key? key}) {
+  Widget? addFlexible({int? flex, Key? key, FlexFit? fit}) {
     if (null != this) {
       return Flexible(
         key: key,
+        fit: fit ?? FlexFit.loose,
         child: this!,
         flex: flex ?? 1,
       );
