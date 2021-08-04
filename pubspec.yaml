@@ -22,6 +22,7 @@ dependencies:
   event_bus: ">=1.1.1 <=10.0.0"          # Mar 4, 2021  2.0.0
   path_drawing: ">=0.5.1   <=10.0.0"       #  May 5, 2021 0.5.1
   cached_network_image: ">=2.0.0   <=10.0.0"       #  May 5, 2021 3.1.0
+  flutter_easyloading: ">=2.0.0   <=10.0.0"       #  Mar 12, 2021  ^3.0.0
   back_button_interceptor: ^5.0.1
 
   convert: ">=2.1.0 <=10.0.0"             # Jun 24, 2021  3.0.1

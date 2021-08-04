@@ -3,7 +3,7 @@ import 'package:kayo_package/kayo_package.dart';
 
 extension BaseWidgetExtension on Widget? {
   ///设置widget的显示、隐藏、隐藏占位
-  Widget? setVisible({Key? key, required Visible? visible}) {
+  Widget setVisible({Key? key, required Visible? visible}) {
     if (null != this) {
       return VisibleView(
         key: key,
@@ -11,11 +11,11 @@ extension BaseWidgetExtension on Widget? {
         child: this,
       );
     }
-    return this;
+    return SizedBox();
   }
 
   ///给widget增加点击事件
-  Widget? setOnClick(
+  Widget setOnClick(
       {Key? key,
       required GestureTapCallback onTap,
       double? radius,
@@ -41,11 +41,11 @@ extension BaseWidgetExtension on Widget? {
         onTap: onTap,
       );
     }
-    return this;
+    return SizedBox();
   }
 
   ///添加padding
-  Widget? setPadding({Key? key, required EdgeInsets padding}) {
+  Widget setPadding({Key? key, required EdgeInsets padding}) {
     if (null != this) {
       return Padding(
         key: key,
@@ -53,11 +53,11 @@ extension BaseWidgetExtension on Widget? {
         child: this,
       );
     }
-    return this;
+    return SizedBox();
   }
 
   ///设置Align
-  Widget? setAlign(
+  Widget setAlign(
       {Key? key,
       required AlignmentGeometry alignment,
       double? widthFactor,
@@ -71,11 +71,11 @@ extension BaseWidgetExtension on Widget? {
         child: this,
       );
     }
-    return this;
+    return SizedBox();
   }
 
   ///外面包一层container
-  Widget? addContainer(
+  Widget addContainer(
       {Key? key,
       EdgeInsets? padding,
       EdgeInsets? margin,
@@ -93,11 +93,11 @@ extension BaseWidgetExtension on Widget? {
         decoration: decoration,
       );
     }
-    return this;
+    return SizedBox();
   }
 
   ///外面包一层SafeArea
-  Widget? addSafeArea(
+  Widget addSafeArea(
       {Key? key,
       bool? left,
       bool? top,
@@ -116,11 +116,11 @@ extension BaseWidgetExtension on Widget? {
           minimum: minimum ?? EdgeInsets.zero,
           maintainBottomViewPadding: maintainBottomViewPadding ?? false);
     }
-    return this;
+    return SizedBox();
   }
 
   ///外面包一层Expanded
-  Widget? addExpanded({int? flex, Key? key}) {
+  Widget addExpanded({int? flex, Key? key}) {
     if (null != this) {
       return Expanded(
         key: key,
@@ -128,11 +128,11 @@ extension BaseWidgetExtension on Widget? {
         flex: flex ?? 1,
       );
     }
-    return this;
+    return SizedBox();
   }
 
   ///外面包一层Flexible
-  Widget? addFlexible({int? flex, Key? key, FlexFit? fit}) {
+  Widget addFlexible({int? flex, Key? key, FlexFit? fit}) {
     if (null != this) {
       return Flexible(
         key: key,
@@ -141,6 +141,6 @@ extension BaseWidgetExtension on Widget? {
         flex: flex ?? 1,
       );
     }
-    return this;
+    return SizedBox();
   }
 }
