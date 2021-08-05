@@ -1,0 +1,374 @@
+import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+import 'dart:collection';
+import 'package:connectivity/connectivity.dart';
+import 'package:kayo_package/http/bean/base_result_data.dart';
+
+import 'package:kayo_package/kayo_package.dart';
+
+import 'dart:convert' show json, utf8;
+
+import 'base_code.dart';
+
+///  tfblue_flutter_module
+///  common.http
+///
+///  Created by kayoxu on 2021-08-05 14:41.
+///  Copyright © 2021 kayoxu. All rights reserved.
+///
+
+abstract class BaseHttpManager {
+  final tag = 'BaseHttpManager';
+  final bool isDebug = !bool.fromEnvironment("dart.vm.product");
+
+  Map<String, int> _httpPageMap = new HashMap();
+  int _pageSize = 20;
+
+  final CONTENT_TYPE_JSON = "application/json";
+  final CONTENT_TYPE_FORM = "application/x-www-form-urlencoded";
+  Map optionParams = {
+    "timeoutMs": 15000,
+    "token": null,
+    "authorizationCode": null,
+  };
+
+  Dio? dio;
+
+  ///加载中文字
+  String loadingText();
+
+  ///模型转Json
+  toJson(data);
+
+  ///json转模型
+  Future<T> getBean<T>(dynamic data);
+
+  ///string转map
+  Map<String, dynamic>? getMap(String string);
+
+  ///Json转对象
+  Future<T> jsonConvert<T>(dynamic data);
+
+  ///打印日志
+  logInfo({String tag, String msg});
+
+  ///保存缓存数据
+  Future<void> setSharedData(String sharedUrl, json);
+
+  ///读取缓存数据
+  Future<String> getSharedString(String sharedUrl);
+
+  ///获取基础的Header
+  Future<Map<String, dynamic>> getBaseHeader();
+
+  _httpPost(
+      String url, Map<String, dynamic> params, Map<String, dynamic> header,
+      {bool autoShowDialog = true,
+      bool autoHideDialog = true,
+      ValueChanged<BaseResultData>? onSuccess,
+      ValueChanged<String>? onError,
+      CancelToken? cancelToken,
+      ProgressCallback? onSendProgress,
+      ProgressCallback? onReceiveProgress}) async {
+    return netFetch(url, params, header, Options(method: 'POST'),
+        autoHideDialog: autoHideDialog,
+        autoShowDialog: autoShowDialog,
+        onSuccess: onSuccess,
+        onError: onError);
+  }
+
+  ///  不牵涉分页的时候不用传loadMore，传入loadMore需要传入 page，limit
+  doHttpPost<T>(String url, Map<String, dynamic>? params,
+      {Map<String, dynamic>? header,
+      bool autoShowDialog = true,
+      bool autoHideDialog = true,
+      ValueChanged<T?>? onSuccess,
+      ValueChanged<T?>? onCache,
+      ValueChanged<String>? onError,
+      bool? loadMore,
+      String? subKey,
+      CancelToken? cancelToken,
+      ProgressCallback? onSendProgress,
+      ProgressCallback? onReceiveProgress}) async {
+    if (autoShowDialog) LoadingUtils.show(data: loadingText());
+
+    params = Map<String, dynamic>.from(params ?? {});
+    header = header ?? Map<String, dynamic>();
+    header.addAll(await getBaseHeader());
+
+    var sharedUrl = getSharedUrl(url);
+    var hasPage = params.containsKey("page");
+    var hasSize = params.containsKey("size");
+    var hasLimit = params.containsKey("limit");
+
+    if (null != loadMore) {
+      if (!hasPage) {
+        if (!_httpPageMap.containsKey(sharedUrl)) {
+          _httpPageMap[sharedUrl] = 1;
+        }
+
+        if (!loadMore) {
+          _httpPageMap[sharedUrl] = 1;
+        } else {
+          _httpPageMap[sharedUrl] = (_httpPageMap[sharedUrl] ?? 0) + 1;
+        }
+
+        params["page"] = _httpPageMap[sharedUrl];
+      }
+      if (!hasSize && !hasLimit) {
+        params["size"] = _pageSize;
+        params["limit"] = _pageSize;
+      }
+    }
+
+    if (null == loadMore || loadMore != true && null != onCache) {
+      var loadCache = await getSharedString(sharedUrl);
+      if (!BaseSysUtils.empty(loadCache)) {
+        try {
+          T bean = await getBean<T>(loadCache);
+          if (null != onCache) {
+            onCache(bean);
+          }
+        } catch (e) {
+          print(e);
+        }
+      }
+    }
+
+    _httpPost(
+      url,
+      params,
+      header,
+      onReceiveProgress: onReceiveProgress,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onSuccess: (resultData) async {
+        BaseResultData<T> data =
+            BaseResultData(resultData.msg, resultData.code);
+
+        if (resultData.code == BaseCode.RESULT_OK) {
+          data.data = await getBean<T>(resultData.data);
+        }
+
+        String? errorData = '';
+
+        if (/*resultData != null &&*/
+            resultData.data != null && resultData.code == BaseCode.RESULT_OK) {
+          if (null != onSuccess) {
+            onSuccess(data.data);
+          }
+
+          try {
+            if (loadMore != true && null != onCache) {
+              await setSharedData(sharedUrl, toJson(data?.data));
+            }
+          } catch (e) {
+            print(e);
+          }
+        } else {
+          errorData = '${resultData.msg ?? resultData.data} ';
+          if (BaseSysUtils.empty(errorData)) errorData = '请求失败!';
+          if (null != onError) onError(errorData);
+
+          if (null != loadMore) {
+            if (!hasPage) {
+              if (!_httpPageMap.containsKey(sharedUrl)) {
+                _httpPageMap[sharedUrl] = 1;
+              }
+              if (!loadMore) {
+                _httpPageMap[sharedUrl] = 1;
+              } else {
+                _httpPageMap[sharedUrl] = (_httpPageMap[sharedUrl] ?? 1) - 1;
+                if (_httpPageMap[sharedUrl]! < 1) {
+                  _httpPageMap[sharedUrl] = 1;
+                }
+              }
+            }
+          }
+        }
+        if (autoHideDialog) LoadingUtils.dismiss();
+      },
+      onError: (e) {},
+    );
+  }
+
+  httpGet(url, params) {
+    return netFetch(url, params, null, Options(method: 'GET'));
+  }
+
+  httpUpload(url, params, {Options? options}) {
+    return netFetch(
+        url, params, null, null != options ? options : Options(method: 'POST'));
+  }
+
+  ///发起网络请求
+  ///[ url] 请求url
+  ///[ params] 请求参数
+  ///[ header] 外加头
+  ///[ option] 配置
+  netFetch(String? url, Map<String, dynamic>? params,
+      Map<String, dynamic>? header, Options? option,
+      {bool autoShowDialog = true,
+      bool autoHideDialog = true,
+      ValueChanged<BaseResultData>? onSuccess,
+      ValueChanged<String>? onError,
+      CancelToken? cancelToken,
+      ProgressCallback? onSendProgress,
+      ProgressCallback? onReceiveProgress}) async {
+    url = '$url'.replaceAll('\n', '');
+
+    //没有网络
+    var connectivityResult = await (new Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.none) {
+      var msg = '网络开小差了';
+      _onError(onError, msg);
+      return BaseResultData(msg, BaseCode.RESULT_ERROR_NETWORK_ERROR).sendMsg();
+    }
+
+    if (option != null) {
+      option.headers = header;
+    } else {
+      option = Options(method: 'POST');
+      option.headers = header;
+    }
+
+    ///超时
+    // option.connectTimeout = 1000 * 60;
+
+    Response? response;
+    var errorHeader = '';
+    if (isDebug) {
+      errorHeader = '$url\n';
+    }
+
+    if (null == dio) {
+      dio = Dio();
+    }
+
+    try {
+      response = await dio!.request(url,
+          data: params,
+          options: option,
+          cancelToken: cancelToken,
+          onReceiveProgress: onReceiveProgress,
+          onSendProgress: onSendProgress);
+    } on DioError catch (e) {
+      Response? errorResponse;
+
+      if (e.response != null) {
+        errorResponse = e.response;
+      } else {
+        errorResponse =
+            Response(statusCode: 666, requestOptions: RequestOptions(path: ''));
+      }
+      if (e.type == DioErrorType.connectTimeout) {
+        errorResponse?.statusCode = BaseCode.RESULT_ERROR_NETWORK_TIMEOUT;
+      }
+
+      if (isDebug) {
+        logInfo(tag: tag, msg: '请求异常url: ' + url);
+        logInfo(tag: tag, msg: '请求异常参数: ' + toJson(params));
+
+        logInfo(
+            tag: tag,
+            msg: '请求异常: ' + e.toString() + " ___ " + e.response.toString());
+      }
+
+      //todo sbg
+      if (errorResponse?.statusCode == 401) {
+        var msg = '登录已失效，请重新登录';
+        _onError(onError, msg);
+        return BaseResultData(msg, 6).sendMsg();
+      }
+
+      String msg = (isDebug ? errorHeader : '') + e.message;
+      var code = errorResponse?.statusCode ?? BaseCode.RESULT_ERROR_OTHER_ERROR;
+      Map<String, dynamic>? map = Map<String, dynamic>();
+      try {
+        map = getMap(e.response.toString());
+      } catch (e) {
+        print(e);
+        _onError(onError, e.toString());
+        return BaseResultData(msg, code).sendMsg();
+      }
+      if (map?.containsKey('error') == true) {
+        msg = map?['error'] ?? msg;
+      }
+      if (map?.containsKey('code') == true) {
+        code = map?['code'] ?? code;
+      }
+      _onError(onError, msg);
+      return BaseResultData(msg, code).sendMsg();
+    }
+
+    if (isDebug) {
+      logInfo(tag: tag, msg: '请求url: ' + url);
+      logInfo(tag: tag, msg: '请求头: ' + option.headers.toString());
+      if (params != null) {
+        logInfo(tag: tag, msg: '请求参数: ' + params.toString());
+      }
+
+      var string = response.toString();
+      logInfo(tag: tag, msg: '返回数据: ' + string);
+
+      if (optionParams["authorizationCode"] != null) {
+        logInfo(
+            tag: tag,
+            msg: 'authorizationCode: ' + optionParams["authorizationCode"]);
+      }
+    }
+
+    try {
+      var jsonStr = response.data;
+      if (jsonStr is String) {
+        jsonStr = await json.decode(response.data);
+      }
+      //todo sbg
+
+      if (jsonStr is List) {
+        jsonStr = {'code': 200, 'data': jsonStr};
+      } else if (jsonStr is Map) {
+        if (!jsonStr.containsKey('code') ||
+            (!jsonStr.containsKey('timestamp') &&
+                !jsonStr.containsKey('sign'))) {
+          jsonStr = {'code': 200, 'data': jsonStr};
+        }
+      }
+
+      var resultData = BaseResultData.fromJson(jsonStr);
+      if (/*null != resultData*/ true) {
+        if (BaseCode.RESULT_OK != resultData.code) {
+          var msg = resultData.msg;
+          _onError(onError, msg ?? '');
+          return BaseResultData(msg, resultData.code).sendMsg();
+        }
+
+        onSuccess?.call(resultData);
+        if (autoHideDialog) LoadingUtils.dismiss();
+        return resultData;
+      }
+    } catch (e) {
+      logInfo(tag: tag, msg: e.toString());
+
+      var message = errorHeader + e.toString();
+
+      _onError(onError, message);
+      return BaseResultData(
+              message, BaseCode.RESULT_ERROR_NETWORK_JSON_EXCEPTION)
+          .sendMsg();
+    }
+  }
+
+  void _onError(ValueChanged<String>? onError, String message) {
+    onError?.call(message);
+    LoadingUtils.dismiss();
+  }
+
+  String getSharedUrl(String url) {
+    return (url ?? "")
+        .replaceAll("/", "_")
+        .replaceAll(":", "_")
+        .replaceAll("?", "_")
+        .replaceAll(".", "_");
+  }
+}
