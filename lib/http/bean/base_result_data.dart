@@ -36,12 +36,12 @@ class BaseResultData<T> {
 
 BaseResultData<T> _$BaseResultDataFromJson<T>(Map<String, dynamic> json) {
   return BaseResultData(
-    json['msg'] as String,
-    json['code'] as int,
+    json['msg'] as String?,
+    json['code'] as int?,
     data: json['data'],
   )
     ..timestamp = json['timestamp']
-    ..sign = json['sign'] as String;
+    ..sign = json['sign'] as String?;
 }
 
 Map<String, dynamic> _$BaseResultDataToJson(BaseResultData instance) =>

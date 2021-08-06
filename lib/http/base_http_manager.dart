@@ -19,8 +19,7 @@ import 'base_code.dart';
 
 abstract class BaseHttpManager {
   final tag = 'BaseHttpManager';
-  final bool isDebug = !bool.fromEnvironment("dart.vm.product");
-
+ 
   Map<String, int> _httpPageMap = new HashMap();
   int _pageSize = 20;
 
@@ -35,41 +34,47 @@ abstract class BaseHttpManager {
   Dio? dio;
 
   ///加载中文字
-  String loadingText();
+  String textLoading();
+
+  ///登录已失效，请重新登录
+  String textLoginExpired();
+
+  ///网络开小差了
+  String textNetworkError();
+
+  ///请求失败
+  String textRequestError();
 
   ///模型转Json
-  toJson(data);
+  String toJson(data);
 
   ///json转模型
-  Future<T> getBean<T>(dynamic data);
+  Future<T?> getBean<T>(dynamic data);
 
   ///string转map
-  Map<String, dynamic>? getMap(String string);
-
-  ///Json转对象
-  Future<T> jsonConvert<T>(dynamic data);
+  Map<String, dynamic>? getMap(dynamic string);
 
   ///打印日志
-  logInfo({String tag, String msg});
+  logInfo({String? tag, String? msg});
 
   ///保存缓存数据
   Future<void> setSharedData(String sharedUrl, json);
 
   ///读取缓存数据
-  Future<String> getSharedString(String sharedUrl);
+  Future<String?> getSharedString(String sharedUrl);
 
   ///获取基础的Header
   Future<Map<String, dynamic>> getBaseHeader();
 
-  _httpPost(
-      String url, Map<String, dynamic> params, Map<String, dynamic> header,
+  _httpPost(String url, Map<String, dynamic>? params,
+      Map<String, dynamic>? header,
       {bool autoShowDialog = true,
-      bool autoHideDialog = true,
-      ValueChanged<BaseResultData>? onSuccess,
-      ValueChanged<String>? onError,
-      CancelToken? cancelToken,
-      ProgressCallback? onSendProgress,
-      ProgressCallback? onReceiveProgress}) async {
+        bool autoHideDialog = true,
+        ValueChanged<BaseResultData>? onSuccess,
+        ValueChanged<String>? onError,
+        CancelToken? cancelToken,
+        ProgressCallback? onSendProgress,
+        ProgressCallback? onReceiveProgress}) async {
     return netFetch(url, params, header, Options(method: 'POST'),
         autoHideDialog: autoHideDialog,
         autoShowDialog: autoShowDialog,
@@ -78,28 +83,28 @@ abstract class BaseHttpManager {
   }
 
   ///  不牵涉分页的时候不用传loadMore，传入loadMore需要传入 page，limit
-  doHttpPost<T>(String url, Map<String, dynamic>? params,
+  doHttpPost<T>(String url, Map? params,
       {Map<String, dynamic>? header,
-      bool autoShowDialog = true,
-      bool autoHideDialog = true,
-      ValueChanged<T?>? onSuccess,
-      ValueChanged<T?>? onCache,
-      ValueChanged<String>? onError,
-      bool? loadMore,
-      String? subKey,
-      CancelToken? cancelToken,
-      ProgressCallback? onSendProgress,
-      ProgressCallback? onReceiveProgress}) async {
-    if (autoShowDialog) LoadingUtils.show(data: loadingText());
+        bool autoShowDialog = true,
+        bool autoHideDialog = true,
+        ValueChanged<T?>? onSuccess,
+        ValueChanged<T?>? onCache,
+        ValueChanged<String>? onError,
+        bool? loadMore,
+        String? subKey,
+        CancelToken? cancelToken,
+        ProgressCallback? onSendProgress,
+        ProgressCallback? onReceiveProgress}) async {
+    if (autoShowDialog) LoadingUtils.show(data: textLoading());
 
-    params = Map<String, dynamic>.from(params ?? {});
+    var paramsTemp = Map<String, dynamic>.from(params ?? {});
     header = header ?? Map<String, dynamic>();
     header.addAll(await getBaseHeader());
 
     var sharedUrl = getSharedUrl(url);
-    var hasPage = params.containsKey("page");
-    var hasSize = params.containsKey("size");
-    var hasLimit = params.containsKey("limit");
+    var hasPage = paramsTemp.containsKey("page");
+    var hasSize = paramsTemp.containsKey("size");
+    var hasLimit = paramsTemp.containsKey("limit");
 
     if (null != loadMore) {
       if (!hasPage) {
@@ -113,11 +118,11 @@ abstract class BaseHttpManager {
           _httpPageMap[sharedUrl] = (_httpPageMap[sharedUrl] ?? 0) + 1;
         }
 
-        params["page"] = _httpPageMap[sharedUrl];
+        paramsTemp["page"] = _httpPageMap[sharedUrl];
       }
       if (!hasSize && !hasLimit) {
-        params["size"] = _pageSize;
-        params["limit"] = _pageSize;
+        paramsTemp["size"] = _pageSize;
+        paramsTemp["limit"] = _pageSize;
       }
     }
 
@@ -125,7 +130,7 @@ abstract class BaseHttpManager {
       var loadCache = await getSharedString(sharedUrl);
       if (!BaseSysUtils.empty(loadCache)) {
         try {
-          T bean = await getBean<T>(loadCache);
+          T? bean = await getBean<T>(loadCache);
           if (null != onCache) {
             onCache(bean);
           }
@@ -137,14 +142,14 @@ abstract class BaseHttpManager {
 
     _httpPost(
       url,
-      params,
+      paramsTemp,
       header,
       onReceiveProgress: onReceiveProgress,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onSuccess: (resultData) async {
         BaseResultData<T> data =
-            BaseResultData(resultData.msg, resultData.code);
+        BaseResultData(resultData.msg, resultData.code);
 
         if (resultData.code == BaseCode.RESULT_OK) {
           data.data = await getBean<T>(resultData.data);
@@ -153,21 +158,21 @@ abstract class BaseHttpManager {
         String? errorData = '';
 
         if (/*resultData != null &&*/
-            resultData.data != null && resultData.code == BaseCode.RESULT_OK) {
+        resultData.data != null && resultData.code == BaseCode.RESULT_OK) {
           if (null != onSuccess) {
             onSuccess(data.data);
           }
 
           try {
             if (loadMore != true && null != onCache) {
-              await setSharedData(sharedUrl, toJson(data?.data));
+              await setSharedData(sharedUrl, toJson(data.data));
             }
           } catch (e) {
             print(e);
           }
         } else {
           errorData = '${resultData.msg ?? resultData.data} ';
-          if (BaseSysUtils.empty(errorData)) errorData = '请求失败!';
+          if (BaseSysUtils.empty(errorData)) errorData = textRequestError();
           if (null != onError) onError(errorData);
 
           if (null != loadMore) {
@@ -209,18 +214,18 @@ abstract class BaseHttpManager {
   netFetch(String? url, Map<String, dynamic>? params,
       Map<String, dynamic>? header, Options? option,
       {bool autoShowDialog = true,
-      bool autoHideDialog = true,
-      ValueChanged<BaseResultData>? onSuccess,
-      ValueChanged<String>? onError,
-      CancelToken? cancelToken,
-      ProgressCallback? onSendProgress,
-      ProgressCallback? onReceiveProgress}) async {
+        bool autoHideDialog = true,
+        ValueChanged<BaseResultData>? onSuccess,
+        ValueChanged<String>? onError,
+        CancelToken? cancelToken,
+        ProgressCallback? onSendProgress,
+        ProgressCallback? onReceiveProgress}) async {
     url = '$url'.replaceAll('\n', '');
 
     //没有网络
     var connectivityResult = await (new Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
-      var msg = '网络开小差了';
+      var msg = textNetworkError();
       _onError(onError, msg);
       return BaseResultData(msg, BaseCode.RESULT_ERROR_NETWORK_ERROR).sendMsg();
     }
@@ -237,7 +242,7 @@ abstract class BaseHttpManager {
 
     Response? response;
     var errorHeader = '';
-    if (isDebug) {
+    if (BaseSysUtils.isDebug) {
       errorHeader = '$url\n';
     }
 
@@ -265,7 +270,7 @@ abstract class BaseHttpManager {
         errorResponse?.statusCode = BaseCode.RESULT_ERROR_NETWORK_TIMEOUT;
       }
 
-      if (isDebug) {
+      if (BaseSysUtils.isDebug) {
         logInfo(tag: tag, msg: '请求异常url: ' + url);
         logInfo(tag: tag, msg: '请求异常参数: ' + toJson(params));
 
@@ -276,12 +281,12 @@ abstract class BaseHttpManager {
 
       //todo sbg
       if (errorResponse?.statusCode == 401) {
-        var msg = '登录已失效，请重新登录';
+        var msg = textLoginExpired();
         _onError(onError, msg);
         return BaseResultData(msg, 6).sendMsg();
       }
 
-      String msg = (isDebug ? errorHeader : '') + e.message;
+      String msg = (BaseSysUtils.isDebug ? errorHeader : '') + e.message;
       var code = errorResponse?.statusCode ?? BaseCode.RESULT_ERROR_OTHER_ERROR;
       Map<String, dynamic>? map = Map<String, dynamic>();
       try {
@@ -301,7 +306,7 @@ abstract class BaseHttpManager {
       return BaseResultData(msg, code).sendMsg();
     }
 
-    if (isDebug) {
+    if (BaseSysUtils.isDebug) {
       logInfo(tag: tag, msg: '请求url: ' + url);
       logInfo(tag: tag, msg: '请求头: ' + option.headers.toString());
       if (params != null) {
@@ -325,17 +330,19 @@ abstract class BaseHttpManager {
       }
       //todo sbg
 
+      var jsonMap = Map<String, dynamic>();
+
       if (jsonStr is List) {
-        jsonStr = {'code': 200, 'data': jsonStr};
+        jsonMap = {'code': 200, 'data': jsonStr};
       } else if (jsonStr is Map) {
         if (!jsonStr.containsKey('code') ||
             (!jsonStr.containsKey('timestamp') &&
                 !jsonStr.containsKey('sign'))) {
-          jsonStr = {'code': 200, 'data': jsonStr};
+          jsonMap = {'code': 200, 'data': jsonStr};
         }
       }
 
-      var resultData = BaseResultData.fromJson(jsonStr);
+      var resultData = BaseResultData.fromJson(jsonMap);
       if (/*null != resultData*/ true) {
         if (BaseCode.RESULT_OK != resultData.code) {
           var msg = resultData.msg;
@@ -354,7 +361,7 @@ abstract class BaseHttpManager {
 
       _onError(onError, message);
       return BaseResultData(
-              message, BaseCode.RESULT_ERROR_NETWORK_JSON_EXCEPTION)
+          message, BaseCode.RESULT_ERROR_NETWORK_JSON_EXCEPTION)
           .sendMsg();
     }
   }
@@ -364,7 +371,7 @@ abstract class BaseHttpManager {
     LoadingUtils.dismiss();
   }
 
-  String getSharedUrl(String url) {
+  String getSharedUrl(String? url) {
     return (url ?? "")
         .replaceAll("/", "_")
         .replaceAll(":", "_")

@@ -57,9 +57,12 @@ class LoadingUtils {
     EasyLoading.showInfo(data ?? '');
   }
 
-  static showToast({String? data}) {
+  static showToast(
+      {String? data, int timeInSecForIosWeb = 2, ToastGravity gravity = ToastGravity
+          .BOTTOM}) {
     // EasyLoading.showToast(data ?? '');
-    Fluttertoast.showToast(msg: data ?? '', timeInSecForIosWeb: 2);
+    Fluttertoast.showToast(
+      msg: data ?? '', timeInSecForIosWeb: timeInSecForIosWeb,);
   }
 
   static dismiss() {

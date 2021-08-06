@@ -14,6 +14,9 @@ import 'package:kayo_package/kayo_package.dart';
 ///  Copyright © 2019 kayoxu. All rights reserved.
 
 class BaseSysUtils {
+  static bool get isDebug =>
+      PlatformUtils.isWeb ? false : !bool.fromEnvironment("dart.vm.product");
+
   /*
   * 判断是否为空
   * */

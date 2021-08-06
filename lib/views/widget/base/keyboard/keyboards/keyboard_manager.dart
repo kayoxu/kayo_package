@@ -132,7 +132,9 @@ class CoolKeyboard {
     final Completer<ByteData> completer = Completer<ByteData>();
     ui.window.sendPlatformMessage(channel, message, (ByteData? reply) {
       try {
-        completer.complete(reply);
+        if(null!=reply){
+          completer.complete(reply);
+        }
       } catch (exception, stack) {
         FlutterError.reportError(FlutterErrorDetails(
           exception: exception,

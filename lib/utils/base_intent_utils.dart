@@ -14,21 +14,21 @@ import 'package:kayo_package/utils/page_route_builder.dart';
 ///  Copyright © 2019 kayoxu. All rights reserved.
 
 class BaseIntentUtils {
-  static const String RESULT_OK = 'result_ok';
+  final String RESULT_OK = 'result_ok';
 
-  static isResultOk(var data) {
+  isResultOk(var data) {
     if (data is String && BaseSysUtils.equals(data, RESULT_OK)) {
       return true;
     }
     return false;
   }
 
-  static finishResultOk(BuildContext context, {bool finishAct = false}) {
+  finishResultOk(BuildContext context, {bool finishAct = false}) {
     finish(context, data: RESULT_OK, finishAct: finishAct);
   }
 
   ///base
-  static finish(BuildContext context, {Object? data, bool finishAct = false}) {
+  finish(BuildContext context, {Object? data, bool finishAct = false}) {
     if (Navigator.canPop(context) && !finishAct) {
       return Navigator.of(context).pop(data);
     } else {
@@ -37,7 +37,7 @@ class BaseIntentUtils {
   }
 
   /// 正常跳转
-  static Future? push(BuildContext context,
+  Future? push(BuildContext context,
       {String? routeName,
       Widget? widget,
       bool finish = false,
@@ -52,7 +52,7 @@ class BaseIntentUtils {
     }
   }
 
-  static Future _pushByName(BuildContext context, String routeName,
+  Future _pushByName(BuildContext context, String routeName,
       {bool finish = false, bool removeAll = false}) {
     if (removeAll) {
       return Navigator.of(context)
@@ -66,7 +66,7 @@ class BaseIntentUtils {
     }
   }
 
-  static Future _pushByWidget(BuildContext context, Widget widget,
+  Future _pushByWidget(BuildContext context, Widget widget,
       {bool finish = false, bool removeAll = false}) {
     if (removeAll) {
       return Navigator.of(context).pushAndRemoveUntil(
