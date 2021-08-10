@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kayo_package/kayo_package.dart';
@@ -48,6 +49,16 @@ class ToolBar extends StatefulWidget {
   final double? titleSpacing;
   final Widget? dragView;
 
+  final DragStartBehavior? drawerDragStartBehavior;
+  final Widget? drawer;
+  final double? drawerEdgeDragWidth;
+  final bool? drawerEnableOpenDragGesture;
+  final Color? drawerScrimColor;
+  final Widget? endDrawer;
+  final bool? endDrawerEnableOpenDragGesture;
+  final DrawerCallback? onDrawerChanged;
+  final DrawerCallback? onEndDrawerChanged;
+
   ToolBar({
     @required this.child,
     this.key,
@@ -81,6 +92,15 @@ class ToolBar extends StatefulWidget {
     this.noBack,
     this.titleSpacing,
     this.dragView,
+    this.drawerDragStartBehavior,
+    this.drawer,
+    this.drawerEdgeDragWidth,
+    this.drawerEnableOpenDragGesture,
+    this.drawerScrimColor,
+    this.endDrawer,
+    this.endDrawerEnableOpenDragGesture,
+    this.onDrawerChanged,
+    this.onEndDrawerChanged,
   }) : super(key: key);
 
   @override
@@ -159,6 +179,17 @@ class ToolBarState extends State<ToolBar> {
       backgroundColor: null != widget.backgroundColor
           ? widget.backgroundColor
           : BaseColorUtils.colorWindow,
+      drawer: widget.drawer,
+      drawerDragStartBehavior:
+          widget.drawerDragStartBehavior ?? DragStartBehavior.start,
+      drawerEdgeDragWidth: widget.drawerEdgeDragWidth,
+      drawerEnableOpenDragGesture: widget.drawerEnableOpenDragGesture ?? true,
+      drawerScrimColor: widget.drawerScrimColor,
+      endDrawer: widget.endDrawer,
+      endDrawerEnableOpenDragGesture:
+          widget.endDrawerEnableOpenDragGesture ?? true,
+      onDrawerChanged: widget.onDrawerChanged,
+      onEndDrawerChanged: widget.onEndDrawerChanged,
       appBar: -1 == widget.toolbarHeight
           ? toolbar
           : PreferredSize(
