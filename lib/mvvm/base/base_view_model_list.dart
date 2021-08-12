@@ -141,9 +141,9 @@ abstract class BaseViewModelList<T> extends BaseViewModel {
   /// 加载数据
   loadData(
       {int? pageIndex,
-      ValueChanged<List<T>> onSuccess,
-      ValueChanged<List<T>> onCache,
-      ValueChanged<String> onError});
+      ValueChanged<List<T>>? onSuccess,
+      ValueChanged<List<T>>? onCache,
+      ValueChanged<String>? onError});
 
   ///有上拉加载更多
   bool hasMore();
