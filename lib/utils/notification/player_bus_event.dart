@@ -15,4 +15,8 @@ class PlayerBusEvent<T> {
   static fire<T>(T data) {
     eventBus.fire(data);
   }
+
+  static setState() {
+    eventBus.fire('setState');
+  }
 }
