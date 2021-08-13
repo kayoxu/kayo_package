@@ -12,10 +12,12 @@ class PlayerBusEvent<T> {
 
   static final EventBus eventBus = new EventBus();
 
+  ///播放视频
   static fire<T>(T data) {
     eventBus.fire(data);
   }
 
+  ///刷新
   static setState() {
     eventBus.fire('setState');
   }

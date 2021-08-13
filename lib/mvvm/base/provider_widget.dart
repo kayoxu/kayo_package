@@ -25,6 +25,7 @@ StatefulWidget ProviderWidget<T extends ChangeNotifier>(
     onModelReady: onModelReady,
     autoDispose: autoDispose,
     autoInitState: autoInitState,
+    autoLoadData: autoLoadData,
     initState: initState,
     dispose: dispose,
   );
