@@ -121,8 +121,15 @@ abstract class BaseHttpManager {
         paramsTemp["page"] = _httpPageMap[sharedUrl];
       }
       if (!hasSize && !hasLimit) {
+        _pageSize = 20;
         paramsTemp["size"] = _pageSize;
         paramsTemp["limit"] = _pageSize;
+      }
+      if (hasSize == true) {
+        _pageSize = paramsTemp["size"];
+      }
+      if (hasLimit == true) {
+        _pageSize = paramsTemp["limit"];
       }
     }
 
