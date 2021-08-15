@@ -14,7 +14,8 @@ import 'base_view_model.dart';
 ///只有列表，可分页
 abstract class BaseViewModelList<T> extends BaseViewModel {
   static const int pageNumFirst = 1;
-  final int pageSize = 20;
+
+  // final int pageSize = 20;
   int _currentPageNum = pageNumFirst;
 
   List<T> data = [];
@@ -23,6 +24,8 @@ abstract class BaseViewModelList<T> extends BaseViewModel {
       RefreshController(initialRefresh: false);
 
   RefreshController get refreshController => _refreshController;
+
+  int get pageSize => 20;
 
   // 下拉刷新
   refresh(
