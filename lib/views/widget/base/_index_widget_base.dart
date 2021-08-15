@@ -1,6 +1,8 @@
 // export 'package:kayo_package/views/widget/base/keyboard/_index_widget_keyboard.dart';
 export 'dash_line.dart';
 export 'button_view.dart';
+export 'button_root.dart';
+export 'title_msg_view.dart';
 export 'card_item.dart';
 export 'card_view.dart';
 export 'clickable.dart';
@@ -16,7 +18,6 @@ export 'dot_view.dart';
 export 'text_with_drawable.dart';
 export 'keyboard/_index_widget_keyboard.dart';
 export 'package:path_drawing/path_drawing.dart';
-
 
 /**
  *  kayo_package

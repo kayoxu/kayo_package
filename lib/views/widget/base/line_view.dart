@@ -35,18 +35,20 @@ class LineView extends StatefulWidget {
 class LineViewState extends State<LineView> {
   @override
   Widget build(BuildContext context) {
-    return VisibleView(
-      visible: widget.visible ?? Visible.visible,
-      child: Container(
-        margin: widget.margin,
-        padding: widget.padding,
-        width: widget.width ?? double.infinity,
-        height: widget.height ?? .5,
-        decoration: BoxDecoration(
-            color: widget.color ?? BaseColorUtils.colorGreyLiteLiteLite,
-            borderRadius:
-                BorderRadius.all(Radius.circular(widget.radius ?? 0))),
-      ),
+    var container = Container(
+      margin: widget.margin,
+      padding: widget.padding,
+      width: widget.width ?? double.infinity,
+      height: widget.height ?? .5,
+      decoration: BoxDecoration(
+          color: widget.color ?? BaseColorUtils.colorGreyLiteLiteLite,
+          borderRadius: BorderRadius.all(Radius.circular(widget.radius ?? 0))),
     );
+    return widget.visible == null
+        ? container
+        : VisibleView(
+            visible: widget.visible ?? Visible.visible,
+            child: container,
+          );
   }
 }

@@ -16,8 +16,8 @@ class TextView extends StatelessWidget {
       this.size = 16,
       this.height,
       this.width,
-      this.padding = const EdgeInsets.all(0),
-      this.margin = const EdgeInsets.all(0),
+      this.padding,
+      this.margin,
       this.textAlign = TextAlign.left,
       this.fontWeight,
       this.borderRadius,
@@ -43,8 +43,8 @@ class TextView extends StatelessWidget {
   final double size;
   final double? height;
   final double? width;
-  final EdgeInsets padding;
-  final EdgeInsets margin;
+  final EdgeInsets? padding;
+  final EdgeInsets? margin;
   final TextAlign textAlign;
   final FontWeight? fontWeight;
   final BorderRadius? borderRadius;
@@ -92,38 +92,51 @@ class TextView extends StatelessWidget {
             children: <Widget>[left!, tv],
           );
 
-    var c = Container(
-      alignment: alignment,
-      width: width,
-      height: height,
-      decoration: ((null != bgColor || true == border)
-          ? BoxDecoration(
-              color: bgColor,
-              borderRadius: borderRadius ?? BorderRadius.circular(radius),
-              border: border != true
-                  ? null
-                  : Border.all(width: borderWidth, color: borderColor ?? color),
-              gradient: gradient,
-            )
-          : null),
-      padding: padding,
-      margin: null == onTap ? margin : null,
-      child: null == rightIcon
-          ? v
-          : Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                v,
-                ImageView(
-                  height: rightIconHeight,
-                  width: rightIconWidth,
-                  margin: rightIconMargin,
-                  src: rightIcon,
-                  color: rightIconColor,
-                )
-              ],
-            ),
-    );
+    var child2 = null == rightIcon
+        ? v
+        : Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              v,
+              ImageView(
+                height: rightIconHeight,
+                width: rightIconWidth,
+                margin: rightIconMargin,
+                src: rightIcon,
+                color: rightIconColor,
+              )
+            ],
+          );
+
+    var c = null == alignment &&
+            null == width &&
+            null == height &&
+            null == bgColor &&
+            null == borderRadius &&
+            null == borderColor &&
+            null == margin &&
+            null == padding &&
+            null == border
+        ? child2
+        : Container(
+            alignment: alignment,
+            width: width,
+            height: height,
+            decoration: ((null != bgColor || true == border)
+                ? BoxDecoration(
+                    color: bgColor,
+                    borderRadius: borderRadius ?? BorderRadius.circular(radius),
+                    border: border != true
+                        ? null
+                        : Border.all(
+                            width: borderWidth, color: borderColor ?? color),
+                    gradient: gradient,
+                  )
+                : null),
+            padding: padding,
+            margin: null == onTap ? margin : null,
+            child: child2,
+          );
 
     return null == onTap
         ? c

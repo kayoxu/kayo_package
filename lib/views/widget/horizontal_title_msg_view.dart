@@ -17,6 +17,7 @@ import 'base/edit_view.dart';
 
 //enum Visible { visible, invisible, gone }
 
+@Deprecated('使用TitleMsgView')
 Container HorizontalTitleMsgView2({
   required String? title,
   required String? msg,
@@ -74,67 +75,68 @@ Container HorizontalTitleMsgView2({
   );
 }
 
+@Deprecated('使用TitleMsgView')
 class HorizontalTitleMsgView extends StatefulWidget {
-final  EdgeInsets? padding;
-final EdgeInsets? margin;
+  final EdgeInsets? padding;
+  final EdgeInsets? margin;
 
-final  String title;
-final  String msg;
-final  bool rightIcon;
-final  Color rightIconColor;
-final String? rightIconSrc;
-final double? rightIconWidth;
-final  double? rightIconHeight;
-final  Visible leftIcon;
-final  String leftIconSrc;
-final  EdgeInsets leftIconMargin;
-final double leftIconHeight;
-final  double leftIconWidth;
-final double legtIconRadius;
-final  String? subTitle;
-final  bool msgEditableFull;
-final  TextInputType? msgInputType;
+  final String title;
+  final String msg;
+  final bool rightIcon;
+  final Color rightIconColor;
+  final String? rightIconSrc;
+  final double? rightIconWidth;
+  final double? rightIconHeight;
+  final Visible leftIcon;
+  final String leftIconSrc;
+  final EdgeInsets leftIconMargin;
+  final double leftIconHeight;
+  final double leftIconWidth;
+  final double legtIconRadius;
+  final String? subTitle;
+  final bool msgEditableFull;
+  final TextInputType? msgInputType;
 
-final  Color titleColor;
-final  double titleSize;
-final  FontWeight? titleFontWeight;
+  final Color titleColor;
+  final double titleSize;
+  final FontWeight? titleFontWeight;
 
-final Color msgColor;
-final  double msgSize;
-final  FontWeight? msgFontWeight;
-final  EdgeInsets msgPadding;
+  final Color msgColor;
+  final double msgSize;
+  final FontWeight? msgFontWeight;
+  final EdgeInsets msgPadding;
 
-final  String? subMsg;
-final  Color subMsgColor;
-final  double subMsgSize;
-final  FontWeight? subMsgFontWeight;
-final  Function()? subMsgClick;
-final  double? subMsgWidth;
+  final String? subMsg;
+  final Color subMsgColor;
+  final double subMsgSize;
+  final FontWeight? subMsgFontWeight;
+  final Function()? subMsgClick;
+  final double? subMsgWidth;
 
-final  Color bgColor;
-final  Color? msgBgColor;
-final  bool topLine;
-final  bool bottomLine;
+  final Color bgColor;
+  final Color? msgBgColor;
+  final bool topLine;
+  final bool bottomLine;
 
-final  EdgeInsets topLineMargin;
-final  EdgeInsets bottomLineMargin;
-final  VoidCallback? onClick;
-final double? height;
-final double? width;
-final  bool msgEditable;
-final  String? msgHintText;
-final  TextEditingController? msgController;
+  final EdgeInsets topLineMargin;
+  final EdgeInsets bottomLineMargin;
+  final VoidCallback? onClick;
+  final double? height;
+  final double? width;
+  final bool msgEditable;
+  final String? msgHintText;
+  final TextEditingController? msgController;
 
-final  Function()? onMsgClick;
-final  Function()? onMsgFocus;
-final  ValueChanged<String>? onMsgChanged;
-final  FocusNode? focusNode;
-final  VoidCallback? onEditingComplete;
-final  ValueChanged<String>? onSubmitted;
-final  Color? topLineColor;
-final Color? bottomLineColor;
-final  int? msgMaxLine;
-final  List<TextInputFormatter>? msgInputFormatters;
+  final Function()? onMsgClick;
+  final Function()? onMsgFocus;
+  final ValueChanged<String>? onMsgChanged;
+  final FocusNode? focusNode;
+  final VoidCallback? onEditingComplete;
+  final ValueChanged<String>? onSubmitted;
+  final Color? topLineColor;
+  final Color? bottomLineColor;
+  final int? msgMaxLine;
+  final List<TextInputFormatter>? msgInputFormatters;
 
   HorizontalTitleMsgView({
     Key? key,
@@ -167,7 +169,7 @@ final  List<TextInputFormatter>? msgInputFormatters;
     this.subMsg,
     this.subMsgWidth,
     this.bgColor = Colors.transparent,
-    this.msgBgColor  = Colors.transparent,
+    this.msgBgColor = Colors.transparent,
     this.topLine = false,
     this.bottomLine = false,
     this.topLineMargin = const EdgeInsets.only(left: 16, right: 16),

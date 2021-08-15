@@ -9,6 +9,7 @@ import 'clickable.dart';
 ///  Created by kayoxu on 2019/1/23.
 ///  Copyright © 2019 kayoxu. All rights reserved.
 
+@deprecated
 class ButtonView extends StatelessWidget {
   final VoidCallback? onPressed;
   final Color? bgColor;
