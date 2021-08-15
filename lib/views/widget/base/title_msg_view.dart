@@ -107,7 +107,7 @@ class TitleMsgView extends StatelessWidget {
       maxLine: titleMaxLines ?? 1,
       size: titleSize ?? 14,
       color: titleColor ?? BaseColorUtils.colorBlack,
-      margin: EdgeInsets.only(right: 10),
+      margin: EdgeInsets.only(right: 0),
     );
   }
 
