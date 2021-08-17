@@ -14,9 +14,30 @@ import 'package:kayo_package/kayo_package.dart';
 ///
 
 class LoadingUtils {
-  static Timer? _timer;
+  static LoadingUtils get share => LoadingUtils._share();
 
-  static TransitionBuilder? init({TransitionBuilder? builder}) {
+  static LoadingUtils? _instance;
+
+  LoadingUtils._();
+
+  factory LoadingUtils._share() {
+    if (_instance == null) {
+      _instance = LoadingUtils._();
+    }
+    return _instance!;
+  }
+
+  Timer? _timer;
+  Color? toastBgColor;
+  Color? toastTextColor;
+
+  static TransitionBuilder? init(
+      {TransitionBuilder? builder,
+      Color? toastBgColor,
+      Color? toastTextColor}) {
+    share.toastBgColor = toastBgColor;
+    share.toastTextColor = toastTextColor;
+
     return (BuildContext context, Widget? child) {
       if (builder != null) {
         return builder(context, FlutterEasyLoading(child: child));
@@ -27,10 +48,10 @@ class LoadingUtils {
   }
 
   static show({String? data, bool dismissOnTap = false, int timeOut = 60}) {
-    _timer?.cancel();
-    _timer = Timer(Duration(seconds: timeOut), () {
+    share._timer?.cancel();
+    share._timer = Timer(Duration(seconds: timeOut), () {
       dismiss();
-      _timer = null;
+      share._timer = null;
     });
 
     EasyLoading.show(
@@ -58,11 +79,16 @@ class LoadingUtils {
   }
 
   static showToast(
-      {String? data, int timeInSecForIosWeb = 2, ToastGravity gravity = ToastGravity
-          .BOTTOM}) {
+      {String? data,
+      int timeInSecForIosWeb = 2,
+      ToastGravity gravity = ToastGravity.BOTTOM}) {
     // EasyLoading.showToast(data ?? '');
     Fluttertoast.showToast(
-      msg: data ?? '', timeInSecForIosWeb: timeInSecForIosWeb,);
+      msg: data ?? '',
+      backgroundColor: share.toastBgColor,
+      textColor: share.toastTextColor,
+      timeInSecForIosWeb: timeInSecForIosWeb,
+    );
   }
 
   static dismiss() {
