@@ -17,11 +17,16 @@ typedef String? StringAtIndexCallBack(int index);
 
 //String formatType;
 
+@Deprecated('使用DateTimePicker.show'
+    ' DateTimePicker.show('
+    'context, dateFormat: \'yyyy-MM-dd HH:mm:ss\','
+    'onDateTimePick: (startDate, endDate) {})')
 class DatePicker {
   ///
   /// Display date picker bottom sheet.
   ///
   ///
+
   @Deprecated('使用DateTimePicker.show'
       ' DateTimePicker.show('
       'context, dateFormat: \'yyyy-MM-dd HH:mm:ss\','
@@ -178,6 +183,11 @@ class DatePicker {
   ///
   /// Display time picker bottom sheet.
   ///
+  ///
+  @Deprecated('使用DateTimePicker.show'
+      ' DateTimePicker.show('
+      'context, dateFormat: \'yyyy-MM-dd HH:mm:ss\','
+      'onDateTimePick: (startDate, endDate) {})')
   static Future showTimePicker(
     BuildContext context, {
     bool showTitleActions: true,
@@ -245,7 +255,12 @@ class DatePicker {
 
   ///
   /// Display date&time picker bottom sheet.
-  ///
+
+
+  @Deprecated('使用DateTimePicker.show'
+      ' DateTimePicker.show('
+      'context, dateFormat: \'yyyy-MM-dd HH:mm:ss\','
+      'onDateTimePick: (startDate, endDate) {})')
   static Future showDateTimePicker(
     BuildContext context, {
     bool showTitleActions: true,
