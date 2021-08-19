@@ -21,6 +21,11 @@ class DatePicker {
   ///
   /// Display date picker bottom sheet.
   ///
+  ///
+  @Deprecated('使用DateTimePicker.show'
+      ' DateTimePicker.show('
+      'context, dateFormat: \'yyyy-MM-dd HH:mm:ss\','
+      'onDateTimePick: (startDate, endDate) {})')
   static Future showDatePicker(BuildContext context,
       {bool showTitleActions: true,
       DateTime? minTime,
