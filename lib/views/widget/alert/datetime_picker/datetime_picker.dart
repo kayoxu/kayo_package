@@ -11,7 +11,7 @@ import 'date_model.dart';
 import 'datetime_picker_theme.dart';
 import 'i18n_model.dart';
 
-typedef DateChangedCallback(DateTime time, {DateTime time2});
+typedef DateChangedCallback(DateTime time, {DateTime? time2});
 typedef ErrorCallback(String error);
 typedef String? StringAtIndexCallBack(int index);
 
