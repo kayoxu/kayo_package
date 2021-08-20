@@ -34,7 +34,7 @@ class KayoPackage {
       DateTimePickerLocale? dateTimePickerLocale,
       String? dataPickerLocale,
       Locale? locale,
-      bool? ignoreSSL}) {
+      bool? ignoreSSL = false}) {
     this.ignoreSSL = ignoreSSL;
     if (null != locale) {
       if (locale.languageCode == 'zh') {
