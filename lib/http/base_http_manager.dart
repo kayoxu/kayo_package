@@ -281,7 +281,7 @@ abstract class BaseHttpManager {
         logInfo(tag: tag, msg: '请求异常url: ' + url);
         logInfo(
             tag: tag,
-            msg: '请求异常参数: ' + params is Map ? toJson(params) : '$params');
+            msg: '请求异常参数: ' +/* params is Map ? toJson(params) :*/ '$params');
 
         logInfo(
             tag: tag,
