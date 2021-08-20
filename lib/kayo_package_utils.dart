@@ -25,7 +25,7 @@ class KayoPackage {
 
   String nullText = '无';
   String loadingText = '加载中, 请稍等...';
-  bool ignoreSSL = false;
+  bool? ignoreSSL = false;
 
   init(
       {String? nullText,
@@ -35,6 +35,7 @@ class KayoPackage {
       String? dataPickerLocale,
       Locale? locale,
       bool? ignoreSSL}) {
+    this.ignoreSSL = ignoreSSL;
     if (null != locale) {
       if (locale.languageCode == 'zh') {
         this.nullText = '无';
