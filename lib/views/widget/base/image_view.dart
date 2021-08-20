@@ -2,9 +2,15 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:kayo_package/kayo_package.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
 import 'package:kayo_package/views/widget/base/clickable.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
+
+import 'dart:async';
+
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:http/http.dart' as http;
 
 ///
 ///  flutter_demo
@@ -110,6 +116,9 @@ class ImageViewState extends State<ImageView> {
               return Image.asset(widget.defaultImage ??
                   'packages/kayo_package/assets/ic_no_data.png');
             },
+            cacheManager: KayoPackage.share.ignoreSSL == true
+                ? EsoImageCacheManager()
+                : null,
             imageUrl: widget.url!,
             width: widget.width,
             height: widget.height,
@@ -228,5 +237,49 @@ class ImageViewState extends State<ImageView> {
               });
             },
           );
+  }
+}
+
+class EsoImageCacheManager extends CacheManager {
+  static const key = 'libEsoCachedImageData';
+
+  static EsoImageCacheManager? _instance;
+
+  factory EsoImageCacheManager() {
+    _instance ??= EsoImageCacheManager._();
+    return _instance!;
+  }
+
+  EsoImageCacheManager._()
+      : super(Config(key, fileService: EsoHttpFileService()));
+}
+
+class EsoHttpFileService extends FileService {
+  late HttpClient _httpClient;
+
+  EsoHttpFileService({HttpClient? httpClient}) {
+    _httpClient = httpClient ?? HttpClient();
+    _httpClient.badCertificateCallback = (cert, host, port) => true;
+  }
+
+
+
+  @override
+  Future<FileServiceResponse> get(String url,
+      {Map<String, String>? headers}) async {
+    final Uri resolved = Uri.base.resolve(url);
+    final HttpClientRequest? req = await _httpClient.getUrl(resolved);
+    headers?.forEach((key, value) {
+      req?.headers.add(key, value);
+    });
+    final HttpClientResponse httpResponse = await req!.close();
+    final http.StreamedResponse _response = http.StreamedResponse(
+      httpResponse.timeout(Duration(seconds: 60)),
+      httpResponse.statusCode,
+      contentLength: httpResponse.contentLength,
+      reasonPhrase: httpResponse.reasonPhrase,
+      isRedirect: httpResponse.isRedirect,
+    );
+    return HttpGetResponse(_response);
   }
 }
