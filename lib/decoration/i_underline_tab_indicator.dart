@@ -13,7 +13,7 @@ class IUnderlineTabIndicator extends Decoration {
   /// Create an underline style selected tab indicator.
   ///
   /// The [borderSide] and [insets] arguments must not be null.
-  const IUnderlineTabIndicator({
+    IUnderlineTabIndicator({
     this.borderSide = const BorderSide(width: 2.5, color: Color(0xff1E6FF4)),
     this.insets = EdgeInsets.zero,
   })  : assert(borderSide != null),

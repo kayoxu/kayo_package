@@ -249,7 +249,7 @@ class TabBarWidgetState extends State<TabBarWidget>
             labelStyle: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
             unselectedLabelStyle:
                 TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
-            labelColor: Color(0xff1E6FF4),
+            labelColor: BaseColorUtils.colorAccent,
             unselectedLabelColor: Color(0xff333333),
             indicator: null,
             onTap: widget.onTabChanged,

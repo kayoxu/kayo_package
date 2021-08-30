@@ -255,7 +255,7 @@ class DateTimePicker {
         child: Text(
           title ?? '',
           style: TextStyle(
-              color: Color(0xff1E6FF4),
+              color: BaseColorUtils.colorAccent,
               fontSize: 15,
               fontWeight: FontWeight.w600),
         ),

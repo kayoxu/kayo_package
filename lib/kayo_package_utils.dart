@@ -27,17 +27,31 @@ class KayoPackage {
   String loadingText = '加载中, 请稍等...';
   bool? ignoreSSL = false;
 
-  init(
-      {String? nullText,
-      String? loadingText,
-      String? formatDefault,
-      DateTimePickerLocale? dateTimePickerLocale,
-      String? dataPickerLocale,
-      Locale? locale,
-      bool? ignoreSSL = false}) {
-
-    BaseColorUtils.colorAccent = Color(0xffff00);
-
+  init({
+    String? nullText,
+    String? loadingText,
+    String? formatDefault,
+    DateTimePickerLocale? dateTimePickerLocale,
+    String? dataPickerLocale,
+    Locale? locale,
+    bool? ignoreSSL = false,
+    Color? colorPrimary,
+    Color? colorPrimaryLight,
+    Color? colorPrimaryDark,
+    Color? colorAccent,
+    Color? colorAccentLite,
+    Color? colorAccentLiteLite,
+  }) {
+    BaseColorUtils.colorPrimary = colorPrimary ?? BaseColorUtils.colorPrimary;
+    BaseColorUtils.colorPrimaryLight =
+        colorPrimary ?? BaseColorUtils.colorPrimaryLight;
+    BaseColorUtils.colorPrimaryDark =
+        colorPrimary ?? BaseColorUtils.colorPrimaryDark;
+    BaseColorUtils.colorAccent = colorPrimary ?? BaseColorUtils.colorAccent;
+    BaseColorUtils.colorAccentLite =
+        colorPrimary ?? BaseColorUtils.colorAccentLite;
+    BaseColorUtils.colorAccentLiteLite =
+        colorPrimary ?? BaseColorUtils.colorAccentLiteLite;
 
     this.ignoreSSL = ignoreSSL;
     if (null != locale) {
