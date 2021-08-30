@@ -57,6 +57,7 @@ class TabBarWidget extends StatefulWidget {
   final bool? showLine;
   final Color? bgColor;
   final Function()? backClick;
+  final bool? resizeToAvoidBottomInset;
 
   TabBarWidget({
     Key? key,
@@ -85,6 +86,7 @@ class TabBarWidget extends StatefulWidget {
     this.darkStatusText = true,
     this.showLine = true,
     this.bgColor = const Color(0xffffffff),
+    this.resizeToAvoidBottomInset = true,
   }) : super(key: key);
 
   @override
@@ -146,6 +148,7 @@ class TabBarWidgetState extends State<TabBarWidget>
       ///顶部tab bar
       return new Scaffold(
         floatingActionButton: widget.floatingActionButton,
+        resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
         persistentFooterButtons: widget.tarWidgetControl == null
             ? null
             : widget.tarWidgetControl?.footerButton,
@@ -209,6 +212,7 @@ class TabBarWidgetState extends State<TabBarWidget>
       ///顶部tab bar
       return new Scaffold(
         floatingActionButton: widget.floatingActionButton,
+        resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
         persistentFooterButtons: widget.tarWidgetControl == null
             ? null
             : widget.tarWidgetControl?.footerButton,
@@ -268,6 +272,7 @@ class TabBarWidgetState extends State<TabBarWidget>
       ///底部tab bar
       return new Scaffold(
           backgroundColor: BaseColorUtils.colorWindow,
+          resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
           drawer: widget.drawer,
           appBar: widget.appBar,
           body: TabBarView(
@@ -318,6 +323,7 @@ class TabBarWidgetState extends State<TabBarWidget>
       ///顶部tab bar
       return new Scaffold(
           floatingActionButton: widget.floatingActionButton,
+          resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
           persistentFooterButtons: widget.tarWidgetControl == null
               ? null
               : widget.tarWidgetControl?.footerButton,
@@ -367,6 +373,7 @@ class TabBarWidgetState extends State<TabBarWidget>
           ? WidgetNotFound()
           : Scaffold(
               backgroundColor: BaseColorUtils.colorWindow,
+              resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
               drawer: widget.drawer,
               appBar: widget.appBar,
               body: widget.tabViews?[0]);
