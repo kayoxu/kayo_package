@@ -52,6 +52,7 @@ class EditView extends StatefulWidget {
   final bool? useDefaultEditController;
   final bool? editable;
   final bool? showLabelText;
+  final bool? isDense;
   final List<TextInputFormatter>? inputFormatters;
 
   EditView({
@@ -88,6 +89,7 @@ class EditView extends StatefulWidget {
     this.showLabelText = false,
     this.inputFormatters,
     this.lineColor,
+    this.isDense = false,
   }) : super(key: key);
 
   @override
@@ -177,6 +179,7 @@ class EditViewState extends State<EditView> {
                   ? InputDecoration(labelText: widget.hintText)
                   : InputDecoration(
                       hasFloatingPlaceholder: false,
+                      isDense: widget.isDense,
                       icon: BaseSysUtils.empty(widget.src)
                           ? null
                           : ImageView(
