@@ -35,6 +35,10 @@ class KayoPackage {
       String? dataPickerLocale,
       Locale? locale,
       bool? ignoreSSL = false}) {
+
+    BaseColorUtils.colorAccent = Color(0xffff00);
+
+
     this.ignoreSSL = ignoreSSL;
     if (null != locale) {
       if (locale.languageCode == 'zh') {

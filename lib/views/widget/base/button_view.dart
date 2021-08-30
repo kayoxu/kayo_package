@@ -40,7 +40,7 @@ class ButtonView extends StatelessWidget {
 
   ButtonView({
     Key? key,
-    this.bgColor = BaseColorUtils.colorAccent,
+    this.bgColor,
     this.color = BaseColorUtils.colorWhite,
     required VoidCallback this.onPressed,
     this.text = '提交',
@@ -93,7 +93,7 @@ class ButtonView extends StatelessWidget {
                         ),
                 ),
               ),
-              color: bgColor,
+              color: bgColor ?? BaseColorUtils.colorAccent,
               shape: RoundedRectangleBorder(
                   borderRadius: null == borderRadius
                       ? BorderRadius.circular(radius ?? 0)
@@ -117,8 +117,9 @@ class ButtonView extends StatelessWidget {
                       ? null
                       : BoxDecoration(
                           gradient: LinearGradient(colors: [
-                            bgStartColor ?? bgColor!,
-                            bgEndColor ?? bgColor!
+                            bgStartColor ??
+                                (bgColor ?? BaseColorUtils.colorAccent),
+                            bgEndColor ?? (bgColor ?? BaseColorUtils.colorAccent)
                           ]),
                           borderRadius: BorderRadius.circular(radius ?? 0))),
               onTap: onPressed,

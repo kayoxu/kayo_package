@@ -6,14 +6,55 @@ import 'package:flutter/material.dart';
 ///  Created by kayoxu on 2019-06-11 16:09.
 ///  Copyright © 2019 kayoxu. All rights reserved.
 class BaseColorUtils {
-  static const int colorPrimaryColor = 0xFF2B7FFB;
-  static const Color colorPrimary = Color(0xFF2B7FFB);
-  static const Color colorPrimaryLight = Color(0xFF2B7FFB);
-  static const Color colorPrimaryDark = Color(0xFF2B7FFB);
+  BaseColorUtils._();
 
-  static const Color colorAccent = Color(0xFF2B7FFB);
-  static const Color colorAccentLite = Color(0xFF00A2FF);
-  static const Color colorAccentLiteLite = Color(0xFFaaaae8);
+  static BaseColorUtils get share => BaseColorUtils._share();
+
+  static BaseColorUtils? _instance;
+
+  factory BaseColorUtils._share() {
+    if (_instance == null) {
+      _instance = BaseColorUtils._();
+    }
+    return _instance!;
+  }
+
+  int get _colorPrimaryColor2 {
+    return colorPrimary2.value;
+  }
+
+  Color get colorPrimary2 {
+    return Color(0xFF2B7FFB);
+  }
+
+  Color get colorPrimaryLight2 {
+    return Color(0xFF2B7FFB);
+  }
+
+  Color get colorPrimaryDark2 {
+    return Color(0xFF2B7FFB);
+  }
+
+  Color get colorAccent2 {
+    return Color(0xFF2B7FFB);
+  }
+
+  Color get colorAccentLite2 {
+    return Color(0xFF00A2FF);
+  }
+
+  Color get colorAccentLiteLite2 {
+    return Color(0xFFaaaae8);
+  }
+
+  static int colorPrimaryColor = share._colorPrimaryColor2;
+  static Color colorPrimary = share.colorPrimary2;
+  static Color colorPrimaryLight = share.colorPrimaryLight2;
+  static Color colorPrimaryDark = share.colorPrimaryDark2;
+
+  static Color colorAccent = share.colorAccent2;
+  static Color colorAccentLite = share.colorAccentLite2;
+  static Color colorAccentLiteLite = share.colorAccentLiteLite2;
 
   static const Color colorWindow = Color(0xFFf8f8f8);
   static const Color colorWindowWhite = Color(0xFFFFFFFF);
