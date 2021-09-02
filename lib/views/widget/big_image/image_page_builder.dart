@@ -63,11 +63,12 @@ class _ImagePageBuilderState extends State<ImagePageBuilder> {
   }
 
   ImageProvider _buildExtendedNetworkImageProvider() {
-    if (null != widget.asset.file) {
-      return ExtendedFileImageProvider(widget.asset.file!);
-    }
-    if (!BaseSysUtils.empty(widget.asset.path)) {
+    if (!BaseSysUtils.empty(widget.asset.url)) {
+      return ExtendedNetworkImageProvider(widget.asset.url ?? '');
+    } else if (!BaseSysUtils.empty(widget.asset.path)) {
       return ExtendedFileImageProvider(File(widget.asset.path!));
+    } else if (null != widget.asset.file) {
+      return ExtendedFileImageProvider(widget.asset.file!);
     } else {
       return ExtendedNetworkImageProvider(widget.asset.url ?? '');
     }
