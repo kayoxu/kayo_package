@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  intl: ^0.17.0               # Feb 3, 2021
+  intl: ">=1.0.1  <=10.0.0"  #  ^0.17.0               # Feb 3, 2021
   fluro: ">=1.6.1  <=10.0.0"      #  Mar 1, 2021  2.0.3
   connectivity: ">=0.4.8+2 <=10.0.0"   # May 26, 2021  3.0.6
   url_launcher: ">=5.4.10 <=10.0.0"   # Jul 4, 2021  6.0.9
