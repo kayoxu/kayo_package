@@ -8,6 +8,7 @@ export 'tool_bar.dart';
 export 'visible_view.dart';
 export 'superscript_view.dart';
 export 'drag_view.dart';
+export 'big_image/asset_picker_viewer.dart';
 
 /**
  *  kayo_package
