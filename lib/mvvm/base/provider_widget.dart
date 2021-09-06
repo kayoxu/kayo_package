@@ -310,6 +310,14 @@ class _ProviderWidget6State<
 
     return MultiProvider(
         providers: [
+
+          // Provider<T>(create: (BuildContext context) {
+          //   return model;
+
+          // ChangeNotifierProvider<T>(create: (BuildContext context) {
+          //   return model;
+          // },),
+
           ChangeNotifierProvider<T>.value(value: model),
           ChangeNotifierProvider<T2?>.value(value: model2),
           ChangeNotifierProvider<T3?>.value(value: model3),
