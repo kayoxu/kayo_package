@@ -12,49 +12,53 @@ import 'dart:io';
 import 'package:url_launcher/url_launcher.dart';
 
 class MapUtils {
-  void showMapNavi(
+  static void showMapNavi(
       BuildContext context, double latitude, double longitude) async {
     List<Widget> list = [];
-    if (await _canGotoAppleMap(longitude, latitude)) {
+    if (await _canGotoAppleMap(longitude, latitude) == true && Platform.isIOS) {
       var a = AlertSheet.sheetAction(
           text: '苹果地图',
-          color: BaseColorUtils.colorRed,
+          color: BaseColorUtils.colorAccent,
           showLine: true,
           callback: () async {
+            Navigator.of(context).pop();
             _gotoAppleMap(longitude, latitude);
           });
 
       list.add(a);
     }
-    if (await _canGotoBaiduMap(longitude, latitude)) {
+    if (await _canGotoBaiduMap(longitude, latitude) == true) {
       var a = AlertSheet.sheetAction(
           text: '百度地图',
-          color: BaseColorUtils.colorRed,
+          color: BaseColorUtils.colorAccent,
           showLine: true,
           callback: () async {
-            gotoBaiduMap(longitude, latitude);
+              Navigator.of(context).pop();
+            _gotoBaiduMap(longitude, latitude);
           });
 
       list.add(a);
     }
-    if (await _canGotoAMap(longitude, latitude)) {
+    if (await _canGotoAMap(longitude, latitude) == true) {
       var a = AlertSheet.sheetAction(
           text: '高德地图',
-          color: BaseColorUtils.colorRed,
+          color: BaseColorUtils.colorAccent,
           showLine: true,
           callback: () async {
-            gotoAMap(longitude, latitude);
+              Navigator.of(context).pop();
+            _gotoAMap(longitude, latitude);
           });
 
       list.add(a);
     }
-    if (await _canGotoTencentMap(longitude, latitude)) {
+    if (await _canGotoTencentMap(longitude, latitude) == true) {
       var a = AlertSheet.sheetAction(
           text: '腾讯地图',
-          color: BaseColorUtils.colorRed,
+          color: BaseColorUtils.colorAccent,
           showLine: true,
           callback: () async {
-            gotoTencentMap(longitude, latitude);
+              Navigator.of(context).pop();
+            _gotoTencentMap(longitude, latitude);
           });
 
       list.add(a);
@@ -92,7 +96,7 @@ class MapUtils {
   }
 
   /// 高德地图
-  static Future<bool> gotoAMap(longitude, latitude) async {
+  static Future<bool> _gotoAMap(longitude, latitude) async {
     var url =
         '${Platform.isAndroid ? 'android' : 'ios'}amap://navi?sourceApplication=amap&lat=$latitude&lon=$longitude&dev=0&style=2';
 
@@ -109,7 +113,7 @@ class MapUtils {
   }
 
   /// 腾讯地图
-  static Future<bool> gotoTencentMap(longitude, latitude) async {
+  static Future<bool> _gotoTencentMap(longitude, latitude) async {
     var url =
         'qqmap://map/routeplan?type=drive&fromcoord=CurrentLocation&tocoord=$latitude,$longitude&referer=IXHBZ-QIZE4-ZQ6UP-DJYEO-HC2K2-EZBXJ';
 
@@ -126,7 +130,7 @@ class MapUtils {
   }
 
   /// 百度地图
-  static Future<bool> gotoBaiduMap(longitude, latitude) async {
+  static Future<bool> _gotoBaiduMap(longitude, latitude) async {
     var url =
         'baidumap://map/direction?destination=$latitude,$longitude&coord_type=bd09ll&mode=driving';
 

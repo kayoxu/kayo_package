@@ -9,3 +9,4 @@ export 'package:kayo_package/mvvm/_index_mvvm.dart';
 export 'package:kayo_package/decoration/_index_decoration.dart';
 export 'package:kayo_package/http/_index_http.dart';
 export 'package:kayo_package/kayo_package_utils.dart';
+export 'package:kayo_package/map/_index_map_utils.dart';
