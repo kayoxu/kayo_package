@@ -30,8 +30,8 @@ class CoolKeyboard {
   static interceptorInput() {
     if (isInterceptor) return;
     isInterceptor = true;
-    ServicesBinding.instance!.defaultBinaryMessenger
-        .setMockMessageHandler("flutter/textinput", (ByteData? data) async {
+    ServicesBinding.instance!.defaultBinaryMessenger //setMockMessageHandler
+        .setMessageHandler("flutter/textinput", (ByteData? data) async {
       var methodCall = _codec.decodeMethodCall(data);
       switch (methodCall.method) {
         case 'TextInput.show':
@@ -132,7 +132,7 @@ class CoolKeyboard {
     final Completer<ByteData> completer = Completer<ByteData>();
     ui.window.sendPlatformMessage(channel, message, (ByteData? reply) {
       try {
-        if(null!=reply){
+        if (null != reply) {
           completer.complete(reply);
         }
       } catch (exception, stack) {

@@ -26,12 +26,14 @@ dependencies:
   back_button_interceptor: ^5.0.1
 
   convert: ">=2.1.0 <=10.0.0"             # Jun 24, 2021  3.0.1
-  crypto: ">=2.1.5 <=10.0.0"              #Apr 1, 2021  3.0.1
+  crypto: ">=1.0.0 <=10.0.0"              #Apr 1, 2021  3.0.1
   json_annotation: ">=3.0.1 <=10.0.0"     # Jul 13, 2021   4.1.0
   provider: ">=4.0.0 <=10.0.0"            # Jul 12, 2021  5.0.0 / 6.0.0-dev
   pull_to_refresh: ">=1.5.8 <=10.0.0"       # May 7, 2021 2.0.0
   fluttertoast: ">=3.1.2 <=20.0.0"        # May 19, 2021   8.0.7
-  extended_image: ">=2.1.0  <=10.0.0"
+  extended_image: #">=1.0.0  <=10.0.0"
+    git:
+      url: https://gitee.com/kayoxu/extended_image.git
 
 dev_dependencies:
   flutter_test:

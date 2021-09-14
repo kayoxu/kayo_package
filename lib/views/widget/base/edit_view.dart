@@ -168,7 +168,7 @@ class EditViewState extends State<EditView> {
               focusNode: widget.focusNode,
               textAlign: widget.textAlign ?? TextAlign.start,
               maxLength: widget.maxLength,
-              maxLengthEnforced: false,
+              maxLengthEnforcement: MaxLengthEnforcement.none,
               maxLines: widget.maxLines,
               textInputAction: TextInputAction.done,
               keyboardType: widget.keyboardType,
@@ -178,7 +178,8 @@ class EditViewState extends State<EditView> {
               decoration: (widget.showLabelText == true)
                   ? InputDecoration(labelText: widget.hintText)
                   : InputDecoration(
-                      hasFloatingPlaceholder: false,
+                      // hasFloatingPlaceholder: false,
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
                       isDense: widget.isDense,
                       icon: BaseSysUtils.empty(widget.src)
                           ? null
