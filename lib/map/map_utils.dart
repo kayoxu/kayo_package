@@ -65,7 +65,7 @@ class MapUtils {
     }
 
     AlertSheet.sheet(context,
-        title: '退出登录？',
+        title: '选择导航',
         showCancel: true,
         cancelText: '取消',
         cancelColor: BaseColorUtils.colorBlackLite,
