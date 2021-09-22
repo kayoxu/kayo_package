@@ -1,6 +1,7 @@
 export 'alert_center.dart';
 export 'alert_sheet.dart';
 export 'loading_dialog.dart';
+export 'privacy_dialog.dart';
 export 'flutter_cupertino_data_picker.dart';
 export 'datetime_picker/datetime_picker.dart';
 export 'datetime_picker_new/date_time_picker.dart';
