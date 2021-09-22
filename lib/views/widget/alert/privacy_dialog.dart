@@ -126,7 +126,7 @@ showPrivacyDialog(BuildContext context,
 
     showDialog(
         context: context,
-        barrierDismissible: true,
+        barrierDismissible: false,
         barrierLabel: '',
         // transitionDuration: Duration(milliseconds: 200),
         builder: (BuildContext context) {
