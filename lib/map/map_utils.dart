@@ -101,7 +101,7 @@ class MapUtils {
   static String _googleMapTitle() => _notCn() ? 'Google Map' : '谷歌地图';
 
   static String _noMap(String name) =>
-      _notCn() ? 'Not found$name~' : '未检测到$name~';
+      _notCn() ? 'Not found $name~' : '未检测到$name~';
 
   static Future<bool> _canGotoAMap(longitude, latitude) async {
     var url =
