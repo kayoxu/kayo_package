@@ -92,7 +92,7 @@ class MapUtils {
 
   static String _qqmapTitle() => _notCn() ? 'QQ Map' : '腾讯地图';
 
-  static String _amapTitle() => _notCn() ? 'Gaude Map' : '高德地图';
+  static String _amapTitle() => _notCn() ? 'Gaode Map' : '高德地图';
 
   static String _baimapTitle() => _notCn() ? 'Baidu Map' : '百度地图';
 
