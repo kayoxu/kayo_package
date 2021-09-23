@@ -36,7 +36,7 @@ class _ImagePageBuilderState extends State<ImagePageBuilder> {
       behavior: HitTestBehavior.opaque,
       onTap: widget.delegate.switchDisplayingDetail,
       child: ExtendedImage(
-        image: _buildExtendedNetworkImageProvider(),
+        image:   !PlatformUtils.isWeb? _buildExtendedNetworkImageProvider():_buildExtendedNetworkImageProvider2(),
         fit: BoxFit.contain,
         mode: ExtendedImageMode.gesture,
         onDoubleTap: widget.delegate.updateAnimation,
@@ -65,10 +65,17 @@ class _ImagePageBuilderState extends State<ImagePageBuilder> {
   ImageProvider _buildExtendedNetworkImageProvider() {
     if (!BaseSysUtils.empty(widget.asset.url)) {
       return ExtendedNetworkImageProvider(widget.asset.url ?? '');
-    } else if (!BaseSysUtils.empty(widget.asset.path)) {
+    } /*else if (!BaseSysUtils.empty(widget.asset.path)) {
       return ExtendedFileImageProvider(File(widget.asset.path!));
     } else if (null != widget.asset.file) {
       return ExtendedFileImageProvider(widget.asset.file!);
+    }*/ else {
+      return ExtendedNetworkImageProvider(widget.asset.url ?? '');
+    }
+  }
+  ImageProvider _buildExtendedNetworkImageProvider2() {
+    if (!BaseSysUtils.empty(widget.asset.url)) {
+      return ExtendedNetworkImageProvider(widget.asset.url ?? '');
     } else {
       return ExtendedNetworkImageProvider(widget.asset.url ?? '');
     }

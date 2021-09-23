@@ -17,7 +17,7 @@ class MapUtils {
     List<Widget> list = [];
     if (await _canGotoAppleMap(longitude, latitude) == true && Platform.isIOS) {
       var a = AlertSheet.sheetAction(
-          text: '苹果地图',
+          text: _appMapTitle(),
           color: BaseColorUtils.colorAccent,
           showLine: true,
           callback: () async {
@@ -27,13 +27,25 @@ class MapUtils {
 
       list.add(a);
     }
-    if (await _canGotoBaiduMap(longitude, latitude) == true) {
+    if (await _canGoogleAppleMap(longitude, latitude) == true) {
       var a = AlertSheet.sheetAction(
-          text: '百度地图',
+          text: _googleMapTitle(),
           color: BaseColorUtils.colorAccent,
           showLine: true,
           callback: () async {
-              Navigator.of(context).pop();
+            Navigator.of(context).pop();
+            _gotoGoogleMap(longitude, latitude);
+          });
+
+      list.add(a);
+    }
+    if (await _canGotoBaiduMap(longitude, latitude) == true) {
+      var a = AlertSheet.sheetAction(
+          text: _baimapTitle(),
+          color: BaseColorUtils.colorAccent,
+          showLine: true,
+          callback: () async {
+            Navigator.of(context).pop();
             _gotoBaiduMap(longitude, latitude);
           });
 
@@ -41,11 +53,11 @@ class MapUtils {
     }
     if (await _canGotoAMap(longitude, latitude) == true) {
       var a = AlertSheet.sheetAction(
-          text: '高德地图',
+          text: _amapTitle(),
           color: BaseColorUtils.colorAccent,
           showLine: true,
           callback: () async {
-              Navigator.of(context).pop();
+            Navigator.of(context).pop();
             _gotoAMap(longitude, latitude);
           });
 
@@ -53,11 +65,11 @@ class MapUtils {
     }
     if (await _canGotoTencentMap(longitude, latitude) == true) {
       var a = AlertSheet.sheetAction(
-          text: '腾讯地图',
+          text: _qqmapTitle(),
           color: BaseColorUtils.colorAccent,
           showLine: true,
           callback: () async {
-              Navigator.of(context).pop();
+            Navigator.of(context).pop();
             _gotoTencentMap(longitude, latitude);
           });
 
@@ -65,12 +77,31 @@ class MapUtils {
     }
 
     AlertSheet.sheet(context,
-        title: '选择导航',
+        title: _selectNav(),
         showCancel: true,
-        cancelText: '取消',
+        cancelText: _cancelTitle(),
         cancelColor: BaseColorUtils.colorBlackLite,
         children: list);
   }
+
+  static bool _notCn() => KayoPackage.share.locale!.languageCode != 'zh';
+
+  static String _selectNav() => _notCn() ? 'Select navigation map' : '选择导航';
+
+  static String _cancelTitle() => _notCn() ? 'Cancel' : '取消';
+
+  static String _qqmapTitle() => _notCn() ? 'QQ Map' : '腾讯地图';
+
+  static String _amapTitle() => _notCn() ? 'Gaude Map' : '高德地图';
+
+  static String _baimapTitle() => _notCn() ? 'Baidu Map' : '百度地图';
+
+  static String _appMapTitle() => _notCn() ? 'Apple Map' : '苹果地图';
+
+  static String _googleMapTitle() => _notCn() ? 'Google Map' : '谷歌地图';
+
+  static String _noMap(String name) =>
+      _notCn() ? 'Not found$name~' : '未检测到$name~';
 
   static Future<bool> _canGotoAMap(longitude, latitude) async {
     var url =
@@ -95,6 +126,11 @@ class MapUtils {
     return await canLaunch(url);
   }
 
+  static Future<bool> _canGoogleAppleMap(longitude, latitude) async {
+    var url = 'google.navigation:q=$latitude,$longitude';
+    return await canLaunch(url);
+  }
+
   /// 高德地图
   static Future<bool> _gotoAMap(longitude, latitude) async {
     var url =
@@ -103,7 +139,7 @@ class MapUtils {
     bool canLaunchUrl = await canLaunch(url);
 
     if (!canLaunchUrl) {
-      LoadingUtils.showInfo(data: '未检测到高德地图~');
+      LoadingUtils.showInfo(data: _noMap(_amapTitle()));
       return false;
     }
 
@@ -120,7 +156,7 @@ class MapUtils {
     bool canLaunchUrl = await _canGotoTencentMap(longitude, latitude);
 
     if (!canLaunchUrl) {
-      LoadingUtils.showInfo(data: '未检测到腾讯地图~');
+      LoadingUtils.showInfo(data: _noMap(_qqmapTitle()));
       return false;
     }
 
@@ -137,7 +173,7 @@ class MapUtils {
     bool canLaunchUrl = await canLaunch(url);
 
     if (!canLaunchUrl) {
-      LoadingUtils.showInfo(data: '未检测到百度地图~');
+      LoadingUtils.showInfo(data: _noMap(_baimapTitle()));
       return false;
     }
 
@@ -153,7 +189,19 @@ class MapUtils {
     bool canLaunchUrl = await canLaunch(url);
 
     if (!canLaunchUrl) {
-      LoadingUtils.showInfo(data: '打开失败~');
+      LoadingUtils.showInfo(data: _noMap(_amapTitle()));
+      return false;
+    }
+
+    return await launch(url);
+  }
+
+  /// 谷歌地图
+  static Future<bool> _gotoGoogleMap(longitude, latitude) async {
+    var url = 'google.navigation:q=$latitude,$longitude';
+    bool canLaunchUrl = await canLaunch(url);
+    if (!canLaunchUrl) {
+      LoadingUtils.showInfo(data: _noMap(_amapTitle()));
       return false;
     }
 

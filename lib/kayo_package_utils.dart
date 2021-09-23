@@ -26,6 +26,7 @@ class KayoPackage {
   String nullText = '无';
   String loadingText = '加载中, 请稍等...';
   bool? ignoreSSL = false;
+  Locale? locale = Locale('zh');
 
   init({
     String? nullText,
@@ -42,6 +43,7 @@ class KayoPackage {
     Color? colorAccentLite,
     Color? colorAccentLiteLite,
   }) {
+    this.locale = locale ?? this.locale;
     BaseColorUtils.colorPrimary = colorPrimary ?? BaseColorUtils.colorPrimary;
     BaseColorUtils.colorPrimaryLight =
         colorPrimary ?? BaseColorUtils.colorPrimaryLight;
