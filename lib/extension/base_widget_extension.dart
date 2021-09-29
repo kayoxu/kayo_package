@@ -15,16 +15,17 @@ extension BaseWidgetExtension on Widget? {
   }
 
   ///给widget增加点击事件
-  Widget setOnClick({Key? key,
-    required GestureTapCallback onTap,
-    double? radius,
-    bool? materialBtn = true,
-    EdgeInsets? margin,
-    EdgeInsets? padding,
-    double? elevation,
-    Color? bgColor,
-    Color? shadowColor,
-    Alignment? alignment}) {
+  Widget setOnClick(
+      {Key? key,
+      required GestureTapCallback onTap,
+      double? radius,
+      bool? materialBtn = true,
+      EdgeInsets? margin,
+      EdgeInsets? padding,
+      double? elevation,
+      Color? bgColor,
+      Color? shadowColor,
+      Alignment? alignment}) {
     if (null != this) {
       return Clickable(
         key: key,
@@ -56,10 +57,11 @@ extension BaseWidgetExtension on Widget? {
   }
 
   ///设置Align
-  Widget setAlign({Key? key,
-    required AlignmentGeometry alignment,
-    double? widthFactor,
-    double? heightFactor}) {
+  Widget setAlign(
+      {Key? key,
+      required AlignmentGeometry alignment,
+      double? widthFactor,
+      double? heightFactor}) {
     if (null != this) {
       return Align(
         key: key,
@@ -73,12 +75,13 @@ extension BaseWidgetExtension on Widget? {
   }
 
   ///外面包一层container
-  Widget addContainer({Key? key,
-    EdgeInsets? padding,
-    EdgeInsets? margin,
-    Alignment? alignment,
-    Color? color,
-    Decoration? decoration}) {
+  Widget addContainer(
+      {Key? key,
+      EdgeInsets? padding,
+      EdgeInsets? margin,
+      Alignment? alignment,
+      Color? color,
+      Decoration? decoration}) {
     if (null != this) {
       return Container(
         key: key,
@@ -94,13 +97,14 @@ extension BaseWidgetExtension on Widget? {
   }
 
   ///外面包一层SafeArea
-  Widget addSafeArea({Key? key,
-    bool? left,
-    bool? top,
-    bool? right,
-    bool? bottom,
-    EdgeInsets? minimum,
-    bool? maintainBottomViewPadding}) {
+  Widget addSafeArea(
+      {Key? key,
+      bool? left,
+      bool? top,
+      bool? right,
+      bool? bottom,
+      EdgeInsets? minimum,
+      bool? maintainBottomViewPadding}) {
     if (null != this) {
       return SafeArea(
           key: key,
@@ -139,6 +143,39 @@ extension BaseWidgetExtension on Widget? {
         child: this!,
         flex: flex ?? 1,
       );
+    }
+    return SizedBox();
+  }
+
+  ///AbsorbPointer是一种禁止用户输入的控件
+  ///AbsorbPointer本身可以接收点击事件，消耗掉事件，而IgnorePointer无法接收点击事件
+  ///外面包一层AbsorbPointer
+  Widget addAbsorbPointer(
+      {Key? key, bool? absorbing = true, bool? ignoringSemantics}) {
+    if (null != this) {
+      return absorbing != true
+          ? this!
+          : AbsorbPointer(
+              key: key,
+              absorbing: absorbing!,
+              child: this,
+              ignoringSemantics: ignoringSemantics);
+    }
+    return SizedBox();
+  }
+
+  ///外面包一层IgnorePointer
+  ///AbsorbPointer本身可以接收点击事件，消耗掉事件，而IgnorePointer无法接收点击事件
+  Widget addIgnorePointer(
+      {Key? key, bool? ignoring = true, bool? ignoringSemantics}) {
+    if (null != this) {
+      return ignoring != true
+          ? this!
+          : IgnorePointer(
+              key: key,
+              ignoring: ignoring!,
+              child: this,
+              ignoringSemantics: ignoringSemantics);
     }
     return SizedBox();
   }
