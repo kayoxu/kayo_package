@@ -17,7 +17,7 @@ extension BaseWidgetExtension on Widget? {
   ///给widget增加点击事件
   Widget setOnClick(
       {Key? key,
-      required GestureTapCallback onTap,
+      required GestureTapCallback? onTap,
       double? radius,
       bool? materialBtn = true,
       EdgeInsets? margin,
