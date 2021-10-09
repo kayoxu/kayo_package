@@ -379,7 +379,7 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
             height: 35,
             child: TextView(
               title,
-              size: 23,
+              size: 18,
               fontWeight: FontWeight.w600,
               textAlign: TextAlign.center,
             ),
