@@ -24,18 +24,18 @@ class DataPicker {
 
   static Future show<T>(BuildContext context,
       {bool showTitleActions: true,
-        required List<T> datas,
-        int selectedIndex: 0,
-        List<int>? selectedIndexes,
-        DataChangedCallback? onChanged,
-        DataChangedCallback? onConfirm,
-        DataChangedCallbackMore<T>? onConfirmMore,
-        DataChangedCallback2? onConfirm2,
-        String suffix: '',
-        bool? multipleChoice,
-        String? title,
-        String? locale,
-        bool bottomSheet: true}) {
+      required List<T> datas,
+      int selectedIndex: 0,
+      List<int>? selectedIndexes,
+      DataChangedCallback? onChanged,
+      DataChangedCallback? onConfirm,
+      DataChangedCallbackMore<T>? onConfirmMore,
+      DataChangedCallback2? onConfirm2,
+      String suffix: '',
+      bool? multipleChoice,
+      String? title,
+      String? locale,
+      bool bottomSheet: true}) {
     locale = locale ?? defaultDataPickerLocale;
     return showDataPicker(context,
         showTitleActions: showTitleActions,
@@ -56,18 +56,18 @@ class DataPicker {
   @Deprecated('用show代替showDataPicker')
   static Future showDataPicker<T>(BuildContext context,
       {bool showTitleActions: true,
-        required List<T> datas,
-        int selectedIndex: 0,
-        List<int>? selectedIndexes,
-        DataChangedCallback? onChanged,
-        DataChangedCallback? onConfirm,
-        DataChangedCallbackMore<T>? onConfirmMore,
-        DataChangedCallback2? onConfirm2,
-        String suffix: '',
-        bool? multipleChoice,
-        String? title,
-        String? locale,
-        bool bottomSheet: true}) {
+      required List<T> datas,
+      int selectedIndex: 0,
+      List<int>? selectedIndexes,
+      DataChangedCallback? onChanged,
+      DataChangedCallback? onConfirm,
+      DataChangedCallbackMore<T>? onConfirmMore,
+      DataChangedCallback2? onConfirm2,
+      String suffix: '',
+      bool? multipleChoice,
+      String? title,
+      String? locale,
+      bool bottomSheet: true}) {
     locale = locale ?? defaultDataPickerLocale;
     if (true == bottomSheet) {
       return showModalBottomSheet(
@@ -106,9 +106,7 @@ class DataPicker {
             title: title ?? '',
             theme: Theme.of(context /*, shadowThemeOnly: true*/),
             barrierLabel:
-            MaterialLocalizations
-                .of(context)
-                .modalBarrierDismissLabel,
+                MaterialLocalizations.of(context).modalBarrierDismissLabel,
           ));
     }
   }
@@ -221,7 +219,7 @@ class _DataPickerState extends State<_DataPickerComponent> {
       this._initialIndex = 0;
     }
     dataScrollCtrl =
-    new FixedExtentScrollController(initialItem: _initialIndex ?? 0);
+        new FixedExtentScrollController(initialItem: _initialIndex ?? 0);
   }
 
   @override
@@ -296,14 +294,14 @@ class _DataPickerState extends State<_DataPickerComponent> {
                   children: <Widget>[
                     new Expanded(
                         child: Text(
-                          '${widget.datas![index]}$suffixAppend',
-                          style: TextStyle(
-                              color: Color(0xFF000046),
-                              fontSize: _kDataPickerFontSize),
-                          textAlign: TextAlign.center,
-                          softWrap: false,
-                          overflow: TextOverflow.fade,
-                        ))
+                      '${widget.datas![index]}$suffixAppend',
+                      style: TextStyle(
+                          color: Color(0xFF000046),
+                          fontSize: _kDataPickerFontSize),
+                      textAlign: TextAlign.center,
+                      softWrap: false,
+                      overflow: TextOverflow.fade,
+                    ))
                   ],
                 ),
               );
@@ -333,9 +331,7 @@ class _DataPickerState extends State<_DataPickerComponent> {
               child: Text(
                 '$cancel',
                 style: TextStyle(
-                  color: Theme
-                      .of(context)
-                      .unselectedWidgetColor,
+                  color: Theme.of(context).unselectedWidgetColor,
                   fontSize: 16.0,
                 ),
               ),
@@ -359,9 +355,7 @@ class _DataPickerState extends State<_DataPickerComponent> {
               child: Text(
                 '$done',
                 style: TextStyle(
-                  color: Theme
-                      .of(context)
-                      .primaryColor,
+                  color: Theme.of(context).primaryColor,
                   fontSize: 16.0,
                 ),
               ),
@@ -467,17 +461,18 @@ class BottomSheetSingleWidget<T> extends StatefulWidget {
   final bool? isEN;
   final bool? multipleChoice;
 
-  const BottomSheetSingleWidget({Key? key,
-    this.datas,
-    this.selectedIndex,
-    this.selectedIndexes,
-    this.title,
-    this.onChanged,
-    this.multipleChoice,
-    this.onConfirm,
-    this.onConfirmMore,
-    this.onConfirm2,
-    this.isEN})
+  const BottomSheetSingleWidget(
+      {Key? key,
+      this.datas,
+      this.selectedIndex,
+      this.selectedIndexes,
+      this.title,
+      this.onChanged,
+      this.multipleChoice,
+      this.onConfirm,
+      this.onConfirmMore,
+      this.onConfirm2,
+      this.isEN})
       : super(key: key);
 
   @override
@@ -512,182 +507,188 @@ class _BottomSheetSingleState<T> extends State<BottomSheetSingleWidget<T>> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              height: itemHeight,
-              child: Row(
-                children: [
-                  TextView(
-                    widget.isEN == true ? 'Cancel' : '取消',
-                    color: BaseColorUtils.colorBlackLite,
-                    radius: 10,
-                    size: 17,
-                    fontWeight: FontWeight.normal,
-                    padding:
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          height: itemHeight,
+          child: Row(
+            children: [
+              TextView(
+                widget.isEN == true ? 'Cancel' : '取消',
+                color: BaseColorUtils.colorBlackLite,
+                radius: 10,
+                size: 17,
+                fontWeight: FontWeight.normal,
+                padding:
                     EdgeInsets.only(left: 12, right: 12, bottom: 12, top: 12),
-                    margin: EdgeInsets.only(left: 8),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  Expanded(
-                      child: TextView(
-                        widget.title ??
-                            (widget.isEN == true
-                                ? 'SELECT'
-                                : '请选择${multipleChoice == true
-                                ? '(可多选)'
-                                : ''}'),
-                        maxLine: 2,
-                        textAlign: TextAlign.center,
-                        alignment: Alignment.center,
-                        color: BaseColorUtils.colorBlack,
-                        size: 17,
-                        fontWeight: FontWeight.w600,
-                        margin: EdgeInsets.only(left: 16, right: 16),
-                      )),
-                  TextView(
-                    widget.isEN == true ? 'Cancel' : '取消',
-                    color: BaseColorUtils.transparent,
-                    radius: 10,
-                    size: 17,
-                    fontWeight: FontWeight.normal,
-                    padding:
-                    EdgeInsets.only(left: 8, right: 8, bottom: 12, top: 12),
-                    margin: EdgeInsets.only(right: 12),
-                  )
-                  // TextView(
-                  //   widget.isEN == true ? 'Confirm' : '确定',
-                  //   radius: 10,
-                  //   color: BaseColorUtils.colorAccent,
-                  //   size: 15,
-                  //   fontWeight: FontWeight.w600,
-                  //   padding:
-                  //   EdgeInsets.only(left: 17, right: 17, bottom: 12, top: 12),
-                  //   margin: EdgeInsets.only(right: 6),
-                  //   onTap: () {
-                  //     widget.onConfirm?.call(widget.datas?[selectedIndexes[0]]);
-                  //     widget.onConfirm2?.call(
-                  //         selectedIndexes[0],
-                  //         widget.datas?[selectedIndexes[0]]);
-                  //     List<T> d = [];
-                  //     List<int> indexes = [];
-                  //     for (int i = 0; i < (widget.datas ?? []).length; i++) {
-                  //       if (selectedIndexes.contains(i)) {
-                  //         d.add(widget.datas![i]);
-                  //         indexes.add(i);
-                  //       }
-                  //     }
-                  //     widget.onConfirmMore?.call(indexes, d);
-                  //     Navigator.pop(context);
-                  //   },
-                  // ),
-                ],
+                margin: EdgeInsets.only(left: 8),
+                onTap: () {
+                  Navigator.pop(context);
+                },
               ),
-            ),
-            Container(
-              height: getVH(),
-              child: Column(children: [
-                Expanded(child: Scrollbar(
-                  isAlwaysShown: true,
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) {
-                      return Divider(
-                        color: Color(0xffEBEBEB), height: .5,);
-                    },
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        contentPadding: EdgeInsets.only(left: 15, right: 15),
-                        selected: selectedIndexes.contains(index),
-                        title: TextView(
-                          widget.datas?[index]?.toString() ?? '',
-                          size: 15,
-                          color: selectedIndexes.contains(index)
-                              ? BaseColorUtils.colorBlack
-                              : BaseColorUtils.colorBlack,
-                          fontWeight: selectedIndexes.contains(index)
-                              ? FontWeight.w600
-                              : FontWeight.w600,
-                        ),
-                        trailing: selectedIndexes.contains(index)
-                            ?
-                        Icon(Icons.radio_button_checked,
-                          color: BaseColorUtils.colorAccent, size: 18,)
-                        /*ImageView(
+              Expanded(
+                  child: TextView(
+                widget.title ??
+                    (widget.isEN == true
+                        ? 'SELECT'
+                        : '请选择${multipleChoice == true ? '(可多选)' : ''}'),
+                maxLine: 2,
+                textAlign: TextAlign.center,
+                alignment: Alignment.center,
+                color: BaseColorUtils.colorBlack,
+                size: 17,
+                fontWeight: FontWeight.w600,
+                margin: EdgeInsets.only(left: 16, right: 16),
+              )),
+              TextView(
+                widget.isEN == true ? 'Cancel' : '取消',
+                color: BaseColorUtils.transparent,
+                radius: 10,
+                size: 17,
+                fontWeight: FontWeight.normal,
+                padding:
+                    EdgeInsets.only(left: 8, right: 8, bottom: 12, top: 12),
+                margin: EdgeInsets.only(right: 12),
+              )
+              // TextView(
+              //   widget.isEN == true ? 'Confirm' : '确定',
+              //   radius: 10,
+              //   color: BaseColorUtils.colorAccent,
+              //   size: 15,
+              //   fontWeight: FontWeight.w600,
+              //   padding:
+              //   EdgeInsets.only(left: 17, right: 17, bottom: 12, top: 12),
+              //   margin: EdgeInsets.only(right: 6),
+              //   onTap: () {
+              //     widget.onConfirm?.call(widget.datas?[selectedIndexes[0]]);
+              //     widget.onConfirm2?.call(
+              //         selectedIndexes[0],
+              //         widget.datas?[selectedIndexes[0]]);
+              //     List<T> d = [];
+              //     List<int> indexes = [];
+              //     for (int i = 0; i < (widget.datas ?? []).length; i++) {
+              //       if (selectedIndexes.contains(i)) {
+              //         d.add(widget.datas![i]);
+              //         indexes.add(i);
+              //       }
+              //     }
+              //     widget.onConfirmMore?.call(indexes, d);
+              //     Navigator.pop(context);
+              //   },
+              // ),
+            ],
+          ),
+        ),
+        Container(
+          height: getVH(),
+          child: Column(
+            children: [
+              Expanded(
+                  child: Scrollbar(
+                isAlwaysShown: true,
+                child: ListView.separated(
+                  separatorBuilder: (context, index) {
+                    return Divider(
+                      color: Color(0xffEBEBEB),
+                      height: .5,
+                    );
+                  },
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      contentPadding: EdgeInsets.only(left: 15, right: 15),
+                      selected: selectedIndexes.contains(index),
+                      title: TextView(
+                        widget.datas?[index]?.toString() ?? '',
+                        size: 15,
+                        color: selectedIndexes.contains(index)
+                            ? BaseColorUtils.colorBlack
+                            : BaseColorUtils.colorBlack,
+                        fontWeight: selectedIndexes.contains(index)
+                            ? FontWeight.w600
+                            : FontWeight.w600,
+                      ),
+                      trailing: selectedIndexes.contains(index)
+                          ? Icon(
+                              Icons.radio_button_checked,
+                              color: BaseColorUtils.colorAccent,
+                              size: 18,
+                            )
+                          /*ImageView(
                       height: 17,
                       width: 17,
                       src: 'packages/kayo_package/assets/base_ic_checked.png',
                       // src: 'assets/ic_moren.png',
                     )*/
-                            : Container(
-                          height: 17,
-                          width: 17,
-                        ),
-                        onTap: () {
-                          setState(() {
-                            if (multipleChoice == true) {
-                              selectedIndexes.contains(index)
-                                  ? selectedIndexes.remove(index)
-                                  : selectedIndexes.add(index);
-                            } else {
-                              selectedIndexes.clear();
-                              selectedIndexes.add(index);
-                            }
-                            // selectedIndex = index;
-                            widget.onChanged?.call(widget.datas?[index]);
-                          });
-                        },
-                      );
-                    },
-                    // itemExtent: itemHeight,
-                    itemCount: (widget.datas?.length ?? 0),
-                  ),)),
-                TextView(
-                  widget.isEN == true ? 'Confirm' : '确定',
-                  radius: 4,
-                  bgColor: BaseColorUtils.colorAccent,
-                  color: BaseColorUtils.colorWhite,
-                  size: 17,
-                  fontWeight: FontWeight.w600,
-                  width: double.infinity,
-                  textAlign: TextAlign.center,
-                  alignment: Alignment.center,
-                  height: 45,
-                  padding:
-                  EdgeInsets.only(left: 17, right: 17, bottom: 0, top: 0),
-                  margin: EdgeInsets.only(
-                      left: 20, right: 20, bottom: 5, top: 5),
-                  onTap: () {
-                    widget.onConfirm?.call(widget.datas?[selectedIndexes[0]]);
-                    widget.onConfirm2?.call(
-                        selectedIndexes[0],
-                        widget.datas?[selectedIndexes[0]]);
-                    List<T> d = [];
-                    List<int> indexes = [];
-                    for (int i = 0; i < (widget.datas ?? []).length; i++) {
-                      if (selectedIndexes.contains(i)) {
-                        d.add(widget.datas![i]);
-                        indexes.add(i);
-                      }
-                    }
-                    widget.onConfirmMore?.call(indexes, d);
-                    Navigator.pop(context);
+                          : Container(
+                              height: 17,
+                              width: 17,
+                            ),
+                      onTap: () {
+                        setState(() {
+                          if (multipleChoice == true) {
+                            selectedIndexes.contains(index)
+                                ? selectedIndexes.remove(index)
+                                : selectedIndexes.add(index);
+                          } else {
+                            selectedIndexes.clear();
+                            selectedIndexes.add(index);
+                          }
+                          // selectedIndex = index;
+                          widget.onChanged?.call(widget.datas?[index]);
+                        });
+                      },
+                    );
                   },
-                )
-              ],),
-            )
-          ],
-        ));
+                  // itemExtent: itemHeight,
+                  itemCount: (widget.datas?.length ?? 0),
+                ),
+              )),
+              TextView(
+                widget.isEN == true ? 'Confirm' : '确定',
+                radius: 4,
+                bgColor: BaseColorUtils.colorAccent,
+                color: BaseColorUtils.colorWhite,
+                size: 17,
+                fontWeight: FontWeight.w600,
+                width: double.infinity,
+                textAlign: TextAlign.center,
+                alignment: Alignment.center,
+                height: 45,
+                padding:
+                    EdgeInsets.only(left: 17, right: 17, bottom: 0, top: 0),
+                margin: EdgeInsets.only(left: 20, right: 20, bottom: 5, top: 5),
+                onTap: () {
+                  widget.onConfirm?.call(widget.datas?[selectedIndexes[0]]);
+                  widget.onConfirm2?.call(
+                      selectedIndexes[0], widget.datas?[selectedIndexes[0]]);
+                  List<T> d = [];
+                  List<int> indexes = [];
+                  for (int i = 0; i < (widget.datas ?? []).length; i++) {
+                    if (selectedIndexes.contains(i)) {
+                      d.add(widget.datas![i]);
+                      indexes.add(i);
+                    }
+                  }
+                  widget.onConfirmMore?.call(indexes, d);
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          ),
+        )
+      ],
+    ));
   }
 
   double getVH() {
-    double h = MediaQuery
-        .of(context)
-        .size
-        .height;
+    double h = MediaQuery.of(context).size.height;
+
+    double b = MediaQuery.of(context).padding.bottom;
+    if (b < 1) {
+      b = 40;
+    }
     if (h > 600) {
-      if (viewHeight > 300) viewHeight = h / 2 - 30;
+      if (viewHeight > 300) viewHeight = h / 2 - b;
     } else {
       if (viewHeight > 300) viewHeight = 300;
     }

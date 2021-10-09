@@ -7,7 +7,9 @@ import 'keyboard_tools.dart';
 class KeyboardNumber extends StatefulWidget {
   static double getHeight(BuildContext ctx) {
     MediaQueryData mediaQuery = MediaQuery.of(ctx);
-    return 48.0 + 8 + 8 + 4 * 48; //mediaQuery.size.width / 3 / 2 * 5 + 20;
+    return 50 * 4.0 +
+        5 * 3 +
+        mediaQuery.padding.bottom; //mediaQuery.size.width / 3 / 2 * 5 + 20;
   }
 
   final KeyboardController? controller;
@@ -39,9 +41,9 @@ class KeyboardNumberState extends State<KeyboardNumber> {
     MediaQueryData mediaQuery = MediaQuery.of(context);
     return SafeArea(
         top: false,
-        bottom: false,
+        bottom: true,
         child: Material(
-          color: BaseColorUtils.transparent,
+          color: BaseColorUtils.colorWindow,
           child: DefaultTextStyle(
               style: TextStyle(
                   fontWeight: FontWeight.w500,
@@ -51,39 +53,94 @@ class KeyboardNumberState extends State<KeyboardNumber> {
                 child: Stack(
                   children: <Widget>[
                     Container(
-                      margin: EdgeInsets.only(top: 48),
-                      padding:
-                          EdgeInsets.only(left: 4, top: 4, right: 4, bottom: 4),
+                      margin: EdgeInsets.only(top: 0),
+                      // padding: EdgeInsets.only(left: 4, top: 4, right: 4, bottom: 4),
 //            height: KayoKeyboard.getHeight(context),
                       width: mediaQuery.size.width,
-                      decoration: BoxDecoration(
-                          color: BaseColorUtils.white,
-                          boxShadow: <BoxShadow>[
-                            BoxShadow(
-                                color: BaseColorUtils.cardShadow,
-                                blurRadius: 2.0,
-                                spreadRadius: 2.0,
-                                offset: Offset(0, 0)),
-                          ]),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        mainAxisSize: MainAxisSize.min,
-                        children: abc(),
+                      // decoration: BoxDecoration(
+                      //     // color: BaseColorUtils.colorWindow,
+                      //     boxShadow: <BoxShadow>[
+                      //       BoxShadow(
+                      //           color: BaseColorUtils.cardShadow,
+                      //           blurRadius: 2.0,
+                      //           spreadRadius: 2.0,
+                      //           offset: Offset(0, 0)),
+                      //     ]),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              flex: 3,
+                              child: Column(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                mainAxisSize: MainAxisSize.min,
+                                children: abc(),
+                              )),
+                          SizedBox(width: 5,),
+                          Expanded(
+                              flex: 1,
+                              child: Column(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Clickable(
+                                    bgColor: BaseColorUtils.white,
+                                    radius: 2,
+                                    elevation: 0,
+                                    highlightColor: BaseColorUtils.colorGrey
+                                        .withOpacity(.1),
+                                    shadowColor: BaseColorUtils.colorGrey
+                                        .withOpacity(.3),
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: 105,
+                                      child: Icon(Icons.backspace_outlined,
+                                        color: BaseColorUtils.colorBlack,),
+                                    ),
+                                    onTap: () {
+                                      widget.controller?.deleteOne();
+                                    },
+                                  ),
+                                  SizedBox(height: 5,),
+                                  Clickable(
+                                    bgColor: BaseColorUtils.colorAccent,
+                                    radius: 2,
+                                    elevation: 0,
+                                    highlightColor: BaseColorUtils.colorGrey
+                                        .withOpacity(.1),
+                                    shadowColor: BaseColorUtils.colorGrey
+                                        .withOpacity(.3),
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: 105,
+                                      child: TextView(
+                                        '完成', color: BaseColorUtils.colorWhite,
+                                        size: 17,
+                                        fontWeight: FontWeight.bold,),
+                                    ),
+                                    onTap: () {
+                                      widget.controller?.doneAction();
+                                    },
+                                  ),
+                                ],
+                              ))
+                        ],
                       ),
                     ),
-                    Positioned(
-                        top: 0,
-                        right: 8,
-                        child: FloatingActionButton(
-                            mini: true,
-                            backgroundColor: BaseColorUtils.white,
-                            child: Icon(
-                              Icons.keyboard_hide,
-                              color: BaseColorUtils.colorGrey,
-                            ),
-                            onPressed: () {
-                              widget.controller?.doneAction();
-                            }))
+                    // Positioned(
+                    //     top: 0,
+                    //     right: 8,
+                    //     child: FloatingActionButton(
+                    //         mini: true,
+                    //         backgroundColor: BaseColorUtils.white,
+                    //         child: Icon(
+                    //           Icons.keyboard_hide,
+                    //           color: BaseColorUtils.colorGrey,
+                    //         ),
+                    //         onPressed: () {
+                    //           widget.controller?.doneAction();
+                    //         }))
                   ],
                 ),
               )),
@@ -97,18 +154,36 @@ class KeyboardNumberState extends State<KeyboardNumber> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           buildButton('1'),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('2'),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('3'),
         ],
+      ),
+      SizedBox(
+        height: 5,
       ),
       Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           buildButton('4'),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('5'),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('6'),
         ],
+      ),
+      SizedBox(
+        height: 5,
       ),
       Container(
         child: Row(
@@ -116,41 +191,37 @@ class KeyboardNumberState extends State<KeyboardNumber> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             buildButton('7'),
+            SizedBox(
+              width: 5,
+            ),
             buildButton('8'),
+            SizedBox(
+              width: 5,
+            ),
             buildButton('9'),
           ],
         ),
+      ),
+      SizedBox(
+        height: 5,
       ),
       Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
+          buildButton('0', flex: 2),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('.'),
-          buildButton('0'),
-          Expanded(
-              child: Clickable(
-            bgColor: BaseColorUtils.colorGreyLiteLite,
-            radius: 6,
-            elevation: 5,
-            highlightColor: BaseColorUtils.colorGrey.withOpacity(.1),
-            shadowColor: BaseColorUtils.colorGrey.withOpacity(.3),
-            margin: EdgeInsets.only(left: 2, top: 4, right: 2, bottom: 4),
-//            padding: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
-            child: Container(
-              alignment: Alignment.center,
-              height: 40,
-              child: Icon(Icons.backspace),
-            ),
-            onTap: () {
-              widget.controller?.deleteOne();
-            },
-          ))
+
         ],
       ),
     ];
   }
 
-  Widget buildButton(String title, {String? value, int flex = 1}) {
+  Widget buildButton(String title,
+      {String? value, int flex = 1, double height = 50}) {
     if (value == null) {
       value = title;
     }
@@ -158,17 +229,17 @@ class KeyboardNumberState extends State<KeyboardNumber> {
     return Expanded(
         flex: flex,
         child: Clickable(
-          bgColor: BaseColorUtils.white,
-          radius: 6,
-          elevation: 5,
-          margin: EdgeInsets.only(left: 2, top: 4, right: 2, bottom: 4),
+          bgColor: BaseColorUtils.colorWhite,
+          radius: 2,
+          elevation: 0,
+          margin: EdgeInsets.only(left: 0, top: 0, right: 0, bottom: 0),
           child: Container(
             alignment: Alignment.center,
-            height: 40,
+            height: height,
             child: TextView(
               title,
-              size: 23,
-              fontWeight: FontWeight.w600,
+              size: 24,
+              fontWeight: FontWeight.w500,
               textAlign: TextAlign.center,
             ),
           ),

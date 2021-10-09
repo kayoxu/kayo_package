@@ -34,7 +34,7 @@ class KeyboardMediaQueryState extends State<KeyboardMediaQuery >{
         child: widget.child,
         data:data.copyWith(
           viewInsets: data.viewInsets.copyWith(
-            bottom: bottom
+            // bottom: bottom
           )
         )
     );

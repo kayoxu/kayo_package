@@ -41,7 +41,7 @@ class KeyboardPhoneState extends State<KeyboardPhone> {
     MediaQueryData mediaQuery = MediaQuery.of(context);
     return SafeArea(
         top: false,
-        bottom: false,
+        bottom: true,
         child: Material(
           color: BaseColorUtils.transparent,
           child: DefaultTextStyle(
