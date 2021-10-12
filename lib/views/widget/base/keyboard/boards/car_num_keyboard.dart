@@ -12,7 +12,8 @@ class KeyboardCarNum extends StatefulWidget {
     MediaQueryData mediaQuery = MediaQuery.of(ctx);
     return 5 * 3 +
         4 * 35 +
-        48 + 10 +
+        48 +
+        10 +
         mediaQuery.padding.bottom; //mediaQuery.size.width / 3 / 2 * 5 + 20;
   }
 
@@ -34,12 +35,25 @@ class KeyboardCarNum extends StatefulWidget {
   }
 }
 
-bool _showABC = true;
+bool _showABC = false;
 
 class KeyboardCarNumState extends State<KeyboardCarNum> {
   change(bool showAbc) {
     setState(() {
       _showABC = showAbc;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    widget.controller?.addListener(() {
+      var length = widget.controller?.text.length ?? 0;
+      if (length == 0) {
+        change(false);
+      } else if (length == 1) {
+        change(true);
+      }
     });
   }
 
@@ -68,7 +82,7 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
                     Container(
                       margin: EdgeInsets.only(top: 48),
                       padding:
-                      EdgeInsets.only(left: 5, top: 5, right: 5, bottom: 5),
+                          EdgeInsets.only(left: 5, top: 5, right: 5, bottom: 5),
 //            height: KayoKeyboard.getHeight(context),
                       width: mediaQuery.size.width,
                       // color: BaseColorUtils.colorWindow,
@@ -98,34 +112,32 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
                             children: [
                               Expanded(
                                   child: TextView(
-                                    widget.controller?.text
-                                        .defaultStr(data: '请输入车牌号码'),
-                                    height: 38,
-                                    margin: EdgeInsets.only(right: 12),
-                                    borderColor: Colors.black12,
-                                    radius: 6,
-                                    size: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color:
+                                widget.controller?.text
+                                    .defaultStr(data: '请输入车牌号码'),
+                                height: 38,
+                                margin: EdgeInsets.only(right: 12),
+                                borderColor: Colors.black12,
+                                radius: 6,
+                                size: 16,
+                                fontWeight: FontWeight.bold,
+                                color:
                                     BaseSysUtils.empty(widget.controller?.text)
                                         ? BaseColorUtils.colorBlackLiteLite
                                         : BaseColorUtils.colorBlackLite,
-                                    padding: EdgeInsets.only(
-                                        left: 16, right: 16),
-                                    border: true,
-                                    textAlign: TextAlign.left,
-                                    alignment: Alignment.centerLeft,
-                                  )),
+                                padding: EdgeInsets.only(left: 16, right: 16),
+                                border: true,
+                                textAlign: TextAlign.left,
+                                alignment: Alignment.centerLeft,
+                              )),
                               TextView('完成',
                                   color: BaseColorUtils.colorAccent,
                                   fontWeight: FontWeight.bold,
-                                  padding: EdgeInsets.only(left: 12,
-                                      right: 12),
+                                  padding: EdgeInsets.only(left: 12, right: 12),
                                   onTap: () {
-                                    setState(() {
-                                      widget.controller?.doneAction();
-                                    });
-                                  })
+                                setState(() {
+                                  widget.controller?.doneAction();
+                                });
+                              })
                             ],
                           ),
                         )),
@@ -142,51 +154,139 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           buildButton('京'),
-          SizedBox(width: 5,),
-          buildButton('津'), SizedBox(width: 5,),
-          buildButton('渝'), SizedBox(width: 5,),
-          buildButton('沪'), SizedBox(width: 5,),
-          buildButton('冀'), SizedBox(width: 5,),
-          buildButton('晋'), SizedBox(width: 5,),
-          buildButton('辽'), SizedBox(width: 5,),
-          buildButton('吉'), SizedBox(width: 5,),
-          buildButton('黑'), SizedBox(width: 5,),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('津'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('渝'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('沪'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('冀'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('晋'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('辽'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('吉'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('黑'),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('苏'),
         ],
       ),
-      SizedBox(height: 5,),
+      SizedBox(
+        height: 5,
+      ),
       Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          buildButton('浙'), SizedBox(width: 5,),
-          buildButton('皖'), SizedBox(width: 5,),
-          buildButton('闽'), SizedBox(width: 5,),
-          buildButton('赣'), SizedBox(width: 5,),
-          buildButton('鲁'), SizedBox(width: 5,),
-          buildButton('豫'), SizedBox(width: 5,),
-          buildButton('鄂'), SizedBox(width: 5,),
-          buildButton('湘'), SizedBox(width: 5,),
-          buildButton('粤'), SizedBox(width: 5,),
+          buildButton('浙'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('皖'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('闽'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('赣'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('鲁'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('豫'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('鄂'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('湘'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('粤'),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('琼'),
         ],
-      ), SizedBox(height: 5,),
+      ),
+      SizedBox(
+        height: 5,
+      ),
       Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          buildButton('川'), SizedBox(width: 5,),
-          buildButton('贵'), SizedBox(width: 5,),
-          buildButton('云'), SizedBox(width: 5,),
-          buildButton('陕'), SizedBox(width: 5,),
-          buildButton('甘'), SizedBox(width: 5,),
-          buildButton('青'), SizedBox(width: 5,),
-          buildButton('蒙'), SizedBox(width: 5,),
-          buildButton('桂'), SizedBox(width: 5,),
-          buildButton('宁'), SizedBox(width: 5,),
+          buildButton('川'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('贵'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('云'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('陕'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('甘'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('青'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('蒙'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('桂'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('宁'),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('新'),
         ],
-      ), SizedBox(height: 5,),
+      ),
+      SizedBox(
+        height: 5,
+      ),
       Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -214,14 +314,38 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
                   ),
                   onTap: () {
                     change(true);
-                  })), SizedBox(width: 5,),
-          buildButton('藏', flex: 2), SizedBox(width: 5,),
-          buildButton('使', flex: 2), SizedBox(width: 5,),
-          buildButton('领', flex: 2), SizedBox(width: 5,),
-          buildButton('警', flex: 2), SizedBox(width: 5,),
-          buildButton('学', flex: 2), SizedBox(width: 5,),
-          buildButton('港', flex: 2), SizedBox(width: 5,),
-          buildButton('澳', flex: 2), SizedBox(width: 5,),
+                  })),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('藏', flex: 2),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('使', flex: 2),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('领', flex: 2),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('警', flex: 2),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('学', flex: 2),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('港', flex: 2),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('澳', flex: 2),
+          SizedBox(
+            width: 5,
+          ),
           Expanded(
               flex: 3,
               child: Clickable(
@@ -235,8 +359,10 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
                 child: Container(
                   alignment: Alignment.center,
                   height: 35,
-                  child: Icon(Icons.backspace_outlined,
-                    color: BaseColorUtils.colorWhite,),
+                  child: Icon(
+                    Icons.backspace_outlined,
+                    color: BaseColorUtils.colorWhite,
+                  ),
                 ),
                 onTap: () {
                   setState(() {
@@ -255,52 +381,139 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          buildButton('1'), SizedBox(width: 5,),
-          buildButton('2'), SizedBox(width: 5,),
-          buildButton('3'), SizedBox(width: 5,),
-          buildButton('4'), SizedBox(width: 5,),
-          buildButton('5'), SizedBox(width: 5,),
-          buildButton('6'), SizedBox(width: 5,),
-          buildButton('7'), SizedBox(width: 5,),
-          buildButton('8'), SizedBox(width: 5,),
-          buildButton('9'), SizedBox(width: 5,),
+          buildButton('1'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('2'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('3'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('4'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('5'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('6'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('7'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('8'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('9'),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('0'),
         ],
-      ), SizedBox(height: 5,),
+      ),
+      SizedBox(
+        height: 5,
+      ),
       Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          buildButton('Q'), SizedBox(width: 5,),
-          buildButton('W'), SizedBox(width: 5,),
-          buildButton('E'), SizedBox(width: 5,),
-          buildButton('R'), SizedBox(width: 5,),
-          buildButton('T'), SizedBox(width: 5,),
-          buildButton('Y'), SizedBox(width: 5,),
-          buildButton('U'), SizedBox(width: 5,),
-          buildButton('I',noValue: true), SizedBox(width: 5,),
-          buildButton('O',noValue: true), SizedBox(width: 5,),
+          buildButton('Q'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('W'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('E'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('R'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('T'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('Y'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('U'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('I', noValue: true),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('O', noValue: true),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('P'),
         ],
-      ), SizedBox(height: 5,),
+      ),
+      SizedBox(
+        height: 5,
+      ),
       Container(
         margin: EdgeInsets.only(left: 18, right: 18),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            buildButton('A'), SizedBox(width: 5,),
-            buildButton('S'), SizedBox(width: 5,),
-            buildButton('D'), SizedBox(width: 5,),
-            buildButton('F'), SizedBox(width: 5,),
-            buildButton('G'), SizedBox(width: 5,),
-            buildButton('H'), SizedBox(width: 5,),
-            buildButton('J'), SizedBox(width: 5,),
-            buildButton('K'), SizedBox(width: 5,),
+            buildButton('A'),
+            SizedBox(
+              width: 5,
+            ),
+            buildButton('S'),
+            SizedBox(
+              width: 5,
+            ),
+            buildButton('D'),
+            SizedBox(
+              width: 5,
+            ),
+            buildButton('F'),
+            SizedBox(
+              width: 5,
+            ),
+            buildButton('G'),
+            SizedBox(
+              width: 5,
+            ),
+            buildButton('H'),
+            SizedBox(
+              width: 5,
+            ),
+            buildButton('J'),
+            SizedBox(
+              width: 5,
+            ),
+            buildButton('K'),
+            SizedBox(
+              width: 5,
+            ),
             buildButton('L'),
           ],
         ),
-      ), SizedBox(height: 5,),
+      ),
+      SizedBox(
+        height: 5,
+      ),
       Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -327,14 +540,38 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
                   ),
                   onTap: () {
                     change(false);
-                  })), SizedBox(width: 5,),
-          buildButton('Z', flex: 2), SizedBox(width: 5,),
-          buildButton('X', flex: 2), SizedBox(width: 5,),
-          buildButton('C', flex: 2), SizedBox(width: 5,),
-          buildButton('V', flex: 2), SizedBox(width: 5,),
-          buildButton('B', flex: 2), SizedBox(width: 5,),
-          buildButton('N', flex: 2), SizedBox(width: 5,),
-          buildButton('M', flex: 2), SizedBox(width: 5,),
+                  })),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('Z', flex: 2),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('X', flex: 2),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('C', flex: 2),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('V', flex: 2),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('B', flex: 2),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('N', flex: 2),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('M', flex: 2),
+          SizedBox(
+            width: 5,
+          ),
           Expanded(
               flex: 3,
               child: Clickable(
@@ -348,7 +585,10 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
                 child: Container(
                   alignment: Alignment.center,
                   height: 35,
-                  child: Icon(Icons.backspace_outlined, color: Colors.white,),
+                  child: Icon(
+                    Icons.backspace_outlined,
+                    color: Colors.white,
+                  ),
                 ),
                 onTap: () {
                   setState(() {
@@ -384,12 +624,14 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
               textAlign: TextAlign.center,
             ),
           ),
-          onTap: noValue == true ? null : () {
-            badKeyboard = false;
-            setState(() {
-              widget.controller?.addText(value!);
-            });
-          },
+          onTap: noValue == true
+              ? null
+              : () {
+                  badKeyboard = false;
+                  setState(() {
+                    widget.controller?.addText(value!);
+                  });
+                },
         ));
   }
 }
