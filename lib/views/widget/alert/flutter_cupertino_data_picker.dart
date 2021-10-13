@@ -685,10 +685,10 @@ class _BottomSheetSingleState<T> extends State<BottomSheetSingleWidget<T>> {
 
     double b = MediaQuery.of(context).padding.bottom;
     if (b < 1) {
-      b = 50;
+      b = 40;
     }
     if (h > 600) {
-      if (viewHeight > 300) viewHeight = h / 2 - b - 50;
+      if (viewHeight > 300) viewHeight = h / 2 - b - 40;
     } else {
       if (viewHeight > 300) viewHeight = 300;
     }
