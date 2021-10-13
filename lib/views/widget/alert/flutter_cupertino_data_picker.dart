@@ -688,7 +688,7 @@ class _BottomSheetSingleState<T> extends State<BottomSheetSingleWidget<T>> {
       b = 40;
     }
     if (h > 600) {
-      if (viewHeight > 300) viewHeight = h / 2 - b;
+      if (viewHeight > 300) viewHeight = h / 2 - b - 50;
     } else {
       if (viewHeight > 300) viewHeight = 300;
     }
