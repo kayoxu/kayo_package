@@ -7,3 +7,4 @@ export 'platform_utils.dart';
 export 'loading_utils.dart';
 export 'base_intent_utils.dart';
 export 'notification/_index_notification.dart';
+export 'isolate_utils.dart';
