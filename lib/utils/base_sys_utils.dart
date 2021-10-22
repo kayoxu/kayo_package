@@ -28,6 +28,10 @@ class BaseSysUtils {
         return false;
       } else if (obj is File) {
         return false;
+      } else if (obj is num) {
+        return false;
+      } else if (obj is bool) {
+        return false;
       } else {
         return true;
       }
