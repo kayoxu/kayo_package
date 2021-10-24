@@ -166,13 +166,17 @@ class TabBarWidgetState extends State<TabBarWidget>
                   color: Color(
                       widget.darkStatusText == true ? 0xff50525c : 0xffffffff),
                   onPressed: widget.backClick ??
-                      () async {
-                        if (Navigator.canPop(context)) {
-                          return Navigator.of(context).pop();
-                        } else {
-                          return await SystemNavigator.pop();
-                        }
-                      }, // null disables the button
+                      (null != KayoPackage.share.onTapToolbarBack
+                          ? () {
+                              KayoPackage.share.onTapToolbarBack?.call(context);
+                            }
+                          : () async {
+                              if (Navigator.canPop(context)) {
+                                return Navigator.of(context).pop();
+                              } else {
+                                return await SystemNavigator.pop();
+                              }
+                            }), // null disables the button
                 )
               : null,
           brightness: widget.darkStatusText == true
@@ -230,13 +234,18 @@ class TabBarWidgetState extends State<TabBarWidget>
                   iconSize: 22,
                   color: Color(
                       widget.darkStatusText == true ? 0xff50525c : 0xffffffff),
-                  onPressed: () async {
-                    if (Navigator.canPop(context)) {
-                      return Navigator.of(context).pop();
-                    } else {
-                      return await SystemNavigator.pop();
-                    }
-                  }, // null disables the button
+                  onPressed: widget.backClick ??
+                      (null != KayoPackage.share.onTapToolbarBack
+                          ? () {
+                        KayoPackage.share.onTapToolbarBack?.call(context);
+                      }
+                          : () async {
+                        if (Navigator.canPop(context)) {
+                          return Navigator.of(context).pop();
+                        } else {
+                          return await SystemNavigator.pop();
+                        }
+                      }), // null disables the button
                 )
               : null,
           brightness: widget.darkStatusText == true

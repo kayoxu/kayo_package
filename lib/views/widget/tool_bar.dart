@@ -131,15 +131,18 @@ class ToolBarState extends State<ToolBar> {
                             color: Color(widget.darkStatusText == true
                                 ? 0xff50525c
                                 : 0xffffffff),
-                            onPressed: null == widget.backClick
-                                ? () async {
-                                    if (Navigator.canPop(context)) {
-                                      return Navigator.of(context).pop();
-                                    } else {
-                                      return await SystemNavigator.pop();
-                                    }
+                            onPressed: widget.backClick ??
+                                (null != KayoPackage.share.onTapToolbarBack
+                                    ? () {
+                                  KayoPackage.share.onTapToolbarBack?.call(context);
+                                }
+                                    : () async {
+                                  if (Navigator.canPop(context)) {
+                                    return Navigator.of(context).pop();
+                                  } else {
+                                    return await SystemNavigator.pop();
                                   }
-                                : widget.backClick, // null disables the button
+                                }), // null disables the button
                           )
                         : null),
             brightness: widget.darkStatusText == true

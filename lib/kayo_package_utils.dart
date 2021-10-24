@@ -27,6 +27,7 @@ class KayoPackage {
   String loadingText = '加载中, 请稍等...';
   bool? ignoreSSL = false;
   Locale? locale = Locale('zh');
+  Function(BuildContext context)? onTapToolbarBack;
 
   init({
     String? nullText,
@@ -42,6 +43,7 @@ class KayoPackage {
     Color? colorAccent,
     Color? colorAccentLite,
     Color? colorAccentLiteLite,
+    Function(BuildContext context)? onTapToolbarBack,
   }) {
     this.locale = locale ?? this.locale;
     BaseColorUtils.colorPrimary = colorPrimary ?? BaseColorUtils.colorPrimary;
@@ -78,6 +80,8 @@ class KayoPackage {
         dateTimePickerLocale ?? DateTimePicker.defaultDateTimePickerLocale;
     DataPicker.defaultDataPickerLocale =
         dataPickerLocale ?? DataPicker.defaultDataPickerLocale;
+
+    this.onTapToolbarBack = onTapToolbarBack;
   }
 
   setBuddhist(bool buddhist) {

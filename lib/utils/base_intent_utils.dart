@@ -19,6 +19,8 @@ class BaseIntentUtils {
   isResultOk(var data) {
     if (data is String && BaseSysUtils.equals(data, RESULT_OK)) {
       return true;
+    } else if (data is Map && BaseSysUtils.equals(data['result'], RESULT_OK)) {
+      return true;
     }
     return false;
   }
@@ -28,16 +30,36 @@ class BaseIntentUtils {
   }
 
   ///base
-  finish(BuildContext context, {Object? data, bool finishAct = false}) {
+  pop(BuildContext context,
+      {dynamic data, Map<String, dynamic>? arguments, bool finishAct = false}) {
     if (Navigator.canPop(context) && !finishAct) {
-      return Navigator.of(context).pop(data);
+      return Navigator.of(context).pop(arguments ?? data);
     } else {
       return SystemNavigator.pop();
     }
   }
 
+  @Deprecated('用pop')
+  finish(BuildContext context,
+      {dynamic data, Map<String, dynamic>? arguments, bool finishAct = false}) {
+    return pop(context, data: data, arguments: arguments, finishAct: finishAct);
+  }
+
   /// 正常跳转
   Future? push(BuildContext context,
+      {String? routeName,
+      bool finish = false,
+      bool removeAll = false,
+      Map<String, dynamic>? data}) {
+    if (null != routeName) {
+      return _pushByName(context, routeName,
+          finish: finish, removeAll: removeAll, data: data);
+    }
+  }
+
+  /// 正常跳转
+  @Deprecated('不要用直接push widget')
+  Future? pushWidget(BuildContext context,
       {String? routeName,
       Widget? widget,
       bool finish = false,
@@ -53,21 +75,27 @@ class BaseIntentUtils {
   }
 
   Future _pushByName(BuildContext context, String routeName,
-      {bool finish = false, bool removeAll = false}) {
+      {bool finish = false,
+      bool removeAll = false,
+      Map<String, dynamic>? data}) {
     if (removeAll) {
-      return Navigator.of(context)
-          .pushNamedAndRemoveUntil(routeName, (route) => removeAll != true);
+      return Navigator.of(context).pushNamedAndRemoveUntil(
+          routeName, (route) => removeAll != true,
+          arguments: data);
     } else {
       if (finish) {
-        return Navigator.of(context).pushReplacementNamed(routeName);
+        return Navigator.of(context)
+            .pushReplacementNamed(routeName, arguments: data);
       } else {
-        return Navigator.of(context).pushNamed(routeName);
+        return Navigator.of(context).pushNamed(routeName, arguments: data);
       }
     }
   }
 
   Future _pushByWidget(BuildContext context, Widget widget,
-      {bool finish = false, bool removeAll = false}) {
+      {bool finish = false,
+      bool removeAll = false,
+      Map<String, dynamic>? data}) {
     if (removeAll) {
       return Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) {
