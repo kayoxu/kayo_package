@@ -60,7 +60,7 @@ class ToolBar extends StatefulWidget {
   final DrawerCallback? onEndDrawerChanged;
 
   ToolBar({
-    @required this.child,
+    required this.child,
     this.key,
     this.title = '',
     this.titelWidget,

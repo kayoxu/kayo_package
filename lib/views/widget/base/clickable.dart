@@ -43,7 +43,7 @@ class Clickable extends StatelessWidget {
 
   Clickable(
       {Key? key,
-      @required this.child,
+      required this.child,
       this.onTap,
       this.onDoubleTap,
       this.onLongPress,

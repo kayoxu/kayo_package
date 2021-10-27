@@ -83,15 +83,21 @@ extension BaseWidgetExtension on Widget? {
       Color? color,
       Decoration? decoration}) {
     if (null != this) {
-      return Container(
-        key: key,
-        padding: padding,
-        margin: margin,
-        alignment: alignment,
-        child: this,
-        color: null == decoration ? color : null,
-        decoration: decoration,
-      );
+      return null != padding ||
+              null != margin ||
+              null != alignment ||
+              null != color ||
+              null != decoration
+          ? Container(
+              key: key,
+              padding: padding,
+              margin: margin,
+              alignment: alignment,
+              child: this,
+              color: null == decoration ? color : null,
+              decoration: decoration,
+            )
+          : this!;
     }
     return SizedBox();
   }
