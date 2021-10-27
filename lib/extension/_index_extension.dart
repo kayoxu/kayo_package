@@ -1,5 +1,6 @@
 export 'package:kayo_package/extension/base_string_extension.dart';
 export 'package:kayo_package/extension/base_int_extension.dart';
+export 'package:kayo_package/extension/base_num_extension.dart';
 export 'package:kayo_package/extension/base_object_extension.dart';
 export 'package:kayo_package/extension/base_list_extension.dart';
 export 'package:kayo_package/extension/base_page_route_extension.dart';
