@@ -38,35 +38,39 @@ class Clickable extends StatelessWidget {
   final Color? selectColor;
   final bool? selected;
   final bool? materialBtn;
+  final double? height;
+  final double? width;
 
-  Clickable({
-    Key? key,
-    @required this.child,
-    this.onTap,
-    this.onDoubleTap,
-    this.onLongPress,
-    this.onTapDown,
-    this.onTapCancel,
-    this.onHighlightChanged,
-    this.highlightColor,
-    this.splashColor,
-    this.splashFactory,
-    this.radius = 0,
-    this.borderRadius,
-    this.customBorder,
-    this.enableFeedback = true,
-    this.excludeFromSemantics = false,
-    this.margin,
-    this.padding,
-    this.bgColor = BaseColorUtils.transparent,
-    this.elevation = 0,
-    this.shadowColor = BaseColorUtils.colorGreyLite,
-    this.decoration,
-    this.alignment,
-    this.selectColor,
-    this.selected,
-    this.materialBtn = true,
-  }) : super(
+  Clickable(
+      {Key? key,
+      @required this.child,
+      this.onTap,
+      this.onDoubleTap,
+      this.onLongPress,
+      this.onTapDown,
+      this.onTapCancel,
+      this.onHighlightChanged,
+      this.highlightColor,
+      this.splashColor,
+      this.splashFactory,
+      this.radius = 0,
+      this.borderRadius,
+      this.customBorder,
+      this.enableFeedback = true,
+      this.excludeFromSemantics = false,
+      this.margin,
+      this.padding,
+      this.bgColor = BaseColorUtils.transparent,
+      this.elevation = 0,
+      this.shadowColor = BaseColorUtils.colorGreyLite,
+      this.decoration,
+      this.alignment,
+      this.selectColor,
+      this.selected,
+      this.materialBtn = true,
+      this.height,
+      this.width})
+      : super(
           key: key,
         );
 
@@ -78,6 +82,8 @@ class Clickable extends StatelessWidget {
 
     return Container(
       decoration: decoration,
+      height: height,
+      width: width,
       margin: margin,
       alignment: alignment,
       child: (null == onTap &&
