@@ -298,6 +298,6 @@ class BaseTimeUtils {
     return ((date1.millisecondsSinceEpoch - date2.millisecondsSinceEpoch)
                 .abs() /
             (1000 * 60 * 60 * 24))
-        .floor();
+        .ceil();
   }
 }
