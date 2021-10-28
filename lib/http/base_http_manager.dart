@@ -289,7 +289,7 @@ abstract class BaseHttpManager {
       }
 
       //todo sbg
-      if (errorResponse?.statusCode == 401) {
+      if (errorResponse?.statusCode == KayoPackage.share.reLoginCode) {
         var msg = textLoginExpired();
         _onError(onError, msg);
         return BaseResultData(msg, 6).sendMsg();

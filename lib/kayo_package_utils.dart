@@ -27,6 +27,9 @@ class KayoPackage {
   String loadingText = '加载中, 请稍等...';
   bool? ignoreSSL = false;
   Locale? locale = Locale('zh');
+
+  int reLoginCode = 401;
+
   Function(BuildContext context)? onTapToolbarBack;
 
   init({
@@ -37,6 +40,7 @@ class KayoPackage {
     String? dataPickerLocale,
     Locale? locale,
     bool? ignoreSSL = false,
+    int? reLoginCode,
     Color? colorPrimary,
     Color? colorPrimaryLight,
     Color? colorPrimaryDark,
@@ -56,6 +60,7 @@ class KayoPackage {
         colorPrimary ?? BaseColorUtils.colorAccentLite;
     BaseColorUtils.colorAccentLiteLite =
         colorPrimary ?? BaseColorUtils.colorAccentLiteLite;
+    this.reLoginCode = reLoginCode ?? this.reLoginCode;
 
     this.ignoreSSL = ignoreSSL;
     if (null != locale) {
