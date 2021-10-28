@@ -200,7 +200,9 @@ abstract class BaseHttpManager {
         }
         if (autoHideDialog) LoadingUtils.dismiss();
       },
-      onError: (e) {},
+      onError: (e) {
+        onError?.call(e.toString());
+      },
     );
   }
 

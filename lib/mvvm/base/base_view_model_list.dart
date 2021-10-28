@@ -55,6 +55,7 @@ abstract class BaseViewModelList<T> extends BaseViewModel {
             if (null != onError) {
               onError(data);
             }
+            refreshController.refreshFailed();
             setIdle();
           });
     } catch (e, s) {
