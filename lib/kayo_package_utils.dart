@@ -31,6 +31,8 @@ class KayoPackage {
   int reLoginCode = 401;
 
   Function(BuildContext context)? onTapToolbarBack;
+  Function(BuildContext context,String page, Map<String, dynamic>? resultArgs,
+      dynamic resultData)? onNotifyPop;
 
   init({
     String? nullText,
@@ -48,6 +50,9 @@ class KayoPackage {
     Color? colorAccentLite,
     Color? colorAccentLiteLite,
     Function(BuildContext context)? onTapToolbarBack,
+    Function(BuildContext context,String page, Map<String, dynamic>? resultArgs,
+            dynamic resultData)?
+        onNotifyPop,
   }) {
     this.locale = locale ?? this.locale;
     BaseColorUtils.colorPrimary = colorPrimary ?? BaseColorUtils.colorPrimary;
@@ -87,6 +92,7 @@ class KayoPackage {
         dataPickerLocale ?? DataPicker.defaultDataPickerLocale;
 
     this.onTapToolbarBack = onTapToolbarBack;
+    this.onNotifyPop = onNotifyPop;
   }
 
   setBuddhist(bool buddhist) {

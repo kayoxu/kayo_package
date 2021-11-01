@@ -1,6 +1,7 @@
 import 'dart:core';
 import 'dart:io';
 
+import 'package:event_bus/event_bus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,26 +15,33 @@ import 'package:kayo_package/utils/page_route_builder.dart';
 ///  Copyright © 2019 kayoxu. All rights reserved.
 
 class BaseIntentUtils {
+  static final EventBus eventBus = new EventBus();
+
+  static fire(data) {
+    eventBus.fire(data);
+  }
+
   final String RESULT_OK = 'result_ok';
 
   isResultOk(var data) {
-    if (data is String && BaseSysUtils.equals(data, RESULT_OK)) {
+    if (data is Map && BaseSysUtils.equals(data['data'], RESULT_OK)) {
       return true;
-    } else if (data is Map && BaseSysUtils.equals(data['result'], RESULT_OK)) {
+    }
+    if (data is Map && BaseSysUtils.equals(data['result'], RESULT_OK)) {
       return true;
     }
     return false;
   }
 
   finishResultOk(BuildContext context, {bool finishAct = false}) {
-    finish(context, data: RESULT_OK, finishAct: finishAct);
+    finish(context, data: {'data': RESULT_OK}, finishAct: finishAct);
   }
 
   ///base
   pop(BuildContext context,
-      {dynamic data, Map<String, dynamic>? arguments, bool finishAct = false}) {
+      {Map<String, dynamic>? data, bool finishAct = false}) {
     if (Navigator.canPop(context) && !finishAct) {
-      return Navigator.of(context).pop(arguments ?? data);
+      return Navigator.of(context).pop(data);
     } else {
       return SystemNavigator.pop();
     }
@@ -41,19 +49,20 @@ class BaseIntentUtils {
 
   @Deprecated('用pop')
   finish(BuildContext context,
-      {dynamic data, Map<String, dynamic>? arguments, bool finishAct = false}) {
-    return pop(context, data: data, arguments: arguments, finishAct: finishAct);
+      {Map<String, dynamic>? data, bool finishAct = false}) {
+    return pop(context, data: data, finishAct: finishAct);
   }
 
   /// 正常跳转
-  Future? push(BuildContext context,
+  Future? push(BuildContext? context,
       {String? routeName,
       bool finish = false,
-      bool removeAll = false,
+      // bool removeAll = false,
+      bool withFlutterBoostContainer = false,
       Map<String, dynamic>? data}) {
-    if (null != routeName) {
+    if (null != routeName && null != context) {
       return _pushByName(context, routeName,
-          finish: finish, removeAll: removeAll, data: data);
+          finish: finish,/* removeAll: removeAll,*/ data: data);
     }
   }
 

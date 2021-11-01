@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:kayo_package/kayo_package_utils.dart';
 import 'package:kayo_package/mvvm/base/base_view_model.dart';
+import 'package:kayo_package/utils/base_intent_utils.dart';
 import 'package:provider/provider.dart';
 
 /// Provider封装类
@@ -10,6 +14,7 @@ StatefulWidget ProviderWidget<T extends ChangeNotifier>(
     {required ValueWidgetBuilder<T> builder,
     required T model,
     Widget? child,
+    Key? key,
     Function(T model)? onModelReady,
     bool autoDispose = true,
     bool autoInitState = true,
@@ -17,6 +22,7 @@ StatefulWidget ProviderWidget<T extends ChangeNotifier>(
     Function? initState,
     Function? dispose}) {
   return ProviderWidget6(
+    key: key,
     builder: (context, T model, model2, model3, model4, model5, model6, child) {
       return builder.call(context, model, child);
     },
@@ -35,6 +41,7 @@ StatefulWidget
     ProviderWidget2<T extends ChangeNotifier, T2 extends ChangeNotifier>(
         {required Widget Function(BuildContext context, T, T2?, Widget? child)
             builder,
+        Key? key,
         required T model,
         T2? model2,
         Widget? child,
@@ -45,6 +52,7 @@ StatefulWidget
         Function? initState,
         Function? dispose}) {
   return ProviderWidget6(
+    key: key,
     builder:
         (context, T model, T2? model2, model3, model4, model5, model6, child) {
       return builder.call(context, model, model2, child);
@@ -64,6 +72,7 @@ StatefulWidget ProviderWidget3<T extends ChangeNotifier,
         T2 extends ChangeNotifier, T3 extends ChangeNotifier>(
     {required Widget Function(BuildContext context, T, T2?, T3?, Widget? child)
         builder,
+    Key? key,
     required T model,
     T2? model2,
     T3? model3,
@@ -75,6 +84,7 @@ StatefulWidget ProviderWidget3<T extends ChangeNotifier,
     Function? initState,
     Function? dispose}) {
   return ProviderWidget6(
+    key: key,
     builder: (context, T model, T2? model2, T3? model3, model4, model5, model6,
         child) {
       return builder.call(context, model, model2, model3, child);
@@ -99,6 +109,7 @@ StatefulWidget ProviderWidget4<
     {required Widget Function(
             BuildContext context, T, T2?, T3?, T4?, Widget? child)
         builder,
+    Key? key,
     required T model,
     T2? model2,
     T3? model3,
@@ -111,6 +122,7 @@ StatefulWidget ProviderWidget4<
     Function? initState,
     Function? dispose}) {
   return ProviderWidget6(
+    key: key,
     builder: (context, T model, T2? model2, T3? model3, T4? model4, model5,
         model6, child) {
       return builder.call(context, model, model2, model3, model4, child);
@@ -137,6 +149,7 @@ StatefulWidget ProviderWidget5<
     {required Widget Function(
             BuildContext context, T, T2?, T3?, T4?, T5?, Widget? child)
         builder,
+    Key? key,
     required T model,
     T2? model2,
     T3? model3,
@@ -150,6 +163,7 @@ StatefulWidget ProviderWidget5<
     Function? initState,
     Function? dispose}) {
   return ProviderWidget6(
+    key: key,
     builder: (context, T model, T2? model2, T3? model3, T4? model4, T5? model5,
         model6, child) {
       return builder.call(
@@ -229,6 +243,11 @@ class _ProviderWidget6State<
   T5? model5;
   T6? model6;
 
+  Map<String, dynamic>? resultArgs;
+  dynamic resultData;
+
+  StreamSubscription? _stream;
+
   @override
   void initState() {
     model = widget.model;
@@ -280,6 +299,11 @@ class _ProviderWidget6State<
     if (null != widget.initState) {
       widget.initState?.call();
     }
+
+    _stream = BaseIntentUtils.eventBus.on<String>().listen((page) {
+      KayoPackage.share.onNotifyPop
+          ?.call(context, page, resultArgs, resultData);
+    });
   }
 
   @override
@@ -296,6 +320,7 @@ class _ProviderWidget6State<
     if (null != widget.dispose) {
       widget.dispose?.call();
     }
+    _stream?.cancel();
   }
 
   @override
@@ -310,7 +335,6 @@ class _ProviderWidget6State<
 
     return MultiProvider(
         providers: [
-
           // Provider<T>(create: (BuildContext context) {
           //   return model;
 
