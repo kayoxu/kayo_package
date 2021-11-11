@@ -53,6 +53,11 @@ class BaseIntentUtils {
     return pop(context, data: data, finishAct: finishAct);
   }
 
+  @Deprecated('用pop')
+  finishOld(BuildContext context, {dynamic data, bool finishAct = false}) {
+    return pop(context, data: data, finishAct: finishAct);
+  }
+
   /// 正常跳转
   Future? push(BuildContext? context,
       {String? routeName,
@@ -62,7 +67,7 @@ class BaseIntentUtils {
       Map<String, dynamic>? data}) {
     if (null != routeName && null != context) {
       return _pushByName(context, routeName,
-          finish: finish,/* removeAll: removeAll,*/ data: data);
+          finish: finish, /* removeAll: removeAll,*/ data: data);
     }
   }
 
