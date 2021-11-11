@@ -17,6 +17,15 @@ class BaseSysUtils {
   static bool get isDebug =>
       PlatformUtils.isWeb ? false : !bool.fromEnvironment("dart.vm.product");
 
+  static List<Color> _indexColors = [];
+
+  static initIndexColors() {
+    _indexColors.clear();
+    for (int i = 0; i < 256; i++) {
+      _indexColors.add(randomColor());
+    }
+  }
+
   /*
   * 判断是否为空
   * */
@@ -219,20 +228,23 @@ class BaseSysUtils {
     } else if (2 == index) {
       color = Color(0xff2B7FFB);
     } else {
-      color = hasNext ? randomColor() : Color(0xff2B7FFB);
+      color = hasNext ? randomColor(random: true) : Color(0xff2B7FFB);
     }
     return color;
   }
 
-  static Color randomColor() {
-    // var random = Random();
-    // var index = random.nextInt(3);
-    // return getLockColor(index, hasNext: false);
-    return _getRandomColor();
+  static Color randomColor({bool random = false}) {
+    if (random == true) {
+      return _getRandomColor();
+    } else {
+      var random = Random();
+      var index = random.nextInt(3);
+      return getLockColor(index, hasNext: false);
+    }
   }
 
-
-  static Color _getRandomColor({int r = 255, int g = 255, int b = 255, a = 255}) {
+  static Color _getRandomColor(
+      {int r = 255, int g = 255, int b = 255, a = 255}) {
     if (r == 0 || g == 0 || b == 0) return Colors.black;
     if (a == 0) return Colors.white;
     return Color.fromARGB(
@@ -243,15 +255,11 @@ class BaseSysUtils {
     );
   }
 
-
   static Color indexColor(int index) {
-    switch (index) {
-      case 0:
-        return Color(0xffFF940E);
-
-      default:
-        return randomColor();
+    if (_indexColors.length != 256) {
+      initIndexColors();
     }
+    return _indexColors.findData<Color>(index) ?? randomColor(random: true);
   }
 
   /// 颜色创建方法
