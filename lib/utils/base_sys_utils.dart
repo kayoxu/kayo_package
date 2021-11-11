@@ -22,7 +22,7 @@ class BaseSysUtils {
   static initIndexColors() {
     _indexColors.clear();
     for (int i = 0; i < 256; i++) {
-      _indexColors.add(randomColor());
+      _indexColors.add(randomColor(random: true));
     }
   }
 
@@ -233,7 +233,7 @@ class BaseSysUtils {
     return color;
   }
 
-  static Color randomColor({bool random = false}) {
+  static Color randomColor({bool random = true}) {
     if (random == true) {
       return _getRandomColor();
     } else {
