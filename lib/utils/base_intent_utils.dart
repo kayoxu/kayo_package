@@ -37,11 +37,6 @@ class BaseIntentUtils {
     finish(context, data: {'data': RESULT_OK}, finishAct: finishAct);
   }
 
-  @Deprecated('用pop')
-  finishResultOkOld(BuildContext context, {bool finishAct = false}) {
-    finishOld(context, data: RESULT_OK, finishAct: finishAct);
-  }
-
   ///base
   pop(BuildContext context,
       {Map<String, dynamic>? data, bool finishAct = false}) {
