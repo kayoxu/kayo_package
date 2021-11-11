@@ -65,7 +65,7 @@ class BaseIntentUtils {
 
   @Deprecated('用pop')
   finishOld(BuildContext context, {dynamic data, bool finishAct = false}) {
-    return pop(context, data: data, finishAct: finishAct);
+    return popOld(context, data: data, finishAct: finishAct);
   }
 
   /// 正常跳转

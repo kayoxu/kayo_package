@@ -12,6 +12,7 @@ class TextView extends StatelessWidget {
   TextView(this.text,
       {this.color = BaseColorUtils.colorGrey,
       this.borderColor,
+      this.fontFamily,
       this.borderWidth = 1,
       this.size = 16,
       this.height,
@@ -40,6 +41,7 @@ class TextView extends StatelessWidget {
   final Color color;
   final Color? borderColor;
   final String? text;
+  final String? fontFamily;
   final double size;
   final double? height;
   final double? width;
@@ -79,6 +81,7 @@ class TextView extends StatelessWidget {
       style: TextStyle(
         color: color,
         fontSize: size,
+        fontFamily: fontFamily,
         fontWeight: fontWeight,
         decoration: TextDecoration.none,
         /*background:Paint()..color = Colors.yellowAccent*/
