@@ -37,9 +37,24 @@ class BaseIntentUtils {
     finish(context, data: {'data': RESULT_OK}, finishAct: finishAct);
   }
 
+  @Deprecated('用pop')
+  finishResultOkOld(BuildContext context, {bool finishAct = false}) {
+    finishOld(context, data: RESULT_OK, finishAct: finishAct);
+  }
+
   ///base
   pop(BuildContext context,
       {Map<String, dynamic>? data, bool finishAct = false}) {
+    if (Navigator.canPop(context) && !finishAct) {
+      return Navigator.of(context).pop(data);
+    } else {
+      return SystemNavigator.pop();
+    }
+  }
+
+  ///base
+  @Deprecated('用pop')
+  popOld(BuildContext context, {dynamic data, bool finishAct = false}) {
     if (Navigator.canPop(context) && !finishAct) {
       return Navigator.of(context).pop(data);
     } else {
