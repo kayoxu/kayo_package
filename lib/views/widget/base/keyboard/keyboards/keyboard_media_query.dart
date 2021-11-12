@@ -34,19 +34,15 @@ class KeyboardMediaQueryState extends State<KeyboardMediaQuery >{
         child: widget.child,
         data:data.copyWith(
           viewInsets: data.viewInsets.copyWith(
-            // bottom: bottom
+            bottom: bottom
           )
         )
     );
   }
 
   onUpdateHeight(){
-    SchedulerBinding.instance!.addPostFrameCallback((_){
+    WidgetsBinding.instance!.addPostFrameCallback((_){
       setState(()=>{});
-      SchedulerBinding.instance!.addPostFrameCallback((_){
-        WidgetsBinding.instance!.handleMetricsChanged();
-      });
-
     });
   }
 

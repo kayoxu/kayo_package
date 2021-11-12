@@ -1,5 +1,6 @@
 part of cool_ui;
 
+bool badKeyboard = false;
 
 typedef GetKeyboardHeight = double Function(BuildContext context);
 typedef KeyboardBuilder = Widget Function(
@@ -30,13 +31,6 @@ class CoolKeyboard {
 
   static interceptorInput() {
     if (isInterceptor) return;
-    if (!(ServicesBinding.instance is MockBinding)) {
-      throw Exception('CoolKeyboard can only be used in MockBinding');
-    }
-    var mockBinding = ServicesBinding.instance! as MockBinding;
-    var mockBinaryMessenger = mockBinding.defaultBinaryMessenger as MockBinaryMessenger; 
-    mockBinaryMessenger
-        .setMockMessageHandler("flutter/textinput", _textInputHanlde);
     isInterceptor = true;
   }
 
@@ -101,7 +95,16 @@ class CoolKeyboard {
             clearKeyboard();
             _currentKeyboard = keyboardConfig;
             _keyboardController = KeyboardController(client: client!)
-              ..addListener(_updateEditingState);
+              ..addListener(() {
+                var callbackMethodCall = MethodCall(
+                    "TextInputClient.updateEditingState", [
+                  _keyboardController!.client.connectionId,
+                  _keyboardController!.value.toJSON()
+                ]);
+                ServicesBinding.instance!.defaultBinaryMessenger
+                    .handlePlatformMessage("flutter/textinput",
+                        _codec.encodeMethodCall(callbackMethodCall), (data) {});
+              });
             if (_pageKey != null) {
               _pageKey!.currentState?.update();
             }
@@ -126,17 +129,6 @@ class CoolKeyboard {
       return response;
     }
     return null;
-  }
-
-  static void _updateEditingState() {
-    var callbackMethodCall = MethodCall(
-        "TextInputClient.updateEditingState", [
-      _keyboardController!.client.connectionId,
-      _keyboardController!.value.toJSON()
-    ]);
-    ServicesBinding.instance!.defaultBinaryMessenger
-        .handlePlatformMessage("flutter/textinput",
-            _codec.encodeMethodCall(callbackMethodCall), (data) {});
   }
 
   static Future<ByteData?> _sendPlatformMessage(
@@ -173,19 +165,13 @@ class CoolKeyboard {
     // queryState.update();
 
     var tempKey = _pageKey;
-    var isUpdate = false;
     _root!.setKeyboard((ctx) {
       if (_currentKeyboard != null && _keyboardHeightNotifier.value != 0) {
-        if (!isUpdate) {
-          isUpdate = true;
-          // WidgetsBinding.instance!.addPostFrameCallback((_) {
-          //   _keyboardController!.addText('1');
-          // });
-        }
         return KeyboardPage(
             key: tempKey,
             builder: (ctx) {
-              return _currentKeyboard?.builder(ctx, _keyboardController!, _keyboardParam);
+              return _currentKeyboard!
+                  .builder(ctx, _keyboardController!, _keyboardParam);
             },
             height: _keyboardHeightNotifier.value);
       } else {
@@ -219,7 +205,7 @@ class CoolKeyboard {
       //   }
       // });
       if (animation) {
-        _pageKey!.currentState?.exitKeyboard();
+        _pageKey!.currentState!.exitKeyboard();
         Future.delayed(Duration(milliseconds: 116)).then((_) {
           _root!.clearKeyboard();
         });
@@ -266,12 +252,14 @@ class CoolKeyboard {
 class KeyboardConfig {
   final KeyboardBuilder builder;
   final GetKeyboardHeight getHeight;
+
   const KeyboardConfig({required this.builder, required this.getHeight});
 }
 
 class InputClient {
   final int connectionId;
   final TextInputConfiguration configuration;
+
   const InputClient({required this.connectionId, required this.configuration});
 
   factory InputClient.fromJSON(List<dynamic> encoded) {
@@ -396,8 +384,9 @@ class CKTextInputType extends TextInputType {
 }
 
 class KeyboardPage extends StatefulWidget {
-  final Widget? Function(BuildContext context) builder;
+  final WidgetBuilder builder;
   final double height;
+
   const KeyboardPage({required this.builder, this.height = 0, Key? key})
       : super(key: key);
 

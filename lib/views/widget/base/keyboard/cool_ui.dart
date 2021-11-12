@@ -17,9 +17,7 @@ part 'utils/screen_util.dart';
 
 // part 'dialogs/weui_toast.dart';
 
-part 'keyboards/mocks/mock_binding.dart';
 
-part 'keyboards/mocks/mock_binary_messenger.dart';
 
 part 'keyboards/keyboard_manager.dart';
 
