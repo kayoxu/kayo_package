@@ -85,8 +85,11 @@ class LoadingUtils {
     // EasyLoading.showToast(data ?? '');
     Fluttertoast.showToast(
       msg: data ?? '',
+      gravity: gravity,
       backgroundColor: share.toastBgColor,
       textColor: share.toastTextColor,
+      toastLength:
+          timeInSecForIosWeb > 1 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT,
       timeInSecForIosWeb: timeInSecForIosWeb,
     );
   }
