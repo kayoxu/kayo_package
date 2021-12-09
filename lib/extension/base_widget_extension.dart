@@ -102,6 +102,27 @@ extension BaseWidgetExtension on Widget? {
     return SizedBox();
   }
 
+  ///外面包一层FittedBox
+  ///自动调整单widget大小，以实现单行显示
+  Widget addFittedBox({
+    Key? key,
+  }) {
+    if (null != this) {
+      return LayoutBuilder(builder: (_, constraints) {
+        return FittedBox(
+          child: ConstrainedBox(
+            constraints: constraints.copyWith(
+              minWidth: constraints.maxWidth,
+              maxWidth: double.infinity,
+            ),
+            child: this!,
+          ),
+        );
+      });
+    }
+    return SizedBox();
+  }
+
   ///外面包一层SafeArea
   Widget addSafeArea(
       {Key? key,
