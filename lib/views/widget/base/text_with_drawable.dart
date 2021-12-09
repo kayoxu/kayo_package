@@ -124,6 +124,7 @@ class ShowInfoRow extends StatelessWidget {
   final Widget? rightWidget;
   final int leftFlex;
   final int rightFlex;
+  final int maxLines;
   final Color bgColor;
   final BorderRadiusGeometry? borderRadius;
   final EdgeInsetsGeometry? padding;
@@ -142,6 +143,7 @@ class ShowInfoRow extends StatelessWidget {
     this.right,
     this.rightWidget,
     this.leftFlex = 1,
+    this.maxLines = 1,
     this.rightFlex = 2,
     this.bgColor = Colors.transparent,
     this.borderRadius,
@@ -191,7 +193,7 @@ class ShowInfoRow extends StatelessWidget {
                 Text(
                   right ?? '',
                   textAlign: TextAlign.end,
-                  maxLines: 1,
+                  maxLines: maxLines,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: rightColor,
