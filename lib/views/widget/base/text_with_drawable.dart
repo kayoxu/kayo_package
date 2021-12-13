@@ -492,7 +492,7 @@ class IncludeWidget {
       maxLines: 1,
       readOnly: readOnly,
       inputFormatters: [
-        if (null != reg) WhitelistingTextInputFormatter(reg),
+        if (null != reg) FilteringTextInputFormatter.allow(reg),
       ],
       decoration: InputDecoration(
         hintText: hintText,
@@ -647,7 +647,7 @@ class InputInfoRow extends StatelessWidget {
       readOnly: readOnly,
       inputFormatters: [
         if (null != maxLength) LengthLimitingTextInputFormatter(maxLength),
-        if (null != regStr) WhitelistingTextInputFormatter(RegExp(regStr!)),
+        if (null != regStr) FilteringTextInputFormatter.allow(RegExp(regStr!)),
       ],
       decoration: InputDecoration(
         hintText: hintText,
