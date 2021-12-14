@@ -1,7 +1,7 @@
 
 part of cool_ui;
 
-//Copy By TestDefaultBinaryMessenger 
+//Copy By TestDefaultBinaryMessenger
 
 class MockBinaryMessenger extends BinaryMessenger {
  /// Creates a [MockBinaryMessenger] instance.
@@ -270,4 +270,8 @@ class MockBinaryMessenger extends BinaryMessenger {
   /// Registered callbacks are cleared after each test.
   bool checkMockMessageHandler(String channel, Object? handler) => _outboundHandlerIdentities[channel] == handler;
 
+// @override
+// bool checkMessageHandler(String channel, MessageHandler? handler) {
+//   return checkMessageHandler(channel, handler);
+// }
 }
