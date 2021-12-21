@@ -129,6 +129,20 @@ extension BaseStringExtension on String? {
     }
   }
 
+  String safeCardNo() {
+    if (_isNotEmpty(this)) {
+      var d = this ?? '';
+      if (d.length == 18) {
+        d = d.substring(0, 4) +
+            '**********' +
+            d.substring(d.length - 4, d.length);
+      }
+      return d;
+    } else {
+      return '';
+    }
+  }
+
   String replaceExceptFirst(Pattern from, String replace) {
     if ((this ?? '').contains(from)) {
       List<String> arr = (this ?? '').split(from);
