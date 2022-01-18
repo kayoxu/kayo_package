@@ -26,14 +26,15 @@ class BaseIntentUtilsNoBoost {
   isResultOk(var data) {
     if (data is Map && BaseSysUtils.equals(data['data'], RESULT_OK)) {
       return true;
-    }
-    if (data is Map && BaseSysUtils.equals(data['result'], RESULT_OK)) {
+    } else if (data is Map && BaseSysUtils.equals(data['result'], RESULT_OK)) {
+      return true;
+    } else if (data is String && BaseSysUtils.equals(data, RESULT_OK)) {
       return true;
     }
     return false;
   }
 
-  finishResultOk(BuildContext context, {bool finishAct = false}) {
+  popResultOk(BuildContext context, {bool finishAct = false}) {
     pop(context, data: {'data': RESULT_OK}, finishAct: finishAct);
   }
 
