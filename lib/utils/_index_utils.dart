@@ -6,5 +6,6 @@ export 'base_refresh_utils.dart';
 export 'platform_utils.dart';
 export 'loading_utils.dart';
 export 'base_intent_utils.dart';
+export 'base_intent_utils_noboost.dart';
 export 'notification/_index_notification.dart';
 export 'isolate_utils.dart';
