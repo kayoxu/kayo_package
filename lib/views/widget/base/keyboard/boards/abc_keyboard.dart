@@ -90,20 +90,27 @@ class KeyboardAbcState extends State<KeyboardAbc> {
                         right: 0,
                         child: Container(
                           padding: EdgeInsets.only(
-                              left: 20, right: 20, top: 5, bottom: 5),
-                          child: Row(
-                            children: [
-                              Spacer(),
-                              TextView('完成',
-                                  color: BaseColorUtils.colorAccent,
-                                  fontWeight: FontWeight.bold,
-                                  padding: EdgeInsets.only(left: 12, right: 12),
-                                  onTap: () {
-                                setState(() {
-                                  widget.controller?.doneAction();
-                                });
-                              })
-                            ],
+                              left: 05, right: 5, top: 5, bottom: 5),
+                          child: Container(
+                            height: 48,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Spacer(),
+                                TextView('完成',
+                                    color: BaseColorUtils.colorAccent,
+                                    fontWeight: FontWeight.bold,
+                                    padding: EdgeInsets.only(
+                                        left: 12,
+                                        right: 12,
+                                        top: 5,
+                                        bottom: 5), onTap: () {
+                                  setState(() {
+                                    widget.controller?.doneAction();
+                                  });
+                                })
+                              ],
+                            ),
                           ),
                         )),
                   ],
