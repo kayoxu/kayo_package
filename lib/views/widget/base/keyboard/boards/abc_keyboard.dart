@@ -31,12 +31,10 @@ class KeyboardAbc extends StatefulWidget {
   }
 }
 
-
 class KeyboardAbcState extends State<KeyboardAbc> {
-
   @override
   void dispose() {
-     super.dispose();
+    super.dispose();
   }
 
   @override
@@ -114,76 +112,190 @@ class KeyboardAbcState extends State<KeyboardAbc> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           buildButton('1'),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('2'),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('3'),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('4'),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('5'),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('6'),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('7'),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('8'),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('9'),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('0'),
         ],
+      ),
+      SizedBox(
+        height: 5,
       ),
       Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           buildButton('Q'),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('W'),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('E'),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('R'),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('T'),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('Y'),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('U'),
-          buildButton('I'),
-          buildButton('O'),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('I', noValue: true),
+          SizedBox(
+            width: 5,
+          ),
+          buildButton('O', noValue: true),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('P'),
         ],
       ),
+      SizedBox(
+        height: 5,
+      ),
       Container(
-        margin: EdgeInsets.only(left: 8, right: 8),
+        margin: EdgeInsets.only(left: 18, right: 18),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             buildButton('A'),
+            SizedBox(
+              width: 5,
+            ),
             buildButton('S'),
+            SizedBox(
+              width: 5,
+            ),
             buildButton('D'),
+            SizedBox(
+              width: 5,
+            ),
             buildButton('F'),
+            SizedBox(
+              width: 5,
+            ),
             buildButton('G'),
+            SizedBox(
+              width: 5,
+            ),
             buildButton('H'),
+            SizedBox(
+              width: 5,
+            ),
             buildButton('J'),
+            SizedBox(
+              width: 5,
+            ),
             buildButton('K'),
+            SizedBox(
+              width: 5,
+            ),
             buildButton('L'),
           ],
         ),
+      ),
+      SizedBox(
+        height: 5,
       ),
       Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
+          SizedBox(
+            width: 5,
+          ),
           buildButton('Z', flex: 2),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('X', flex: 2),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('C', flex: 2),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('V', flex: 2),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('B', flex: 2),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('N', flex: 2),
+          SizedBox(
+            width: 5,
+          ),
           buildButton('M', flex: 2),
+          SizedBox(
+            width: 5,
+          ),
           Expanded(
               flex: 3,
               child: Clickable(
-                bgColor: BaseColorUtils.colorGreyLiteLite,
-                radius: 6,
-                elevation: 5,
+                bgColor: BaseColorUtils.colorAccent,
+                radius: 2,
+                elevation: 0,
                 highlightColor: BaseColorUtils.colorGrey.withOpacity(.1),
                 shadowColor: BaseColorUtils.colorGrey.withOpacity(.3),
-                margin: EdgeInsets.only(left: 2, top: 4, right: 2, bottom: 4),
+                // margin: EdgeInsets.only(left: 2, top: 4, right: 2, bottom: 4),
 //            padding: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
                 child: Container(
                   alignment: Alignment.center,
-                  height: 40,
-                  child: Icon(Icons.backspace),
+                  height: 35,
+                  child: Icon(
+                    Icons.backspace_outlined,
+                    color: Colors.white,
+                  ),
                 ),
                 onTap: () {
                   setState(() {
@@ -196,7 +308,8 @@ class KeyboardAbcState extends State<KeyboardAbc> {
     ];
   }
 
-  Widget buildButton(String title, {String? value, int flex = 1}) {
+  Widget buildButton(String title,
+      {String? value, int flex = 1, bool noValue = false}) {
     if (value == null) {
       value = title;
     }
@@ -205,25 +318,27 @@ class KeyboardAbcState extends State<KeyboardAbc> {
         flex: flex,
         child: Clickable(
           bgColor: BaseColorUtils.white,
-          radius: 6,
-          elevation: 5,
-          margin: EdgeInsets.only(left: 2, top: 4, right: 2, bottom: 4),
+          radius: 2,
+          elevation: 0,
+          // margin: EdgeInsets.only(left: 2, top: 4, right: 2, bottom: 4),
           child: Container(
             alignment: Alignment.center,
-            height: 40,
+            height: 35,
             child: TextView(
               title,
-              size: 23,
+              size: 18,
               fontWeight: FontWeight.w600,
               textAlign: TextAlign.center,
             ),
           ),
-          onTap: () {
-            badKeyboard = false;
-            setState(() {
-              widget.controller?.addText(value!);
-            });
-          },
+          onTap: noValue == true
+              ? null
+              : () {
+                  badKeyboard = false;
+                  setState(() {
+                    widget.controller?.addText(value!);
+                  });
+                },
         ));
   }
 }
