@@ -5,6 +5,7 @@ export 'package:kayo_package/views/widget/base/keyboard/boards/car_num_keyboard.
 export 'package:kayo_package/views/widget/base/keyboard/boards/keyboard_tools.dart';
 export 'package:kayo_package/views/widget/base/keyboard/boards/phone_keyboard.dart';
 export 'package:kayo_package/views/widget/base/keyboard/boards/number_keyboard.dart';
+export 'package:kayo_package/views/widget/base/keyboard/boards/abc_keyboard.dart';
 export 'package:kayo_package/views/widget/base/keyboard/boards/car_num_keyboard_with_done.dart';
 
 /**
