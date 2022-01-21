@@ -10,7 +10,11 @@ import '../cool_ui.dart';
 class KeyboardAbc extends StatefulWidget {
   static double getHeight(BuildContext ctx) {
     MediaQueryData mediaQuery = MediaQuery.of(ctx);
-    return 48.0 + 8 + 8 + 4 * 48; //mediaQuery.size.width / 3 / 2 * 5 + 20;
+    return 5 * 3 +
+        4 * 35 +
+        48 +
+        10 +
+        mediaQuery.padding.bottom; //mediaQuery.size.width / 3 / 2 * 5 + 20;
   }
 
   final KeyboardController? controller;
@@ -22,7 +26,7 @@ class KeyboardAbc extends StatefulWidget {
 
   static register() {
     CoolKeyboard.addKeyboard(
-        FlutterKeyboard.abc,
+        FlutterKeyboard.carNum,
         KeyboardConfig(
             builder: (context, controller, params) {
               return KeyboardAbc(controller: controller);
@@ -33,6 +37,11 @@ class KeyboardAbc extends StatefulWidget {
 
 class KeyboardAbcState extends State<KeyboardAbc> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   void dispose() {
     super.dispose();
   }
@@ -42,9 +51,9 @@ class KeyboardAbcState extends State<KeyboardAbc> {
     MediaQueryData mediaQuery = MediaQuery.of(context);
     return SafeArea(
         top: false,
-        bottom: false,
+        bottom: true,
         child: Material(
-          color: BaseColorUtils.transparent,
+          color: BaseColorUtils.colorWindow,
           child: DefaultTextStyle(
               style: TextStyle(
                   fontWeight: FontWeight.w500,
@@ -56,18 +65,19 @@ class KeyboardAbcState extends State<KeyboardAbc> {
                     Container(
                       margin: EdgeInsets.only(top: 48),
                       padding:
-                          EdgeInsets.only(left: 4, top: 4, right: 4, bottom: 4),
+                          EdgeInsets.only(left: 5, top: 5, right: 5, bottom: 5),
 //            height: KayoKeyboard.getHeight(context),
                       width: mediaQuery.size.width,
-                      decoration: BoxDecoration(
-                          color: BaseColorUtils.white,
-                          boxShadow: <BoxShadow>[
-                            BoxShadow(
-                                color: BaseColorUtils.cardShadow,
-                                blurRadius: 2.0,
-                                spreadRadius: 2.0,
-                                offset: Offset(0, 0)),
-                          ]),
+                      // color: BaseColorUtils.colorWindow,
+                      // decoration: BoxDecoration(
+                      //     color: BaseColorUtils.white,
+                      //     boxShadow: <BoxShadow>[
+                      //       BoxShadow(
+                      //           color: BaseColorUtils.cardShadow,
+                      //           blurRadius: 2.0,
+                      //           spreadRadius: 2.0,
+                      //           offset: Offset(0, 0)),
+                      //     ]),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisSize: MainAxisSize.min,
@@ -79,23 +89,20 @@ class KeyboardAbcState extends State<KeyboardAbc> {
                         left: 0,
                         right: 0,
                         child: Container(
-                          color: Colors.white,
-                          padding: EdgeInsets.only(left: 20, right: 20),
+                          padding: EdgeInsets.only(
+                              left: 20, right: 20, top: 5, bottom: 5),
                           child: Row(
                             children: [
                               Spacer(),
-                              FloatingActionButton(
-                                  mini: true,
-                                  backgroundColor: BaseColorUtils.white,
-                                  child: Icon(
-                                    Icons.keyboard_hide,
-                                    color: BaseColorUtils.colorGrey,
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      widget.controller?.doneAction();
-                                    });
-                                  })
+                              TextView('完成',
+                                  color: BaseColorUtils.colorAccent,
+                                  fontWeight: FontWeight.bold,
+                                  padding: EdgeInsets.only(left: 12, right: 12),
+                                  onTap: () {
+                                setState(() {
+                                  widget.controller?.doneAction();
+                                });
+                              })
                             ],
                           ),
                         )),
