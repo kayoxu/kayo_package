@@ -199,11 +199,11 @@ class KeyboardAbcState extends State<KeyboardAbc> {
           SizedBox(
             width: 5,
           ),
-          buildButton('I', noValue: true),
+          buildButton('I', noValue: false),
           SizedBox(
             width: 5,
           ),
-          buildButton('O', noValue: true),
+          buildButton('O', noValue: false),
           SizedBox(
             width: 5,
           ),
