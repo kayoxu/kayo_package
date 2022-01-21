@@ -22,7 +22,7 @@ class KeyboardAbc extends StatefulWidget {
 
   static register() {
     CoolKeyboard.addKeyboard(
-        FlutterKeyboard.carNumWithSearch,
+        FlutterKeyboard.abc,
         KeyboardConfig(
             builder: (context, controller, params) {
               return KeyboardAbc(controller: controller);
