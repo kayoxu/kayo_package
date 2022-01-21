@@ -270,14 +270,9 @@ class MockBinaryMessenger extends BinaryMessenger {
   /// Registered callbacks are cleared after each test.
   bool checkMockMessageHandler(String channel, Object? handler) => _outboundHandlerIdentities[channel] == handler;
 
-  @override
-  bool checkMessageHandler(String channel, MessageHandler? handler) {
-    // TODO: implement checkMessageHandler
-    throw UnimplementedError();
-  }
 
-// @override
-// bool checkMessageHandler(String channel, MessageHandler? handler) {
-//   return checkMessageHandler(channel, handler);
-// }
+@override
+bool checkMessageHandler(String channel, MessageHandler? handler) {
+  return checkMockMessageHandler(channel, handler);
+}
 }
