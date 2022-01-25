@@ -194,7 +194,7 @@ class _DataPickerComponent extends StatefulWidget {
     this.locale,
     this.suffix,
     this.title,
-  });
+  }) : super(key: key);
 
   final DataChangedCallback? onChanged;
   final int? initialData;
