@@ -203,9 +203,9 @@ class BaseTimeUtils {
     try {
       var dateTime = dateFormat.parse(string);
       millisecondsSinceEpoch = dateTime.millisecondsSinceEpoch;
+      return millisecondsSinceEpoch;
     } catch (e) {
       print(e);
-    } finally {
       return millisecondsSinceEpoch;
     }
   }
