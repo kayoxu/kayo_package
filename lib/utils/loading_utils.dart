@@ -66,16 +66,18 @@ class LoadingUtils {
     EasyLoading.showProgress(progress, status: data ?? '');
   }
 
-  static showSuccess({String? data}) {
-    EasyLoading.showSuccess(data ?? '');
+  static showSuccess({String? data, int? seconds = 2}) {
+    EasyLoading.showSuccess(data ?? '',
+        duration: Duration(seconds: seconds ?? 2));
   }
 
-  static showError({String? data}) {
-    EasyLoading.showError(data ?? '');
+  static showError({String? data, int? seconds = 2}) {
+    EasyLoading.showError(data ?? '',
+        duration: Duration(seconds: seconds ?? 2));
   }
 
-  static showInfo({String? data}) {
-    EasyLoading.showInfo(data ?? '');
+  static showInfo({String? data, int? seconds = 2}) {
+    EasyLoading.showInfo(data ?? '', duration: Duration(seconds: seconds ?? 2));
   }
 
   static showToast(
