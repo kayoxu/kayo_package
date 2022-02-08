@@ -53,6 +53,7 @@ class EditView extends StatefulWidget {
   final bool? editable;
   final bool? showLabelText;
   final bool? isDense;
+  final TextInputAction? textInputAction;
   final List<TextInputFormatter>? inputFormatters;
 
   EditView({
@@ -89,6 +90,7 @@ class EditView extends StatefulWidget {
     this.showLabelText = false,
     this.inputFormatters,
     this.lineColor,
+    this.textInputAction,
     this.isDense = false,
   }) : super(key: key);
 
@@ -170,7 +172,7 @@ class EditViewState extends State<EditView> {
               maxLength: widget.maxLength,
               maxLengthEnforcement: MaxLengthEnforcement.none,
               maxLines: widget.maxLines,
-              textInputAction: TextInputAction.done,
+              textInputAction: widget.textInputAction ?? TextInputAction.done,
               keyboardType: widget.keyboardType,
               controller: controllerDefault,
               onChanged: widget.onChanged,
