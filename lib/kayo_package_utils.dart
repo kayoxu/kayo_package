@@ -27,7 +27,7 @@ class KayoPackage {
   String loadingText = '加载中, 请稍等...';
   bool? ignoreSSL = false;
   Locale? locale = Locale('zh');
-  String imageSourcePrefix = '';
+  String? imageSourcePrefix = '';
   int reLoginCode = 401;
 
   Function(BuildContext context)? onTapToolbarBack;
@@ -42,7 +42,7 @@ class KayoPackage {
     DateTimePickerLocale? dateTimePickerLocale,
     String? dataPickerLocale,
     Locale? locale,
-    bool? ignoreSSL = false,
+    bool? ignoreSSL,
     int? reLoginCode,
     Color? colorPrimary,
     Color? colorPrimaryLight,
@@ -52,8 +52,8 @@ class KayoPackage {
     Color? colorAccentLiteLite,
     Function(BuildContext context)? onTapToolbarBack,
     Function(BuildContext context, String page,
-            Map<String, dynamic>? resultArgs, dynamic resultData)?
-        onNotifyPop,
+        Map<String, dynamic>? resultArgs, dynamic resultData)?
+    onNotifyPop,
   }) {
     this.locale = locale ?? this.locale;
     BaseColorUtils.colorPrimary = colorPrimary ?? BaseColorUtils.colorPrimary;
@@ -68,8 +68,8 @@ class KayoPackage {
         colorPrimary ?? BaseColorUtils.colorAccentLiteLite;
     this.reLoginCode = reLoginCode ?? this.reLoginCode;
 
-    this.imageSourcePrefix = imageSourcePrefix ?? '';
-    this.ignoreSSL = ignoreSSL;
+    this.imageSourcePrefix = imageSourcePrefix ?? this.imageSourcePrefix ?? '';
+    this.ignoreSSL = ignoreSSL ?? this.ignoreSSL ?? false;
     if (null != locale) {
       if (locale.languageCode == 'zh') {
         this.nullText = '无';
@@ -93,13 +93,13 @@ class KayoPackage {
     DataPicker.defaultDataPickerLocale =
         dataPickerLocale ?? DataPicker.defaultDataPickerLocale;
 
-    this.onTapToolbarBack = onTapToolbarBack;
-    this.onNotifyPop = onNotifyPop;
+    this.onTapToolbarBack = onTapToolbarBack ?? this.onTapToolbarBack;
+    this.onNotifyPop = onNotifyPop ?? this.onNotifyPop;
   }
 
   setBuddhist(bool buddhist) {
     BaseTimeUtils.calendarType =
-        buddhist == true ? CalendarType.Buddhist : CalendarType.normal;
+    buddhist == true ? CalendarType.Buddhist : CalendarType.normal;
   }
 
   setDateFormat(String? format) {
