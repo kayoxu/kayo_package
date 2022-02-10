@@ -22,7 +22,7 @@ import 'package:http/http.dart' as http;
 ///
 source(String src, {String suffix = '.png'}) {
   if (!suffix.contains(".")) suffix = '.$suffix';
-  return 'assets/${src}$suffix';
+  return 'assets/${KayoPackage.share.imageSourcePrefix}$src$suffix';
 }
 
 @immutable
@@ -261,8 +261,6 @@ class EsoHttpFileService extends FileService {
     _httpClient = httpClient ?? HttpClient();
     _httpClient.badCertificateCallback = (cert, host, port) => true;
   }
-
-
 
   @override
   Future<FileServiceResponse> get(String url,

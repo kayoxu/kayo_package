@@ -27,17 +27,18 @@ class KayoPackage {
   String loadingText = '加载中, 请稍等...';
   bool? ignoreSSL = false;
   Locale? locale = Locale('zh');
-
+  String imageSourcePrefix = '';
   int reLoginCode = 401;
 
   Function(BuildContext context)? onTapToolbarBack;
-  Function(BuildContext context,String page, Map<String, dynamic>? resultArgs,
+  Function(BuildContext context, String page, Map<String, dynamic>? resultArgs,
       dynamic resultData)? onNotifyPop;
 
   init({
     String? nullText,
     String? loadingText,
     String? formatDefault,
+    String? imageSourcePrefix,
     DateTimePickerLocale? dateTimePickerLocale,
     String? dataPickerLocale,
     Locale? locale,
@@ -50,8 +51,8 @@ class KayoPackage {
     Color? colorAccentLite,
     Color? colorAccentLiteLite,
     Function(BuildContext context)? onTapToolbarBack,
-    Function(BuildContext context,String page, Map<String, dynamic>? resultArgs,
-            dynamic resultData)?
+    Function(BuildContext context, String page,
+            Map<String, dynamic>? resultArgs, dynamic resultData)?
         onNotifyPop,
   }) {
     this.locale = locale ?? this.locale;
@@ -67,6 +68,7 @@ class KayoPackage {
         colorPrimary ?? BaseColorUtils.colorAccentLiteLite;
     this.reLoginCode = reLoginCode ?? this.reLoginCode;
 
+    this.imageSourcePrefix = imageSourcePrefix ?? '';
     this.ignoreSSL = ignoreSSL;
     if (null != locale) {
       if (locale.languageCode == 'zh') {
