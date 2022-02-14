@@ -145,7 +145,7 @@ class ToolBarState extends State<ToolBar> {
                                 }), // null disables the button
                           )
                         : null),
-            brightness: widget.darkStatusText == true
+            brightness: true /*widget.darkStatusText == true*/
                 ? Brightness.light
                 : Brightness.dark,
             centerTitle: widget.centerTitle ?? true,

@@ -20,6 +20,8 @@ class KayoPackage {
 
   KayoPackage._();
 
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
   static KayoPackage get share => KayoPackage._init();
   static KayoPackage? _singleton;
 

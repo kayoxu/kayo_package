@@ -11,6 +11,7 @@ class TabBarWidgetAllowDark extends StatefulWidget {
   final List<Widget>? tabViews;
 
   final Color? backgroundColor;
+  final Color? selectedItemColor;
   final Color? unselectedItemColor;
 
   final Widget? drawer;
@@ -33,6 +34,7 @@ class TabBarWidgetAllowDark extends StatefulWidget {
     this.tabItems,
     this.tabViews,
     this.backgroundColor,
+    this.selectedItemColor,
     this.unselectedItemColor,
     this.drawer,
     this.appBar,
@@ -96,14 +98,17 @@ class TabBarWidgetAllowDarkState extends State<TabBarWidgetAllowDark>
           iconSize: 21.0,
           selectedFontSize: 10.0,
           unselectedFontSize: 10.0,
-          selectedItemColor: Theme.of(context).primaryColor,
+          selectedItemColor: widget.selectedItemColor ?? Theme
+              .of(context)
+              .primaryColor,
           unselectedItemColor: widget.unselectedItemColor ?? Colors.grey,
-          onTap: (index) => widget.animate == true
+          onTap: (index) =>
+          widget.animate == true
               ? _pageController.animateToPage(
-                  index,
-                  duration: Duration(milliseconds: 100),
-                  curve: Curves.ease,
-                )
+            index,
+            duration: Duration(milliseconds: 100),
+            curve: Curves.ease,
+          )
               : _pageController.jumpToPage(index),
         ));
   }

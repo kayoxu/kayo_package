@@ -7,6 +7,7 @@ export 'package:kayo_package/extension/base_page_route_extension.dart';
 export 'package:kayo_package/extension/base_widget_extension.dart';
 export 'package:kayo_package/extension/base_date_time_extension.dart';
 export 'package:kayo_package/extension/base_build_context_extension.dart';
+export 'package:kayo_package/extension/color_extension.dart';
 
 /**
  *  kayo_package

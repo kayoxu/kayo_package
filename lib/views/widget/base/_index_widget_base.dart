@@ -18,6 +18,9 @@ export 'dot_view.dart';
 export 'text_with_drawable.dart';
 export 'keyboard/_index_widget_keyboard.dart';
 export 'package:path_drawing/path_drawing.dart';
+export 'title_msg_view_dark.dart';
+export 'text_view_dark.dart';
+export 'button_view_dark.dart';
 
 /**
  *  kayo_package

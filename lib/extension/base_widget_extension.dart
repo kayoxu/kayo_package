@@ -15,6 +15,7 @@ extension BaseWidgetExtension on Widget? {
   }
 
   ///给widget增加点击事件
+  @Deprecated('调用')
   Widget setOnClick(
       {Key? key,
       required GestureTapCallback? onTap,
@@ -42,6 +43,62 @@ extension BaseWidgetExtension on Widget? {
       );
     }
     return SizedBox();
+  }
+
+  Widget inkWell({
+    Key? key,
+    Widget? child,
+    GestureTapCallback? onTap,
+    GestureTapCallback? onDoubleTap,
+    GestureLongPressCallback? onLongPress,
+    GestureTapDownCallback? onTapDown,
+    GestureTapCancelCallback? onTapCancel,
+    ValueChanged<bool>? onHighlightChanged,
+    ValueChanged<bool>? onHover,
+    MouseCursor? mouseCursor,
+    Color? focusColor,
+    Color? hoverColor,
+    Color? highlightColor,
+    MaterialStateProperty<Color?>? overlayColor,
+    Color? splashColor,
+    InteractiveInkFeatureFactory? splashFactory,
+    double? radius,
+    BorderRadius? borderRadius,
+    ShapeBorder? customBorder,
+    bool? enableFeedback = true,
+    bool excludeFromSemantics = false,
+    FocusNode? focusNode,
+    bool canRequestFocus = true,
+    ValueChanged<bool>? onFocusChange,
+    bool autofocus = false,
+  }) {
+    return InkWell(
+      child: this,
+      key: key,
+      onTap: onTap,
+      onDoubleTap: onDoubleTap,
+      onLongPress: onLongPress,
+      onTapDown: onTapDown,
+      onTapCancel: onTapCancel,
+      onHighlightChanged: onHighlightChanged,
+      onHover: onHover,
+      mouseCursor: mouseCursor,
+      focusColor: focusColor,
+      hoverColor: hoverColor,
+      highlightColor: highlightColor,
+      overlayColor: overlayColor,
+      splashColor: splashColor,
+      splashFactory: splashFactory,
+      radius: radius,
+      borderRadius: borderRadius,
+      customBorder: customBorder,
+      enableFeedback: enableFeedback ?? true,
+      excludeFromSemantics: excludeFromSemantics,
+      focusNode: focusNode,
+      canRequestFocus: canRequestFocus,
+      onFocusChange: onFocusChange,
+      autofocus: autofocus,
+    );
   }
 
   ///添加padding
