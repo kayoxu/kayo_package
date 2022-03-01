@@ -8,18 +8,17 @@ import 'package:kayo_package/http/base_code.dart';
 ///  Copyright © 2019 kayoxu. All rights reserved.
 
 class BaseResultData<T> {
-  int? code = 150;
+  int? code = 200;
   T? data;
 
   var timestamp;
   String? sign;
   String? msg;
 
-  BaseResultData(
-    this.msg,
-    this.code, {
-    this.data,
-  });
+  BaseResultData(this.msg,
+      this.code, {
+        this.data,
+      });
 
   BaseResultData sendMsg() {
     if (code != BaseCode.RESULT_OK) {
@@ -32,6 +31,13 @@ class BaseResultData<T> {
       _$BaseResultDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$BaseResultDataToJson(this);
+
+  @override
+  String toString() {
+    return 'BaseResultData{code: $code, data: $data, timestamp: $timestamp, sign: $sign, msg: $msg}';
+  }
+
+
 }
 
 BaseResultData<T> _$BaseResultDataFromJson<T>(Map<String, dynamic> json) {

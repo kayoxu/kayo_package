@@ -3,12 +3,11 @@ import 'package:dio/dio.dart';
 import 'dart:collection';
 import 'package:connectivity/connectivity.dart';
 import 'package:kayo_package/http/bean/base_result_data.dart';
+import 'package:kayo_package/http/bean/result_enum.dart';
 
 import 'package:kayo_package/kayo_package.dart';
 
 import 'dart:convert' show json, utf8;
-
-import 'base_code.dart';
 
 ///  tfblue_flutter_module
 ///  common.http
@@ -17,19 +16,20 @@ import 'base_code.dart';
 ///  Copyright © 2021 kayoxu. All rights reserved.
 ///
 
-abstract class BaseHttpManager {
-  final tag = 'BaseHttpManager';
+abstract class BaseHttpManagerJayBean {
+  final tag = 'BaseHttpManagerJayBean';
 
   Map<String, int> _httpPageMap = new HashMap();
   int _pageSize = 20;
 
-  final CONTENT_TYPE_JSON = "application/json";
-  final CONTENT_TYPE_FORM = "application/x-www-form-urlencoded";
-  Map optionParams = {
-    "timeoutMs": 15000,
-    "token": null,
-    "authorizationCode": null,
-  };
+  static final CONTENT_TYPE_JSON = "application/json";
+  static final CONTENT_TYPE_FORM = "application/x-www-form-urlencoded";
+
+  // Map optionParams = {
+  //   "timeoutMs": 15000,
+  //   "token": null,
+  //   "authorizationCode": null,
+  // };
 
   Dio? dio;
 
@@ -55,7 +55,7 @@ abstract class BaseHttpManager {
   Map<String, dynamic>? getMap(dynamic string);
 
   ///打印日志
-  logInfo({String? tag, String? msg});
+  logInfo({String? tag, msg});
 
   ///保存缓存数据
   Future<void> setSharedData(String sharedUrl, json);
@@ -64,42 +64,97 @@ abstract class BaseHttpManager {
   Future<String?> getSharedString(String sharedUrl);
 
   ///获取基础的Header
-  Future<Map<String, dynamic>> getBaseHeader();
+  Future<Map<String, dynamic>> getBaseHeader({bool? encryptionAppSend,
+    bool? encryption,
+    String? country,
+    String? language,
+    String? contentType,
+    Map<String, dynamic>? optionHeader,});
 
-  _httpPost(
-      String url, Map<String, dynamic>? params, Map<String, dynamic>? header,
+  ///返回成功
+  ResultEnum get resultOk;
+
+  ///网络错误
+  ResultEnum get resultErrorNetwork;
+
+  ///网络超时
+  ResultEnum get resultErrorTimeOut;
+
+  ///其他错误
+  ResultEnum get resultErrorUnknown;
+
+  ///Json解释出错
+  ResultEnum get resultErrorJson;
+
+  ///登录过期
+  ResultEnum get resultLoginExpiration;
+
+  ///加密
+  String encode(data);
+
+  decode(String data);
+
+  _httpPost(String url, Map<String, dynamic>? params,
+      Map<String, dynamic>? header,
       {bool autoShowDialog = true,
-      bool autoHideDialog = true,
-      ValueChanged<BaseResultData>? onSuccess,
-      ValueChanged<String>? onError,
-      CancelToken? cancelToken,
-      ProgressCallback? onSendProgress,
-      ProgressCallback? onReceiveProgress}) async {
+        bool autoHideDialog = true,
+        ValueChanged<dynamic>? onSuccess,
+        ValueChanged<String>? onError,
+        CancelToken? cancelToken,
+        ProgressCallback? onSendProgress,
+        ProgressCallback? onReceiveProgress}) async {
     return netFetch(url, params, header, Options(method: 'POST'),
         autoHideDialog: autoHideDialog,
         autoShowDialog: autoShowDialog,
         onSuccess: onSuccess,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
+        cancelToken: cancelToken,
         onError: onError);
   }
 
   ///  不牵涉分页的时候不用传loadMore，传入loadMore需要传入 page，limit
   doHttpPost<T>(String url, Map? params,
       {Map<String, dynamic>? header,
-      bool autoShowDialog = true,
-      bool autoHideDialog = true,
-      ValueChanged<T?>? onSuccess,
-      ValueChanged<T?>? onCache,
-      ValueChanged<String>? onError,
-      bool? loadMore,
-      String? subKey,
-      CancelToken? cancelToken,
-      ProgressCallback? onSendProgress,
-      ProgressCallback? onReceiveProgress}) async {
+        bool autoShowDialog = true,
+        bool autoHideDialog = true,
+        ValueChanged<BaseResultData<T?>>? onSuccess,
+        ValueChanged<BaseResultData<T?>>? onCache,
+        ValueChanged<String>? onError,
+        bool? loadMore,
+        String? subKey,
+        CancelToken? cancelToken,
+
+        ///app发送加密数据
+        bool? encryptionAppSend,
+
+        ///app接受加密数据
+        bool? encryption,
+
+        ///本地化国家
+        String? country,
+
+        ///本地化语言
+        String? language,
+
+        ///post文件类型
+        String? contentType,
+
+        ///额外的header
+        Map<String, dynamic>? optionHeader,
+        ProgressCallback? onSendProgress,
+        ProgressCallback? onReceiveProgress}) async {
     if (autoShowDialog) LoadingUtils.show(data: textLoading());
 
     var paramsTemp = Map<String, dynamic>.from(params ?? {});
     header = header ?? Map<String, dynamic>();
-    header.addAll(await getBaseHeader());
+    header.addAll(await getBaseHeader(
+        encryption: encryption,
+        encryptionAppSend: encryptionAppSend,
+        language: language,
+        country: country,
+        contentType: contentType,
+        optionHeader: optionHeader));
 
     var sharedUrl = getSharedUrl(url);
     var hasPage = paramsTemp.containsKey("page");
@@ -139,7 +194,7 @@ abstract class BaseHttpManager {
         try {
           T? bean = await getBean<T>(loadCache);
           if (null != onCache) {
-            onCache(bean);
+            onCache(BaseResultData(resultOk.msg, resultOk.code, data: bean));
           }
         } catch (e) {
           print(e);
@@ -156,18 +211,18 @@ abstract class BaseHttpManager {
       onSendProgress: onSendProgress,
       onSuccess: (resultData) async {
         BaseResultData<T> data =
-            BaseResultData(resultData.msg, resultData.code);
+        BaseResultData(resultData.msg, resultData.code);
 
-        if (resultData.code == BaseCode.RESULT_OK) {
+        if (resultData.code == resultOk.code) {
           data.data = await getBean<T>(resultData.data);
         }
 
         String? errorData = '';
 
         if (/*resultData != null &&*/
-            resultData.data != null && resultData.code == BaseCode.RESULT_OK) {
+        resultData.data != null && resultData.code == resultOk.code) {
           if (null != onSuccess) {
-            onSuccess(data.data);
+            onSuccess(data);
           }
 
           try {
@@ -220,15 +275,15 @@ abstract class BaseHttpManager {
   ///[ params] 请求参数
   ///[ header] 外加头
   ///[ option] 配置
-  netFetch(String? url, dynamic params, Map<String, dynamic>? header,
-      Options? option,
+  netFetch(String? url, Map<String, dynamic>? params,
+      Map<String, dynamic>? header, Options? option,
       {bool autoShowDialog = true,
-      bool autoHideDialog = true,
-      ValueChanged<BaseResultData>? onSuccess,
-      ValueChanged<String>? onError,
-      CancelToken? cancelToken,
-      ProgressCallback? onSendProgress,
-      ProgressCallback? onReceiveProgress}) async {
+        bool autoHideDialog = true,
+        ValueChanged<BaseResultData>? onSuccess,
+        ValueChanged<String>? onError,
+        CancelToken? cancelToken,
+        ProgressCallback? onSendProgress,
+        ProgressCallback? onReceiveProgress}) async {
     url = '$url'.replaceAll('\n', '');
 
     //没有网络
@@ -236,7 +291,7 @@ abstract class BaseHttpManager {
     if (connectivityResult == ConnectivityResult.none) {
       var msg = textNetworkError();
       _onError(onError, msg);
-      return BaseResultData(msg, BaseCode.RESULT_ERROR_NETWORK_ERROR).sendMsg();
+      return BaseResultData(msg, resultErrorNetwork.code).sendMsg();
     }
 
     if (option != null) {
@@ -258,10 +313,24 @@ abstract class BaseHttpManager {
     if (null == dio) {
       dio = Dio();
     }
+    Map<String, dynamic>? paramsTemp = params;
+    if (header?['jaybean-encryption-app-send'] == true && null != params) {
+      paramsTemp = {};
+      var keys = params.keys;
+      for (String key in keys) {
+        var value = params[key];
+        if (params[key] is String) {
+          paramsTemp[key] = encode(value);
+        } else {
+          paramsTemp[key] = value;
+        }
+      }
+    }
 
+    var par = paramsTemp;
     try {
       response = await dio!.request(url,
-          data: params,
+          data: par,
           options: option,
           cancelToken: cancelToken,
           onReceiveProgress: onReceiveProgress,
@@ -276,7 +345,7 @@ abstract class BaseHttpManager {
             Response(statusCode: 666, requestOptions: RequestOptions(path: ''));
       }
       if (e.type == DioErrorType.connectTimeout) {
-        errorResponse?.statusCode = BaseCode.RESULT_ERROR_NETWORK_TIMEOUT;
+        errorResponse?.statusCode = resultErrorTimeOut.code;
       }
 
       if (BaseSysUtils.isDebug) {
@@ -291,14 +360,14 @@ abstract class BaseHttpManager {
       }
 
       //todo sbg
-      if (errorResponse?.statusCode == KayoPackage.share.reLoginCode) {
+      if (errorResponse?.statusCode == resultLoginExpiration.code) {
         var msg = textLoginExpired();
         _onError(onError, msg);
-        return BaseResultData(msg, 6).sendMsg();
+        return BaseResultData(msg, resultLoginExpiration.code).sendMsg();
       }
 
       String msg = (BaseSysUtils.isDebug ? errorHeader : '') + e.message;
-      var code = errorResponse?.statusCode ?? BaseCode.RESULT_ERROR_OTHER_ERROR;
+      var code = errorResponse?.statusCode ?? resultErrorUnknown.code;
       Map<String, dynamic>? map = Map<String, dynamic>();
       try {
         map = getMap(e.response.toString());
@@ -307,8 +376,8 @@ abstract class BaseHttpManager {
         _onError(onError, e.toString());
         return BaseResultData(msg, code).sendMsg();
       }
-      if (map?.containsKey('error') == true) {
-        msg = map?['error'] ?? msg;
+      if (map?.containsKey('msg') == true) {
+        msg = map?['msg'] ?? msg;
       }
       if (map?.containsKey('code') == true) {
         code = map?['code'] ?? code;
@@ -322,40 +391,34 @@ abstract class BaseHttpManager {
       logInfo(tag: tag, msg: '请求头: ' + option.headers.toString());
       if (params != null) {
         logInfo(tag: tag, msg: '请求参数: ' + params.toString());
+        if (header?['jaybean-encryption-app-send'] == true) {
+          logInfo(tag: tag, msg: '请求参数 加密: ' + par.toString());
+        }
       }
 
-      var string = response.toString();
-      logInfo(tag: tag, msg: '返回数据: ' + string);
-
-      if (optionParams["authorizationCode"] != null) {
-        logInfo(
-            tag: tag,
-            msg: 'authorizationCode: ' + optionParams["authorizationCode"]);
-      }
+      // if (optionParams["authorizationCode"] != null) {
+      //   logInfo(
+      //       tag: tag,
+      //       msg: 'authorizationCode: ' + optionParams["authorizationCode"]);
+      // }
     }
 
     try {
       var jsonStr = response.data;
-      if (jsonStr is String) {
-        jsonStr = await json.decode(response.data);
-      }
-      //todo sbg
+      logInfo(tag: tag, msg: '返回数据: ' + jsonStr.toString());
 
-      var jsonMap = Map<String, dynamic>();
-
-      if (jsonStr is List) {
-        jsonMap = {'code': 200, 'data': jsonStr};
-      } else if (jsonStr is Map) {
-        if (!jsonStr.containsKey('code') ||
-            (!jsonStr.containsKey('timestamp') &&
-                !jsonStr.containsKey('sign'))) {
-          jsonMap = {'code': 200, 'data': jsonStr};
-        } else {
-          jsonMap = Map<String, dynamic>.from(jsonStr);
+      if (header?['jaybean-encryption'] == true) {
+        if (jsonStr is String) {
+          jsonStr = decode(jsonStr);
+        } else if (jsonStr is Map) {
+          jsonStr = decode(toJson(jsonStr));
         }
+        logInfo(tag: tag, msg: '返回数据 解密: ' + jsonStr.toString());
       }
-
-      var resultData = BaseResultData.fromJson(jsonMap);
+      if (jsonStr is String) {
+        jsonStr = await json.decode(jsonStr);
+      }
+      var resultData = BaseResultData.fromJson(jsonStr);
       if (/*null != resultData*/ true) {
         if (BaseCode.RESULT_OK != resultData.code) {
           var msg = resultData.msg;
@@ -373,9 +436,7 @@ abstract class BaseHttpManager {
       var message = errorHeader + e.toString();
 
       _onError(onError, message);
-      return BaseResultData(
-              message, BaseCode.RESULT_ERROR_NETWORK_JSON_EXCEPTION)
-          .sendMsg();
+      return BaseResultData(message, resultErrorJson.code).sendMsg();
     }
   }
 
