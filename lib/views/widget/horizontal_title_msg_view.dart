@@ -84,6 +84,7 @@ class HorizontalTitleMsgView extends StatefulWidget {
   final String msg;
   final bool rightIcon;
   final Color rightIconColor;
+  final Color? subTitleColor;
   final String? rightIconSrc;
   final double? rightIconWidth;
   final double? rightIconHeight;
@@ -147,6 +148,7 @@ class HorizontalTitleMsgView extends StatefulWidget {
     this.rightIconHeight,
     this.rightIconWidth,
     this.rightIconColor = BaseColorUtils.colorBlackLite,
+    this.subTitleColor,
     this.padding,
     this.margin,
     this.leftIcon = Visible.gone,
@@ -278,7 +280,8 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                         margin: EdgeInsets.all(0),
 //                        bgColor: ColorUtils.colorGreen,
                         radius: 6,
-                        color: BaseColorUtils.colorGreyLite,
+                        color: widget.subTitleColor ??
+                            BaseColorUtils.colorGreyLite,
                         padding: EdgeInsets.only(left: 3, right: 3),
                       )),
                 ],
