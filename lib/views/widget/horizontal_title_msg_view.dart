@@ -97,6 +97,7 @@ class HorizontalTitleMsgView extends StatefulWidget {
   final String? subTitle;
   final bool msgEditableFull;
   final TextInputType? msgInputType;
+  final CrossAxisAlignment? crossAxisAlignment;
 
   final Color titleColor;
   final double titleSize;
@@ -149,6 +150,7 @@ class HorizontalTitleMsgView extends StatefulWidget {
     this.rightIconWidth,
     this.rightIconColor = BaseColorUtils.colorBlackLite,
     this.subTitleColor,
+    this.crossAxisAlignment,
     this.padding,
     this.margin,
     this.leftIcon = Visible.gone,
@@ -248,6 +250,8 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
           color: null == widget.onClick ? widget.bgColor : null,
           padding: widget.padding,
           child: Row(
+            crossAxisAlignment:
+                widget.crossAxisAlignment ?? CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Row(
