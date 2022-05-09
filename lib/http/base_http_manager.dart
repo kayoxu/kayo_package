@@ -70,14 +70,16 @@ abstract class BaseHttpManager {
       String url, Map<String, dynamic>? params, Map<String, dynamic>? header,
       {bool autoShowDialog = true,
       bool autoHideDialog = true,
+      String? method,
       ValueChanged<BaseResultData>? onSuccess,
       ValueChanged<String>? onError,
       CancelToken? cancelToken,
       ProgressCallback? onSendProgress,
       ProgressCallback? onReceiveProgress}) async {
-    return netFetch(url, params, header, Options(method: 'POST'),
+    return netFetch(url, params, header, Options(method: method ?? 'POST'),
         autoHideDialog: autoHideDialog,
         autoShowDialog: autoShowDialog,
+        method: method,
         onSuccess: onSuccess,
         onError: onError);
   }
@@ -90,6 +92,7 @@ abstract class BaseHttpManager {
       ValueChanged<T?>? onSuccess,
       ValueChanged<T?>? onCache,
       ValueChanged<String>? onError,
+      String? method,
       bool? loadMore,
       String? subKey,
       CancelToken? cancelToken,
@@ -151,6 +154,7 @@ abstract class BaseHttpManager {
       url,
       paramsTemp,
       header,
+      method: method,
       onReceiveProgress: onReceiveProgress,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
@@ -210,9 +214,9 @@ abstract class BaseHttpManager {
     return netFetch(url, params, null, Options(method: 'GET'));
   }
 
-  httpUpload(url, params, {Options? options}) {
-    return netFetch(
-        url, params, null, null != options ? options : Options(method: 'POST'));
+  httpUpload(url, params, {Options? options, String? method}) {
+    return netFetch(url, params, null,
+        null != options ? options : Options(method: method ?? 'POST'));
   }
 
   ///发起网络请求
@@ -224,6 +228,7 @@ abstract class BaseHttpManager {
       Options? option,
       {bool autoShowDialog = true,
       bool autoHideDialog = true,
+      String? method,
       ValueChanged<BaseResultData>? onSuccess,
       ValueChanged<String>? onError,
       CancelToken? cancelToken,
@@ -242,7 +247,7 @@ abstract class BaseHttpManager {
     if (option != null) {
       option.headers = header;
     } else {
-      option = Options(method: 'POST');
+      option = Options(method: method ?? 'POST');
       option.headers = header;
     }
 
