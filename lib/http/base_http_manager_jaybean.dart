@@ -48,6 +48,9 @@ abstract class BaseHttpManagerJayBean {
   ///模型转Json
   String toJson(data);
 
+  ///返回
+  void onResult(Response data);
+
   ///json转模型
   Future<T?> getBean<T>(dynamic data);
 
@@ -403,6 +406,8 @@ abstract class BaseHttpManagerJayBean {
       // }
     }
 
+    onResult(response);
+    
     try {
       var jsonStr = response.data;
       logInfo(tag: tag, msg: '返回数据: ' + jsonStr.toString());

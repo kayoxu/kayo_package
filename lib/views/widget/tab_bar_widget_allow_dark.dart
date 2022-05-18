@@ -1,12 +1,10 @@
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:kayo_package/kayo_package.dart';
-import 'package:kayo_package/utils/base_color_utils.dart';
 
 ///支持顶部和顶部的TabBar控件
 ///配合AutomaticKeepAliveClientMixin可以keep住
 class TabBarWidgetAllowDark extends StatefulWidget {
-  final List<BottomNavigationBarItem>? tabItems;
+  final List<TabItem>? tabItems;
 
   final List<Widget>? tabViews;
 
@@ -28,6 +26,7 @@ class TabBarWidgetAllowDark extends StatefulWidget {
   final double? elevation;
   final List<Widget>? actions;
   final bool? resizeToAvoidBottomInset;
+  final bool? safeArea;
 
   TabBarWidgetAllowDark({
     Key? key,
@@ -43,6 +42,7 @@ class TabBarWidgetAllowDark extends StatefulWidget {
     this.animate = true,
     this.scrollable = true,
     this.centerTitle = false,
+    this.safeArea = true,
     this.elevation,
     this.actions,
     this.resizeToAvoidBottomInset = true,
@@ -74,42 +74,38 @@ class TabBarWidgetAllowDarkState extends State<TabBarWidgetAllowDark>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: widget.backgroundColor,
-        resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
-        drawer: widget.drawer,
-        appBar: widget.appBar,
-        floatingActionButton: widget.floatingActionButton,
-        body: PageView(
-          physics: const NeverScrollableScrollPhysics(), // 禁止滑动
-          controller: _pageController,
-          onPageChanged: (int index) {
-            setState(() {
-              pageIndex = index;
-            });
-          },
-          children: widget.tabViews ?? [],
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          // backgroundColor: context.backgroundColor,
-          items: widget.tabItems ?? [],
-          type: BottomNavigationBarType.fixed,
-          currentIndex: pageIndex,
-          elevation: 5.0,
-          iconSize: 21.0,
-          selectedFontSize: 10.0,
-          unselectedFontSize: 10.0,
-          selectedItemColor: widget.selectedItemColor ?? Theme
-              .of(context)
-              .primaryColor,
-          unselectedItemColor: widget.unselectedItemColor ?? Colors.grey,
-          onTap: (index) =>
-          widget.animate == true
-              ? _pageController.animateToPage(
-            index,
-            duration: Duration(milliseconds: 100),
-            curve: Curves.ease,
-          )
-              : _pageController.jumpToPage(index),
-        ));
+      backgroundColor: widget.backgroundColor,
+      resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
+      drawer: widget.drawer,
+      appBar: widget.appBar,
+      floatingActionButton: widget.floatingActionButton,
+      body: PageView(
+        physics: const NeverScrollableScrollPhysics(), // 禁止滑动
+        controller: _pageController,
+        onPageChanged: (int index) {
+          setState(() {
+            pageIndex = index;
+          });
+        },
+        children: widget.tabViews ?? [],
+      ),
+      bottomNavigationBar: ConvexAppBar(
+        style: TabStyle.react,
+        backgroundColor: Theme.of(context).primaryColor,
+        items: widget.tabItems ?? [],
+        initialActiveIndex: pageIndex,
+        onTap: (index) {
+          if (widget.animate == true) {
+            _pageController.animateToPage(
+              index,
+              duration: Duration(milliseconds: 100),
+              curve: Curves.ease,
+            );
+          } else {
+            _pageController.jumpToPage(index);
+          }
+        },
+      ),
+    );
   }
 }

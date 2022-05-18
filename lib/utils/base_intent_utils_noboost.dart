@@ -62,6 +62,7 @@ class BaseIntentUtilsNoBoost {
   Future _pushByName(BuildContext context, String routeName,
       {bool finish = false,
       bool removeAll = false,
+      bool full = false,
       Map<String, dynamic>? data}) {
     if (removeAll) {
       return Navigator.of(context).pushNamedAndRemoveUntil(

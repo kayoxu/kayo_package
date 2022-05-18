@@ -44,6 +44,7 @@ class TabBarWidgetAllowDark extends StatefulWidget {
   final Color? bgColor;
   final Function()? backClick;
   final bool? resizeToAvoidBottomInset;
+  final bool? safeArea;
 
   TabBarWidgetAllowDark({
     Key? key,
@@ -64,6 +65,7 @@ class TabBarWidgetAllowDark extends StatefulWidget {
     this.scrollable = true,
     this.showBack = false,
     this.centerTitle = false,
+    this.safeArea = true,
     this.elevation,
     this.titleStr,
     this.actions,
@@ -127,6 +129,20 @@ class TabBarWidgetAllowDarkState extends State<TabBarWidgetAllowDark>
       _tabController?.index = widget.initialIndex ?? 0;
     }
 
+    var tabBar = TabBar(
+//                  unselectedLabelStyle: TextStyle(fontSize: 14),
+//                  labelStyle: TextStyle(fontSize: 14),
+      controller: _tabController,
+      indicatorColor: const Color(0x0fff),
+//                   indicatorColor: const Color(0xFFFFFFFF),
+      //tab标签的下划线颜色
+      // labelColor: const Color(0xFF000000),
+      indicatorWeight: .5,
+      labelColor: Theme.of(context).primaryColor,
+      unselectedLabelColor: const Color(0xfff),
+      isScrollable: false,
+      tabs: widget.tabItems ?? [],
+    );
     return Scaffold(
         backgroundColor: widget.backgroundColor,
         resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
@@ -142,22 +158,11 @@ class TabBarWidgetAllowDarkState extends State<TabBarWidgetAllowDark>
         bottomNavigationBar: Material(
           //为了适配主题风格，包一层Material实现风格套用
           color: widget.bgColor, //底部导航栏主题颜色
-          child: SafeArea(
-            child: TabBar(
-//                  unselectedLabelStyle: TextStyle(fontSize: 14),
-//                  labelStyle: TextStyle(fontSize: 14),
-              controller: _tabController,
-              indicatorColor: const Color(0x0fff),
-//                   indicatorColor: const Color(0xFFFFFFFF),
-              //tab标签的下划线颜色
-              // labelColor: const Color(0xFF000000),
-              indicatorWeight: .5,
-              labelColor: Theme.of(context).primaryColor,
-              unselectedLabelColor: const Color(0xfff),
-              isScrollable: false,
-              tabs: widget.tabItems ?? [],
-            ),
-          ),
+          child: widget.safeArea == true
+              ? SafeArea(
+                  child: tabBar,
+                )
+              : tabBar,
         ));
   }
 }
