@@ -234,7 +234,7 @@ abstract class BaseHttpManager {
       CancelToken? cancelToken,
       ProgressCallback? onSendProgress,
       ProgressCallback? onReceiveProgress}) async {
-    url = '$url'.replaceAll('\n', '');
+    url = '$url'.replaceAll('\n', '') ?? '';
 
     if (BaseSysUtils.equals((method ?? '').toUpperCase(), 'GET')) {
       if (null != params && params is Map) {
@@ -244,7 +244,7 @@ abstract class BaseHttpManager {
         for (String k in keys) {
           if (i == 0) {
             url = '$url?$k=${m[k]}';
-          }else{
+          } else {
             url = '$url&$k=${m[k]}';
           }
           i++;
@@ -280,7 +280,7 @@ abstract class BaseHttpManager {
     }
 
     try {
-      response = await dio!.request(url,
+      response = await dio!.request(url!,
           data: params,
           options: option,
           cancelToken: cancelToken,
@@ -300,7 +300,7 @@ abstract class BaseHttpManager {
       }
 
       if (BaseSysUtils.isDebug) {
-        logInfo(tag: tag, msg: '请求异常url: ' + url);
+        logInfo(tag: tag, msg: '请求异常url: ' + url!);
         logInfo(
             tag: tag,
             msg: '请求异常参数: ' + /* params is Map ? toJson(params) :*/ '$params');
