@@ -236,6 +236,21 @@ abstract class BaseHttpManager {
       ProgressCallback? onReceiveProgress}) async {
     url = '$url'.replaceAll('\n', '');
 
+    if (BaseSysUtils.equals((method ?? '').toUpperCase(), 'GET')) {
+      if (null != params && params is Map) {
+        var m = Map<String, dynamic>.from(params);
+        var keys = m.keys;
+        int i = 0;
+        for (String k in keys) {
+          if (i == 0) {
+            url = '$url?$k=${m[k]}';
+          }else{
+            url = '$url&$k=${m[k]}';
+          }
+          i++;
+        }
+      }
+    }
     //没有网络
     var connectivityResult = await (new Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
