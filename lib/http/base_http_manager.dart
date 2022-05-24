@@ -66,16 +66,16 @@ abstract class BaseHttpManager {
   ///获取基础的Header
   Future<Map<String, dynamic>> getBaseHeader();
 
-  _httpPost(
-      String url, Map<String, dynamic>? params, Map<String, dynamic>? header,
+  _httpPost(String url, Map<String, dynamic>? params,
+      Map<String, dynamic>? header,
       {bool autoShowDialog = true,
-      bool autoHideDialog = true,
-      String? method,
-      ValueChanged<BaseResultData>? onSuccess,
-      ValueChanged<String>? onError,
-      CancelToken? cancelToken,
-      ProgressCallback? onSendProgress,
-      ProgressCallback? onReceiveProgress}) async {
+        bool autoHideDialog = true,
+        String? method,
+        ValueChanged<BaseResultData>? onSuccess,
+        ValueChanged<String>? onError,
+        CancelToken? cancelToken,
+        ProgressCallback? onSendProgress,
+        ProgressCallback? onReceiveProgress}) async {
     return netFetch(url, params, header, Options(method: method ?? 'POST'),
         autoHideDialog: autoHideDialog,
         autoShowDialog: autoShowDialog,
@@ -87,17 +87,17 @@ abstract class BaseHttpManager {
   ///  不牵涉分页的时候不用传loadMore，传入loadMore需要传入 page，limit
   doHttpPost<T>(String url, Map? params,
       {Map<String, dynamic>? header,
-      bool autoShowDialog = true,
-      bool autoHideDialog = true,
-      ValueChanged<T?>? onSuccess,
-      ValueChanged<T?>? onCache,
-      ValueChanged<String>? onError,
-      String? method,
-      bool? loadMore,
-      String? subKey,
-      CancelToken? cancelToken,
-      ProgressCallback? onSendProgress,
-      ProgressCallback? onReceiveProgress}) async {
+        bool autoShowDialog = true,
+        bool autoHideDialog = true,
+        ValueChanged<T?>? onSuccess,
+        ValueChanged<T?>? onCache,
+        ValueChanged<String>? onError,
+        String? method,
+        bool? loadMore,
+        String? subKey,
+        CancelToken? cancelToken,
+        ProgressCallback? onSendProgress,
+        ProgressCallback? onReceiveProgress}) async {
     if (autoShowDialog) LoadingUtils.show(data: textLoading());
 
     var paramsTemp = Map<String, dynamic>.from(params ?? {});
@@ -160,7 +160,7 @@ abstract class BaseHttpManager {
       onSendProgress: onSendProgress,
       onSuccess: (resultData) async {
         BaseResultData<T> data =
-            BaseResultData(resultData.msg, resultData.code);
+        BaseResultData(resultData.msg, resultData.code);
 
         if (resultData.code == BaseCode.RESULT_OK) {
           data.data = await getBean<T>(resultData.data);
@@ -169,7 +169,7 @@ abstract class BaseHttpManager {
         String? errorData = '';
 
         if (/*resultData != null &&*/
-            resultData.data != null && resultData.code == BaseCode.RESULT_OK) {
+        resultData.data != null && resultData.code == BaseCode.RESULT_OK) {
           if (null != onSuccess) {
             onSuccess(data.data);
           }
@@ -227,14 +227,14 @@ abstract class BaseHttpManager {
   netFetch(String? url, dynamic params, Map<String, dynamic>? header,
       Options? option,
       {bool autoShowDialog = true,
-      bool autoHideDialog = true,
-      String? method,
-      ValueChanged<BaseResultData>? onSuccess,
-      ValueChanged<String>? onError,
-      CancelToken? cancelToken,
-      ProgressCallback? onSendProgress,
-      ProgressCallback? onReceiveProgress}) async {
-    url = '$url'.replaceAll('\n', '') ?? '';
+        bool autoHideDialog = true,
+        String? method,
+        ValueChanged<BaseResultData>? onSuccess,
+        ValueChanged<String>? onError,
+        CancelToken? cancelToken,
+        ProgressCallback? onSendProgress,
+        ProgressCallback? onReceiveProgress}) async {
+    url = '$url'.replaceAll('\n', '');
 
     if (BaseSysUtils.equals((method ?? '').toUpperCase(), 'GET')) {
       if (null != params && params is Map) {
@@ -397,7 +397,7 @@ abstract class BaseHttpManager {
 
       _onError(onError, message);
       return BaseResultData(
-              message, BaseCode.RESULT_ERROR_NETWORK_JSON_EXCEPTION)
+          message, BaseCode.RESULT_ERROR_NETWORK_JSON_EXCEPTION)
           .sendMsg();
     }
   }
