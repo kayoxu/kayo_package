@@ -89,7 +89,7 @@ abstract class AssetPickerViewerBuilderDelegate<Asset> {
 
   /// [PageController] for assets preview [PageView].
   /// 查看图片资源的页面控制器
-  late final ExtendedPageController pageController = ExtendedPageController(
+  late final PageController pageController = PageController(
     initialPage: currentIndex,
   );
 
