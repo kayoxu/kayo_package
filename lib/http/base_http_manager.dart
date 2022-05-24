@@ -301,6 +301,7 @@ abstract class BaseHttpManager {
 
       if (BaseSysUtils.isDebug) {
         logInfo(tag: tag, msg: '请求异常url: ' + url!);
+        logInfo(tag: tag, msg: '请求异常请求头: ' + option.headers.toString());
         logInfo(
             tag: tag,
             msg: '请求异常参数: ' + /* params is Map ? toJson(params) :*/ '$params');
