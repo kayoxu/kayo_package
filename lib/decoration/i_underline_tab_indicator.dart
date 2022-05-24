@@ -13,14 +13,19 @@ class IUnderlineTabIndicator extends Decoration {
   /// Create an underline style selected tab indicator.
   ///
   /// The [borderSide] and [insets] arguments must not be null.
-    IUnderlineTabIndicator({
+  Color? color;
+
+  IUnderlineTabIndicator({
+    this.color,
     this.borderSide = const BorderSide(width: 2.5, color: Color(0xff1E6FF4)),
     this.insets = EdgeInsets.zero,
   })  : assert(borderSide != null),
-        assert(insets != null);
+        assert(insets != null) {
+    borderSide = BorderSide(width: 2.5, color: color ?? Color(0xff1E6FF4));
+  }
 
   /// The color and weight of the horizontal line drawn below the selected tab.
-  final BorderSide borderSide;
+  BorderSide? borderSide;
 
   /// Locates the selected tab's underline relative to the tab's boundary.
   ///
@@ -33,7 +38,7 @@ class IUnderlineTabIndicator extends Decoration {
   Decoration lerpFrom(Decoration? a, double t) {
     if (a is IUnderlineTabIndicator) {
       return IUnderlineTabIndicator(
-        borderSide: BorderSide.lerp(a.borderSide, borderSide, t),
+        borderSide: BorderSide.lerp(a.borderSide!, borderSide!, t),
         insets: EdgeInsetsGeometry.lerp(a.insets, insets, t)!,
       );
     }
@@ -44,7 +49,7 @@ class IUnderlineTabIndicator extends Decoration {
   Decoration lerpTo(Decoration? b, double t) {
     if (b is IUnderlineTabIndicator) {
       return IUnderlineTabIndicator(
-        borderSide: BorderSide.lerp(borderSide, b.borderSide, t),
+        borderSide: BorderSide.lerp(borderSide!, b.borderSide!, t),
         insets: EdgeInsetsGeometry.lerp(insets, b.insets, t)!,
       );
     }
@@ -64,7 +69,7 @@ class _UnderlinePainter extends BoxPainter {
 
   final IUnderlineTabIndicator decoration;
 
-  BorderSide get borderSide => decoration.borderSide;
+  BorderSide get borderSide => decoration.borderSide!;
 
   EdgeInsetsGeometry get insets => decoration.insets;
 
