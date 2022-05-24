@@ -329,6 +329,9 @@ abstract class BaseHttpManager {
       }
       if (map?.containsKey('error') == true) {
         msg = map?['error'] ?? msg;
+      } else if (map?.containsKey('message') == true &&
+          map?['message'] is String) {
+        msg = map?['message'] ?? msg;
       }
       if (map?.containsKey('code') == true) {
         code = map?['code'] ?? code;
