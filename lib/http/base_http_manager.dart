@@ -382,8 +382,10 @@ abstract class BaseHttpManager {
         }
       }
 
-      if (jsonMap.containsKey('page') &&
-          jsonMap.containsKey('code') &&
+      if ((jsonMap.containsKey('page') && jsonMap.containsKey('code') ||
+              (params is Map &&
+                  params.containsKey('fullData') &&
+                  params['fullData'] == true)) &&
           BaseCode.RESULT_OK == jsonMap['code']) {
         jsonMap = {'code': 200, 'data': jsonStr};
       }
