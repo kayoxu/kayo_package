@@ -86,7 +86,7 @@ extension BaseStringExtension on String? {
                 format: format);
           }
         } else {
-          return this!;
+          return (this ?? '').replaceAll('T', ' ').replaceAll('Z', '');
         }
       }
       return defaultTime ?? KayoPackage.share.nullText;
