@@ -71,12 +71,14 @@ abstract class BaseHttpManager {
       {bool autoShowDialog = true,
       bool autoHideDialog = true,
       String? method,
+      String? contentType,
       ValueChanged<BaseResultData>? onSuccess,
       ValueChanged<String>? onError,
       CancelToken? cancelToken,
       ProgressCallback? onSendProgress,
       ProgressCallback? onReceiveProgress}) async {
-    return netFetch(url, params, header, Options(method: method ?? 'POST'),
+    return netFetch(
+        url, params, header, Options(method: method ?? 'POST'), contentType,
         autoHideDialog: autoHideDialog,
         autoShowDialog: autoShowDialog,
         method: method,
@@ -210,13 +212,18 @@ abstract class BaseHttpManager {
     );
   }
 
-  httpGet(url, params) {
-    return netFetch(url, params, null, Options(method: 'GET'));
+  httpGet(url, params, {String? contentType}) {
+    return netFetch(url, params, null, Options(method: 'GET'), contentType);
   }
 
-  httpUpload(url, params, {Options? options, String? method}) {
-    return netFetch(url, params, null,
-        null != options ? options : Options(method: method ?? 'POST'));
+  httpUpload(url, params,
+      {Options? options, String? method, String? contentType}) {
+    return netFetch(
+        url,
+        params,
+        null,
+        null != options ? options : Options(method: method ?? 'POST'),
+        contentType);
   }
 
   ///发起网络请求
@@ -225,7 +232,7 @@ abstract class BaseHttpManager {
   ///[ header] 外加头
   ///[ option] 配置
   netFetch(String? url, dynamic params, Map<String, dynamic>? header,
-      Options? option,
+      Options? option, String? contentType,
       {bool autoShowDialog = true,
       bool autoHideDialog = true,
       String? method,
@@ -264,6 +271,9 @@ abstract class BaseHttpManager {
     } else {
       option = Options(method: method ?? 'POST');
       option.headers = header;
+    }
+    if (!BaseSysUtils.empty(contentType)) {
+      option.headers?['Content-Type	'] = contentType;
     }
 
     ///超时
