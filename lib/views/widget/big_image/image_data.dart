@@ -11,10 +11,11 @@ import 'package:kayo_package/kayo_package.dart';
 ///  Copyright © 2019 kayoxu. All rights reserved.
 
 class ImageData {
-  ImageData({this.file, this.path, this.url});
+  ImageData({this.file, this.path, this.url, this.name});
 
   final File? file;
   final String? path;
+  final String? name;
   String? url;
 
   bool get isUpload {
@@ -31,10 +32,12 @@ ImageData _$ImageDataFromJson(Map<String, dynamic> json) {
   return ImageData(
     path: json['path'] as String,
     url: json['url'] as String,
+    name: json['name'] as String,
   );
 }
 
 Map<String, dynamic> _$ImageDataToJson(ImageData instance) => <String, dynamic>{
       'path': instance.path,
       'url': instance.url,
+      'name': instance.name,
     };
