@@ -171,7 +171,8 @@ abstract class BaseHttpManager {
         String? errorData = '';
 
         if (/*resultData != null &&*/
-            resultData.data != null && resultData.code == BaseCode.RESULT_OK) {
+            /*resultData.data != null &&*/ resultData.code ==
+                BaseCode.RESULT_OK) {
           if (null != onSuccess) {
             onSuccess(data.data);
           }
