@@ -157,6 +157,8 @@ abstract class BaseHttpManager {
       paramsTemp,
       header,
       method: method,
+      autoHideDialog: autoHideDialog,
+      autoShowDialog: autoShowDialog,
       onReceiveProgress: onReceiveProgress,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
