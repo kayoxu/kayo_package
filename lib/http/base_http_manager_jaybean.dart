@@ -121,8 +121,8 @@ abstract class BaseHttpManagerJayBean {
       {Map<String, dynamic>? header,
         bool autoShowDialog = true,
         bool autoHideDialog = true,
-        ValueChanged<BaseResultData<T?>>? onSuccess,
-        ValueChanged<BaseResultData<T?>>? onCache,
+        ValueChanged<T?>? onSuccess,
+        ValueChanged<T?>?  onCache,
         ValueChanged<String>? onError,
         bool? loadMore,
         String? subKey,
@@ -197,7 +197,7 @@ abstract class BaseHttpManagerJayBean {
         try {
           T? bean = await getBean<T>(loadCache);
           if (null != onCache) {
-            onCache(BaseResultData(resultOk.msg, resultOk.code, data: bean));
+            onCache(bean);
           }
         } catch (e) {
           print(e);
@@ -225,7 +225,7 @@ abstract class BaseHttpManagerJayBean {
         if (/*resultData != null &&*/
         resultData.data != null && resultData.code == resultOk.code) {
           if (null != onSuccess) {
-            onSuccess(data);
+            onSuccess(data.data);
           }
 
           try {
