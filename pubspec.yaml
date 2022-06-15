@@ -32,6 +32,7 @@ dependencies:
   fluttertoast: ">=3.1.2 <=20.0.0"        # May 19, 2021   8.0.7
   extended_image: ^6.2.0
   convex_bottom_bar: ^3.0.0
+  lpinyin: ^2.0.2  #latest version
 
   #  pull_to_refresh: ">=1.5.8 <=10.0.0"       # May 7, 2021 2.0.0
   pull_to_refresh:
