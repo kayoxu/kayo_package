@@ -91,7 +91,7 @@ class BaseColorUtils {
   static const String primaryLightValueString = "#2B7FFB";
 
   static Color darkWhite({required BuildContext? context}) {
-    return context.isDark 
+    return context.isDark
         ? BaseColorUtils.colorWhiteDark
         : BaseColorUtils.colorWhite;
   }
@@ -117,6 +117,12 @@ class BaseColorUtils {
   static Color darkWindow({required BuildContext? context}) {
     return context.isDark
         ? BaseColorUtils.colorWindowDark
+        : BaseColorUtils.colorWindow;
+  }
+
+  static Color darkWindowLite({required BuildContext? context}) {
+    return context.isDark
+        ? BaseColorUtils.colorItemUnSelected
         : BaseColorUtils.colorWindow;
   }
 

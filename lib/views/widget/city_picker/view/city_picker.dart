@@ -199,24 +199,31 @@ class CityPickerState extends State<CityPickerWidget>
     final route = CustomInheritedWidget.of(context)!.router;
     return AnimatedBuilder(
       animation: route.animation!,
-      builder: (BuildContext context, Widget? child) => CustomSingleChildLayout(
-          delegate: CustomLayoutDelegate(
-              progress: route.animation!.value, height: widget.height),
-          child: GestureDetector(
-            child: Material(
-                color: Colors.transparent,
-                child: Container(
-                    width: double.infinity,
-                    child: Column(children: <Widget>[
-                      _topTextWidget(),
-                      Expanded(
+      builder: (BuildContext context, Widget? child) =>
+          CustomSingleChildLayout(
+              delegate: CustomLayoutDelegate(
+                  progress: route.animation!.value, height: widget.height),
+              child: GestureDetector(
+                child: Material(
+                    color: Colors.transparent,
+                    child: Container(
+                        width: double.infinity,
                         child: Column(children: <Widget>[
-                          _middleTabWidget(),
-                          Expanded(child: _bottomListWidget())
-                        ]),
-                      )
-                    ]))),
-          )),
+                          _topTextWidget(),
+                          // LineView(
+                          //   height: .5,
+                          //   color: BaseColorUtils
+                          //       .darkWindow(context: context)
+                          //       .dark,
+                          // ),
+                          Expanded(
+                            child: Column(children: <Widget>[
+                              _middleTabWidget(),
+                              Expanded(child: _bottomListWidget())
+                            ]),
+                          )
+                        ]))),
+              )),
     );
   }
 
@@ -225,7 +232,9 @@ class CityPickerState extends State<CityPickerWidget>
     return Container(
       height: widget.titleHeight,
       decoration: BoxDecoration(
-          color: Theme.of(context).dialogBackgroundColor,
+          color: Theme
+              .of(context)
+              .dialogBackgroundColor,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(widget.corner!),
               topRight: Radius.circular(widget.corner!))),
@@ -282,7 +291,9 @@ class CityPickerState extends State<CityPickerWidget>
     return Container(
       width: double.infinity,
       height: widget.tabHeight,
-      color: Theme.of(context).dialogBackgroundColor,
+      color: Theme
+          .of(context)
+          .dialogBackgroundColor,
       child: TabBar(
         controller: _tabController,
         onTap: (index) {
@@ -292,21 +303,27 @@ class CityPickerState extends State<CityPickerWidget>
         indicatorSize: TabBarIndicatorSize.tab,
         // labelPadding: EdgeInsets.only(left: widget.paddingLeft!),
         indicator: widget.showTabIndicator!
-            // ? UnderlineTabIndicator(
-            //     insets: EdgeInsets.only(left: widget.paddingLeft!),
-            //     borderSide: BorderSide(
-            //         width: widget.tabIndicatorHeight!,
-            //         color: widget.tabIndicatorColor ??
-            //             Theme.of(context).primaryColor),
-            //   )
+        // ? UnderlineTabIndicator(
+        //     insets: EdgeInsets.only(left: widget.paddingLeft!),
+        //     borderSide: BorderSide(
+        //         width: widget.tabIndicatorHeight!,
+        //         color: widget.tabIndicatorColor ??
+        //             Theme.of(context).primaryColor),
+        //   )
             ? IUnderlineTabIndicator(
-                color:
-                    widget.tabIndicatorColor ?? Theme.of(context).primaryColor)
+            color:
+            widget.tabIndicatorColor ?? Theme
+                .of(context)
+                .primaryColor)
             : BoxDecoration(),
         indicatorColor:
-            widget.tabIndicatorColor ?? Theme.of(context).primaryColor,
+        widget.tabIndicatorColor ?? Theme
+            .of(context)
+            .primaryColor,
         unselectedLabelColor: widget.unselectedLabelColor ?? Colors.black54,
-        labelColor: widget.selectedLabelColor ?? Theme.of(context).primaryColor,
+        labelColor: widget.selectedLabelColor ?? Theme
+            .of(context)
+            .primaryColor,
         tabs: _myTabs.map((data) {
           return Text(data.title!,
               style: TextStyle(fontSize: widget.labelTextSize));
