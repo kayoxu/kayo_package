@@ -40,7 +40,18 @@ extension BaseStringExtension on String? {
       {Color defaultColor = const Color(0xff333333), double opacity = 1}) {
     try {
       if (_isNotEmpty(this)) {
-        if (this!.length == 6 &&
+        if ((this!.length == 3) ||
+            (this!.length == 4 && this!.startsWith('#')) ||
+            (this!.length == 5 && this!.startsWith('#'))) {
+          // #000
+          var cs = this!.replaceAll('#f', '').replaceAll('#F', '');
+          var c = '';
+          for (var i in cs.characters) {
+            c = '$c$i$i';
+          }
+          return Color(int.parse(c.substring(0, c.length), radix: 16) + 0xFF000000)
+              .withOpacity(opacity);
+        } else if (this!.length == 6 &&
             int.tryParse(this!.substring(0, 6), radix: 16) != null) {
           //        000000
           return Color(int.parse(this!.substring(0, 6), radix: 16) + 0xFF000000)

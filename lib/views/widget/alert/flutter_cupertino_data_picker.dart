@@ -602,7 +602,8 @@ class _BottomSheetSingleState<T> extends State<BottomSheetSingleWidget<T>> {
             children: [
               Expanded(
                   child: Scrollbar(
-                isAlwaysShown: true,
+                // isAlwaysShown: true,
+                thumbVisibility: true,
                 child: ListView.separated(
                   separatorBuilder: (context, index) {
                     return Divider(

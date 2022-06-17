@@ -11,6 +11,16 @@ extension ColorExtension on Color? {
             : 1);
   }
 
+  MaterialStateProperty<Color?>? materialStatePropertyFuc() {
+    return MaterialStateProperty.resolveWith<Color?>(
+        (Set<MaterialState> states) {
+      return this;
+    });
+  }
+
   ///深色模式颜色调暗
   Color get dark => this.darkFuc();
+
+  MaterialStateProperty<Color?>? get materialStateProperty =>
+      this.materialStatePropertyFuc();
 }
