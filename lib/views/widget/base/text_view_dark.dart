@@ -15,7 +15,7 @@ class TextViewDark extends StatelessWidget {
       this.textStyle,
       this.fontFamily,
       this.borderWidth = 1,
-      this.size = 16,
+      this.size = 14,
       this.height,
       this.width,
       this.padding,

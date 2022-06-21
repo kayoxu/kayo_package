@@ -49,7 +49,9 @@ extension BaseStringExtension on String? {
           for (var i in cs.characters) {
             c = '$c$i$i';
           }
-          return Color(int.parse(c.substring(0, c.length), radix: 16) + 0xFF000000)
+          c = c.replaceAll('#', '');
+          return Color(
+              int.parse(c.substring(0, c.length), radix: 16) + 0xFF000000)
               .withOpacity(opacity);
         } else if (this!.length == 6 &&
             int.tryParse(this!.substring(0, 6), radix: 16) != null) {
