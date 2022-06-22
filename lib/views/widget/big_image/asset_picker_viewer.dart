@@ -5,6 +5,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kayo_package/kayo_package.dart';
 import 'package:kayo_package/views/widget/alert/datetime_picker/date_format.dart';
@@ -108,9 +109,8 @@ class ImageViewer<Asset> extends StatefulWidget {
     /*   final List<ImageData>? result =
         await Navigator.of(context).push<List<ImageData>>(pageRoute);
     return result;*/
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => viewer,
-    ));
+    Navigator.of(context).push(CupertinoPageRoute(
+        builder: (context) => viewer, fullscreenDialog: true));
   }
 
   static String _getImageUrl(String header, String? url) {

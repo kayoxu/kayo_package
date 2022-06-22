@@ -2,6 +2,8 @@
 /// [Author] Alex (https://github.com/Alex525)
 /// [Date] 2020/4/6 15:07
 ///
+import 'dart:io';
+
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:kayo_package/kayo_package.dart';
@@ -36,7 +38,9 @@ class _ImagePageBuilderState extends State<ImagePageBuilder> {
       behavior: HitTestBehavior.opaque,
       onTap: widget.delegate.switchDisplayingDetail,
       child: ExtendedImage(
-        image:   !PlatformUtils.isWeb? _buildExtendedNetworkImageProvider():_buildExtendedNetworkImageProvider2(),
+        image: !PlatformUtils.isWeb
+            ? _buildExtendedNetworkImageProvider()
+            : _buildExtendedNetworkImageProvider2(),
         fit: BoxFit.contain,
         mode: ExtendedImageMode.gesture,
         onDoubleTap: widget.delegate.updateAnimation,
@@ -65,14 +69,15 @@ class _ImagePageBuilderState extends State<ImagePageBuilder> {
   ImageProvider _buildExtendedNetworkImageProvider() {
     if (!BaseSysUtils.empty(widget.asset.url)) {
       return ExtendedNetworkImageProvider(widget.asset.url ?? '');
-    } /*else if (!BaseSysUtils.empty(widget.asset.path)) {
+    } else if (!BaseSysUtils.empty(widget.asset.path)) {
       return ExtendedFileImageProvider(File(widget.asset.path!));
     } else if (null != widget.asset.file) {
       return ExtendedFileImageProvider(widget.asset.file!);
-    }*/ else {
+    } else {
       return ExtendedNetworkImageProvider(widget.asset.url ?? '');
     }
   }
+
   ImageProvider _buildExtendedNetworkImageProvider2() {
     if (!BaseSysUtils.empty(widget.asset.url)) {
       return ExtendedNetworkImageProvider(widget.asset.url ?? '');

@@ -545,12 +545,13 @@ class _BottomSheetSingleState<T> extends State<BottomSheetSingleWidget<T>> {
 
               Expanded(
                   child: TextView(
-                ''
-                // widget.title ??
-                //     (widget.isEN == true
-                //         ? 'SELECT'
-                //         : '${multipleChoice == true ? '(可多选)' : ''}')
-                ,
+                // ''
+                widget.title ??
+                    (widget.isEN == true
+                        ? multipleChoice == true
+                            ? 'Multiple choices'
+                            : ''
+                        : '${multipleChoice == true ? '可多选' : ''}'),
                 maxLine: 2,
                 textAlign: TextAlign.center,
                 alignment: Alignment.center,

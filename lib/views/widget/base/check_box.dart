@@ -6,10 +6,10 @@ import 'clickable.dart';
 import 'text_view.dart';
 
 class RadioView extends StatelessWidget {
-  final ValueChanged<int?>? onChanged;
-  final int? value;
+  final ValueChanged<dynamic>? onChanged;
+  final dynamic value;
   final String? name;
-  final int? groupValue;
+  final dynamic groupValue;
   final Color? activeColor;
   final Color? nameColor;
   final int? nameSize;
