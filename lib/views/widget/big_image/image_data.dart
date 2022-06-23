@@ -13,8 +13,8 @@ import 'package:kayo_package/kayo_package.dart';
 class ImageData {
   ImageData({this.file, this.path, this.url, this.name});
 
-  final File? file;
-  final String? path;
+  File? file;
+  String? path;
   final String? name;
   String? url;
 
@@ -36,7 +36,8 @@ ImageData _$ImageDataFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$ImageDataToJson(ImageData instance) => <String, dynamic>{
+Map<String, dynamic> _$ImageDataToJson(ImageData instance) =>
+    <String, dynamic>{
       'path': instance.path,
       'url': instance.url,
       'name': instance.name,
