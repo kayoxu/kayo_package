@@ -24,7 +24,7 @@ class BaseViewUtils {
         children: <Widget>[
           ImageView(
             src: BaseSysUtils.empty(src)
-                ? 'packages/kayo_package/assets/ic_no_data.png'
+                ? 'packages/kayo_package/assets/ic_no_data2.png'
                 : source(src!),
             margin: EdgeInsets.only(bottom: marginImageTop ?? 0),
             width: width ?? 120,

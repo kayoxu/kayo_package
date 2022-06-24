@@ -4,6 +4,7 @@ export 'listener/picker_listener.dart';
 export 'model/city.dart';
 
 import 'package:flutter/material.dart';
+import 'package:kayo_package/views/widget/city_picker/model/city.dart';
 
 import 'listener/picker_listener.dart';
 import 'view/city_picker.dart';
@@ -14,6 +15,7 @@ class LinkagePicker {
   /// 展示
   static void show({
     required BuildContext context,
+    List<City>? selectedList,
     // 主题颜色
     ThemeData? theme,
     // 底部弹出框动画时间
@@ -90,6 +92,7 @@ class LinkagePicker {
           child: CityPickerWidget(
             height: height,
             titleHeight: titleHeight,
+            selectedList: selectedList,
             corner: corner,
             paddingLeft: paddingLeft,
             titleWidget: titleWidget,
