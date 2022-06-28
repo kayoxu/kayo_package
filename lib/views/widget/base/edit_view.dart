@@ -126,7 +126,11 @@ class EditViewState extends State<EditView> {
         null != controllerDefault) {
       if(widget.controller != controllerDefault){
         // widget.controller?.dispose();
-        controllerDefault?.dispose();
+        try {
+          controllerDefault?.dispose();
+        } catch (e) {
+          print(e);
+        }
       }
       controllerDefault = null;
       print('flutter TextEditingController dispose');
