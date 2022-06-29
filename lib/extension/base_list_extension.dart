@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:kayo_package/kayo_package.dart';
 
 extension BaseListExtension on List? {
@@ -11,5 +13,27 @@ extension BaseListExtension on List? {
         .substring(1, str.length - 1)
         .replaceAll(', ', splitUnit)
         .defaultStr(data: def ?? KayoPackage.share.nullText);
+  }
+
+  String? toJson2({bool removeNull = false}) {
+    if (null != this) {
+      var jsonStr = '';
+      if (!(this is String)) {
+        jsonStr = jsonEncode(this);
+      } else {
+        jsonStr = this! as String;
+      }
+      var jd = json.decode(jsonStr);
+      if (jd is Map) {
+        removeMapNull(jd);
+      } else if (jd is List) {
+        for (var j in jd) {
+          if (j is Map) {
+            removeMapNull(j);
+          }
+        }
+      }
+    }
+    return null;
   }
 }

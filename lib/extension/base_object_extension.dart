@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import '../kayo_package.dart';
@@ -70,4 +72,43 @@ extension BaseObjectExtension on Object? {
     }
     return null;
   }
+
+  String? toJson2({bool removeNull = false}) {
+    if (null != this) {
+      var jsonStr = '';
+      if (!(this is String)) {
+        jsonStr = jsonEncode(this);
+      } else {
+        jsonStr = this! as String;
+      }
+      var jd = json.decode(jsonStr);
+      if (jd is Map) {
+        removeMapNull(jd);
+      } else if (jd is List) {
+        for (var j in jd) {
+          if (j is Map) {
+            removeMapNull(j);
+          }
+        }
+      }
+    }
+    return null;
+  }
+}
+
+void removeMapNull(Map<dynamic, dynamic> jd) {
+  jd.removeWhere((key, value) {
+    if (null == value) return true;
+    if (value is Map) {
+      removeMapNull(value);
+    }
+    if (value is List) {
+      for (var j in value) {
+        if (j is Map) {
+          removeMapNull(j);
+        }
+      }
+    }
+    return false;
+  });
 }
