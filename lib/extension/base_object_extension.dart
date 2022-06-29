@@ -73,7 +73,7 @@ extension BaseObjectExtension on Object? {
     return null;
   }
 
-  String? toJson2({bool removeNull = false}) {
+  String? toJson2({bool removeNull = true}) {
     if (null != this) {
       var jsonStr = '';
       if (!(this is String)) {
@@ -81,16 +81,17 @@ extension BaseObjectExtension on Object? {
       } else {
         jsonStr = this! as String;
       }
-      var jd = json.decode(jsonStr);
-      if (jd is Map) {
-        removeMapNull(jd);
-      } else if (jd is List) {
-        for (var j in jd) {
-          if (j is Map) {
-            removeMapNull(j);
+      var jm = json.decode(jsonStr);
+      if (jm is Map) {
+        removeMapNull(jm);
+      } else if (jm is List) {
+        for (var m in jm) {
+          if (m is Map) {
+            removeMapNull(m);
           }
         }
       }
+      return json.encode(jm);
     }
     return null;
   }

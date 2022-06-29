@@ -15,7 +15,7 @@ extension BaseListExtension on List? {
         .defaultStr(data: def ?? KayoPackage.share.nullText);
   }
 
-  String? toJson2({bool removeNull = false}) {
+  String? toJson2({bool removeNull = true}) {
     if (null != this) {
       var jsonStr = '';
       if (!(this is String)) {
@@ -33,6 +33,7 @@ extension BaseListExtension on List? {
           }
         }
       }
+      return json.encode(jd);
     }
     return null;
   }
