@@ -180,7 +180,8 @@ class ToolBarDarkState extends State<ToolBarDark> {
       key: widget.key,
       // resizeToAvoidBottomPadding: widget.resizeToAvoidBottomPadding,
       resizeToAvoidBottomInset: widget.resizeToAvoidBottomPadding,
-      backgroundColor: widget.backgroundColor,
+      backgroundColor: widget.backgroundColor ??
+          BaseColorUtils.darkWindow(context: context),
       drawer: widget.drawer,
       drawerDragStartBehavior:
       widget.drawerDragStartBehavior ?? DragStartBehavior.start,
