@@ -13,7 +13,7 @@ import 'base_view_model.dart';
 
 ///只有列表，可分页
 abstract class BaseViewModelList<T> extends BaseViewModel {
-  static const int pageNumFirst = 1;
+  static const int pageNumFirst = 0;
 
   // final int pageSize = 20;
   int _currentPageNum = pageNumFirst;

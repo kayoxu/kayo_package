@@ -14,6 +14,17 @@ extension BaseWidgetExtension on Widget? {
     return SizedBox();
   }
 
+  ///设置widget的显示、隐藏、隐藏占位
+  Widget setVisible2({Key? key, required bool? visible}) {
+    if (null != this) {
+      return Visibility(
+        child: this!,
+        visible: visible ?? true,
+      );
+    }
+    return SizedBox();
+  }
+
   ///给widget增加点击事件
   @Deprecated('调用')
   Widget setOnClick(

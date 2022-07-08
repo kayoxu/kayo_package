@@ -90,7 +90,7 @@ class TabBarWidgetAllowDarkState extends State<TabBarWidgetAllowDark>
         children: widget.tabViews ?? [],
       ),
       bottomNavigationBar: ConvexAppBar(
-        style: TabStyle.react,
+        style: TabStyle.reactCircle,
         backgroundColor: Theme.of(context).primaryColor,
         items: widget.tabItems ?? [],
         initialActiveIndex: pageIndex,

@@ -100,8 +100,7 @@ abstract class BaseHttpManagerJayBean {
 
   decode(String data);
 
-  _httpPost(
-      String url, Map<String, dynamic>? params, Map<String, dynamic>? header,
+  _httpPost(String url, params, Map<String, dynamic>? header,
       {bool autoShowDialog = true,
       bool autoHideDialog = true,
       ValueChanged<dynamic>? onSuccess,
@@ -120,7 +119,7 @@ abstract class BaseHttpManagerJayBean {
   }
 
   ///  不牵涉分页的时候不用传loadMore，传入loadMore需要传入 page，limit
-  doHttpPost<T>(String url, Map? params,
+  doHttpPost<T>(String url, dynamic params,
       {Map<String, dynamic>? header,
       bool autoShowDialog = true,
       bool autoHideDialog = true,
@@ -152,7 +151,7 @@ abstract class BaseHttpManagerJayBean {
       ProgressCallback? onReceiveProgress}) async {
     if (autoShowDialog) LoadingUtils.show(data: textLoading());
 
-    var paramsTemp = Map<String, dynamic>.from(params ?? {});
+    var paramsTemp = Map<String, dynamic>.from((params is Map) ? params : {});
     header = header ?? Map<String, dynamic>();
     header.addAll(await getBaseHeader(
         encryption: encryption,
@@ -210,7 +209,7 @@ abstract class BaseHttpManagerJayBean {
 
     _httpPost(
       url,
-      paramsTemp,
+      params is Map ? paramsTemp : params,
       header,
       onReceiveProgress: onReceiveProgress,
       cancelToken: cancelToken,
@@ -220,13 +219,21 @@ abstract class BaseHttpManagerJayBean {
             BaseResultData(resultData.msg, resultData.code);
 
         if (resultData.code == resultOk.code) {
-          data.data = await getBean<T>(resultData.data);
+          try {
+            data.data = await getBean<T>(resultData.data);
+          } catch (e) {
+            if (null != onError) onError(resultErrorJson.msg);
+            if (autoHideDialog) LoadingUtils.dismiss();
+            BaseResultData(resultErrorJson.msg, resultErrorNetwork.code)
+                .sendMsg();
+            return;
+          }
         }
 
         String? errorData = '';
 
         if (/*resultData != null &&*/
-            resultData.data != null && resultData.code == resultOk.code) {
+            /*resultData.data != null && */ resultData.code == resultOk.code) {
           if (null != onSuccess) {
             onSuccess(data.data);
           }

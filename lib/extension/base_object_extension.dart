@@ -95,6 +95,29 @@ extension BaseObjectExtension on Object? {
     }
     return null;
   }
+
+  Map<String, dynamic>? toJMap2({bool removeNull = true}) {
+    if (null != this) {
+      var jsonStr = '';
+      if (!(this is String)) {
+        jsonStr = jsonEncode(this);
+      } else {
+        jsonStr = this! as String;
+      }
+      var jm = json.decode(jsonStr);
+      if (jm is Map) {
+        removeMapNull(jm);
+      } else if (jm is List) {
+        for (var m in jm) {
+          if (m is Map) {
+            removeMapNull(m);
+          }
+        }
+      }
+      return jm;
+    }
+    return Map<String, dynamic>();
+  }
 }
 
 void removeMapNull(Map<dynamic, dynamic> jd) {

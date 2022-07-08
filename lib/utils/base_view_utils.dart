@@ -27,7 +27,7 @@ class BaseViewUtils {
                 ? 'packages/kayo_package/assets/ic_no_data2.png'
                 : source(src!),
             margin: EdgeInsets.only(bottom: marginImageTop ?? 0),
-            width: width ?? 120,
+            width: width ?? 219,
             height: height ?? 120,
             fit: BoxFit.fitWidth,
           ),

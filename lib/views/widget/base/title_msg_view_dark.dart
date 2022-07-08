@@ -46,6 +46,7 @@ class TitleMsgViewDark extends StatelessWidget {
   ///中间的间隔
   final Widget? spacer;
   final CrossAxisAlignment? crossAxisAlignment;
+  final Color? bgColor;
 
   const TitleMsgViewDark({
     Key? key,
@@ -68,6 +69,7 @@ class TitleMsgViewDark extends StatelessWidget {
     this.crossAxisAlignment,
     this.showLine,
     this.showRightArrow = true,
+    this.bgColor,
   }) : super(key: key);
 
   @override
@@ -101,6 +103,7 @@ class TitleMsgViewDark extends StatelessWidget {
       padding:
           padding ?? EdgeInsets.only(top: 12, bottom: 12, left: 16, right: 16),
       decoration: BoxDecoration(
+        color: bgColor ?? BaseColorUtils.darkWhite(context: context),
         border: Border(
           bottom: Divider.createBorderSide(context, width: 0.6),
         ),

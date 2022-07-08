@@ -109,6 +109,14 @@ extension BaseStringExtension on String? {
     }
   }
 
+  String firstChar({ String? defaultValue = ''}) {
+    if (_isNotEmpty(this)) {
+      return this!.toUpperCase().substring(0, 1);
+    } else {
+      return defaultValue ?? '';
+    }
+  }
+
   DateTime? toDate({String? format, String? defaultTime}) {
     try {
       if (_isNotEmpty(this)) {
