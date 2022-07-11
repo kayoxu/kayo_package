@@ -91,17 +91,19 @@ class TitleMsgViewDark extends StatelessWidget {
     if (null != preTitle) children2.insert(0, preTitle!);
     if (null != subMsg) children2.add(subMsg!);
     if (true == showRightArrow && null != onTap) {
-      children2.add(Icon(
+      children2.add(Center(child: Icon(
         Icons.chevron_right,
         color: Colors.grey[600],
         size: 20,
-      ));
+      ),));
     }
+
+    var tp = (50-14)/2;
 
     return Container(
       margin: margin,
       padding:
-          padding ?? EdgeInsets.only(top: 12, bottom: 12, left: 16, right: 16),
+      padding ?? EdgeInsets.only(top: tp, bottom: tp, left: 16, right: 16),
       decoration: BoxDecoration(
         color: bgColor ?? BaseColorUtils.darkWhite(context: context),
         border: Border(
