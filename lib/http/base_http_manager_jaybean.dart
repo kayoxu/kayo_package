@@ -334,7 +334,7 @@ abstract class BaseHttpManagerJayBean {
     var par = params;
 
     if (params is Map) {
-      Map<String, dynamic>? paramsTemp = params.cast<String, dynamic>();
+      Map<String, dynamic>? paramsTemp = Map<String, dynamic>.from(params);
       if (header?['jaybean-encryption-app-send'] == true && null != params) {
         paramsTemp = {};
         var keys = params.keys;

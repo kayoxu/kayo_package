@@ -33,6 +33,7 @@ class Clickable extends StatelessWidget {
   final double? elevation;
   final Color? shadowColor;
   final Decoration? decoration;
+  final BoxConstraints? constraints;
   final Alignment? alignment;
 
   final Color? selectColor;
@@ -52,6 +53,7 @@ class Clickable extends StatelessWidget {
       this.onHighlightChanged,
       this.highlightColor,
       this.splashColor,
+      this.constraints,
       this.splashFactory,
       this.radius = 0,
       this.borderRadius,
@@ -98,6 +100,7 @@ class Clickable extends StatelessWidget {
               borderRadius: BorderRadius.circular(radius1),
               child: Container(
                 child: child,
+                constraints: constraints,
                 padding: padding,
               ),
             )
@@ -113,6 +116,7 @@ class Clickable extends StatelessWidget {
                 child: InkWell(
                   child: Container(
                     child: child,
+                    constraints: constraints,
                     padding: padding,
                   ),
 

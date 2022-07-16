@@ -35,6 +35,7 @@ class TitleMsgViewDark extends StatelessWidget {
 
   ///right权重
   final int? msgFlex;
+  final double? miniHeight;
 
   ///right如果是长文本需要设置位true
   final bool? longMsg;
@@ -63,6 +64,7 @@ class TitleMsgViewDark extends StatelessWidget {
     this.subMsg,
     this.margin,
     this.padding,
+    this.miniHeight,
     this.spacer,
     this.textStyleTitle,
     this.textStyleMsg,
@@ -91,27 +93,29 @@ class TitleMsgViewDark extends StatelessWidget {
     if (null != preTitle) children2.insert(0, preTitle!);
     if (null != subMsg) children2.add(subMsg!);
     if (true == showRightArrow && null != onTap) {
-      children2.add(Center(child: Icon(
-        Icons.chevron_right,
-        color: Colors.grey[600],
-        size: 20,
-      ),));
+      children2.add(Center(
+        child: Icon(
+          Icons.chevron_right,
+          color: Colors.grey[600],
+          size: 20,
+        ),
+      ));
     }
 
-    var tp = (50-14)/2;
+    var tp = (50 - 14) / 2;
 
     return Container(
       margin: margin,
       padding:
-      padding ?? EdgeInsets.only(top: tp, bottom: tp, left: 16, right: 16),
+          padding ?? EdgeInsets.only(top: tp, bottom: tp, left: 16, right: 16),
       decoration: BoxDecoration(
         color: bgColor ?? BaseColorUtils.darkWhite(context: context),
         border: Border(
           bottom: Divider.createBorderSide(context, width: 0.6),
         ),
       ),
-      constraints: const BoxConstraints(
-        minHeight: 50.0,
+      constraints: BoxConstraints(
+        minHeight: miniHeight ?? 50.0,
       ),
       child: Row(
         crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
