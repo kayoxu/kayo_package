@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'dart:collection';
 import 'package:connectivity/connectivity.dart';
-import 'package:kayo_package/http/bean/base_result_data.dart';
 import 'package:kayo_package/http/bean/result_enum.dart';
 
 import 'package:kayo_package/kayo_package.dart';
