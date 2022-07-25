@@ -47,14 +47,20 @@ class KeyboardCarNumState extends State<KeyboardCarNum> {
   @override
   void initState() {
     super.initState();
+    _setShowABC();
+
     widget.controller?.addListener(() {
-      var length = widget.controller?.text.length ?? 0;
-      if (length == 0) {
-        change(false);
-      } else if (length == 1) {
-        change(true);
-      }
+      _setShowABC();
     });
+  }
+
+  void _setShowABC() {
+    var length = widget.controller?.text.length ?? 0;
+    if (length == 0) {
+      change(false);
+    } else {
+      change(true);
+    }
   }
 
   @override
