@@ -35,10 +35,9 @@ dependencies:
   lpinyin: ^2.0.2  #latest version
 
   #  pull_to_refresh: ">=1.5.8 <=10.0.0"       # May 7, 2021 2.0.0
-#  pull_to_refresh:
-#    git:
-#      url: https://github.com/kayoxu/pull_to_refresh-2.0.0.git
-  pull_to_refresh: ^2.0.0
+  pull_to_refresh:
+    git:
+      url: https://gitee.com/kayoxu/pull_to_refresh-2.0.0.git
 
 dev_dependencies:
   flutter_test:
