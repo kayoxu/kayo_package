@@ -1,0 +1,35 @@
+name: Mirror to Gitee
+
+on: [ push, delete, create ]
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Config GitHub private key
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.GayHUB_PRIVATE_KEY }}
+          SSH_PRIVATE_KEY2: ${{ secrets.GITEE_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          echo "StrictHostKeyChecking no" >> ~/.ssh/config
+
+      - name: Clone GitHub repo push to Gitee
+        env:
+          SSH_PRIVATE_KEY2: ${{ secrets.GITEE_PRIVATE_KEY }}
+          SRC_REPO: "git@github.com:kayoxu/kayo_package.git"
+          DIST_REPO: "git@gitee.com:kayoxu/kayo_package.git"
+        run: |
+          git clone --bare "$SRC_REPO"
+          cd `basename "$SRC_REPO"`
+
+          rm -rf ~/.ssh
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY2" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          echo "StrictHostKeyChecking no" >> ~/.ssh/config
+
+          git remote set-url --push origin "$DIST_REPO"
+          git push --mirror
