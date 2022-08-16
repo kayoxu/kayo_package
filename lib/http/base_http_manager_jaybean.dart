@@ -102,12 +102,12 @@ abstract class BaseHttpManagerJayBean {
 
   _httpPost(String url, params, Map<String, dynamic>? header,
       {bool autoShowDialog = true,
-        bool autoHideDialog = true,
-        ValueChanged<dynamic>? onSuccess,
-        ValueChanged<String>? onError,
-        CancelToken? cancelToken,
-        ProgressCallback? onSendProgress,
-        ProgressCallback? onReceiveProgress}) async {
+      bool autoHideDialog = true,
+      ValueChanged<dynamic>? onSuccess,
+      ValueChanged<String>? onError,
+      CancelToken? cancelToken,
+      ProgressCallback? onSendProgress,
+      ProgressCallback? onReceiveProgress}) async {
     return netFetch(url, params, header, Options(method: 'POST'),
         autoHideDialog: autoHideDialog,
         autoShowDialog: autoShowDialog,
@@ -121,34 +121,34 @@ abstract class BaseHttpManagerJayBean {
   ///  不牵涉分页的时候不用传loadMore，传入loadMore需要传入 page，limit
   doHttpPost<T>(String url, dynamic params,
       {Map<String, dynamic>? header,
-        bool autoShowDialog = true,
-        bool autoHideDialog = true,
-        ValueChanged<T?>? onSuccess,
-        ValueChanged<T?>? onCache,
-        ValueChanged<String>? onError,
-        bool? loadMore,
-        String? subKey,
-        CancelToken? cancelToken,
+      bool autoShowDialog = true,
+      bool autoHideDialog = true,
+      ValueChanged<T?>? onSuccess,
+      ValueChanged<T?>? onCache,
+      ValueChanged<String>? onError,
+      bool? loadMore,
+      String? subKey,
+      CancelToken? cancelToken,
 
-        ///app发送加密数据
-        bool? encryptionAppSend,
+      ///app发送加密数据
+      bool? encryptionAppSend,
 
-        ///app接受加密数据
-        bool? encryption,
+      ///app接受加密数据
+      bool? encryption,
 
-        ///本地化国家
-        String? country,
+      ///本地化国家
+      String? country,
 
-        ///本地化语言
-        String? language,
+      ///本地化语言
+      String? language,
 
-        ///post文件类型
-        String? contentType,
+      ///post文件类型
+      String? contentType,
 
-        ///额外的header
-        Map<String, dynamic>? optionHeader,
-        ProgressCallback? onSendProgress,
-        ProgressCallback? onReceiveProgress}) async {
+      ///额外的header
+      Map<String, dynamic>? optionHeader,
+      ProgressCallback? onSendProgress,
+      ProgressCallback? onReceiveProgress}) async {
     if (autoShowDialog) LoadingUtils.show(data: textLoading());
 
     var paramsTemp = Map<String, dynamic>.from((params is Map) ? params : {});
@@ -216,7 +216,7 @@ abstract class BaseHttpManagerJayBean {
       onSendProgress: onSendProgress,
       onSuccess: (resultData) async {
         BaseResultData<T> data =
-        BaseResultData(resultData.msg, resultData.code);
+            BaseResultData(resultData.msg, resultData.code);
 
         if (resultData.code == resultOk.code) {
           try {
@@ -233,7 +233,7 @@ abstract class BaseHttpManagerJayBean {
         String? errorData = '';
 
         if (/*resultData != null &&*/
-        /*resultData.data != null && */ resultData.code == resultOk.code) {
+            /*resultData.data != null && */ resultData.code == resultOk.code) {
           if (null != onSuccess) {
             onSuccess(data.data);
           }
@@ -278,11 +278,12 @@ abstract class BaseHttpManagerJayBean {
     return netFetch(url, params, null, Options(method: 'GET'));
   }
 
-  httpUpload(url,
-      params, {
-        Options? options,
-        Map<String, dynamic>? header,
-      }) async {
+  httpUpload(
+    url,
+    params, {
+    Options? options,
+    Map<String, dynamic>? header,
+  }) async {
     return netFetch(url, params, header ?? await getBaseHeader(),
         null != options ? options : Options(method: 'POST'));
   }
@@ -295,12 +296,12 @@ abstract class BaseHttpManagerJayBean {
   netFetch(String? url, dynamic params, Map<String, dynamic>? header,
       Options? option,
       {bool autoShowDialog = true,
-        bool autoHideDialog = true,
-        ValueChanged<BaseResultData>? onSuccess,
-        ValueChanged<String>? onError,
-        CancelToken? cancelToken,
-        ProgressCallback? onSendProgress,
-        ProgressCallback? onReceiveProgress}) async {
+      bool autoHideDialog = true,
+      ValueChanged<BaseResultData>? onSuccess,
+      ValueChanged<String>? onError,
+      CancelToken? cancelToken,
+      ProgressCallback? onSendProgress,
+      ProgressCallback? onReceiveProgress}) async {
     url = '$url'.replaceAll('\n', '');
 
     //没有网络
@@ -344,18 +345,22 @@ abstract class BaseHttpManagerJayBean {
     if (params is Map) {
       Map<String, dynamic>? paramsTemp = Map<String, dynamic>.from(params);
       if (header?['jaybean-encryption-app-send'] == true && null != params) {
-        paramsTemp = {};
-        var keys = params.keys;
-        for (String key in keys) {
-          var value = params[key];
-          if (params[key] is String) {
-            paramsTemp[key] = encode(value);
-          } else {
-            paramsTemp[key] = value;
+        if (false) {
+          paramsTemp = {};
+          var keys = params.keys;
+          for (String key in keys) {
+            var value = params[key];
+            if (params[key] is String) {
+              paramsTemp[key] = encode(value);
+            } else {
+              paramsTemp[key] = value;
+            }
           }
+          par = paramsTemp;
+        } else {
+          par = encode(toJson(par));
         }
       }
-      par = paramsTemp;
     }
 
     try {
@@ -372,8 +377,7 @@ abstract class BaseHttpManagerJayBean {
         errorResponse = e.response;
       } else {
         errorResponse =
-            Response(
-                statusCode: 666, requestOptions: RequestOptions(path: ''));
+            Response(statusCode: 666, requestOptions: RequestOptions(path: ''));
       }
       if (e.type == DioErrorType.connectTimeout) {
         errorResponse?.statusCode = resultErrorTimeOut.code;
