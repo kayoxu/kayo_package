@@ -86,7 +86,13 @@ extension BaseStringExtension on String? {
                 format: format);
           }
         } else {
-          return (this ?? '').replaceAll('T', ' ').replaceAll('Z', '');
+          var s = (this ?? '').replaceAll('T', ' ').replaceAll('Z', '');
+          if (s.contains('-')) {
+            return BaseTimeUtils.timestampToTimeStr(
+                s.toTimestamp(second: false),
+                format: format);
+          }
+          return s;
         }
       }
       return defaultTime ?? KayoPackage.share.nullText;
