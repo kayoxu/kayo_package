@@ -358,7 +358,7 @@ abstract class BaseHttpManagerJayBean {
           }
           par = paramsTemp;
         } else {
-          par = encode(toJson(par));
+          par = encode(par);
         }
       }
     }
