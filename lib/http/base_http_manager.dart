@@ -258,11 +258,11 @@ abstract class BaseHttpManager {
             var index = 0;
             for (i in m2) {
               if (index == 0) {
-                d = '$d$k=$i';
-                index++;
+                d = '$k=$i';
               } else {
                 d = '$d&$k=$i';
               }
+              index++;
             }
 
             if (i == 0) {
