@@ -14,6 +14,7 @@ enum CalendarType { normal, Buddhist }
 
 class BaseTimeUtils {
   static String formatDefault = 'yyyy-MM-dd HH:mm:ss';
+  static String formatDefaultTZ = 'yyyy-MM-ddTHH:mm:ssZ';
   static const formatYMD = 'yyyy-MM-dd';
   static const formatMD = 'MM.dd';
   static const formatShort = 'yy-MM-dd HH:mm';
