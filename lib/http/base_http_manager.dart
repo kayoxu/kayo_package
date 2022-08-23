@@ -258,9 +258,9 @@ abstract class BaseHttpManager {
             var index = 0;
             for (var mm in m2) {
               if (index == 0) {
-                d = '$k=$mm';
+                d = '$k[]=$mm';
               } else {
-                d = '$d&$k=$mm';
+                d = '$d&$k[]=$mm';
               }
               index++;
             }
