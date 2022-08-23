@@ -252,10 +252,29 @@ abstract class BaseHttpManager {
         var keys = m.keys;
         int i = 0;
         for (String k in keys) {
-          if (i == 0) {
-            url = '$url?$k=${m[k]}';
+          var m2 = m[k];
+          if (m2 is List) {
+            var d = '';
+            var index = 0;
+            for (i in m2) {
+              if (index == 0) {
+                d = '$d$k=$i';
+              } else {
+                d = '$d&$k=$i';
+              }
+            }
+
+            if (i == 0) {
+              url = '$url?$d';
+            } else {
+              url = '$url&$d';
+            }
           } else {
-            url = '$url&$k=${m[k]}';
+            if (i == 0) {
+              url = '$url?$k=${m[k]}';
+            } else {
+              url = '$url&$k=${m[k]}';
+            }
           }
           i++;
         }
