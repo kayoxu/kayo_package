@@ -6,7 +6,7 @@ import 'package:kayo_package/kayo_package.dart';
 ///  result_enum.dart
 ///
 ///  Created by kayoxu on 2022/2/16 13:37
-///  Copyright © 2022 JayBean. All rights reserved.
+///  Copyright © 2022 kayoxu. All rights reserved.
 ///
 
 class ResultEnum {
