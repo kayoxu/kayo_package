@@ -18,9 +18,9 @@ class BaseResultData<T> {
 
   BaseResultData(
     this.msg,
-    this.message,
     this.code, {
     this.data,
+    this.message,
   });
 
   BaseResultData sendMsg() {
@@ -44,8 +44,8 @@ class BaseResultData<T> {
 BaseResultData<T> _$BaseResultDataFromJson<T>(Map<String, dynamic> json) {
   return BaseResultData(
     json['msg'] as String?,
-    json['message'] as String?,
     json['code'] as int?,
+    message: json['message'] as String?,
     data: json['data'],
   )
     ..timestamp = json['timestamp']
