@@ -406,7 +406,7 @@ abstract class BaseHttpManager {
       var resultData = BaseResultData.fromJson(jsonMap);
       if (/*null != resultData*/ true) {
         if (BaseCode.RESULT_OK != resultData.code) {
-          var msg = resultData.msg;
+          var msg = resultData.msg ?? resultData.message;
           _onError(onError, msg ?? '');
           return BaseResultData(msg, resultData.code).sendMsg();
         }
