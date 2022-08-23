@@ -256,11 +256,11 @@ abstract class BaseHttpManager {
           if (m2 is List) {
             var d = '';
             var index = 0;
-            for (i in m2) {
+            for (var mm in m2) {
               if (index == 0) {
-                d = '$k=$i';
+                d = '$k=$mm';
               } else {
-                d = '$d&$k=$i';
+                d = '$d&$k=$mm';
               }
               index++;
             }
