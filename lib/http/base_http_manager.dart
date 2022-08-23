@@ -259,6 +259,7 @@ abstract class BaseHttpManager {
             for (i in m2) {
               if (index == 0) {
                 d = '$d$k=$i';
+                index++;
               } else {
                 d = '$d&$k=$i';
               }
