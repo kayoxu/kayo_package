@@ -57,6 +57,10 @@ abstract class BaseHttpManager {
   ///打印日志
   logInfo({String? tag, String? msg});
 
+  releaseShowLog() {
+    return false;
+  }
+
   ///保存缓存数据
   Future<void> setSharedData(String sharedUrl, json);
 
@@ -332,7 +336,7 @@ abstract class BaseHttpManager {
         errorResponse?.statusCode = BaseCode.RESULT_ERROR_NETWORK_TIMEOUT;
       }
 
-      if (BaseSysUtils.isDebug) {
+      if (BaseSysUtils.isDebug || releaseShowLog()) {
         logInfo(tag: tag, msg: '请求异常url: ' + url!);
         logInfo(tag: tag, msg: '请求异常请求头: ' + option.headers.toString());
         logInfo(
@@ -374,7 +378,7 @@ abstract class BaseHttpManager {
       return BaseResultData(msg, code).sendMsg();
     }
 
-    if (BaseSysUtils.isDebug) {
+    if (BaseSysUtils.isDebug || releaseShowLog()) {
       logInfo(tag: tag, msg: '请求url: ' + url);
       logInfo(tag: tag, msg: '请求头: ' + option.headers.toString());
       if (params != null) {
