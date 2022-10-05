@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:kayo_package/kayo_package.dart';
 
@@ -51,7 +49,7 @@ extension BaseStringExtension on String? {
           }
           c = c.replaceAll('#', '');
           return Color(
-              int.parse(c.substring(0, c.length), radix: 16) + 0xFF000000)
+                  int.parse(c.substring(0, c.length), radix: 16) + 0xFF000000)
               .withOpacity(opacity);
         } else if (this!.length == 6 &&
             int.tryParse(this!.substring(0, 6), radix: 16) != null) {
@@ -109,7 +107,7 @@ extension BaseStringExtension on String? {
     }
   }
 
-  String firstChar({ String? defaultValue = ''}) {
+  String firstChar({String? defaultValue = ''}) {
     if (_isNotEmpty(this)) {
       return this!.toUpperCase().substring(0, 1);
     } else {
@@ -175,6 +173,18 @@ extension BaseStringExtension on String? {
     } else {
       return this ?? '';
     }
+  }
+
+  List<int> toListLong({String split = ","}) {
+    var split1 = (this ?? '').split(split);
+    List<int> arr = [];
+    for (var d in split1) {
+      var element = d.toInt(value: -1);
+      if (-1 != element) {
+        arr.add(element);
+      }
+    }
+    return arr;
   }
 }
 
