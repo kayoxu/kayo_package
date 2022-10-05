@@ -26,6 +26,13 @@ extension BaseNumExtension on num? {
     }
   }
 
+  String? toStr() {
+    if (null != this) {
+      return '${this}';
+    }
+    return null;
+  }
+
   Radius toRadius() {
     if (null != this) {
       return Radius.circular(this! + 0.0);
