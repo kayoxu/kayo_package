@@ -186,6 +186,17 @@ extension BaseStringExtension on String? {
     }
     return arr;
   }
+
+  List<String> toListStr({String split = ","}) {
+    var split1 = (this ?? '').split(split);
+    List<String> arr = [];
+    for (var d in split1) {
+      if (!BaseSysUtils.empty(d)) {
+        arr.add(d);
+      }
+    }
+    return arr;
+  }
 }
 
 bool _isNotEmpty(String? t) => null != t && t.isNotEmpty;
