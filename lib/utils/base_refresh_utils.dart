@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kayo_package/kayo_package.dart';
 import 'package:kayo_package/views/widget/base/image_view.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -16,38 +18,70 @@ import 'base_view_utils.dart';
 ///
 
 class BaseRefreshUtils {
-  static init({required Widget? child,
-    required bool showNoDataWidget,
-    String noDataMsg = '没有数据',
-    String noDataText = '没有更多数据了',
-    Widget? noDataWidget,
-    bool enableRefresh = true,
-    bool enableLoad = true,
-    required RefreshController controller,
-    Function()? onRefresh,
-    Function()? onLoad,
-    Color bgColor = BaseColorUtils.white,
-    bool lightText = false}) {
+  static init(
+      {required Widget? child,
+      required bool showNoDataWidget,
+      String? noDataMsg,
+      String? noDataText,
+      Widget? noDataWidget,
+      bool enableRefresh = true,
+      bool enableLoad = true,
+      required RefreshController controller,
+      Function()? onRefresh,
+      Function()? onLoad,
+      Color bgColor = BaseColorUtils.white,
+      bool lightText = false}) {
+    var msg2 = noDataMsg ??
+        (KayoPackage.share.locale?.languageCode == 'zh' ? '暂无数据' : 'No data');
+    var msg3 = noDataText ??
+        (KayoPackage.share.locale?.languageCode == 'zh'
+            ? '没有更多数据了'
+            : 'No more data');
+
+    RefreshString strings = KayoPackage.share.locale?.languageCode == 'zh'
+        ? ChRefreshString()
+        : EnRefreshString();
+
     return SmartRefresher(
       child: showNoDataWidget
           ? (null == noDataWidget
-          ? BaseViewUtils.noData(msg: noDataMsg, width: 219, height: 120)
-          : noDataWidget)
-          : child ??
-          BaseViewUtils.noData(msg: noDataMsg, width: 219, height: 120),
+              ? BaseViewUtils.noData(msg: msg2, width: 219, height: 120)
+              : noDataWidget)
+          : child ?? BaseViewUtils.noData(msg: msg2, width: 219, height: 120),
 //      header: WaterDropMaterialHeader(),
       enablePullDown: enableRefresh,
       enablePullUp: enableLoad,
       controller: controller,
       onRefresh: onRefresh,
       onLoading: onLoad,
+      footer: CustomFooter(
+        builder: (BuildContext context, LoadStatus? mode) {
+          Widget body;
+          if (mode == LoadStatus.idle) {
+            body = Text(strings.idleLoadingText ?? '');
+          } else if (mode == LoadStatus.loading) {
+            body = CupertinoActivityIndicator();
+          } else if (mode == LoadStatus.failed) {
+            body = Text(strings.loadFailedText ?? '');
+          } else if (mode == LoadStatus.canLoading) {
+            body = Text(strings.canLoadingText ?? '');
+          } else {
+            body = Text(msg3);
+          }
+          return Container(
+            height: 55.0,
+            child: Center(child: body),
+          );
+        },
+      ),
     );
   }
 
-  static hideRefresh({required RefreshController? controller,
-    required bool refresh,
-    required int dataSize,
-    required int pageSize}) {
+  static hideRefresh(
+      {required RefreshController? controller,
+      required bool refresh,
+      required int dataSize,
+      required int pageSize}) {
     if (refresh) {
       controller?.refreshCompleted();
     } else {
