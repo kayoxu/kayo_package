@@ -175,7 +175,7 @@ extension BaseStringExtension on String? {
     }
   }
 
-  List<int> toListLong({String split = ","}) {
+  List<int> toListInt({String split = ","}) {
     var split1 = (this ?? '').split(split);
     List<int> arr = [];
     for (var d in split1) {
