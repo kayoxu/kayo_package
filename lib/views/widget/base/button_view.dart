@@ -74,7 +74,7 @@ class ButtonView extends StatelessWidget {
       margin: margin,
       alignment: alignment,
       child: null == borderColor
-          ? RaisedButton(
+          ? MaterialButton(
               onPressed: onPressed,
               elevation: (showShadow == true) ? 3 : 0,
               highlightElevation: showShadow == true ? 8 : 0,
