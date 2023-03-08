@@ -12,10 +12,9 @@ import 'gps_utils.dart';
 ///  Created by kayoxu on 2021/9/6 at 4:50 下午
 ///  Copyright © 2021 kayoxu. All rights reserved.
 ///
-
 class MapUtils {
-  static void showMapNavi(
-      BuildContext context, double latitude, double longitude) async {
+  static void showMapNavi(BuildContext context, double latitude,
+      double longitude) async {
     List<Widget> list = [];
     if (await _canGotoAppleMap(longitude, latitude) == true && Platform.isIOS) {
       var a = AlertSheet.sheetAction(
@@ -106,16 +105,18 @@ class MapUtils {
       _notCn() ? 'Not found $name~' : '未检测到$name~';
 
   static Future<bool> _canGotoAMap(latitude, longitude) async {
-    List<num> list = GpsUtil.bd09_To_Gcj02(latitude, longitude);
+    List<num> list = GpsUtils.bd09_To_Gcj02(latitude, longitude);
     latitude = list[0];
     longitude = list[1];
     var url =
-        '${Platform.isAndroid ? 'android' : 'ios'}amap://navi?sourceApplication=amap&lat=$latitude&lon=$longitude&dev=0&style=2';
+        '${Platform.isAndroid
+        ? 'android'
+        : 'ios'}amap://navi?sourceApplication=amap&lat=$latitude&lon=$longitude&dev=0&style=2';
     return await canLaunchUrl(Uri.parse(url));
   }
 
   static Future<bool> _canGotoTencentMap(latitude, longitude) async {
-    List<num> list = GpsUtil.bd09_To_Gcj02(latitude, longitude);
+    List<num> list = GpsUtils.bd09_To_Gcj02(latitude, longitude);
     latitude = list[0];
     longitude = list[1];
     var url =
@@ -130,7 +131,7 @@ class MapUtils {
   }
 
   static Future<bool> _canGotoAppleMap(latitude, longitude) async {
-    List<num> list = GpsUtil.bd09_To_Gcj02(latitude, longitude);
+    List<num> list = GpsUtils.bd09_To_Gcj02(latitude, longitude);
     latitude = list[0];
     longitude = list[1];
     var url = 'http://maps.apple.com/?&daddr=$latitude,$longitude';
@@ -138,7 +139,7 @@ class MapUtils {
   }
 
   static Future<bool> _canGoogleAppleMap(latitude, longitude) async {
-    List<num> list = GpsUtil.bd09_To_Gcj02(latitude, longitude);
+    List<num> list = GpsUtils.bd09_To_Gcj02(latitude, longitude);
     latitude = list[0];
     longitude = list[1];
     var url = 'google.navigation:q=$latitude,$longitude';
@@ -147,11 +148,13 @@ class MapUtils {
 
   /// 高德地图
   static Future<bool> _gotoAMap(latitude, longitude) async {
-    List<num> list = GpsUtil.bd09_To_Gcj02(latitude, longitude);
+    List<num> list = GpsUtils.bd09_To_Gcj02(latitude, longitude);
     latitude = list[0];
     longitude = list[1];
     var url =
-        '${Platform.isAndroid ? 'android' : 'ios'}amap://navi?sourceApplication=amap&lat=$latitude&lon=$longitude&dev=0&style=2';
+        '${Platform.isAndroid
+        ? 'android'
+        : 'ios'}amap://navi?sourceApplication=amap&lat=$latitude&lon=$longitude&dev=0&style=2';
 
     bool canLaunchUrlBool = await canLaunchUrl(Uri.parse(url));
 
@@ -167,7 +170,7 @@ class MapUtils {
 
   /// 腾讯地图
   static Future<bool> _gotoTencentMap(latitude, longitude) async {
-    List<num> list = GpsUtil.bd09_To_Gcj02(latitude, longitude);
+    List<num> list = GpsUtils.bd09_To_Gcj02(latitude, longitude);
     latitude = list[0];
     longitude = list[1];
     var url =
@@ -204,7 +207,7 @@ class MapUtils {
 
   /// 苹果地图
   static Future<bool> _gotoAppleMap(latitude, longitude) async {
-    List<num> list = GpsUtil.bd09_To_Gcj02(latitude, longitude);
+    List<num> list = GpsUtils.bd09_To_Gcj02(latitude, longitude);
     latitude = list[0];
     longitude = list[1];
     var url = 'http://maps.apple.com/?&daddr=$latitude,$longitude';
@@ -221,7 +224,7 @@ class MapUtils {
 
   /// 谷歌地图
   static Future<bool> _gotoGoogleMap(latitude, longitude) async {
-    List<num> list = GpsUtil.bd09_To_Gcj02(latitude, longitude);
+    List<num> list = GpsUtils.bd09_To_Gcj02(latitude, longitude);
     latitude = list[0];
     longitude = list[1];
     var url = 'google.navigation:q=$latitude,$longitude';
