@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kayo_package/kayo_package.dart';
+import 'dart:io';
+import 'package:url_launcher/url_launcher.dart';
+
+import 'gps_utils.dart';
 
 ///
 ///  kayo_package
@@ -8,8 +12,6 @@ import 'package:kayo_package/kayo_package.dart';
 ///  Created by kayoxu on 2021/9/6 at 4:50 下午
 ///  Copyright © 2021 kayoxu. All rights reserved.
 ///
-import 'dart:io';
-import 'package:url_launcher/url_launcher.dart';
 
 class MapUtils {
   static void showMapNavi(
@@ -103,108 +105,132 @@ class MapUtils {
   static String _noMap(String name) =>
       _notCn() ? 'Not found $name~' : '未检测到$name~';
 
-  static Future<bool> _canGotoAMap(longitude, latitude) async {
+  static Future<bool> _canGotoAMap(latitude, longitude) async {
+    List<num> list = GpsUtil.bd09_To_Gcj02(latitude, longitude);
+    latitude = list[0];
+    longitude = list[1];
     var url =
         '${Platform.isAndroid ? 'android' : 'ios'}amap://navi?sourceApplication=amap&lat=$latitude&lon=$longitude&dev=0&style=2';
-    return await canLaunch(url);
+    return await canLaunchUrl(Uri.parse(url));
   }
 
-  static Future<bool> _canGotoTencentMap(longitude, latitude) async {
+  static Future<bool> _canGotoTencentMap(latitude, longitude) async {
+    List<num> list = GpsUtil.bd09_To_Gcj02(latitude, longitude);
+    latitude = list[0];
+    longitude = list[1];
     var url =
         'qqmap://map/routeplan?type=drive&fromcoord=CurrentLocation&tocoord=$latitude,$longitude&referer=IXHBZ-QIZE4-ZQ6UP-DJYEO-HC2K2-EZBXJ';
-    return await canLaunch(url);
+    return await canLaunchUrl(Uri.parse(url));
   }
 
-  static Future<bool> _canGotoBaiduMap(longitude, latitude) async {
+  static Future<bool> _canGotoBaiduMap(latitude, longitude) async {
     var url =
         'baidumap://map/direction?destination=$latitude,$longitude&coord_type=bd09ll&mode=driving';
-    return await canLaunch(url);
+    return await canLaunchUrl(Uri.parse(url));
   }
 
-  static Future<bool> _canGotoAppleMap(longitude, latitude) async {
+  static Future<bool> _canGotoAppleMap(latitude, longitude) async {
+    List<num> list = GpsUtil.bd09_To_Gcj02(latitude, longitude);
+    latitude = list[0];
+    longitude = list[1];
     var url = 'http://maps.apple.com/?&daddr=$latitude,$longitude';
-    return await canLaunch(url);
+    return await canLaunchUrl(Uri.parse(url));
   }
 
-  static Future<bool> _canGoogleAppleMap(longitude, latitude) async {
+  static Future<bool> _canGoogleAppleMap(latitude, longitude) async {
+    List<num> list = GpsUtil.bd09_To_Gcj02(latitude, longitude);
+    latitude = list[0];
+    longitude = list[1];
     var url = 'google.navigation:q=$latitude,$longitude';
-    return await canLaunch(url);
+    return await canLaunchUrl(Uri.parse(url));
   }
 
   /// 高德地图
-  static Future<bool> _gotoAMap(longitude, latitude) async {
+  static Future<bool> _gotoAMap(latitude, longitude) async {
+    List<num> list = GpsUtil.bd09_To_Gcj02(latitude, longitude);
+    latitude = list[0];
+    longitude = list[1];
     var url =
         '${Platform.isAndroid ? 'android' : 'ios'}amap://navi?sourceApplication=amap&lat=$latitude&lon=$longitude&dev=0&style=2';
 
-    bool canLaunchUrl = await canLaunch(url);
+    bool canLaunchUrlBool = await canLaunchUrl(Uri.parse(url));
 
-    if (!canLaunchUrl) {
+    if (!canLaunchUrlBool) {
       LoadingUtils.showInfo(data: _noMap(_amapTitle()));
       return false;
     }
 
-    await launch(url);
+    await launchUrl(Uri.parse(url));
 
     return true;
   }
 
   /// 腾讯地图
-  static Future<bool> _gotoTencentMap(longitude, latitude) async {
+  static Future<bool> _gotoTencentMap(latitude, longitude) async {
+    List<num> list = GpsUtil.bd09_To_Gcj02(latitude, longitude);
+    latitude = list[0];
+    longitude = list[1];
     var url =
         'qqmap://map/routeplan?type=drive&fromcoord=CurrentLocation&tocoord=$latitude,$longitude&referer=IXHBZ-QIZE4-ZQ6UP-DJYEO-HC2K2-EZBXJ';
 
-    bool canLaunchUrl = await _canGotoTencentMap(longitude, latitude);
+    bool canLaunchUrlBool = await _canGotoTencentMap(latitude, longitude);
 
-    if (!canLaunchUrl) {
+    if (!canLaunchUrlBool) {
       LoadingUtils.showInfo(data: _noMap(_qqmapTitle()));
       return false;
     }
 
-    await launch(url);
+    await launchUrl(Uri.parse(url));
 
-    return canLaunchUrl;
+    return canLaunchUrlBool;
   }
 
   /// 百度地图
-  static Future<bool> _gotoBaiduMap(longitude, latitude) async {
+  static Future<bool> _gotoBaiduMap(latitude, longitude) async {
     var url =
         'baidumap://map/direction?destination=$latitude,$longitude&coord_type=bd09ll&mode=driving';
 
-    bool canLaunchUrl = await canLaunch(url);
+    bool canLaunchUrlBool = await canLaunchUrl(Uri.parse(url));
 
-    if (!canLaunchUrl) {
+    if (!canLaunchUrlBool) {
       LoadingUtils.showInfo(data: _noMap(_baimapTitle()));
       return false;
     }
 
-    await launch(url);
+    await launchUrl(Uri.parse(url));
 
-    return canLaunchUrl;
+    return canLaunchUrlBool;
   }
 
   /// 苹果地图
-  static Future<bool> _gotoAppleMap(longitude, latitude) async {
+  static Future<bool> _gotoAppleMap(latitude, longitude) async {
+    List<num> list = GpsUtil.bd09_To_Gcj02(latitude, longitude);
+    latitude = list[0];
+    longitude = list[1];
     var url = 'http://maps.apple.com/?&daddr=$latitude,$longitude';
 
-    bool canLaunchUrl = await canLaunch(url);
+    bool canLaunchUrlBool = await canLaunchUrl(Uri.parse(url));
 
-    if (!canLaunchUrl) {
+    if (!canLaunchUrlBool) {
       LoadingUtils.showInfo(data: _noMap(_amapTitle()));
       return false;
     }
 
-    return await launch(url);
+    return await launchUrl(Uri.parse(url));
   }
 
   /// 谷歌地图
-  static Future<bool> _gotoGoogleMap(longitude, latitude) async {
+  static Future<bool> _gotoGoogleMap(latitude, longitude) async {
+    List<num> list = GpsUtil.bd09_To_Gcj02(latitude, longitude);
+    latitude = list[0];
+    longitude = list[1];
     var url = 'google.navigation:q=$latitude,$longitude';
-    bool canLaunchUrl = await canLaunch(url);
-    if (!canLaunchUrl) {
+    bool canLaunchUrlBool = await canLaunchUrl(Uri.parse(url));
+    if (!canLaunchUrlBool) {
       LoadingUtils.showInfo(data: _noMap(_amapTitle()));
       return false;
     }
 
-    return await launch(url);
+    return await launchUrl(Uri.parse(url));
   }
 }
