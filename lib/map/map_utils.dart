@@ -13,8 +13,8 @@ import 'gps_utils.dart';
 ///  Copyright © 2021 kayoxu. All rights reserved.
 ///
 class MapUtils {
-  static void showMapNavi(BuildContext context, double latitude,
-      double longitude) async {
+  static void showMapNavi(
+      BuildContext context, double latitude, double longitude) async {
     List<Widget> list = [];
     if (await _canGotoAppleMap(longitude, latitude) == true && Platform.isIOS) {
       var a = AlertSheet.sheetAction(
@@ -23,55 +23,55 @@ class MapUtils {
           showLine: true,
           callback: () async {
             Navigator.of(context).pop();
-            _gotoAppleMap(longitude, latitude);
+            _gotoAppleMap(latitude, longitude);
           });
 
       list.add(a);
     }
-    if (await _canGoogleAppleMap(longitude, latitude) == true) {
+    if (await _canGoogleAppleMap(latitude, longitude) == true) {
       var a = AlertSheet.sheetAction(
           text: _googleMapTitle(),
           color: BaseColorUtils.colorAccent,
           showLine: true,
           callback: () async {
             Navigator.of(context).pop();
-            _gotoGoogleMap(longitude, latitude);
+            _gotoGoogleMap(latitude, longitude);
           });
 
       list.add(a);
     }
-    if (await _canGotoBaiduMap(longitude, latitude) == true) {
+    if (await _canGotoBaiduMap(latitude, longitude) == true) {
       var a = AlertSheet.sheetAction(
           text: _baimapTitle(),
           color: BaseColorUtils.colorAccent,
           showLine: true,
           callback: () async {
             Navigator.of(context).pop();
-            _gotoBaiduMap(longitude, latitude);
+            _gotoBaiduMap(latitude, longitude);
           });
 
       list.add(a);
     }
-    if (await _canGotoAMap(longitude, latitude) == true) {
+    if (await _canGotoAMap(latitude, longitude) == true) {
       var a = AlertSheet.sheetAction(
           text: _amapTitle(),
           color: BaseColorUtils.colorAccent,
           showLine: true,
           callback: () async {
             Navigator.of(context).pop();
-            _gotoAMap(longitude, latitude);
+            _gotoAMap(latitude, longitude);
           });
 
       list.add(a);
     }
-    if (await _canGotoTencentMap(longitude, latitude) == true) {
+    if (await _canGotoTencentMap(latitude, longitude) == true) {
       var a = AlertSheet.sheetAction(
           text: _qqmapTitle(),
           color: BaseColorUtils.colorAccent,
           showLine: true,
           callback: () async {
             Navigator.of(context).pop();
-            _gotoTencentMap(longitude, latitude);
+            _gotoTencentMap(latitude, longitude);
           });
 
       list.add(a);
@@ -109,9 +109,7 @@ class MapUtils {
     latitude = list[0];
     longitude = list[1];
     var url =
-        '${Platform.isAndroid
-        ? 'android'
-        : 'ios'}amap://navi?sourceApplication=amap&lat=$latitude&lon=$longitude&dev=0&style=2';
+        '${Platform.isAndroid ? 'android' : 'ios'}amap://navi?sourceApplication=amap&lat=$latitude&lon=$longitude&dev=0&style=2';
     return await canLaunchUrl(Uri.parse(url));
   }
 
@@ -152,9 +150,7 @@ class MapUtils {
     latitude = list[0];
     longitude = list[1];
     var url =
-        '${Platform.isAndroid
-        ? 'android'
-        : 'ios'}amap://navi?sourceApplication=amap&lat=$latitude&lon=$longitude&dev=0&style=2';
+        '${Platform.isAndroid ? 'android' : 'ios'}amap://navi?sourceApplication=amap&lat=$latitude&lon=$longitude&dev=0&style=2';
 
     bool canLaunchUrlBool = await canLaunchUrl(Uri.parse(url));
 
