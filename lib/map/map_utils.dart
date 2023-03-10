@@ -13,65 +13,90 @@ import 'gps_utils.dart';
 ///  Copyright © 2021 kayoxu. All rights reserved.
 ///
 class MapUtils {
-  static void showMapNavi(BuildContext context, double latitude,
-      double longitude) async {
+  static void showMapNavi(
+      BuildContext context, double latitude, double longitude) async {
     List<Widget> list = [];
-    if (await _canGotoAppleMap(longitude, latitude) == true && Platform.isIOS) {
+
+    ///苹果地图url
+    var appleMapUrl = _appleMap(latitude, longitude);
+
+    ///谷歌地图url
+    var googleMapUrl = _googleMapUrl(latitude, longitude);
+
+    ///百度地图url
+    var baiduMapUrl = _baiduMapUrl(latitude, longitude);
+
+    ///高德地图url
+    var aMapUrl = _aMapUrl(latitude, longitude);
+
+    ///腾讯地图url
+    var tencentMapUrl = _tencentMapUrl(latitude, longitude);
+
+    ///如果有苹果地图则加入
+    if (await canLaunchUrl(appleMapUrl) == true && Platform.isIOS) {
       var a = AlertSheet.sheetAction(
           text: _appMapTitle(),
           color: BaseColorUtils.colorAccent,
           showLine: true,
           callback: () async {
             Navigator.of(context).pop();
-            _gotoAppleMap(longitude, latitude);
+            launchUrl(appleMapUrl);
           });
 
       list.add(a);
     }
-    if (await _canGoogleAppleMap(longitude, latitude) == true) {
+
+    ///如果有谷歌地图则加入
+    if (await canLaunchUrl(googleMapUrl) == true) {
       var a = AlertSheet.sheetAction(
           text: _googleMapTitle(),
           color: BaseColorUtils.colorAccent,
           showLine: true,
           callback: () async {
             Navigator.of(context).pop();
-            _gotoGoogleMap(longitude, latitude);
+            launchUrl(googleMapUrl);
           });
 
       list.add(a);
     }
-    if (await _canGotoBaiduMap(longitude, latitude) == true) {
+
+    ///如果有百度地图则加入
+    if (await canLaunchUrl(baiduMapUrl) == true) {
       var a = AlertSheet.sheetAction(
           text: _baimapTitle(),
           color: BaseColorUtils.colorAccent,
           showLine: true,
           callback: () async {
             Navigator.of(context).pop();
-            _gotoBaiduMap(longitude, latitude);
+            launchUrl(baiduMapUrl);
           });
 
       list.add(a);
     }
-    if (await _canGotoAMap(longitude, latitude) == true) {
+
+    ///如果有高德地图则加入
+    if (await canLaunchUrl(aMapUrl) == true) {
       var a = AlertSheet.sheetAction(
           text: _amapTitle(),
           color: BaseColorUtils.colorAccent,
           showLine: true,
           callback: () async {
             Navigator.of(context).pop();
-            _gotoAMap(longitude, latitude);
+            launchUrl(aMapUrl);
           });
 
       list.add(a);
     }
-    if (await _canGotoTencentMap(longitude, latitude) == true) {
+
+    ///如果有腾讯地图则加入
+    if (await canLaunchUrl(tencentMapUrl) == true) {
       var a = AlertSheet.sheetAction(
           text: _qqmapTitle(),
           color: BaseColorUtils.colorAccent,
           showLine: true,
           callback: () async {
             Navigator.of(context).pop();
-            _gotoTencentMap(longitude, latitude);
+            launchUrl(tencentMapUrl);
           });
 
       list.add(a);
@@ -101,139 +126,48 @@ class MapUtils {
 
   static String _googleMapTitle() => _notCn() ? 'Google Map' : '谷歌地图';
 
-  static String _noMap(String name) =>
-      _notCn() ? 'Not found $name~' : '未检测到$name~';
+  ///苹果地图URL
+  static Uri _appleMap(latitude, longitude) {
+    List<num> list = GpsUtils.bd09_To_Gcj02(latitude, longitude);
+    latitude = list[0];
+    longitude = list[1];
+    var url = 'http://maps.apple.com/?&daddr=$latitude,$longitude';
+    return Uri.parse(url);
+  }
 
-  static Future<bool> _canGotoAMap(latitude, longitude) async {
+  ///谷歌地图URL
+  static Uri _googleMapUrl(latitude, longitude) {
+    List<num> list = GpsUtils.bd09_To_Gcj02(latitude, longitude);
+    latitude = list[0];
+    longitude = list[1];
+    var url = 'google.navigation:q=$latitude,$longitude';
+    return Uri.parse(url);
+  }
+
+  ///百度地图URL
+  static Uri _baiduMapUrl(latitude, longitude) {
+    var url =
+        'baidumap://map/direction?destination=$latitude,$longitude&coord_type=bd09ll&mode=driving';
+    return Uri.parse(url);
+  }
+
+  ///高德地图URL
+  static Uri _aMapUrl(latitude, longitude) {
     List<num> list = GpsUtils.bd09_To_Gcj02(latitude, longitude);
     latitude = list[0];
     longitude = list[1];
     var url =
-        '${Platform.isAndroid
-        ? 'android'
-        : 'ios'}amap://navi?sourceApplication=amap&lat=$latitude&lon=$longitude&dev=0&style=2';
-    return await canLaunchUrl(Uri.parse(url));
+        '${Platform.isAndroid ? 'android' : 'ios'}amap://navi?sourceApplication=amap&lat=$latitude&lon=$longitude&dev=0&style=2';
+    return Uri.parse(url);
   }
 
-  static Future<bool> _canGotoTencentMap(latitude, longitude) async {
+  ///腾讯地图URL
+  static Uri _tencentMapUrl(latitude, longitude) {
     List<num> list = GpsUtils.bd09_To_Gcj02(latitude, longitude);
     latitude = list[0];
     longitude = list[1];
     var url =
         'qqmap://map/routeplan?type=drive&fromcoord=CurrentLocation&tocoord=$latitude,$longitude&referer=IXHBZ-QIZE4-ZQ6UP-DJYEO-HC2K2-EZBXJ';
-    return await canLaunchUrl(Uri.parse(url));
-  }
-
-  static Future<bool> _canGotoBaiduMap(latitude, longitude) async {
-    var url =
-        'baidumap://map/direction?destination=$latitude,$longitude&coord_type=bd09ll&mode=driving';
-    return await canLaunchUrl(Uri.parse(url));
-  }
-
-  static Future<bool> _canGotoAppleMap(latitude, longitude) async {
-    List<num> list = GpsUtils.bd09_To_Gcj02(latitude, longitude);
-    latitude = list[0];
-    longitude = list[1];
-    var url = 'http://maps.apple.com/?&daddr=$latitude,$longitude';
-    return await canLaunchUrl(Uri.parse(url));
-  }
-
-  static Future<bool> _canGoogleAppleMap(latitude, longitude) async {
-    List<num> list = GpsUtils.bd09_To_Gcj02(latitude, longitude);
-    latitude = list[0];
-    longitude = list[1];
-    var url = 'google.navigation:q=$latitude,$longitude';
-    return await canLaunchUrl(Uri.parse(url));
-  }
-
-  /// 高德地图
-  static Future<bool> _gotoAMap(latitude, longitude) async {
-    List<num> list = GpsUtils.bd09_To_Gcj02(latitude, longitude);
-    latitude = list[0];
-    longitude = list[1];
-    var url =
-        '${Platform.isAndroid
-        ? 'android'
-        : 'ios'}amap://navi?sourceApplication=amap&lat=$latitude&lon=$longitude&dev=0&style=2';
-
-    bool canLaunchUrlBool = await canLaunchUrl(Uri.parse(url));
-
-    if (!canLaunchUrlBool) {
-      LoadingUtils.showInfo(data: _noMap(_amapTitle()));
-      return false;
-    }
-
-    await launchUrl(Uri.parse(url));
-
-    return true;
-  }
-
-  /// 腾讯地图
-  static Future<bool> _gotoTencentMap(latitude, longitude) async {
-    List<num> list = GpsUtils.bd09_To_Gcj02(latitude, longitude);
-    latitude = list[0];
-    longitude = list[1];
-    var url =
-        'qqmap://map/routeplan?type=drive&fromcoord=CurrentLocation&tocoord=$latitude,$longitude&referer=IXHBZ-QIZE4-ZQ6UP-DJYEO-HC2K2-EZBXJ';
-
-    bool canLaunchUrlBool = await _canGotoTencentMap(latitude, longitude);
-
-    if (!canLaunchUrlBool) {
-      LoadingUtils.showInfo(data: _noMap(_qqmapTitle()));
-      return false;
-    }
-
-    await launchUrl(Uri.parse(url));
-
-    return canLaunchUrlBool;
-  }
-
-  /// 百度地图
-  static Future<bool> _gotoBaiduMap(latitude, longitude) async {
-    var url =
-        'baidumap://map/direction?destination=$latitude,$longitude&coord_type=bd09ll&mode=driving';
-
-    bool canLaunchUrlBool = await canLaunchUrl(Uri.parse(url));
-
-    if (!canLaunchUrlBool) {
-      LoadingUtils.showInfo(data: _noMap(_baimapTitle()));
-      return false;
-    }
-
-    await launchUrl(Uri.parse(url));
-
-    return canLaunchUrlBool;
-  }
-
-  /// 苹果地图
-  static Future<bool> _gotoAppleMap(latitude, longitude) async {
-    List<num> list = GpsUtils.bd09_To_Gcj02(latitude, longitude);
-    latitude = list[0];
-    longitude = list[1];
-    var url = 'http://maps.apple.com/?&daddr=$latitude,$longitude';
-
-    bool canLaunchUrlBool = await canLaunchUrl(Uri.parse(url));
-
-    if (!canLaunchUrlBool) {
-      LoadingUtils.showInfo(data: _noMap(_amapTitle()));
-      return false;
-    }
-
-    return await launchUrl(Uri.parse(url));
-  }
-
-  /// 谷歌地图
-  static Future<bool> _gotoGoogleMap(latitude, longitude) async {
-    List<num> list = GpsUtils.bd09_To_Gcj02(latitude, longitude);
-    latitude = list[0];
-    longitude = list[1];
-    var url = 'google.navigation:q=$latitude,$longitude';
-    bool canLaunchUrlBool = await canLaunchUrl(Uri.parse(url));
-    if (!canLaunchUrlBool) {
-      LoadingUtils.showInfo(data: _noMap(_amapTitle()));
-      return false;
-    }
-
-    return await launchUrl(Uri.parse(url));
+    return Uri.parse(url);
   }
 }
