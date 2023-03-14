@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
@@ -424,6 +425,22 @@ class BaseSysUtils {
     } else {
       return null;
     }
+  }
+
+  static Function() safeTap(Function() fn, {int? time = 500}) {
+    Timer? _debounce;
+    return () {
+      // 还在时间之内，抛弃上一次
+      if (_debounce?.isActive ?? false) {
+        _debounce?.cancel();
+      } else {
+        fn();
+      }
+      _debounce = Timer(Duration(milliseconds: time ?? 0), () {
+        _debounce?.cancel();
+        _debounce = null;
+      });
+    };
   }
 
 //  static SystemNavigatorPop() async {
