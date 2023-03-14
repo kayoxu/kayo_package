@@ -427,7 +427,8 @@ class BaseSysUtils {
     }
   }
 
-  static Function() safeTap(Function() fn, {int? time = 500,Function()? onSafe}) {
+  static Function() safeTap(Function() fn,
+      {int? time = 500, Function()? onSafe}) {
     Timer? _debounce;
     return () {
       // 还在时间之内，抛弃上一次
