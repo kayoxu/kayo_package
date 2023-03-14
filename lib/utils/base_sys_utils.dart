@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
@@ -498,6 +499,22 @@ class BaseSysUtils {
       result[i2 + 1] = hexTable[index].codeUnitAt(0); //右边的值取字符表,转为Unicode放进resut数组
     }
     return String.fromCharCodes(result); //Unicode转回为对应字符,生成字符串返回
+  }
+
+  static Function() safeTap(Function() fn, {int? time = 500}) {
+    Timer? _debounce;
+    return () {
+      // 还在时间之内，抛弃上一次
+      if (_debounce?.isActive ?? false) {
+        _debounce?.cancel();
+      } else {
+        fn();
+      }
+      _debounce = Timer(Duration(milliseconds: time ?? 0), () {
+        _debounce?.cancel();
+        _debounce = null;
+      });
+    };
   }
 //  static SystemNavigatorPop() async {
 //    return await SystemNavigator.pop();
