@@ -427,12 +427,13 @@ class BaseSysUtils {
     }
   }
 
-  static Function() safeTap(Function() fn, {int? time = 500}) {
+  static Function() safeTap(Function() fn, {int? time = 500,Function()? onSafe}) {
     Timer? _debounce;
     return () {
       // 还在时间之内，抛弃上一次
       if (_debounce?.isActive ?? false) {
         _debounce?.cancel();
+        onSafe?.call();
       } else {
         fn();
       }
