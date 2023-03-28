@@ -422,6 +422,14 @@ class BaseSysUtils {
       return '.log';
     } else if (fileExt.endsWith(".in")) {
       return '.in';
+    } else if (fileExt.endsWith(".pdf")) {
+      return '.pdf';
+    } else if (fileExt.endsWith(".doc")) {
+      return '.doc';
+    } else if (fileExt.endsWith(".xls")) {
+      return '.xls';
+    } else if (fileExt.endsWith(".xlsx")) {
+      return '.xlsx';
     } else {
       return null;
     }
