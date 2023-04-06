@@ -282,7 +282,7 @@ abstract class BaseHttpManager {
         errorResponse =
             Response(statusCode: 666, requestOptions: RequestOptions(path: ''));
       }
-      if (e.type == DioErrorType.connectTimeout) {
+      if (e.type == DioErrorType.connectionTimeout) {
         errorResponse?.statusCode = BaseCode.RESULT_ERROR_NETWORK_TIMEOUT;
       }
 
@@ -304,7 +304,8 @@ abstract class BaseHttpManager {
         return BaseResultData(msg, 6).sendMsg();
       }
 
-      String msg = (BaseSysUtils.isDebug ? errorHeader : '') + e.message;
+      String msg =
+          (BaseSysUtils.isDebug ? errorHeader : '') + (e.message ?? '');
       var code = errorResponse?.statusCode ?? BaseCode.RESULT_ERROR_OTHER_ERROR;
       Map<String, dynamic>? map = Map<String, dynamic>();
       try {

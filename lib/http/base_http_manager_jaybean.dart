@@ -1,4 +1,3 @@
-import 'package:dio/adapter.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'dart:collection';
@@ -379,7 +378,7 @@ abstract class BaseHttpManagerJayBean {
         errorResponse =
             Response(statusCode: 666, requestOptions: RequestOptions(path: ''));
       }
-      if (e.type == DioErrorType.connectTimeout) {
+      if (e.type == DioErrorType.connectionTimeout) {
         errorResponse?.statusCode = resultErrorTimeOut.code;
       }
 
@@ -402,7 +401,8 @@ abstract class BaseHttpManagerJayBean {
         return BaseResultData(msg, resultLoginExpiration.code).sendMsg();
       }
 
-      String msg = (BaseSysUtils.isDebug ? errorHeader : '') + e.message;
+      String msg =
+          (BaseSysUtils.isDebug ? errorHeader : '') + (e.message ?? '');
       var code = errorResponse?.statusCode ?? resultErrorUnknown.code;
       Map<String, dynamic>? map = Map<String, dynamic>();
       try {
