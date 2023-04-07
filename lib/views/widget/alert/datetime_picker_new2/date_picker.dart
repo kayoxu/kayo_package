@@ -178,9 +178,7 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
       child: _DatePickerComponent(route: this, pickerHeight: height),
     );
 
-    if (theme != null) {
-      bottomSheet = new Theme(data: theme, child: bottomSheet);
-    }
+    bottomSheet = new Theme(data: theme, child: bottomSheet);
     return bottomSheet;
   }
 }
@@ -190,41 +188,15 @@ class _DatePickerComponent extends StatelessWidget {
   final double _pickerHeight;
 
   _DatePickerComponent({Key? key, required this.route, required pickerHeight})
-      : this._pickerHeight = pickerHeight;
+      : this._pickerHeight = pickerHeight,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Widget? pickerWidget;
     switch (route.pickerMode) {
       case DateTimePickerMode.date:
-        pickerWidget = DatePickerWidget(
-          onMonthChangeStartWithFirstDate:
-              route.onMonthChangeStartWithFirstDate,
-          minDateTime: route.minDateTime,
-          maxDateTime: route.maxDateTime,
-          initialDateTime: route.initialDateTime,
-          dateFormat: route.dateFormat,
-          locale: route.locale,
-          pickerTheme: route.pickerTheme,
-          onCancel: route.onCancel,
-          onChange: route.onChange,
-          onConfirm: route.onConfirm,
-        );
-        break;
       case DateTimePickerMode.time:
-        pickerWidget = TimePickerWidget(
-          minDateTime: route.minDateTime,
-          maxDateTime: route.maxDateTime,
-          initDateTime: route.initialDateTime,
-          dateFormat: route.dateFormat,
-          locale: route.locale,
-          pickerTheme: route.pickerTheme,
-          onCancel: route.onCancel,
-          onChange: route.onChange,
-          onConfirm: route.onConfirm,
-          minuteDivider: route.minuteDivider,
-        );
-        break;
       case DateTimePickerMode.datetime:
         pickerWidget = DateTimePickerWidget(
           minDateTime: route.minDateTime,
@@ -237,6 +209,8 @@ class _DatePickerComponent extends StatelessWidget {
           onChange: route.onChange,
           onConfirm: route.onConfirm,
           minuteDivider: route.minuteDivider,
+          onMonthChangeStartWithFirstDate:
+              route.onMonthChangeStartWithFirstDate,
         );
         break;
     }

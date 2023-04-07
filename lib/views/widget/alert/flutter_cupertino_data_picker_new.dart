@@ -2,24 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kayo_package/kayo_package.dart';
 
-typedef DataChangedCallback(dynamic data);
-typedef DataChangedCallbackMore<T>(List<int> indexes, List<T> data);
-typedef DataChangedCallback2(int index, dynamic data);
+// typedef DataChangedCallback(dynamic data);
+// typedef DataChangedCallbackMore<T>(List<int> indexes, List<T> data);
+// typedef DataChangedCallback2(int index, dynamic data);
 
 const double _kDataPickerHeight = 210.0;
 const double _kDataPickerTitleHeight = 44.0;
 const double _kDataPickerItemHeight = 36.0;
 const double _kDataPickerFontSize = 15.0;
 
-class DataPickerLocale {
-  /// English (EN) United States
-  static const String en_us = 'en';
+// class DataPickerLocale {
+//   /// English (EN) United States
+//   static const String en_us = 'en';
+//
+//   /// Chinese (ZH) Simplified
+//   static const String zh_cn = 'zh';
+// }
 
-  /// Chinese (ZH) Simplified
-  static const String zh_cn = 'zh';
-}
-
-class DataPicker {
+class DataPickerNew {
   static String defaultDataPickerLocale = DataPickerLocale.zh_cn;
 
   static Future show<T>(BuildContext context,
@@ -76,9 +76,9 @@ class DataPicker {
           isScrollControlled: false,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(12), topRight: Radius.circular(12))),
+                  topLeft: Radius.circular(0), topRight: Radius.circular(0))),
           builder: (BuildContext context) {
-            return BottomSheetSingleWidget(
+            return BottomSheetSingleWidgetNew(
               datas: datas,
               isEN: !BaseSysUtils.equals('zh', locale),
               selectedIndex: selectedIndex,
@@ -448,7 +448,7 @@ class _BottomPickerLayout extends SingleChildLayoutDelegate {
   }
 }
 
-class BottomSheetSingleWidget<T> extends StatefulWidget {
+class BottomSheetSingleWidgetNew<T> extends StatefulWidget {
   final int? selectedIndex;
   final List<int>? selectedIndexes;
   final List<T>? datas;
@@ -461,7 +461,7 @@ class BottomSheetSingleWidget<T> extends StatefulWidget {
   final bool? isEN;
   final bool? multipleChoice;
 
-  const BottomSheetSingleWidget(
+  const BottomSheetSingleWidgetNew(
       {Key? key,
       this.datas,
       this.selectedIndex,
@@ -479,7 +479,7 @@ class BottomSheetSingleWidget<T> extends StatefulWidget {
   State<StatefulWidget> createState() => _BottomSheetSingleState<T>();
 }
 
-class _BottomSheetSingleState<T> extends State<BottomSheetSingleWidget<T>> {
+class _BottomSheetSingleState<T> extends State<BottomSheetSingleWidgetNew<T>> {
   double itemHeight = 56;
   double marginBottom = 10;
   double viewHeight = 0;
@@ -513,71 +513,89 @@ class _BottomSheetSingleState<T> extends State<BottomSheetSingleWidget<T>> {
           height: itemHeight,
           child: Row(
             children: [
-              TextView(
-                widget.isEN == true ? 'Cancel' : '取消',
-                color: BaseColorUtils.colorBlackLite,
-                radius: 10,
-                size: 17,
-                fontWeight: FontWeight.normal,
-                padding:
-                    EdgeInsets.only(left: 12, right: 12, bottom: 12, top: 12),
-                margin: EdgeInsets.only(left: 8),
+              // TextView(
+              //   widget.isEN == true ? 'Cancel' : '取消',
+              //   color: BaseColorUtils.colorBlackLite,
+              //   radius: 10,
+              //   size: 17,
+              //   fontWeight: FontWeight.normal,
+              //   padding:
+              //       EdgeInsets.only(left: 12, right: 12, bottom: 12, top: 12),
+              //   margin: EdgeInsets.only(left: 8),
+              //   onTap: () {
+              //     Navigator.pop(context);
+              //   },
+              // ),
+
+              GestureDetector(
+                child: Container(
+                  height: 40,
+                  padding: EdgeInsets.only(left: 16),
+                  alignment: Alignment.centerLeft,
+                  width: 100,
+                  child: Icon(
+                    Icons.close,
+                    color: BaseColorUtils.darkBlackLiteLite(context: context),
+                  ),
+                ),
                 onTap: () {
                   Navigator.pop(context);
                 },
               ),
+
               Expanded(
                   child: TextView(
+                // ''
                 widget.title ??
                     (widget.isEN == true
-                        ? 'SELECT'
-                        : '请选择${multipleChoice == true ? '(可多选)' : ''}'),
+                        ? multipleChoice == true
+                            ? 'Multiple choices'
+                            : ''
+                        : '${multipleChoice == true ? '可多选' : ''}'),
                 maxLine: 2,
                 textAlign: TextAlign.center,
                 alignment: Alignment.center,
-                color: BaseColorUtils.colorBlack,
+                color: BaseColorUtils.darkBlack(context: context),
                 size: 17,
                 fontWeight: FontWeight.w600,
                 margin: EdgeInsets.only(left: 16, right: 16),
               )),
-              TextView(
-                widget.isEN == true ? 'Cancel' : '取消',
-                color: BaseColorUtils.transparent,
-                radius: 10,
-                size: 17,
-                fontWeight: FontWeight.normal,
-                padding:
-                    EdgeInsets.only(left: 8, right: 8, bottom: 12, top: 12),
-                margin: EdgeInsets.only(right: 12),
-              )
-              // TextView(
-              //   widget.isEN == true ? 'Confirm' : '确定',
-              //   radius: 10,
-              //   color: BaseColorUtils.colorAccent,
-              //   size: 15,
-              //   fontWeight: FontWeight.w600,
-              //   padding:
-              //   EdgeInsets.only(left: 17, right: 17, bottom: 12, top: 12),
-              //   margin: EdgeInsets.only(right: 6),
-              //   onTap: () {
-              //     widget.onConfirm?.call(widget.datas?[selectedIndexes[0]]);
-              //     widget.onConfirm2?.call(
-              //         selectedIndexes[0],
-              //         widget.datas?[selectedIndexes[0]]);
-              //     List<T> d = [];
-              //     List<int> indexes = [];
-              //     for (int i = 0; i < (widget.datas ?? []).length; i++) {
-              //       if (selectedIndexes.contains(i)) {
-              //         d.add(widget.datas![i]);
-              //         indexes.add(i);
-              //       }
-              //     }
-              //     widget.onConfirmMore?.call(indexes, d);
-              //     Navigator.pop(context);
-              //   },
-              // ),
+
+              Container(
+                width: 100,
+                alignment: Alignment.centerRight,
+                child: TextView(
+                  widget.isEN == true ? 'Done' : '确定',
+                  radius: 10,
+                  color: BaseColorUtils.darkPrimary2(context: context),
+                  size: 15,
+                  fontWeight: FontWeight.w600,
+                  padding:
+                      EdgeInsets.only(left: 17, right: 17, bottom: 12, top: 12),
+                  margin: EdgeInsets.only(right: 6),
+                  onTap: () {
+                    widget.onConfirm?.call(widget.datas?[selectedIndexes[0]]);
+                    widget.onConfirm2?.call(
+                        selectedIndexes[0], widget.datas?[selectedIndexes[0]]);
+                    List<T> d = [];
+                    List<int> indexes = [];
+                    for (int i = 0; i < (widget.datas ?? []).length; i++) {
+                      if (selectedIndexes.contains(i)) {
+                        d.add(widget.datas![i]);
+                        indexes.add(i);
+                      }
+                    }
+                    widget.onConfirmMore?.call(indexes, d);
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
             ],
           ),
+        ),
+        LineView(
+          height: .5,
+          color: BaseColorUtils.darkWindow(context: context).dark,
         ),
         Container(
           height: getVH(),
@@ -585,11 +603,13 @@ class _BottomSheetSingleState<T> extends State<BottomSheetSingleWidget<T>> {
             children: [
               Expanded(
                   child: Scrollbar(
-                isAlwaysShown: true,
+                // isAlwaysShown: true,
+                thumbVisibility: true,
                 child: ListView.separated(
                   separatorBuilder: (context, index) {
                     return Divider(
-                      color: Color(0xffEBEBEB),
+                      color: BaseColorUtils.darkPrimary2(context: context)
+                          .withOpacity(.1),
                       height: .5,
                     );
                   },
@@ -599,26 +619,21 @@ class _BottomSheetSingleState<T> extends State<BottomSheetSingleWidget<T>> {
                       selected: selectedIndexes.contains(index),
                       title: TextView(
                         widget.datas?[index]?.toString() ?? '',
-                        size: 15,
+                        size: 14,
                         color: selectedIndexes.contains(index)
-                            ? BaseColorUtils.colorBlack
-                            : BaseColorUtils.colorBlack,
+                            ? BaseColorUtils.darkBlack(context: context)
+                            : BaseColorUtils.darkBlack(context: context),
                         fontWeight: selectedIndexes.contains(index)
                             ? FontWeight.w600
                             : FontWeight.w600,
                       ),
                       trailing: selectedIndexes.contains(index)
                           ? Icon(
-                              Icons.radio_button_checked,
-                              color: BaseColorUtils.colorAccent,
+                              Icons.check,
+                              color:
+                                  BaseColorUtils.darkPrimary2(context: context),
                               size: 18,
                             )
-                          /*ImageView(
-                      height: 17,
-                      width: 17,
-                      src: 'packages/kayo_package/assets/base_ic_checked.png',
-                      // src: 'assets/ic_moren.png',
-                    )*/
                           : Container(
                               height: 17,
                               width: 17,
@@ -643,36 +658,6 @@ class _BottomSheetSingleState<T> extends State<BottomSheetSingleWidget<T>> {
                   itemCount: (widget.datas?.length ?? 0),
                 ),
               )),
-              TextView(
-                widget.isEN == true ? 'Confirm' : '确定',
-                radius: 4,
-                bgColor: BaseColorUtils.colorAccent,
-                color: BaseColorUtils.colorWhite,
-                size: 17,
-                fontWeight: FontWeight.w600,
-                width: double.infinity,
-                textAlign: TextAlign.center,
-                alignment: Alignment.center,
-                height: 45,
-                padding:
-                    EdgeInsets.only(left: 17, right: 17, bottom: 0, top: 0),
-                margin: EdgeInsets.only(left: 20, right: 20, bottom: 5, top: 5),
-                onTap: () {
-                  widget.onConfirm?.call(widget.datas?[selectedIndexes[0]]);
-                  widget.onConfirm2?.call(
-                      selectedIndexes[0], widget.datas?[selectedIndexes[0]]);
-                  List<T> d = [];
-                  List<int> indexes = [];
-                  for (int i = 0; i < (widget.datas ?? []).length; i++) {
-                    if (selectedIndexes.contains(i)) {
-                      d.add(widget.datas![i]);
-                      indexes.add(i);
-                    }
-                  }
-                  widget.onConfirmMore?.call(indexes, d);
-                  Navigator.pop(context);
-                },
-              )
             ],
           ),
         )
