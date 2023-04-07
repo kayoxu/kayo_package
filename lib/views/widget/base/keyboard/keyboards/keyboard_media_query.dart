@@ -34,7 +34,9 @@ class KeyboardMediaQueryState extends State<KeyboardMediaQuery> {
     return MediaQuery(
         child: widget.child,
         data: data.copyWith(
-            viewInsets: data.viewInsets.copyWith(bottom: bottom)));
+            viewInsets: data.viewInsets.copyWith(
+                // bottom: bottom
+                )));
   }
 
   onUpdateHeight() {

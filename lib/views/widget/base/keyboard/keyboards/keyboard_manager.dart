@@ -33,10 +33,9 @@ class CoolKeyboard {
       throw Exception('CoolKeyboard can only be used in MockBinding');
     }
     var mockBinding = ServicesBinding.instance as MockBinding;
-    var mockBinaryMessenger =
-        mockBinding.defaultBinaryMessenger as MockBinaryMessenger;
-    mockBinaryMessenger.setMockMessageHandler(
-        "flutter/textinput", _textInputHanlde);
+    var mockBinaryMessenger = mockBinding.defaultBinaryMessenger as MockBinaryMessenger;
+    mockBinaryMessenger
+        .setMockMessageHandler("flutter/textinput", _textInputHanlde);
     isInterceptor = true;
   }
 
@@ -129,14 +128,14 @@ class CoolKeyboard {
   }
 
   static void _updateEditingState() {
-    var callbackMethodCall = MethodCall("TextInputClient.updateEditingState", [
+    var callbackMethodCall = MethodCall(
+        "TextInputClient.updateEditingState", [
       _keyboardController!.client.connectionId,
       _keyboardController!.value.toJSON()
     ]);
-    WidgetsBinding.instance.defaultBinaryMessenger.handlePlatformMessage(
-        "flutter/textinput",
-        _codec.encodeMethodCall(callbackMethodCall),
-        (data) {});
+    ServicesBinding.instance.defaultBinaryMessenger
+        .handlePlatformMessage("flutter/textinput",
+            _codec.encodeMethodCall(callbackMethodCall), (data) {});
   }
 
   static Future<ByteData?> _sendPlatformMessage(
@@ -185,8 +184,7 @@ class CoolKeyboard {
         return KeyboardPage(
             key: tempKey,
             builder: (ctx) {
-              return _currentKeyboard?.builder(
-                  ctx, _keyboardController!, _keyboardParam);
+              return _currentKeyboard?.builder(ctx, _keyboardController!, _keyboardParam);
             },
             height: _keyboardHeightNotifier.value);
       } else {
@@ -249,7 +247,7 @@ class CoolKeyboard {
   static sendPerformAction(TextInputAction action) {
     var callbackMethodCall = MethodCall("TextInputClient.performAction",
         [_keyboardController!.client.connectionId, action.toString()]);
-    WidgetsBinding.instance.defaultBinaryMessenger.handlePlatformMessage(
+    ServicesBinding.instance.defaultBinaryMessenger.handlePlatformMessage(
         "flutter/textinput",
         _codec.encodeMethodCall(callbackMethodCall),
         (data) {});
@@ -267,14 +265,12 @@ class CoolKeyboard {
 class KeyboardConfig {
   final KeyboardBuilder builder;
   final GetKeyboardHeight getHeight;
-
   const KeyboardConfig({required this.builder, required this.getHeight});
 }
 
 class InputClient {
   final int connectionId;
   final TextInputConfiguration configuration;
-
   const InputClient({required this.connectionId, required this.configuration});
 
   factory InputClient.fromJSON(List<dynamic> encoded) {
@@ -401,7 +397,6 @@ class CKTextInputType extends TextInputType {
 class KeyboardPage extends StatefulWidget {
   final Widget? Function(BuildContext context) builder;
   final double height;
-
   const KeyboardPage({required this.builder, this.height = 0, Key? key})
       : super(key: key);
 
