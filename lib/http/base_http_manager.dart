@@ -57,6 +57,10 @@ abstract class BaseHttpManager {
   ///打印日志
   logInfo({String? tag, String? msg});
 
+  releaseShowLog() {
+    return false;
+  }
+
   ///保存缓存数据
   Future<void> setSharedData(String sharedUrl, json);
 
@@ -66,17 +70,19 @@ abstract class BaseHttpManager {
   ///获取基础的Header
   Future<Map<String, dynamic>> getBaseHeader();
 
-  _httpPost(
-      String url, Map<String, dynamic>? params, Map<String, dynamic>? header,
+  _httpPost(String url, Map<String, dynamic>? params,
+      Map<String, dynamic>? header,
       {bool autoShowDialog = true,
-      bool autoHideDialog = true,
-      String? method,
-      ValueChanged<BaseResultData>? onSuccess,
-      ValueChanged<String>? onError,
-      CancelToken? cancelToken,
-      ProgressCallback? onSendProgress,
-      ProgressCallback? onReceiveProgress}) async {
-    return netFetch(url, params, header, Options(method: method ?? 'POST'),
+        bool autoHideDialog = true,
+        String? method,
+        String? contentType,
+        ValueChanged<BaseResultData>? onSuccess,
+        ValueChanged<String>? onError,
+        CancelToken? cancelToken,
+        ProgressCallback? onSendProgress,
+        ProgressCallback? onReceiveProgress}) async {
+    return netFetch(
+        url, params, header, Options(method: method ?? 'POST'), contentType,
         autoHideDialog: autoHideDialog,
         autoShowDialog: autoShowDialog,
         method: method,
@@ -87,17 +93,17 @@ abstract class BaseHttpManager {
   ///  不牵涉分页的时候不用传loadMore，传入loadMore需要传入 page，limit
   doHttpPost<T>(String url, Map? params,
       {Map<String, dynamic>? header,
-      bool autoShowDialog = true,
-      bool autoHideDialog = true,
-      ValueChanged<T?>? onSuccess,
-      ValueChanged<T?>? onCache,
-      ValueChanged<String>? onError,
-      String? method,
-      bool? loadMore,
-      String? subKey,
-      CancelToken? cancelToken,
-      ProgressCallback? onSendProgress,
-      ProgressCallback? onReceiveProgress}) async {
+        bool autoShowDialog = true,
+        bool autoHideDialog = true,
+        ValueChanged<T?>? onSuccess,
+        ValueChanged<T?>? onCache,
+        ValueChanged<String>? onError,
+        String? method,
+        bool? loadMore,
+        String? subKey,
+        CancelToken? cancelToken,
+        ProgressCallback? onSendProgress,
+        ProgressCallback? onReceiveProgress}) async {
     if (autoShowDialog) LoadingUtils.show(data: textLoading());
 
     var paramsTemp = Map<String, dynamic>.from(params ?? {});
@@ -155,14 +161,14 @@ abstract class BaseHttpManager {
       paramsTemp,
       header,
       method: method,
-      autoShowDialog: autoShowDialog,
       autoHideDialog: autoHideDialog,
+      autoShowDialog: autoShowDialog,
       onReceiveProgress: onReceiveProgress,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onSuccess: (resultData) async {
         BaseResultData<T> data =
-            BaseResultData(resultData.msg, resultData.code);
+        BaseResultData(resultData.msg, resultData.code);
 
         if (resultData.code == BaseCode.RESULT_OK) {
           data.data = await getBean<T>(resultData.data);
@@ -171,7 +177,8 @@ abstract class BaseHttpManager {
         String? errorData = '';
 
         if (/*resultData != null &&*/
-            resultData.data != null && resultData.code == BaseCode.RESULT_OK) {
+        /*resultData.data != null &&*/ resultData.code ==
+            BaseCode.RESULT_OK) {
           if (null != onSuccess) {
             onSuccess(data.data);
           }
@@ -212,13 +219,18 @@ abstract class BaseHttpManager {
     );
   }
 
-  httpGet(url, params) {
-    return netFetch(url, params, null, Options(method: 'GET'));
+  httpGet(url, params, {String? contentType}) {
+    return netFetch(url, params, null, Options(method: 'GET'), contentType);
   }
 
-  httpUpload(url, params, {Options? options, String? method}) {
-    return netFetch(url, params, null,
-        null != options ? options : Options(method: method ?? 'POST'));
+  httpUpload(url, params,
+      {Options? options, String? method, String? contentType}) {
+    return netFetch(
+        url,
+        params,
+        null,
+        null != options ? options : Options(method: method ?? 'POST'),
+        contentType);
   }
 
   ///发起网络请求
@@ -227,17 +239,52 @@ abstract class BaseHttpManager {
   ///[ header] 外加头
   ///[ option] 配置
   netFetch(String? url, dynamic params, Map<String, dynamic>? header,
-      Options? option,
+      Options? option, String? contentType,
       {bool autoShowDialog = true,
-      bool autoHideDialog = true,
-      String? method,
-      ValueChanged<BaseResultData>? onSuccess,
-      ValueChanged<String>? onError,
-      CancelToken? cancelToken,
-      ProgressCallback? onSendProgress,
-      ProgressCallback? onReceiveProgress}) async {
+        bool autoHideDialog = true,
+        String? method,
+        ValueChanged<BaseResultData>? onSuccess,
+        ValueChanged<String>? onError,
+        CancelToken? cancelToken,
+        ProgressCallback? onSendProgress,
+        ProgressCallback? onReceiveProgress}) async {
     url = '$url'.replaceAll('\n', '');
 
+    if (BaseSysUtils.equals((method ?? '').toUpperCase(), 'GET')) {
+      if (null != params && params is Map) {
+        var m = Map<String, dynamic>.from(params);
+        var keys = m.keys;
+        int i = 0;
+        for (String k in keys) {
+          var m2 = m[k];
+          if (m2 is List) {
+            var d = '';
+            var index = 0;
+            for (var mm in m2) {
+              if (index == 0) {
+                d = '$k[]=$mm';
+              } else {
+                d = '$d&$k[]=$mm';
+              }
+              index++;
+            }
+
+            if (i == 0) {
+              url = '$url?$d';
+            } else {
+              url = '$url&$d';
+            }
+          } else {
+            if (i == 0) {
+              url = '$url?$k=${m[k]}';
+            } else {
+              url = '$url&$k=${m[k]}';
+            }
+          }
+          i++;
+        }
+      }
+    }
     //没有网络
     var connectivityResult = await (new Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
@@ -251,6 +298,9 @@ abstract class BaseHttpManager {
     } else {
       option = Options(method: method ?? 'POST');
       option.headers = header;
+    }
+    if (!BaseSysUtils.empty(contentType)) {
+      option.headers?['Content-Type	'] = contentType;
     }
 
     ///超时
@@ -267,7 +317,7 @@ abstract class BaseHttpManager {
     }
 
     try {
-      response = await dio!.request(url,
+      response = await dio!.request(url!,
           data: params,
           options: option,
           cancelToken: cancelToken,
@@ -286,8 +336,9 @@ abstract class BaseHttpManager {
         errorResponse?.statusCode = BaseCode.RESULT_ERROR_NETWORK_TIMEOUT;
       }
 
-      if (BaseSysUtils.isDebug) {
-        logInfo(tag: tag, msg: '请求异常url: ' + url);
+      if (BaseSysUtils.isDebug || releaseShowLog()) {
+        logInfo(tag: tag, msg: '请求异常url: ' + url!);
+        logInfo(tag: tag, msg: '请求异常请求头: ' + option.headers.toString());
         logInfo(
             tag: tag,
             msg: '请求异常参数: ' + /* params is Map ? toJson(params) :*/ '$params');
@@ -304,8 +355,8 @@ abstract class BaseHttpManager {
         return BaseResultData(msg, 6).sendMsg();
       }
 
-      String msg =
-          (BaseSysUtils.isDebug ? errorHeader : '') + (e.message ?? '');
+      String msg = (BaseSysUtils.isDebug ? errorHeader : '') +
+          (e.message ?? '');
       var code = errorResponse?.statusCode ?? BaseCode.RESULT_ERROR_OTHER_ERROR;
       Map<String, dynamic>? map = Map<String, dynamic>();
       try {
@@ -317,6 +368,9 @@ abstract class BaseHttpManager {
       }
       if (map?.containsKey('error') == true) {
         msg = map?['error'] ?? msg;
+      } else if (map?.containsKey('message') == true &&
+          map?['message'] is String) {
+        msg = map?['message'] ?? msg;
       }
       if (map?.containsKey('code') == true) {
         code = map?['code'] ?? code;
@@ -325,7 +379,7 @@ abstract class BaseHttpManager {
       return BaseResultData(msg, code).sendMsg();
     }
 
-    if (BaseSysUtils.isDebug) {
+    if (BaseSysUtils.isDebug || releaseShowLog()) {
       logInfo(tag: tag, msg: '请求url: ' + url);
       logInfo(tag: tag, msg: '请求头: ' + option.headers.toString());
       if (params != null) {
@@ -393,7 +447,7 @@ abstract class BaseHttpManager {
 
       _onError(onError, message);
       return BaseResultData(
-              message, BaseCode.RESULT_ERROR_NETWORK_JSON_EXCEPTION)
+          message, BaseCode.RESULT_ERROR_NETWORK_JSON_EXCEPTION)
           .sendMsg();
     }
   }

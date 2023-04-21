@@ -14,11 +14,14 @@ class BaseResultData<T> {
   var timestamp;
   String? sign;
   String? msg;
+  String? message;
 
-  BaseResultData(this.msg,
-      this.code, {
-        this.data,
-      });
+  BaseResultData(
+    this.msg,
+    this.code, {
+    this.data,
+    this.message,
+  });
 
   BaseResultData sendMsg() {
     if (code != BaseCode.RESULT_OK) {
@@ -36,14 +39,13 @@ class BaseResultData<T> {
   String toString() {
     return 'BaseResultData{code: $code, data: $data, timestamp: $timestamp, sign: $sign, msg: $msg}';
   }
-
-
 }
 
 BaseResultData<T> _$BaseResultDataFromJson<T>(Map<String, dynamic> json) {
   return BaseResultData(
     json['msg'] as String?,
     json['code'] as int?,
+    message: json['message'] as String?,
     data: json['data'],
   )
     ..timestamp = json['timestamp']
@@ -57,6 +59,7 @@ Map<String, dynamic> _$BaseResultDataToJson(BaseResultData instance) =>
       'timestamp': instance.timestamp,
       'sign': instance.sign,
       'msg': instance.msg,
+      'message': instance.message,
     };
 
 class BaseResultDataMsg<T> {
