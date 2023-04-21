@@ -351,22 +351,33 @@ abstract class BaseHttpManager {
 
       var jsonMap = Map<String, dynamic>();
 
-      if (jsonStr is List) {
+      if (jsonStr is List &&
+          !(jsonStr.toString().contains('code') &&
+              jsonStr.toString().contains('message'))) {
         jsonMap = {'code': 200, 'data': jsonStr};
       } else if (jsonStr is Map) {
         if (!jsonStr.containsKey('code') ||
             (!jsonStr.containsKey('timestamp') &&
-                !jsonStr.containsKey('sign'))) {
+                !jsonStr.containsKey('sign') &&
+                !jsonStr.containsKey('message'))) {
           jsonMap = {'code': 200, 'data': jsonStr};
         } else {
           jsonMap = Map<String, dynamic>.from(jsonStr);
         }
       }
 
+      if ((jsonMap.containsKey('page') && jsonMap.containsKey('code') ||
+          (params is Map &&
+              params.containsKey('fullData') &&
+              params['fullData'] == true)) &&
+          BaseCode.RESULT_OK == jsonMap['code']) {
+        jsonMap = {'code': 200, 'data': jsonStr};
+      }
+
       var resultData = BaseResultData.fromJson(jsonMap);
       if (/*null != resultData*/ true) {
         if (BaseCode.RESULT_OK != resultData.code) {
-          var msg = resultData.msg;
+          var msg = resultData.msg ?? resultData.message;
           _onError(onError, msg ?? '');
           return BaseResultData(msg, resultData.code).sendMsg();
         }
