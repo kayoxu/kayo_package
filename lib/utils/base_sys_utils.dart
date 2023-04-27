@@ -426,6 +426,8 @@ class BaseSysUtils {
       return '.pdf';
     } else if (fileExt.endsWith(".doc")) {
       return '.doc';
+    } else if (fileExt.endsWith(".docx")) {
+      return '.docx';
     } else if (fileExt.endsWith(".xls")) {
       return '.xls';
     } else if (fileExt.endsWith(".xlsx")) {
