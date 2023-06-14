@@ -54,6 +54,7 @@ class EditView extends StatefulWidget {
   final bool? showLabelText;
   final bool? isDense;
   final TextInputAction? textInputAction;
+  final bool? enableinteractiveSelection;
   final List<TextInputFormatter>? inputFormatters;
 
   EditView({
@@ -92,6 +93,7 @@ class EditView extends StatefulWidget {
     this.lineColor,
     this.textInputAction,
     this.isDense = false,
+    this.enableinteractiveSelection = true,
   }) : super(key: key);
 
   @override
@@ -124,7 +126,7 @@ class EditViewState extends State<EditView> {
     if (((widget.useDefaultEditController == true) ||
             (true != widget.editable)) &&
         null != controllerDefault) {
-      if(widget.controller != controllerDefault){
+      if (widget.controller != controllerDefault) {
         // widget.controller?.dispose();
         try {
           controllerDefault?.dispose();
@@ -162,6 +164,7 @@ class EditViewState extends State<EditView> {
               : null,
           child: TextField(
               onTap: null == widget.onClick ? onClick : widget.onClick,
+              enableInteractiveSelection: widget.enableinteractiveSelection,
               inputFormatters: widget.inputFormatters,
               style: null == widget.textStyle
                   ? TextStyle(
