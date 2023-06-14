@@ -195,48 +195,50 @@ class ImageViewState extends State<ImageView> {
         ? container
         : AspectRatio(aspectRatio: widget.aspectRatio ?? 1, child: container);
 
-    return null != widget.imagePadding
-        ? Container(
-            decoration: BoxDecoration(
-              color: widget.imagePaddingColor ?? Colors.transparent,
-              borderRadius:
-                  BorderRadius.circular(widget.imagePaddingRadius ?? 0),
-            ),
-            padding: widget.imagePadding,
-            alignment: Alignment.center,
-            child: image,
-          )
-        : Clickable(
-            margin: widget.margin,
-            padding: widget.padding,
-            child: container2,
-            radius: widget.radius,
-            onTap: widget.onClick,
-            onLongPress: widget.onLongClick,
-            bgColor: Colors.transparent,
-            elevation: widget.elevation,
-            shadowColor: widget.shadowColor,
-            materialBtn: false,
-            onTapDown: (d) {
-              setState(() {
-                isDown = true;
-              });
-            },
+    return (null != widget.imagePadding
+            ? Container(
+                decoration: BoxDecoration(
+                  color: widget.imagePaddingColor ?? Colors.transparent,
+                  borderRadius:
+                      BorderRadius.circular(widget.imagePaddingRadius ?? 0),
+                ),
+                padding: widget.imagePadding,
+                alignment: Alignment.center,
+                child: image,
+              )
+            : Clickable(
+                margin: widget.margin,
+                padding: widget.padding,
+                child: container2,
+                radius: widget.radius,
+                onTap: widget.onClick,
+                onLongPress: widget.onLongClick,
+                bgColor: Colors.transparent,
+                elevation: widget.elevation,
+                shadowColor: widget.shadowColor,
+                materialBtn: false,
+                onTapDown: (d) {
+                  setState(() {
+                    isDown = true;
+                  });
+                },
 
-            onHighlightChanged: (b) {
-              if (!b) {
-                setState(() {
-                  isDown = false;
-                });
-              }
-            },
-            //      onTapUp: (d) => setState(() => this.isDown = false),
-            onTapCancel: () {
-              setState(() {
-                isDown = false;
-              });
-            },
-          );
+                onHighlightChanged: (b) {
+                  if (!b) {
+                    setState(() {
+                      isDown = false;
+                    });
+                  }
+                },
+                //      onTapUp: (d) => setState(() => this.isDown = false),
+                onTapCancel: () {
+                  setState(() {
+                    isDown = false;
+                  });
+                },
+              ))
+        .addIgnorePointer(
+            ignoring: null == widget.onClick && null == widget.onLongClick);
   }
 }
 
