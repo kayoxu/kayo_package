@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kayo_package/kayo_package.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
+import 'package:flutter/material.dart';
+import 'package:mpcore/mpcore.dart';
 
 import 'base/image_view.dart';
 
@@ -17,7 +19,7 @@ class ToolBarDark extends StatefulWidget {
   final String? title;
   final Widget? titleWidget;
   final Widget? floatingActionButton;
-  final FloatingActionButtonLocation? floatingActionButtonLocation;
+  // final FloatingActionButtonLocation? floatingActionButtonLocation;
 
   final PreferredSizeWidget? appBar;
   final Brightness? brightness;
@@ -54,8 +56,8 @@ class ToolBarDark extends StatefulWidget {
   final Color? drawerScrimColor;
   final Widget? endDrawer;
   final bool? endDrawerEnableOpenDragGesture;
-  final DrawerCallback? onDrawerChanged;
-  final DrawerCallback? onEndDrawerChanged;
+  // final DrawerCallback? onDrawerChanged;
+  // final DrawerCallback? onEndDrawerChanged;
 
   ToolBarDark({
     required this.child,
@@ -80,7 +82,7 @@ class ToolBarDark extends StatefulWidget {
     this.toolbarSubView,
     this.marginToolbarTop,
     this.floatingActionButton,
-    this.floatingActionButtonLocation,
+    // this.floatingActionButtonLocation,
     this.centerTitle = true,
     this.onWillPop,
     this.leadingIcon,
@@ -96,8 +98,8 @@ class ToolBarDark extends StatefulWidget {
     this.drawerScrimColor,
     this.endDrawer,
     this.endDrawerEnableOpenDragGesture,
-    this.onDrawerChanged,
-    this.onEndDrawerChanged,
+    // this.onDrawerChanged,
+    // this.onEndDrawerChanged,
   }) : super(key: key);
 
   @override
@@ -108,55 +110,56 @@ class ToolBarDarkState extends State<ToolBarDark> {
   @override
   Widget build(BuildContext context) {
     PreferredSizeWidget toolbar = null == widget.appBar
-        ? AppBar(
-      actions: widget.actions,
-      elevation: widget.elevation,
-      titleSpacing:
-      widget.titleSpacing ?? NavigationToolbar.kMiddleSpacing,
-      leading: widget.noBack == true
-          ? Container()
-          : widget.leading != null
-          ? widget.leading
-          : (widget.iosBack == true || null != widget.leadingIcon
-          ? IconButton(
-        icon: null != widget.leadingIcon
-            ? widget.leadingIcon!
-            : Icon(
-          Icons.arrow_back_ios,
-        ),
-        iconSize: 22,
-        color: Color(widget.brightness == Brightness.light
-            ? 0xff50525c
-            : 0xffffffff),
-        onPressed: widget.backClick ??
-            (null != KayoPackage.share.onTapToolbarBack
-                ? () {
-              KayoPackage.share.onTapToolbarBack
-                  ?.call(context);
-            }
-                : () async {
-              if (Navigator.canPop(context)) {
-                return Navigator.of(context).pop();
-              } else {
-                return await SystemNavigator.pop();
-              }
-            }), // null disables the button
-      )
-          : null),
-      systemOverlayStyle: widget.brightness == Brightness.light
-          ? SystemUiOverlayStyle.dark
-          : SystemUiOverlayStyle.light,
-      brightness: widget.brightness,
-      centerTitle: widget.centerTitle ?? true,
-      backgroundColor: widget.appbarColor ?? context.theme.primaryColor,
-      actionsIconTheme: IconThemeData(
-          color: widget.brightness == Brightness.light
-              ? BaseColorUtils.colorBlack
-              : BaseColorUtils.white),
-      iconTheme: IconThemeData(
-          color: widget.brightness == Brightness.light
-              ? BaseColorUtils.colorBlack
-              : BaseColorUtils.white),
+        ? MPAppBar(
+      // actions: widget.actions,
+      // elevation: widget.elevation,
+      // titleSpacing:
+      context: context,
+      // widget.titleSpacing ?? NavigationToolbar.kMiddleSpacing,
+      // leading: widget.noBack == true
+      //     ? Container()
+      //     : widget.leading != null
+      //     ? widget.leading
+      //     : (widget.iosBack == true || null != widget.leadingIcon
+      //     ? IconButton(
+      //   icon: null != widget.leadingIcon
+      //       ? widget.leadingIcon!
+      //       : Icon(
+      //     Icons.arrow_back_ios,
+      //   ),
+      //   iconSize: 22,
+      //   color: Color(widget.brightness == Brightness.light
+      //       ? 0xff50525c
+      //       : 0xffffffff),
+      //   onPressed: widget.backClick ??
+      //       (null != KayoPackage.share.onTapToolbarBack
+      //           ? () {
+      //         KayoPackage.share.onTapToolbarBack
+      //             ?.call(context);
+      //       }
+      //           : () async {
+      //         if (Navigator.canPop(context)) {
+      //           return Navigator.of(context).pop();
+      //         } else {
+      //           return await SystemNavigator.pop();
+      //         }
+      //       }), // null disables the button
+      // )
+      //     : null),
+      // systemOverlayStyle: widget.brightness == Brightness.light
+      //     ? SystemUiOverlayStyle.dark
+      //     : SystemUiOverlayStyle.light,
+      // brightness: widget.brightness,
+      // centerTitle: widget.centerTitle ?? true,
+      // backgroundColor: widget.appbarColor /*?? context.theme.primaryColor*/,
+      // actionsIconTheme: IconThemeData(
+      //     color: widget.brightness == Brightness.light
+      //         ? BaseColorUtils.colorBlack
+      //         : BaseColorUtils.white),
+      // iconTheme: IconThemeData(
+      //     color: widget.brightness == Brightness.light
+      //         ? BaseColorUtils.colorBlack
+      //         : BaseColorUtils.white),
       title: (null == widget.titleWidget)
           ? Text(
         widget.title ?? '',
@@ -176,23 +179,23 @@ class ToolBarDarkState extends State<ToolBarDark> {
       margin: EdgeInsets.only(top: widget.marginToolbarTop ?? 0),
       child: widget.child,
     );
-    var scaffold = Scaffold(
-      key: widget.key,
+    var scaffold = MPScaffold(
+      // key: widget.key,
       // resizeToAvoidBottomPadding: widget.resizeToAvoidBottomPadding,
-      resizeToAvoidBottomInset: widget.resizeToAvoidBottomPadding,
+      // resizeToAvoidBottomInset: widget.resizeToAvoidBottomPadding,
       backgroundColor: widget.backgroundColor ??
           BaseColorUtils.darkWindow(context: context),
-      drawer: widget.drawer,
-      drawerDragStartBehavior:
-      widget.drawerDragStartBehavior ?? DragStartBehavior.start,
-      drawerEdgeDragWidth: widget.drawerEdgeDragWidth,
-      drawerEnableOpenDragGesture: widget.drawerEnableOpenDragGesture ?? true,
-      drawerScrimColor: widget.drawerScrimColor,
-      endDrawer: widget.endDrawer,
-      endDrawerEnableOpenDragGesture:
-      widget.endDrawerEnableOpenDragGesture ?? true,
-      onDrawerChanged: widget.onDrawerChanged,
-      onEndDrawerChanged: widget.onEndDrawerChanged,
+      // drawer: widget.drawer,
+      // drawerDragStartBehavior:
+      // widget.drawerDragStartBehavior ?? DragStartBehavior.start,
+      // drawerEdgeDragWidth: widget.drawerEdgeDragWidth,
+      // drawerEnableOpenDragGesture: widget.drawerEnableOpenDragGesture ?? true,
+      // drawerScrimColor: widget.drawerScrimColor,
+      // endDrawer: widget.endDrawer,
+      // endDrawerEnableOpenDragGesture:
+      // widget.endDrawerEnableOpenDragGesture ?? true,
+      // onDrawerChanged: widget.onDrawerChanged,
+      // onEndDrawerChanged: widget.onEndDrawerChanged,
       appBar: -1 == widget.toolbarHeight
           ? toolbar
           : PreferredSize(
@@ -255,8 +258,8 @@ class ToolBarDarkState extends State<ToolBarDark> {
           : Stack(
         children: [body2!, widget.dragView!],
       ),
-      floatingActionButton: widget.floatingActionButton,
-      floatingActionButtonLocation: widget.floatingActionButtonLocation,
+      // floatingActionButton: widget.floatingActionButton,
+      // floatingActionButtonLocation: widget.floatingActionButtonLocation,
     );
     return widget.noBack != true && null == widget.onWillPop
         ? scaffold

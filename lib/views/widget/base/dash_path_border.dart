@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:path_drawing/path_drawing.dart';
+import 'package:kayo_package/views/path_drawing/dash_path.dart';
+
 
 ///  kayo_package
 ///  views.widget.base

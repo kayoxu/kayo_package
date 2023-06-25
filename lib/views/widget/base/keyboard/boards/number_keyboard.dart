@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kayo_package/kayo_package.dart';
 import 'package:kayo_package/views/widget/base/keyboard/cool_ui.dart';
+import 'package:flutter/material.dart';
+import 'package:mpcore/mpcore.dart';
 
 import 'keyboard_tools.dart';
 
@@ -42,7 +44,7 @@ class KeyboardNumberState extends State<KeyboardNumber> {
     return SafeArea(
         top: false,
         bottom: true,
-        child: Material(
+        child: Container(
           color: BaseColorUtils.colorWindow,
           child: DefaultTextStyle(
               style: TextStyle(
@@ -95,7 +97,8 @@ class KeyboardNumberState extends State<KeyboardNumber> {
                                     child: Container(
                                       alignment: Alignment.center,
                                       height: 105,
-                                      child: Icon(Icons.backspace_outlined,
+                                      child: MPIcon(
+                                        MaterialIcons.backspace_outlined,
                                         color: BaseColorUtils.colorBlack,),
                                     ),
                                     onTap: () {

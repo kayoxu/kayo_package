@@ -22,7 +22,7 @@ class _WidgetUtil {
   void asyncPrepare(
       BuildContext context, bool isOnce, ValueChanged<Rect> onCallBack) {
     if (_hasMeasured) return;
-    WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((Duration timeStamp) {
       RenderBox? box = context.findRenderObject() as RenderBox?;
       if (box != null && box.semanticBounds != null) {
         if (isOnce) _hasMeasured = true;
@@ -40,7 +40,7 @@ class _WidgetUtil {
   /// Widget渲染监听.
   void asyncPrepares(bool isOnce, ValueChanged<Rect?>? onCallBack) {
     if (_hasMeasured) return;
-    WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((Duration timeStamp) {
       if (isOnce) _hasMeasured = true;
       if (onCallBack != null) onCallBack(null);
     });

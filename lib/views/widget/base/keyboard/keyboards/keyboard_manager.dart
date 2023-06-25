@@ -133,7 +133,7 @@ class CoolKeyboard {
       _keyboardController!.client.connectionId,
       _keyboardController!.value.toJSON()
     ]);
-    ServicesBinding.instance.defaultBinaryMessenger
+    ServicesBinding.instance!.defaultBinaryMessenger
         .handlePlatformMessage("flutter/textinput",
             _codec.encodeMethodCall(callbackMethodCall), (data) {});
   }
@@ -192,10 +192,10 @@ class CoolKeyboard {
       }
     });
 
-    BackButtonInterceptor.add((_, __) {
-      CoolKeyboard.sendPerformAction(TextInputAction.done);
-      return true;
-    }, zIndex: 1, name: 'CustomKeyboard');
+    // BackButtonInterceptor.add((_, __) {
+    //   CoolKeyboard.sendPerformAction(TextInputAction.done);
+    //   return true;
+    // }, zIndex: 1, name: 'CustomKeyboard');
   }
 
   static hideKeyboard({bool animation = true}) {
@@ -205,7 +205,7 @@ class CoolKeyboard {
       }
       clearTask = null;
     }
-    BackButtonInterceptor.removeByName('CustomKeyboard');
+    // BackButtonInterceptor.removeByName('CustomKeyboard');
     if (_root!.hasKeyboard && _pageKey != null) {
       // _pageKey.currentState.animationController
       //     .addStatusListener((AnimationStatus status) {
@@ -247,7 +247,7 @@ class CoolKeyboard {
   static sendPerformAction(TextInputAction action) {
     var callbackMethodCall = MethodCall("TextInputClient.performAction",
         [_keyboardController!.client.connectionId, action.toString()]);
-    ServicesBinding.instance.defaultBinaryMessenger.handlePlatformMessage(
+    ServicesBinding.instance!.defaultBinaryMessenger.handlePlatformMessage(
         "flutter/textinput",
         _codec.encodeMethodCall(callbackMethodCall),
         (data) {});
@@ -414,7 +414,7 @@ class KeyboardPageState extends State<KeyboardPage> {
     // TODO: implement initState
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       _height = widget.height;
       setState(() => {});
     });
@@ -462,13 +462,13 @@ class KeyboardPageState extends State<KeyboardPage> {
   }
 
   update() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       setState(() => {});
     });
   }
 
   updateHeight(double height) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       this._height = height;
       setState(() => {});
     });

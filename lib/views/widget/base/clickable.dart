@@ -18,7 +18,7 @@ class Clickable extends StatelessWidget {
   final ValueChanged<bool>? onHighlightChanged;
   final Color? highlightColor;
   final Color? splashColor;
-  final InteractiveInkFeatureFactory? splashFactory;
+  // final InteractiveInkFeatureFactory? splashFactory;
   final double? radius;
 
   final BorderRadius? borderRadius;
@@ -54,7 +54,7 @@ class Clickable extends StatelessWidget {
       this.highlightColor,
       this.splashColor,
       this.constraints,
-      this.splashFactory,
+      // this.splashFactory,
       this.radius = 0,
       this.borderRadius,
       this.customBorder,
@@ -113,7 +113,7 @@ class Clickable extends StatelessWidget {
               // inkWell: true,
               borderRadius: BorderRadius.circular(radius1),
               child: Container(
-                child: InkWell(
+                child: GestureDetector(
                   child: Container(
                     child: child,
                     constraints: constraints,
@@ -125,23 +125,23 @@ class Clickable extends StatelessWidget {
                   onLongPress: onLongPress,
                   onTapDown: onTapDown,
                   onTapCancel: onTapCancel,
-                  onHighlightChanged: onHighlightChanged,
-                  highlightColor: materialBtn == true
-                      ? (null != highlightColor
-                          ? highlightColor
-                          : BaseColorUtils.colorGreyLiteLite.withOpacity(.1))
-                      : Colors.transparent,
-                  splashColor: null != splashColor
-                      ? splashColor
-                      : BaseColorUtils.colorGreyLiteLite.withOpacity(.3),
-                  splashFactory: splashFactory,
-                  radius: materialBtn == true ? null : 0,
+                  // onHighlightChanged: onHighlightChanged,
+                  // highlightColor: materialBtn == true
+                  //     ? (null != highlightColor
+                  //         ? highlightColor
+                  //         : BaseColorUtils.colorGreyLiteLite.withOpacity(.1))
+                  //     : Colors.transparent,
+                  // splashColor: null != splashColor
+                  //     ? splashColor
+                  //     : BaseColorUtils.colorGreyLiteLite.withOpacity(.3),
+                  // splashFactory: splashFactory,
+                  // radius: materialBtn == true ? null : 0,
 //                borderRadius:borderRadius,
-                  borderRadius: null != borderRadius
-                      ? borderRadius
-                      : BorderRadius.all(Radius.circular(radius1)),
-                  customBorder: customBorder,
-                  enableFeedback: enableFeedback,
+//                   borderRadius: null != borderRadius
+//                       ? borderRadius
+//                       : BorderRadius.all(Radius.circular(radius1)),
+//                   customBorder: customBorder,
+//                   enableFeedback: enableFeedback,
                   excludeFromSemantics: excludeFromSemantics ?? false,
                 ),
               ),

@@ -2,11 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
-import 'dart:ui';
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:kayo_package/kayo_package.dart';
+import 'package:flutter/ui/ui.dart' as ui;
 
 ///  smart_community
 ///  common.utils
@@ -302,11 +302,11 @@ class BaseSysUtils {
   }
 
   static double getStatusHeight(context) {
-    return MediaQueryData.fromWindow(window).padding.top;
+    return MediaQueryData.fromWindow(ui.window).padding.top;
   }
 
   static double getNaviHeight(context) {
-    return MediaQueryData.fromWindow(window).padding.bottom;
+    return MediaQueryData.fromWindow(ui.window).padding.bottom;
   }
 
   static int last = 0;

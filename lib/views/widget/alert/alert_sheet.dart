@@ -4,6 +4,8 @@ import 'package:kayo_package/views/widget/visible_view.dart';
 import 'package:kayo_package/views/widget/base/button_view.dart';
 import 'package:kayo_package/views/widget/base/line_view.dart';
 import 'package:kayo_package/views/widget/base/text_view.dart';
+import 'package:flutter/material.dart';
+import 'package:mpcore/mpcore.dart';
 
 ///  kayo_plugin
 ///  views.widget.alert
@@ -27,10 +29,10 @@ class AlertSheet {
       VoidCallback? cancelCallback}) {
     cancelCallback = cancelCallback ?? () => hide(context);
 
-    showModalBottomSheet(
+    showMPDialog(
         context: context,
-        backgroundColor: Colors.transparent,
-        isScrollControlled: true,
+        // backgroundColor: Colors.transparent,
+        // isScrollControlled: true,
         builder: (context) {
           return SafeArea(
               child: Container(

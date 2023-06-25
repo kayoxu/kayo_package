@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kayo_package/kayo_package.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
+import 'package:flutter/material.dart';
+import 'package:mpcore/mpcore.dart';
 
 ///支持顶部和顶部的TabBar控件
 ///配合AutomaticKeepAliveClientMixin可以keep住
@@ -82,8 +84,8 @@ class TabBarWidgetAllowDark extends StatefulWidget {
 
 class TabBarWidgetAllowDarkState extends State<TabBarWidgetAllowDark>
     with SingleTickerProviderStateMixin {
-  TabController? _tabController;
-  PageController? _pageController;
+  MPMainTabController? _tabController;
+  MPPageController? _pageController;
 
   VoidCallback? _tabControllerChangeCallBack;
 

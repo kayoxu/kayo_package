@@ -4,7 +4,8 @@ import 'package:kayo_package/utils/base_color_utils.dart';
 import 'package:kayo_package/views/widget/base/clickable.dart';
 import 'package:kayo_package/views/widget/base/keyboard/boards/keyboard_tools.dart';
 import 'package:kayo_package/views/widget/base/text_view.dart';
-
+import 'package:flutter/material.dart';
+import 'package:mpcore/mpcore.dart';
 import '../cool_ui.dart';
 
 class KeyboardCarNumWithSearch extends StatefulWidget {
@@ -52,7 +53,7 @@ class KeyboardCarNumWithSearchState extends State<KeyboardCarNumWithSearch> {
     return SafeArea(
         top: false,
         bottom: false,
-        child: Material(
+        child: Container(
           color: BaseColorUtils.transparent,
           child: DefaultTextStyle(
               style: TextStyle(
@@ -126,14 +127,14 @@ class KeyboardCarNumWithSearchState extends State<KeyboardCarNumWithSearch> {
                                   });
                                 },
                               ),
-                              FloatingActionButton(
-                                  mini: true,
-                                  backgroundColor: BaseColorUtils.white,
-                                  child: Icon(
-                                    Icons.keyboard_hide,
+                              GestureDetector(
+                                  // mini: true,
+                                  // backgroundColor: BaseColorUtils.white,
+                                  child: MPIcon(
+                                    MaterialIcons.keyboard_hide,
                                     color: BaseColorUtils.colorGrey,
                                   ),
-                                  onPressed: () {
+                                  onTap: () {
                                     setState(() {
                                       widget.controller?.doneAction();
                                     });
@@ -244,7 +245,8 @@ class KeyboardCarNumWithSearchState extends State<KeyboardCarNumWithSearch> {
                 child: Container(
                   alignment: Alignment.center,
                   height: 40,
-                  child: Icon(Icons.backspace),
+                  child: MPIcon(
+                      MaterialIcons.backspace),
                 ),
                 onTap: () {
                   setState(() {
@@ -355,7 +357,8 @@ class KeyboardCarNumWithSearchState extends State<KeyboardCarNumWithSearch> {
                 child: Container(
                   alignment: Alignment.center,
                   height: 40,
-                  child: Icon(Icons.backspace),
+                  child: MPIcon(
+                      MaterialIcons.backspace),
                 ),
                 onTap: () {
                   setState(() {

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kayo_package/kayo_package.dart';
 import 'package:kayo_package/views/widget/base/keyboard/boards/keyboard_tools.dart';
 import 'package:kayo_package/views/widget/base/keyboard/cool_ui.dart';
-
+import 'package:flutter/material.dart';
+import 'package:mpcore/mpcore.dart';
 
 class KeyboardCarNumBad extends StatefulWidget {
   static double getHeight(BuildContext ctx) {
@@ -49,7 +50,7 @@ class KeyboardCarNumBadState extends State<KeyboardCarNumBad> {
     return SafeArea(
         top: false,
         bottom: false,
-        child: Material(
+        child: Container(
           color: BaseColorUtils.transparent,
           child: DefaultTextStyle(
               style: TextStyle(
@@ -62,7 +63,7 @@ class KeyboardCarNumBadState extends State<KeyboardCarNumBad> {
                     Container(
                       margin: EdgeInsets.only(top: 48),
                       padding:
-                          EdgeInsets.only(left: 4, top: 4, right: 4, bottom: 4),
+                      EdgeInsets.only(left: 4, top: 4, right: 4, bottom: 4),
 //            height: KayoKeyboard.getHeight(context),
                       width: mediaQuery.size.width,
                       decoration: BoxDecoration(
@@ -83,14 +84,14 @@ class KeyboardCarNumBadState extends State<KeyboardCarNumBad> {
                     Positioned(
                         top: 0,
                         right: 8,
-                        child: FloatingActionButton(
-                            mini: true,
-                            backgroundColor: BaseColorUtils.white,
-                            child: Icon(
-                              Icons.keyboard_hide,
+                        child: GestureDetector(
+                          // mini: true,
+                          // backgroundColor: BaseColorUtils.white,
+                            child: MPIcon(
+                              MaterialIcons.keyboard_hide,
                               color: BaseColorUtils.colorGrey,
                             ),
-                            onPressed: () {
+                            onTap: () {
                               widget.controller?.doneAction();
                             }))
                   ],
@@ -196,7 +197,8 @@ class KeyboardCarNumBadState extends State<KeyboardCarNumBad> {
                 child: Container(
                   alignment: Alignment.center,
                   height: 40,
-                  child: Icon(Icons.backspace),
+                  child: MPIcon(
+                      MaterialIcons.backspace),
                 ),
                 onTap: () {
                   badKeyboard = true;
@@ -306,7 +308,8 @@ class KeyboardCarNumBadState extends State<KeyboardCarNumBad> {
                 child: Container(
                   alignment: Alignment.center,
                   height: 40,
-                  child: Icon(Icons.backspace),
+                  child: MPIcon(
+                      MaterialIcons.backspace),
                 ),
                 onTap: () {
                   badKeyboard = true;

@@ -6,7 +6,8 @@ import 'package:kayo_package/views/widget/base/text_view_dark.dart';
 
 import 'clickable.dart';
 import 'text_view.dart';
-
+import 'package:flutter/material.dart';
+import 'package:mpcore/mpcore.dart';
 ///  flutter_demo
 ///
 ///
@@ -94,9 +95,9 @@ class TitleMsgViewDark extends StatelessWidget {
     if (null != subMsg) children2.add(subMsg!);
     if (true == showRightArrow && null != onTap) {
       children2.add(Center(
-        child: Icon(
-          Icons.chevron_right,
-          color: Colors.grey[600],
+        child: MPIcon(
+          MaterialIcons.chevron_right,
+          color: '#FF757575'.toColor(),
           size: 20,
         ),
       ));
@@ -107,12 +108,12 @@ class TitleMsgViewDark extends StatelessWidget {
     return Container(
       margin: margin,
       padding:
-          padding ?? EdgeInsets.only(top: tp, bottom: tp, left: 16, right: 16),
+      padding ?? EdgeInsets.only(top: tp, bottom: tp, left: 16, right: 16),
       decoration: BoxDecoration(
         color: bgColor ?? BaseColorUtils.darkWhite(context: context),
-        border: Border(
-          bottom: Divider.createBorderSide(context, width: 0.6),
-        ),
+        // border: Border(
+        //   bottom: Divider.createBorderSide(context, width: 0.6),
+        // ),
       ),
       constraints: BoxConstraints(
         minHeight: miniHeight ?? 50.0,
@@ -128,7 +129,7 @@ class TitleMsgViewDark extends StatelessWidget {
     return TextViewDark(
       title ?? '',
       maxLine: titleMaxLines ?? 1,
-      textStyle: textStyleTitle ?? context.theme.textTheme.bodyText2,
+      textStyle: textStyleTitle /*?? context.theme.textTheme.bodyText2*/,
       margin: EdgeInsets.only(right: 0),
     );
   }
@@ -138,7 +139,7 @@ class TitleMsgViewDark extends StatelessWidget {
       msg ?? '',
       textAlign: TextAlign.right,
       maxLine: msgMaxLines ?? 1,
-      textStyle: textStyleMsg ?? context.theme.textTheme.subtitle1,
+      textStyle: textStyleMsg /*?? context.theme.textTheme.subtitle1*/,
     );
   }
 }

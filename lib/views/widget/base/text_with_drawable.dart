@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kayo_package/kayo_package.dart';
+import 'package:flutter/material.dart';
+import 'package:mpcore/mpcore.dart';
 
 @Deprecated('Use `Other` widget instead')
 class TextWithDrawable extends StatelessWidget {
@@ -209,7 +211,7 @@ class ShowInfoRow extends StatelessWidget {
     if (null == onTap) {
       child = view;
     } else {
-      child = InkWell(
+      child = GestureDetector(
         onTap: onTap,
         child: view,
       );
@@ -466,7 +468,7 @@ class IncludeWidget {
     bool showArrowRight = false,
     GestureTapCallback? onTap,
     EdgeInsetsGeometry contentPadding =
-        const EdgeInsets.only(left: 10, top: 20, bottom: 20),
+    const EdgeInsets.only(left: 10, top: 20, bottom: 20),
   }) {
     controller = controller ?? TextEditingController();
     if (null != value) {
@@ -485,35 +487,35 @@ class IncludeWidget {
     if (inputType == TextInputType.number || inputType == TextInputType.phone) {
       reg = RegExp('[0-9.]');
     }
-    TextField textField = TextField(
+    EditView textField = EditView(
       controller: controller,
       textAlign: TextAlign.end,
       keyboardType: inputType,
       maxLines: 1,
-      readOnly: readOnly,
+      editable: readOnly != true,
       inputFormatters: [
         if (null != reg) FilteringTextInputFormatter.allow(reg),
       ],
-      decoration: InputDecoration(
-        hintText: hintText,
-        hintStyle: TextStyle(
-          color: hintColor,
-          fontSize: fontSize,
-        ),
-        contentPadding: contentPadding,
-        border: InputBorder.none,
-        suffixText: unit,
-        suffixStyle: TextStyle(
-          color: valueColor,
-          fontSize: fontSize,
-        ),
-      ),
-      style: TextStyle(
+      // decoration: InputDecoration(
+      //   hintText: hintText,
+      //   hintStyle: TextStyle(
+      //     color: hintColor,
+      //     fontSize: fontSize,
+      //   ),
+      //   contentPadding: contentPadding,
+      //   border: InputBorder.none,
+      //   suffixText: unit,
+      //   suffixStyle: TextStyle(
+      //     color: valueColor,
+      //     fontSize: fontSize,
+      //   ),
+      // ),
+      textStyle: TextStyle(
         color: valueColor,
         fontSize: fontSize,
       ),
     );
-    return InkWell(
+    return GestureDetector(
       onTap: onTap,
       child: Container(
         color: bgColor,
@@ -548,13 +550,13 @@ class IncludeWidget {
                   Expanded(
                     //IgnorePointer
                     child:
-                        readOnly ? IgnorePointer(child: textField) : textField,
+                    readOnly ? IgnorePointer(child: textField) : textField,
                   ),
                   SizedBox(width: 10),
                   Visibility(
                     visible: showArrowRight,
-                    child: Icon(
-                      Icons.arrow_forward_ios,
+                    child: MPIcon(
+                      MaterialIcons.arrow_forward_ios,
                       color: Colors.grey,
                       size: 10,
                     ),
@@ -639,37 +641,37 @@ class InputInfoRow extends StatelessWidget {
       );
     }
     bool readOnly = null != onTap;
-    TextField textField = TextField(
+    EditView textField = EditView(
       controller: editingController,
       textAlign: TextAlign.end,
       keyboardType: inputType,
       maxLines: 1,
-      readOnly: readOnly,
+      editable: readOnly != true,
       inputFormatters: [
         if (null != maxLength) LengthLimitingTextInputFormatter(maxLength),
         if (null != regStr) FilteringTextInputFormatter.allow(RegExp(regStr!)),
       ],
-      decoration: InputDecoration(
-        hintText: hintText,
-        hintStyle: TextStyle(
-          color: hintColor,
-          fontSize: fontSize,
-        ),
-        contentPadding: contentPadding,
-        border: InputBorder.none,
-        suffixText: unit,
-        suffixStyle: TextStyle(
-          color: rightColor,
-          fontSize: fontSize,
-        ),
-      ),
-      style: TextStyle(
+      // decoration: InputDecoration(
+      //   hintText: hintText,
+      //   hintStyle: TextStyle(
+      //     color: hintColor,
+      //     fontSize: fontSize,
+      //   ),
+      //   contentPadding: contentPadding,
+      //   border: InputBorder.none,
+      //   suffixText: unit,
+      //   suffixStyle: TextStyle(
+      //     color: rightColor,
+      //     fontSize: fontSize,
+      //   ),
+      // ),
+      textStyle: TextStyle(
         color: rightColor,
         fontSize: fontSize,
       ),
       onChanged: onChange,
     );
-    return InkWell(
+    return GestureDetector(
       onTap: onTap,
       child: Container(
         color: bgColor,
@@ -716,13 +718,13 @@ class InputInfoRow extends StatelessWidget {
                   Expanded(
                     //IgnorePointer
                     child:
-                        readOnly ? IgnorePointer(child: textField) : textField,
+                    readOnly ? IgnorePointer(child: textField) : textField,
                   ),
                   SizedBox(width: 10),
                   Visibility(
                     visible: showArrowRight,
-                    child: Icon(
-                      Icons.arrow_forward_ios,
+                    child: MPIcon(
+                      MaterialIcons.arrow_forward_ios,
                       color: Colors.grey,
                       size: 10,
                     ),

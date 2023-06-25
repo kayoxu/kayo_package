@@ -42,7 +42,7 @@ class ButtonView extends StatelessWidget {
     Key? key,
     this.bgColor,
     this.color = BaseColorUtils.colorWhite,
-    required VoidCallback this.onPressed,
+    this.onPressed,
     this.text = '提交',
     this.width,
     this.height,
@@ -73,7 +73,7 @@ class ButtonView extends StatelessWidget {
     return Container(
       margin: margin,
       alignment: alignment,
-      child: null == borderColor
+      child: /*null == borderColor
           ? MaterialButton(
               onPressed: onPressed,
               elevation: (showShadow == true) ? 3 : 0,
@@ -99,7 +99,8 @@ class ButtonView extends StatelessWidget {
                       ? BorderRadius.circular(radius ?? 0)
                       : borderRadius!),
             )
-          : Clickable(
+          : */
+      Clickable(
               radius: radius ?? 0,
               bgColor: BaseColorUtils.transparent,
               decoration: (null != borderColor &&

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
 import 'package:kayo_package/views/widget/base/clickable.dart';
 import 'package:kayo_package/views/widget/base/image_view.dart';
+import 'package:flutter/material.dart';
+import 'package:mpcore/mpcore.dart';
 
 ///  kayo_plugin
 ///  views.widget
@@ -50,41 +52,39 @@ class CardView extends StatelessWidget {
     return Container(
       width: width,
       margin: margin,
-      child: Material(
-        borderRadius: BorderRadius.circular(shadowRadius ?? 0),
-        shadowColor: shadowColor ?? BaseColorUtils.transparent,
-        borderOnForeground: false,
-        elevation: elevation ?? 0,
-        child: Clickable(
-          bgColor: BaseColorUtils.transparent,
-          radius: radius ?? 0,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(radius ?? 0)),
-            gradient: linearGradient ??
-                LinearGradient(
-                    begin: colorAlignmentBegin ?? Alignment.topCenter,
-                    end: colorAlignmentEnd ?? Alignment.bottomCenter,
-                    colors: bgColors ??
-                        [
-                          BaseColorUtils.transparent,
-                          BaseColorUtils.transparent
-                        ]),
-          ),
-          padding: padding,
-          child: null == bgImg
-              ? child
-              : Container(
-                  decoration: BoxDecoration(
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(radius ?? 0)),
-                      color: Colors.transparent,
-                      image: DecorationImage(
-                          image: AssetImage(bgImg!),
-                          fit: bgImgFit ?? BoxFit.contain)),
-                  child: child,
-                ),
-          onTap: onPressed,
+      child: /*Container(
+        // radius: BorderRadius.circular(shadowRadius ?? 0),
+        // shadowColor: shadowColor ?? BaseColorUtils.transparent,
+        // borderOnForeground: false,
+
+        child: ,
+      )*/
+          Clickable(
+        bgColor: BaseColorUtils.transparent,
+        radius: shadowRadius ?? radius ?? 0,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(radius ?? 0)),
+          gradient: linearGradient ??
+              LinearGradient(
+                  begin: colorAlignmentBegin ?? Alignment.topCenter,
+                  end: colorAlignmentEnd ?? Alignment.bottomCenter,
+                  colors: bgColors ??
+                      [BaseColorUtils.transparent, BaseColorUtils.transparent]),
         ),
+        padding: padding,
+        child: null == bgImg
+            ? child
+            : Container(
+                decoration: BoxDecoration(
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(radius ?? 0)),
+                    color: Colors.transparent,
+                    image: DecorationImage(
+                        image: AssetImage(bgImg!),
+                        fit: bgImgFit ?? BoxFit.contain)),
+                child: child,
+              ),
+        onTap: onPressed,
       ),
     );
   }

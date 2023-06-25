@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+// import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:kayo_package/kayo_package.dart';
+import 'package:kayo_package/libs/fluttertoast/fluttertoast.dart';
 
 ///
 ///  kayo_package
@@ -39,11 +39,12 @@ class LoadingUtils {
     share.toastTextColor = toastTextColor;
 
     return (BuildContext context, Widget? child) {
-      if (builder != null) {
-        return builder(context, FlutterEasyLoading(child: child));
-      } else {
-        return FlutterEasyLoading(child: child);
-      }
+      // if (builder != null) {
+      //   return builder(context, FlutterEasyLoading(child: child));
+      // } else {
+      //   return FlutterEasyLoading(child: child);
+      // }
+      return SizedBox();
     };
   }
 
@@ -54,30 +55,29 @@ class LoadingUtils {
       share._timer = null;
     });
 
-    EasyLoading.show(
-        status: data ?? KayoPackage.share.loadingText,
-        dismissOnTap: dismissOnTap);
+    // EasyLoading.show(
+    //     status: data ?? KayoPackage.share.loadingText,
+    //     dismissOnTap: dismissOnTap);
   }
 
   static showProgress({required double progress, String? data}) {
     if (progress > 1) {
       progress = progress / 100;
     }
-    EasyLoading.showProgress(progress, status: data ?? '');
+    // EasyLoading.showProgress(progress, status: data ?? '');
   }
 
   static showSuccess({String? data, int? seconds = 2}) {
-    EasyLoading.showSuccess(data ?? '',
-        duration: Duration(seconds: seconds ?? 2));
+    // EasyLoading.showSuccess(data ?? '',
+    //     duration: Duration(seconds: seconds ?? 2));
   }
 
   static showError({String? data, int? seconds = 2}) {
-    EasyLoading.showError(data ?? '',
-        duration: Duration(seconds: seconds ?? 2));
+    // EasyLoading.showError(data ?? '',duration: Duration(seconds: seconds ?? 2));
   }
 
   static showInfo({String? data, int? seconds = 2}) {
-    EasyLoading.showInfo(data ?? '', duration: Duration(seconds: seconds ?? 2));
+    // EasyLoading.showInfo(data ?? '', duration: Duration(seconds: seconds ?? 2));
   }
 
   static showToast(
@@ -97,6 +97,6 @@ class LoadingUtils {
   }
 
   static dismiss() {
-    EasyLoading.dismiss();
+    // EasyLoading.dismiss();
   }
 }

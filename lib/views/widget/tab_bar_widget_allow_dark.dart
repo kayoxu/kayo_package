@@ -1,5 +1,8 @@
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:kayo_package/libs/convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:mpcore/mpcore.dart';
+
 
 ///支持顶部和顶部的TabBar控件
 ///配合AutomaticKeepAliveClientMixin可以keep住
@@ -54,7 +57,7 @@ class TabBarWidgetAllowDark extends StatefulWidget {
 
 class TabBarWidgetAllowDarkState extends State<TabBarWidgetAllowDark>
     with SingleTickerProviderStateMixin {
-  final PageController _pageController = PageController();
+  final MPPageController _pageController = MPPageController();
   int pageIndex = 0;
 
   @override
@@ -73,39 +76,39 @@ class TabBarWidgetAllowDarkState extends State<TabBarWidgetAllowDark>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MPScaffold(
       backgroundColor: widget.backgroundColor,
-      resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
-      drawer: widget.drawer,
-      appBar: widget.appBar,
-      floatingActionButton: widget.floatingActionButton,
-      body: PageView(
-        physics: const NeverScrollableScrollPhysics(), // 禁止滑动
+      // resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
+      // drawer: widget.drawer,
+      // appBar: widget.appBar,
+      // floatingActionButton: widget.floatingActionButton,
+      body: MPPageView(
+        // physics: const NeverScrollableScrollPhysics(), // 禁止滑动
         controller: _pageController,
-        onPageChanged: (int index) {
-          setState(() {
-            pageIndex = index;
-          });
-        },
+        // onPageChanged: (int index) {
+        //   setState(() {
+        //     pageIndex = index;
+        //   });
+        // },
         children: widget.tabViews ?? [],
       ),
-      bottomNavigationBar: ConvexAppBar(
-        style: TabStyle.reactCircle,
-        backgroundColor: Theme.of(context).primaryColor,
-        items: widget.tabItems ?? [],
-        initialActiveIndex: pageIndex,
-        onTap: (index) {
-          if (widget.animate == true) {
-            _pageController.animateToPage(
-              index,
-              duration: Duration(milliseconds: 100),
-              curve: Curves.ease,
-            );
-          } else {
-            _pageController.jumpToPage(index);
-          }
-        },
-      ),
+      // bottomNavigationBar: ConvexAppBar(
+      //   style: TabStyle.reactCircle,
+      //   // backgroundColor: Theme.of(context).primaryColor,
+      //   items: widget.tabItems ?? [],
+      //   initialActiveIndex: pageIndex,
+      //   onTap: (index) {
+      //     if (widget.animate == true) {
+      //       _pageController.animateToPage(
+      //         index,
+      //         duration: Duration(milliseconds: 100),
+      //         curve: Curves.ease,
+      //       );
+      //     } else {
+      //       _pageController.jumpToPage(index);
+      //     }
+      //   },
+      // ),
     );
   }
 }

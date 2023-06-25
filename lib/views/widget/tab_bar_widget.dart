@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kayo_package/kayo_package.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
+import 'package:flutter/widgets.dart';
+import 'package:mpcore/mpcore.dart';
 
 ///支持顶部和顶部的TabBar控件
 ///配合AutomaticKeepAliveClientMixin可以keep住
@@ -38,7 +40,7 @@ class TabBarWidget extends StatefulWidget {
 
   final TarWidgetControl? tarWidgetControl;
 
-  final PageController? topPageControl;
+  final MPPageController? topPageControl;
 
   final ValueChanged<int>? onPageChanged;
 
@@ -95,33 +97,33 @@ class TabBarWidget extends StatefulWidget {
 
 class TabBarWidgetState extends State<TabBarWidget>
     with SingleTickerProviderStateMixin {
-  TabController? _tabController;
-  PageController? _pageController;
+  MPMainTabController? _tabController;
+  MPPageController? _pageController;
 
   VoidCallback? _tabControllerChangeCallBack;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(
-      vsync: this,
-      initialIndex: widget.initialIndex ?? 0,
-      length: widget.tabItems?.length ?? 0,
+    _tabController = MPMainTabController(
+      // vsync: this,
+      // initialIndex: widget.initialIndex ?? 0,
+      // length: widget.tabItems?.length ?? 0,
     );
 
-    _pageController = PageController(initialPage: widget.initialIndex ?? 0);
+    _pageController = MPPageController(initialPage: widget.initialIndex ?? 0);
 
     _tabControllerChangeCallBack = () {
-      if (true != _tabController?.indexIsChanging) {
-        int _index = _tabController?.index ?? 0;
-        this.widget.onPageChanged?.call(_index);
-        if ((_pageController?.hasClients == true) &&
-            _index != (_pageController?.page ?? 0)) {
-          _pageController?.animateToPage(_index,
-              duration: Duration(milliseconds: 300),
-              curve: Curves.easeInOutQuint);
-        }
-      }
+      // if (true != _tabController?.indexIsChanging) {
+      //   // int _index = _tabController?.index ?? 0;
+      //   // this.widget.onPageChanged?.call(_index);
+      //   // if ((_pageController?.hasClients == true) &&
+      //   //     _index != (_pageController?.page ?? 0)) {
+      //   //   _pageController?.animateToPage(_index,
+      //   //       duration: Duration(milliseconds: 300),
+      //   //       curve: Curves.easeInOutQuint);
+      //   // }
+      // }
     };
     if (this.widget.type != TabBarWidget.BOTTOM_TAB_CAN_NULL) {
       _tabController?.addListener(_tabControllerChangeCallBack!);
@@ -139,49 +141,50 @@ class TabBarWidgetState extends State<TabBarWidget>
   @override
   Widget build(BuildContext context) {
     if (widget.animate == true) {
-      _tabController?.animateTo(widget.initialIndex ?? 0);
+      // _tabController?.animateTo(widget.initialIndex ?? 0);
     } else {
-      _tabController?.index = widget.initialIndex ?? 0;
+      // _tabController?.index = widget.initialIndex ?? 0;
     }
 
     if (this.widget.type == TabBarWidget.TOP_TAB) {
       ///顶部tab bar
-      return new Scaffold(
-        floatingActionButton: widget.floatingActionButton,
-        resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
-        persistentFooterButtons: widget.tarWidgetControl == null
-            ? null
-            : widget.tarWidgetControl?.footerButton,
-        appBar: AppBar(
-          elevation: widget.elevation ?? 0.5,
-          actions: widget.actions,
+      return new MPScaffold(
+        // floatingActionButton: widget.floatingActionButton,
+        // resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
+        // persistentFooterButtons: widget.tarWidgetControl == null
+        //     ? null
+        //     : widget.tarWidgetControl?.footerButton,
+        appBar: MPAppBar(
+          // elevation: widget.elevation ?? 0.5,
+          // actions: widget.actions,
+          context: context,
           backgroundColor: BaseColorUtils.colorWindowWhite,
-          centerTitle: widget.centerTitle,
-          leading: widget.showBack == true
-              ? IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-            ),
-            iconSize: 22,
-            color: Color(
-                widget.darkStatusText == true ? 0xff50525c : 0xffffffff),
-            onPressed: widget.backClick ??
-                (null != KayoPackage.share.onTapToolbarBack
-                    ? () {
-                  KayoPackage.share.onTapToolbarBack?.call(context);
-                }
-                    : () async {
-                  if (Navigator.canPop(context)) {
-                    return Navigator.of(context).pop();
-                  } else {
-                    return await SystemNavigator.pop();
-                  }
-                }), // null disables the button
-          )
-              : null,
-          brightness: widget.darkStatusText == true
-              ? Brightness.light
-              : Brightness.dark,
+          // centerTitle: widget.centerTitle,
+          // leading: widget.showBack == true
+          //     ? IconButton(
+          //   icon: Icon(
+          //     Icons.arrow_back_ios,
+          //   ),
+          //   iconSize: 22,
+          //   color: Color(
+          //       widget.darkStatusText == true ? 0xff50525c : 0xffffffff),
+          //   onPressed: widget.backClick ??
+          //       (null != KayoPackage.share.onTapToolbarBack
+          //           ? () {
+          //         KayoPackage.share.onTapToolbarBack?.call(context);
+          //       }
+          //           : () async {
+          //         if (Navigator.canPop(context)) {
+          //           return Navigator.of(context).pop();
+          //         } else {
+          //           return await SystemNavigator.pop();
+          //         }
+          //       }), // null disables the button
+          // )
+          //     : null,
+          // brightness: widget.darkStatusText == true
+          //     ? Brightness.light
+          //     : Brightness.dark,
           title: widget.title ??
               Text(
                 widget.titleStr ?? '',
@@ -191,146 +194,149 @@ class TabBarWidgetState extends State<TabBarWidget>
                         : BaseColorUtils.white),
                 textAlign: TextAlign.center,
               ),
-          bottom: new TabBar(
-            controller: _tabController,
-            tabs: widget.tabItems ?? [],
-            indicatorColor: widget.indicatorColor,
-            indicator: null,
-            onTap: widget.onTabChanged,
-          ),
+          // bottom: new MPMainTabController(
+          //   controller: _tabController,
+          //   tabs: widget.tabItems ?? [],
+          //   indicatorColor: widget.indicatorColor,
+          //   indicator: null,
+          //   onTap: widget.onTabChanged,
+          // ),
         ),
-        body: new PageView(
+        body: new MPPageView(
           controller: widget.topPageControl ?? _pageController,
           children: widget.tabViews ?? [],
-          onPageChanged: (index) {
-            if (widget.animate == true) {
-              _tabController?.animateTo(index);
-            } else {
-              _tabController?.index = index;
-            }
-//            widget.onPageChanged?.call(index);
-          },
+//           onPageChanged: (index) {
+//             if (widget.animate == true) {
+//               _tabController?.animateTo(index);
+//             } else {
+//               _tabController?.index = index;
+//             }
+// //            widget.onPageChanged?.call(index);
+//           },
         ),
       );
     } else if (this.widget.type == TabBarWidget.TOP_TAB_NO_TITLE) {
       ///顶部tab bar
-      return new Scaffold(
-        floatingActionButton: widget.floatingActionButton,
-        resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
-        persistentFooterButtons: widget.tarWidgetControl == null
-            ? null
-            : widget.tarWidgetControl?.footerButton,
-        appBar: AppBar(
-          elevation: widget.elevation ?? 0.5,
-          actions: widget.actions,
+      return new MPScaffold(
+        // floatingActionButton: widget.floatingActionButton,
+        // resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
+        // persistentFooterButtons: widget.tarWidgetControl == null
+        //     ? null
+        //     : widget.tarWidgetControl?.footerButton,
+        appBar: MPAppBar(
+          // elevation: widget.elevation ?? 0.5,
+          context: context,
+          trailing: widget.actions?.first,
           backgroundColor: BaseColorUtils.colorWindowWhite,
-          centerTitle: widget.centerTitle,
-          automaticallyImplyLeading: false,
-          leading: widget.showBack == true
-              ? IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-            ),
-            iconSize: 22,
-            color: Color(
-                widget.darkStatusText == true ? 0xff50525c : 0xffffffff),
-            onPressed: widget.backClick ??
-                (null != KayoPackage.share.onTapToolbarBack
-                    ? () {
-                  KayoPackage.share.onTapToolbarBack?.call(context);
-                }
-                    : () async {
-                  if (Navigator.canPop(context)) {
-                    return Navigator.of(context).pop();
-                  } else {
-                    return await SystemNavigator.pop();
-                  }
-                }), // null disables the button
-          )
-              : null,
-          brightness: widget.darkStatusText == true
-              ? Brightness.light
-              : Brightness.dark,
-          title: TabBar(
-            controller: _tabController,
-            tabs: widget.tabItems ?? [],
-            indicatorColor: widget.indicatorColor,
-            labelStyle: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
-            unselectedLabelStyle:
-            TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
-            labelColor: BaseColorUtils.colorAccent,
-            unselectedLabelColor: Color(0xff333333),
-            indicator: null,
-            onTap: widget.onTabChanged,
-          ),
+          // centerTitle: widget.centerTitle,
+          // automaticallyImplyLeading: false,
+          // leading: widget.showBack == true
+          //     ? IconButton(
+          //   icon: Icon(
+          //     Icons.arrow_back_ios,
+          //   ),
+          //   iconSize: 22,
+          //   color: Color(
+          //       widget.darkStatusText == true ? 0xff50525c : 0xffffffff),
+          //   onPressed: widget.backClick ??
+          //       (null != KayoPackage.share.onTapToolbarBack
+          //           ? () {
+          //         KayoPackage.share.onTapToolbarBack?.call(context);
+          //       }
+          //           : () async {
+          //         if (Navigator.canPop(context)) {
+          //           return Navigator.of(context).pop();
+          //         } else {
+          //           return await SystemNavigator.pop();
+          //         }
+          //       }), // null disables the button
+          // )
+          //     : null,
+          // brightness: widget.darkStatusText == true
+          //     ? Brightness.light
+          //     : Brightness.dark,
+          // title: TabBar(
+          //   controller: _tabController,
+          //   tabs: widget.tabItems ?? [],
+          //   indicatorColor: widget.indicatorColor,
+          //   labelStyle: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+          //   unselectedLabelStyle:
+          //   TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+          //   labelColor: BaseColorUtils.colorAccent,
+          //   unselectedLabelColor: Color(0xff333333),
+          //   indicator: null,
+          //   onTap: widget.onTabChanged,
+          // ),
         ),
-        body: new PageView(
+        body: new MPPageView(
           controller: widget.topPageControl ?? _pageController,
           children: widget.tabViews ?? [],
-          onPageChanged: (index) {
-            if (widget.animate == true) {
-              _tabController?.animateTo(index);
-            } else {
-              _tabController?.index = index;
-            }
-//            widget.onPageChanged?.call(index);
-          },
+//           onPageChanged: (index) {
+//             if (widget.animate == true) {
+//               _tabController?.animateTo(index);
+//             } else {
+//               _tabController?.index = index;
+//             }
+// //            widget.onPageChanged?.call(index);
+//           },
         ),
       );
     } else if (this.widget.type == TabBarWidget.BOTTOM_TAB) {
       ///底部tab bar
-      return new Scaffold(
-          backgroundColor: BaseColorUtils.colorWindow,
-          resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
-          drawer: widget.drawer,
-          appBar: widget.appBar,
-          body: TabBarView(
-            //TabBarView呈现内容，因此放到Scaffold的body中
-              physics: widget.scrollable == true
-                  ? null
-                  : NeverScrollableScrollPhysics(),
-              controller: _tabController, //配置控制器
-              children: widget.tabViews ?? []),
-          bottomNavigationBar: Material(
-            //为了适配主题风格，包一层Material实现风格套用
-            color: widget.bgColor ?? BaseColorUtils.colorWindow, //底部导航栏主题颜色
-            child: SafeArea(
-              child: Container(
-                padding: EdgeInsets.only(top: 3),
-                decoration: BoxDecoration(
-//                  color: const Color(0xFFF0F0F0),
-                  color: const Color(0xFFFFFFFF),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: widget.showLine == true
-                          ? const Color(0xFFf1f1f1)
-                          : widget.bgColor ?? BaseColorUtils.white,
-                      blurRadius: 0.1,
-                      spreadRadius: 0,
-                      offset: Offset(-0.2, -0.2), //-1,-1
-                    ),
-                  ],
-                ),
-                child: TabBar(
-//                  unselectedLabelStyle: TextStyle(fontSize: 14),
-//                  labelStyle: TextStyle(fontSize: 14),
-                  controller: _tabController,
-//                  indicatorColor: const Color(0xFFF0F0F0),
-                  indicatorColor: const Color(0xFFFFFFFF),
-                  //tab标签的下划线颜色
-                  // labelColor: const Color(0xFF000000),
-                  indicatorWeight: .5,
-                  labelColor: Theme
-                      .of(context)
-                      .primaryColor,
-                  unselectedLabelColor: const Color(0xFF8E8E8E),
-                  isScrollable: false,
-                  tabs: widget.tabItems ?? [],
-                ),
-              ),
-            ),
-          ));
-    } else if (this.widget.type == TabBarWidget.BOTTOM_TAB_CAN_NULL) {
+      return new MPScaffold(
+        backgroundColor: BaseColorUtils.colorWindow,
+        // resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
+        // drawer: widget.drawer,
+        appBar: widget.appBar,
+        // body: TabBarView(
+        //   //TabBarView呈现内容，因此放到Scaffold的body中
+        //     physics: widget.scrollable == true
+        //         ? null
+        //         : NeverScrollableScrollPhysics(),
+        //     controller: _tabController, //配置控制器
+        //     children: widget.tabViews ?? []),
+//           bottomNavigationBar: Material(
+//             //为了适配主题风格，包一层Material实现风格套用
+//             color: widget.bgColor ?? BaseColorUtils.colorWindow, //底部导航栏主题颜色
+//             child: SafeArea(
+//               child: Container(
+//                 padding: EdgeInsets.only(top: 3),
+//                 decoration: BoxDecoration(
+// //                  color: const Color(0xFFF0F0F0),
+//                   color: const Color(0xFFFFFFFF),
+//                   boxShadow: <BoxShadow>[
+//                     BoxShadow(
+//                       color: widget.showLine == true
+//                           ? const Color(0xFFf1f1f1)
+//                           : widget.bgColor ?? BaseColorUtils.white,
+//                       blurRadius: 0.1,
+//                       spreadRadius: 0,
+//                       offset: Offset(-0.2, -0.2), //-1,-1
+//                     ),
+//                   ],
+//                 ),
+//                 child: TabBar(
+// //                  unselectedLabelStyle: TextStyle(fontSize: 14),
+// //                  labelStyle: TextStyle(fontSize: 14),
+//                   controller: _tabController,
+// //                  indicatorColor: const Color(0xFFF0F0F0),
+//                   indicatorColor: const Color(0xFFFFFFFF),
+//                   //tab标签的下划线颜色
+//                   // labelColor: const Color(0xFF000000),
+//                   indicatorWeight: .5,
+//                   labelColor: Theme
+//                       .of(context)
+//                       .primaryColor,
+//                   unselectedLabelColor: const Color(0xFF8E8E8E),
+//                   isScrollable: false,
+//                   tabs: widget.tabItems ?? [],
+//                 ),
+//               ),
+//             ),
+//           )
+      );
+    }
+    /* else if (this.widget.type == TabBarWidget.BOTTOM_TAB_CAN_NULL) {
       ///顶部tab bar
       return new Scaffold(
           floatingActionButton: widget.floatingActionButton,
@@ -389,6 +395,8 @@ class TabBarWidgetState extends State<TabBarWidget>
           appBar: widget.appBar,
           body: widget.tabViews?[0]);
     }
+*/
+    return Container();
   }
 }
 

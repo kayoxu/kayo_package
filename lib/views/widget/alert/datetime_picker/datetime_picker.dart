@@ -164,20 +164,20 @@ class DatePicker {
     //   f += (isCn ? 'ss秒' : 'ss');
     // }
 
-    DateTimePicker.show(context,
-        minStartDate: minTime,
-        maxStartDate: maxTime,
-        nowStartDate: currentTime,
-        minEndDate: minTime2,
-        maxEndDate: maxTime2,
-        locale: isCn ? DateTimePickerLocale.zh_cn : DateTimePickerLocale.en_us,
-        dateFormat: f,
-        nowEndDate: currentTime2, onDateTimePick: (s, e) {
-      onConfirm?.call(s, time2: e);
-    }, onDateTimeChange: (s, e) {
-      onChanged?.call(s, time2: e);
-      onChanged2?.call(s, time2: e);
-    }, onCancel: onCancel, showEnd: onlyStart != true);
+    // DateTimePicker.show(context,
+    //     minStartDate: minTime,
+    //     maxStartDate: maxTime,
+    //     nowStartDate: currentTime,
+    //     minEndDate: minTime2,
+    //     maxEndDate: maxTime2,
+    //     locale: isCn ? DateTimePickerLocale.zh_cn : DateTimePickerLocale.en_us,
+    //     dateFormat: f,
+    //     nowEndDate: currentTime2, onDateTimePick: (s, e) {
+    //   onConfirm?.call(s, time2: e);
+    // }, onDateTimeChange: (s, e) {
+    //   onChanged?.call(s, time2: e);
+    //   onChanged2?.call(s, time2: e);
+    // }, onCancel: onCancel, showEnd: onlyStart != true);
   }
 
   ///

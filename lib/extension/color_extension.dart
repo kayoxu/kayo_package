@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../kayo_package_utils.dart';
 import 'base_build_context_extension.dart';
+import 'package:flutter/ui/ui.dart' as ui;
 
 extension ColorExtension on Color? {
   Color darkFuc({BuildContext? context, double opacity = 0.65}) {
@@ -11,12 +12,12 @@ extension ColorExtension on Color? {
             : 1);
   }
 
-  MaterialStateProperty<Color?>? materialStatePropertyFuc() {
-    return MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
-          return this;
-        });
-  }
+  // MaterialStateProperty<Color?>? materialStatePropertyFuc() {
+  //   return MaterialStateProperty.resolveWith<Color?>(
+  //           (Set<MaterialState> states) {
+  //         return this;
+  //       });
+  // }
 
   ///深色模式颜色调暗
   Color get dark => this.darkFuc();
@@ -24,6 +25,6 @@ extension ColorExtension on Color? {
   ///深色模式颜色调暗
   Color get darkLite => this.darkFuc(opacity: .90);
 
-  MaterialStateProperty<Color?>? get materialStateProperty =>
-      this.materialStatePropertyFuc();
+  // MaterialStateProperty<Color?>? get materialStateProperty =>
+  //     this.materialStatePropertyFuc();
 }

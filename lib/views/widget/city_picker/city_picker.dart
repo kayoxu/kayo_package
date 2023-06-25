@@ -9,6 +9,8 @@ import 'package:kayo_package/views/widget/city_picker/model/city.dart';
 import 'listener/picker_listener.dart';
 import 'view/city_picker.dart';
 import 'view/popup_route.dart';
+import 'package:flutter/material.dart';
+import 'package:mpcore/mpcore.dart';
 
 /// 外部调用
 class LinkagePicker {
@@ -17,7 +19,7 @@ class LinkagePicker {
     required BuildContext context,
     List<City>? selectedList,
     // 主题颜色
-    ThemeData? theme,
+    // ThemeData? theme,
     // 底部弹出框动画时间
     int duration = 200,
     // 背景透明度
@@ -85,7 +87,7 @@ class LinkagePicker {
   }) {
     Navigator.of(context, rootNavigator: true).push(
       CustomPopupRoute(
-          theme: theme ?? Theme.of(context),
+          // theme: theme ?? Theme.of(context),
           duration: duration,
           opacity: opacity,
           dismissible: dismissible,

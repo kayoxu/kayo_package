@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
+import 'package:kayo_package/views/widget/base/edit_view.dart';
 
 enum PinEntryType { underline, boxTight, boxLoose }
 
@@ -283,22 +284,23 @@ class _PinInputTextFieldState extends State<PinInputTextField> {
           pinLength: widget.pinLength,
           decoration: widget.decoration,
         ),
-        child: TextField(
+        child: EditView(
           /// Actual textEditingController.
           controller: _controller,
-          style: TextStyle(
+          textStyle: TextStyle(
             /// Hide the editing text.
             color: Colors.transparent,
           ),
 
           /// Hide the Cursor.
-          cursorColor: Colors.transparent,
+          // cursorColor: Colors.transparent,
 
           /// Hide the cursor.
-          cursorWidth: 0.0,
+          // cursorWidth: 0.0,
 
           /// Disable the actual textField selection.
-          enableInteractiveSelection: false,
+          // enableInteractiveSelection: false,
+          enableinteractiveSelection: false,
 
           /// The maxLength of the pin input, the default value is 6.
           maxLength: widget.pinLength,
@@ -315,18 +317,18 @@ class _PinInputTextFieldState extends State<PinInputTextField> {
 
           focusNode: widget.focusNode,
 
-          autofocus: widget.autoFocus ?? false,
+          // autofocus: widget.autoFocus ?? false,
 
           /// Clear default text decoration.
-          decoration: InputDecoration(
-            /// Hide the counterText
-            counterText: '',
-
-            /// Hide the outline border.
-            border: OutlineInputBorder(
-              borderSide: BorderSide.none,
-            ),
-          ),
+          // decoration: InputDecoration(
+          //   /// Hide the counterText
+          //   counterText: '',
+          //
+          //   /// Hide the outline border.
+          //   border: OutlineInputBorder(
+          //     borderSide: BorderSide.none,
+          //   ),
+          // ),
         ),
       ),
     );

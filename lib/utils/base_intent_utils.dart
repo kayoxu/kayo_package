@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kayo_package/kayo_package.dart';
 import 'package:kayo_package/utils/page_route_builder.dart';
+import 'package:flutter/material.dart';
+import 'package:mpcore/mpcore.dart';
 
 ///  smart_community
 ///  common.common.utils
@@ -122,19 +124,19 @@ class BaseIntentUtils {
       Map<String, dynamic>? data}) {
     if (removeAll) {
       return Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) {
+          MPPageRoute(builder: (context) {
         return widget;
       }), (route) => removeAll != true /*route == null*/);
     } else {
       if (finish) {
         return Navigator.of(context)
-            .pushReplacement(MaterialPageRoute(builder: (context) {
+            .pushReplacement(MPPageRoute(builder: (context) {
           return widget;
         }));
       } else {
         if (!PlatformUtils.isWeb && Platform.isIOS) {
           return Navigator.of(context, rootNavigator: true)
-              .push(MaterialPageRoute(builder: (context) {
+              .push(MPPageRoute(builder: (context) {
             return widget;
           }));
         } else {

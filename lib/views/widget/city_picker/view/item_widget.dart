@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:kayo_package/utils/base_color_utils.dart';
 import 'package:lpinyin/lpinyin.dart';
 import '../model/section_city.dart';
 import '../model/city.dart';
 import '../listener/item_listener.dart';
 import '../listener/picker_listener.dart';
 import 'listview_section.dart';
-
+import 'package:flutter/material.dart';
+import 'package:mpcore/mpcore.dart';
 /// 城市列表组件
 class ItemWidget<City> extends StatefulWidget {
   /// 当前列表的索引
@@ -254,7 +256,7 @@ class ItemWidgetState extends State<ItemWidget>
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: Theme.of(context).dialogBackgroundColor,
+      // color: Theme.of(context).dialogBackgroundColor,
       child: Stack(
         children: [
           ExpandableListView(
@@ -271,8 +273,9 @@ class ItemWidgetState extends State<ItemWidget>
                         width: widget.itemHeadLineHeight!,
                         color: widget.itemHeadLineColor ?? Colors.black38,
                       )),
-                      color: widget.itemHeadBackgroundColor ??
-                          Theme.of(context).dialogBackgroundColor,
+                      color: widget.itemHeadBackgroundColor ?? BaseColorUtils.colorAccent
+                          // Theme.of(context).dialogBackgroundColor
+                      ,
                     ),
                     alignment: Alignment.centerLeft,
                     padding: EdgeInsets.only(left: widget.paddingLeft!),
@@ -284,7 +287,7 @@ class ItemWidgetState extends State<ItemWidget>
                 itemBuilder: (context, sectionIndex, itemIndex, index) {
                   City city = _mList[sectionIndex].data![itemIndex];
                   bool isSelect = city.name == _title;
-                  return InkWell(
+                  return GestureDetector(
                     onTap: () {
                       _title = city.name!;
                       if (mounted) {
@@ -307,8 +310,8 @@ class ItemWidgetState extends State<ItemWidget>
                                         TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
-                                            color:
-                                                Theme.of(context).primaryColor)
+                                            color: BaseColorUtils.colorAccent//Theme.of(context).primaryColor
+                                        )
                                     : widget.itemUnSelectedTextStyle ??
                                         TextStyle(
                                             fontSize: 14,
@@ -317,8 +320,8 @@ class ItemWidgetState extends State<ItemWidget>
                         Offstage(
                           offstage: !isSelect,
                           child: widget.itemSelectedIconWidget ??
-                              Icon(Icons.done,
-                                  color: Theme.of(context).primaryColor,
+                              MPIcon(MaterialIcons.done,
+                                  color: BaseColorUtils.colorAccent,
                                   size: 16),
                         ),
                         SizedBox(width: 16),
@@ -358,7 +361,7 @@ class ItemWidgetState extends State<ItemWidget>
     } else {
       type = 4;
     }
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         clickIndexBar(index);
       },

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kayo_package/kayo_package.dart';
+import 'package:flutter/material.dart';
+import 'package:mpcore/mpcore.dart';
 
 extension BaseWidgetExtension on Widget? {
   ///设置widget的显示、隐藏、隐藏占位
@@ -66,13 +68,13 @@ extension BaseWidgetExtension on Widget? {
     GestureTapCancelCallback? onTapCancel,
     ValueChanged<bool>? onHighlightChanged,
     ValueChanged<bool>? onHover,
-    MouseCursor? mouseCursor,
+    // MouseCursor? mouseCursor,
     Color? focusColor,
     Color? hoverColor,
     Color? highlightColor,
-    MaterialStateProperty<Color?>? overlayColor,
+    // MaterialStateProperty<Color?>? overlayColor,
     Color? splashColor,
-    InteractiveInkFeatureFactory? splashFactory,
+    // InteractiveInkFeatureFactory? splashFactory,
     double? radius,
     BorderRadius? borderRadius,
     ShapeBorder? customBorder,
@@ -83,7 +85,7 @@ extension BaseWidgetExtension on Widget? {
     ValueChanged<bool>? onFocusChange,
     bool autofocus = false,
   }) {
-    return InkWell(
+    return Clickable(
       child: this,
       key: key,
       onTap: onTap,
@@ -92,23 +94,23 @@ extension BaseWidgetExtension on Widget? {
       onTapDown: onTapDown,
       onTapCancel: onTapCancel,
       onHighlightChanged: onHighlightChanged,
-      onHover: onHover,
-      mouseCursor: mouseCursor,
-      focusColor: focusColor,
-      hoverColor: hoverColor,
+      // onHover: onHover,
+      // mouseCursor: mouseCursor,
+      // focusColor: focusColor,
+      // hoverColor: hoverColor,
       highlightColor: highlightColor,
-      overlayColor: overlayColor,
+      // overlayColor: overlayColor,
       splashColor: splashColor,
-      splashFactory: splashFactory,
+      // splashFactory: splashFactory,
       radius: radius,
       borderRadius: borderRadius,
       customBorder: customBorder,
       enableFeedback: enableFeedback ?? true,
       excludeFromSemantics: excludeFromSemantics,
-      focusNode: focusNode,
-      canRequestFocus: canRequestFocus,
-      onFocusChange: onFocusChange,
-      autofocus: autofocus,
+      // focusNode: focusNode,
+      // canRequestFocus: canRequestFocus,
+      // onFocusChange: onFocusChange,
+      // autofocus: autofocus,
     );
   }
 

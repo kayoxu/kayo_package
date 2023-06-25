@@ -42,14 +42,15 @@ class ShadowViewState extends State<ShadowView> {
             (true != widget.inkWell)
         ? widget.child!
         :*/
-        Material(
-      borderRadius: null != widget.borderRadius
-          ? widget.borderRadius
-          : BorderRadius.circular(widget.radius ?? 0),
-      elevation: widget.elevation ?? 0,
-      shadowColor: widget.shadowColor,
-      color: widget.bgColor,
-      child: widget.child,
-    );
+      //     Material(
+      //   borderRadius: null != widget.borderRadius
+      //       ? widget.borderRadius
+      //       : BorderRadius.circular(widget.radius ?? 0),
+      //   elevation: widget.elevation ?? 0,
+      //   shadowColor: widget.shadowColor,
+      //   color: widget.bgColor,
+      //   child: widget.child,
+      // );
+      widget.child!;
   }
 }

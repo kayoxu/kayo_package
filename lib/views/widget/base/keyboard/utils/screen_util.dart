@@ -54,7 +54,8 @@ class _ScreenUtil {
       _statusBarHeight = mediaQuery.padding.top;
       _bottomBarHeight = mediaQuery.padding.bottom;
       _textScaleFactor = mediaQuery.textScaleFactor;
-      _appBarHeight = kToolbarHeight;
+      // _appBarHeight = kToolbarHeight;
+      //todo
     }
   }
 

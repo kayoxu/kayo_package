@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kayo_package/kayo_package.dart';
 import 'package:kayo_package/views/widget/base/keyboard/cool_ui.dart';
-
+import 'package:flutter/material.dart';
+import 'package:mpcore/mpcore.dart';
 import 'keyboard_tools.dart';
 
 class KeyboardPhone extends StatefulWidget {
@@ -42,7 +43,7 @@ class KeyboardPhoneState extends State<KeyboardPhone> {
     return SafeArea(
         top: false,
         bottom: true,
-        child: Material(
+        child: Container(
           color: BaseColorUtils.transparent,
           child: DefaultTextStyle(
               style: TextStyle(
@@ -76,14 +77,14 @@ class KeyboardPhoneState extends State<KeyboardPhone> {
                     Positioned(
                         top: 0,
                         right: 8,
-                        child: FloatingActionButton(
-                            mini: true,
-                            backgroundColor: BaseColorUtils.white,
-                            child: Icon(
-                              Icons.keyboard_hide,
+                        child: GestureDetector(
+                            // mini: true,
+                            // backgroundColor: BaseColorUtils.white,
+                            child: MPIcon(
+                              MaterialIcons.keyboard_hide,
                               color: BaseColorUtils.colorGrey,
                             ),
-                            onPressed: () {
+                            onTap: () {
                               widget.controller?.doneAction();
                             }))
                   ],
@@ -141,7 +142,8 @@ class KeyboardPhoneState extends State<KeyboardPhone> {
             child: Container(
               alignment: Alignment.center,
               height: 40,
-              child: Icon(Icons.backspace),
+              child: MPIcon(
+                  MaterialIcons.backspace),
             ),
             onTap: () {
               widget.controller?.deleteOne();

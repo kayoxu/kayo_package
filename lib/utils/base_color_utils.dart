@@ -127,10 +127,10 @@ class BaseColorUtils {
   }
 
   static Color darkPrimary({required BuildContext? context}) {
-    return context.theme.primaryColor;
+    return BaseColorUtils.colorAccent;
   }
 
   static Color darkPrimary2({required BuildContext? context}) {
-    return context.theme.colorScheme.secondary.dark;
+    return BaseColorUtils.colorAccent;
   }
 }

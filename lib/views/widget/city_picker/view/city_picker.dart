@@ -7,6 +7,8 @@ import '../model/tab.dart';
 import '../view/item_widget.dart';
 import 'inherited_widget.dart';
 import 'layout_delegate.dart';
+import 'package:flutter/widgets.dart';
+import 'package:mpcore/mpcore.dart';
 
 /// 省市区选择器
 ///
@@ -145,8 +147,8 @@ class CityPickerState extends State<CityPickerWidget>
     implements ItemClickListener {
   LinkagePickerListener? _cityPickerListener;
 
-  TabController? _tabController;
-  PageController? _pageController;
+  MPMainTabController? _tabController;
+  MPPageController? _pageController;
 
   List<TabTitle> _myTabs = [
     TabTitle(index: 0, title: "请选择", city: null),
@@ -163,8 +165,8 @@ class CityPickerState extends State<CityPickerWidget>
     //   _myTabs = widget.selectedList!.map((e) => TabTitle(index: 0, title: e.name, city: e)).toList();
     // }
 
-    _tabController = TabController(vsync: this, length: _myTabs.length);
-    _pageController = PageController();
+    _tabController = MPMainTabController();
+    _pageController = MPPageController();
 
     _cityPickerListener = widget.cityPickerListener;
   }
@@ -195,10 +197,9 @@ class CityPickerState extends State<CityPickerWidget>
       }
     }
 
-    _tabController = TabController(
-        vsync: this, length: _myTabs.length, initialIndex: tabIndex);
+    _tabController = MPMainTabController();
     _pageController!.jumpToPage(tabIndex + 1);
-    _tabController!.animateTo(tabIndex + 1);
+    // _tabController!.animateTo(tabIndex + 1);
     if (mounted) {
       setState(() {});
     }
@@ -207,33 +208,35 @@ class CityPickerState extends State<CityPickerWidget>
   @override
   Widget build(BuildContext context) {
     final route = CustomInheritedWidget.of(context)!.router;
-    return AnimatedBuilder(
-      animation: route.animation!,
-      builder: (BuildContext context, Widget? child) => CustomSingleChildLayout(
-          delegate: CustomLayoutDelegate(
-              progress: route.animation!.value, height: widget.height),
-          child: GestureDetector(
-            child: Material(
-                color: Colors.transparent,
-                child: Container(
-                    width: double.infinity,
-                    child: Column(children: <Widget>[
-                      _topTextWidget(),
-                      // LineView(
-                      //   height: .5,
-                      //   color: BaseColorUtils
-                      //       .darkWindow(context: context)
-                      //       .dark,
-                      // ),
-                      Expanded(
-                        child: Column(children: <Widget>[
-                          _middleTabWidget(),
-                          Expanded(child: _bottomListWidget())
-                        ]),
-                      )
-                    ]))),
-          )),
-    );
+    return Container();
+    // return AnimatedBuilder(
+    //   animation: route.animation!,
+    //   builder: (BuildContext context, Widget? child) =>
+    //       CustomSingleChildLayout(
+    //           delegate: CustomLayoutDelegate(
+    //               progress: route.animation!.value, height: widget.height),
+    //           child: GestureDetector(
+    //             child: Material(
+    //                 color: Colors.transparent,
+    //                 child: Container(
+    //                     width: double.infinity,
+    //                     child: Column(children: <Widget>[
+    //                       _topTextWidget(),
+    //                       // LineView(
+    //                       //   height: .5,
+    //                       //   color: BaseColorUtils
+    //                       //       .darkWindow(context: context)
+    //                       //       .dark,
+    //                       // ),
+    //                       Expanded(
+    //                         child: Column(children: <Widget>[
+    //                           _middleTabWidget(),
+    //                           Expanded(child: _bottomListWidget())
+    //                         ]),
+    //                       )
+    //                     ]))),
+    //           )),
+    // );
   }
 
   /// 头部文字组件
@@ -241,21 +244,22 @@ class CityPickerState extends State<CityPickerWidget>
     return Container(
       height: widget.titleHeight,
       decoration: BoxDecoration(
-          color: Theme.of(context).dialogBackgroundColor,
+          color: BaseColorUtils.colorWindowWhite,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(widget.corner!),
               topRight: Radius.circular(widget.corner!))),
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            InkWell(
+            GestureDetector(
                 onTap: () => {Navigator.pop(context)},
                 child: Container(
                   width: 100,
                   padding: EdgeInsets.only(left: widget.paddingLeft!),
                   alignment: Alignment.centerLeft,
                   height: double.infinity,
-                  child: widget.closeWidget ?? Icon(Icons.close, size: 26),
+                  child: widget.closeWidget ?? MPIcon(
+                      MaterialIcons.close, size: 26),
                 )),
             widget.titleWidget ??
                 Container(
@@ -269,7 +273,7 @@ class CityPickerState extends State<CityPickerWidget>
                     ),
                   ),
                 ),
-            InkWell(
+            GestureDetector(
               child: Container(
                 width: 100,
                 alignment: Alignment.centerRight,
@@ -298,46 +302,52 @@ class CityPickerState extends State<CityPickerWidget>
     return Container(
       width: double.infinity,
       height: widget.tabHeight,
-      color: Theme.of(context).dialogBackgroundColor,
-      child: TabBar(
-        controller: _tabController,
-        onTap: (index) {
-          _pageController!.jumpToPage(index);
-        },
-        isScrollable: true,
-        indicatorSize: TabBarIndicatorSize.tab,
-        // labelPadding: EdgeInsets.only(left: widget.paddingLeft!),
-        indicator: widget.showTabIndicator!
-            // ? UnderlineTabIndicator(
-            //     insets: EdgeInsets.only(left: widget.paddingLeft!),
-            //     borderSide: BorderSide(
-            //         width: widget.tabIndicatorHeight!,
-            //         color: widget.tabIndicatorColor ??
-            //             Theme.of(context).primaryColor),
-            //   )
-            ? IUnderlineTabIndicator(
-                color:
-                    widget.tabIndicatorColor ?? Theme.of(context).primaryColor)
-            : BoxDecoration(),
-        indicatorColor:
-            widget.tabIndicatorColor ?? Theme.of(context).primaryColor,
-        unselectedLabelColor: widget.unselectedLabelColor ?? Colors.black54,
-        labelColor: widget.selectedLabelColor ?? Theme.of(context).primaryColor,
-        tabs: _myTabs.map((data) {
-          return Text(data.title!,
-              style: TextStyle(fontSize: widget.labelTextSize));
-        }).toList(),
-      ),
+      color: BaseColorUtils.colorWindowWhite,
+      // child: TabBar(
+      //   controller: _tabController,
+      //   onTap: (index) {
+      //     _pageController!.jumpToPage(index);
+      //   },
+      //   isScrollable: true,
+      //   indicatorSize: TabBarIndicatorSize.tab,
+      //   // labelPadding: EdgeInsets.only(left: widget.paddingLeft!),
+      //   indicator: widget.showTabIndicator!
+      //   // ? UnderlineTabIndicator(
+      //   //     insets: EdgeInsets.only(left: widget.paddingLeft!),
+      //   //     borderSide: BorderSide(
+      //   //         width: widget.tabIndicatorHeight!,
+      //   //         color: widget.tabIndicatorColor ??
+      //   //             Theme.of(context).primaryColor),
+      //   //   )
+      //       ? IUnderlineTabIndicator(
+      //       color:
+      //       widget.tabIndicatorColor ?? Theme
+      //           .of(context)
+      //           .primaryColor)
+      //       : BoxDecoration(),
+      //   indicatorColor:
+      //   widget.tabIndicatorColor ?? Theme
+      //       .of(context)
+      //       .primaryColor,
+      //   unselectedLabelColor: widget.unselectedLabelColor ?? Colors.black54,
+      //   labelColor: widget.selectedLabelColor ?? Theme
+      //       .of(context)
+      //       .primaryColor,
+      //   tabs: _myTabs.map((data) {
+      //     return Text(data.title!,
+      //         style: TextStyle(fontSize: widget.labelTextSize));
+      //   }).toList(),
+      // ),
     );
   }
 
   /// 底部城市列表组件
   Widget _bottomListWidget() {
-    return PageView(
+    return MPPageView(
       controller: _pageController,
-      onPageChanged: (index) {
-        _tabController!.animateTo(index);
-      },
+      // onPageChanged: (index) {
+      //   _tabController!.animateTo(index);
+      // },
       children: _myTabs.map((tab) {
         return ItemWidget(
           index: tab.index,
@@ -361,12 +371,9 @@ class CityPickerState extends State<CityPickerWidget>
           emptyDataCallBack: (data) {
             if (_myTabs.length > 1) {
               _myTabs.removeLast();
-              _tabController = TabController(
-                  vsync: this,
-                  length: _myTabs.length,
-                  initialIndex: _myTabs.length - 1);
+              _tabController = MPMainTabController();
               _pageController!.jumpToPage(_myTabs.length - 1);
-              _tabController!.animateTo(_myTabs.length - 1);
+              // _tabController!.animateTo(_myTabs.length - 1);
               if (mounted) {
                 setState(() {});
               }

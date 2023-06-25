@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
 import 'package:kayo_package/utils/base_sys_utils.dart';
 import 'package:kayo_package/views/widget/base/image_view.dart';
+import 'package:flutter/widgets.dart';
+import 'package:mpcore/mpcore.dart';
 
 ///  kayo_plugin
 ///  views.widget
@@ -35,7 +37,8 @@ class EditView extends StatefulWidget {
   final int? maxLength;
 
   final String? src;
-  final InputBorder? inputBorder;
+
+  // final InputBorder? inputBorder;
   final int? maxLines;
   final double? radius;
   final Alignment? alignment;
@@ -74,7 +77,7 @@ class EditView extends StatefulWidget {
     this.src,
     this.padding = const EdgeInsets.all(0),
     this.margin = const EdgeInsets.all(0),
-    this.inputBorder,
+    // this.inputBorder,
     this.maxLines = 1,
     this.radius = 3,
     this.alignment = Alignment.centerLeft,
@@ -114,7 +117,7 @@ class EditViewState extends State<EditView> {
 
   void initController() {
     if (((widget.useDefaultEditController == true) ||
-            (true != widget.editable)) &&
+        (true != widget.editable)) &&
         null == controllerDefault) {
       controllerDefault = TextEditingController(text: widget.text ?? '');
       print('flutter TextEditingController initState');
@@ -124,7 +127,7 @@ class EditViewState extends State<EditView> {
   @override
   void dispose() {
     if (((widget.useDefaultEditController == true) ||
-            (true != widget.editable)) &&
+        (true != widget.editable)) &&
         null != controllerDefault) {
       if (widget.controller != controllerDefault) {
         // widget.controller?.dispose();
@@ -153,81 +156,83 @@ class EditViewState extends State<EditView> {
           padding: widget.padding,
           decoration: true == widget.showBorder
               ? BoxDecoration(
-                  color: BaseColorUtils.colorWhite,
-                  borderRadius: BorderRadius.circular(widget.radius ?? 0),
-                  boxShadow: [
-                      BoxShadow(
-                          color: BaseColorUtils.colorWhiteDark,
-                          blurRadius: 2,
-                          spreadRadius: .5)
-                    ])
+              color: BaseColorUtils.colorWhite,
+              borderRadius: BorderRadius.circular(widget.radius ?? 0),
+              boxShadow: [
+                BoxShadow(
+                    color: BaseColorUtils.colorWhiteDark,
+                    blurRadius: 2,
+                    spreadRadius: .5)
+              ])
               : null,
-          child: TextField(
-              onTap: null == widget.onClick ? onClick : widget.onClick,
-              enableInteractiveSelection: widget.enableinteractiveSelection,
-              inputFormatters: widget.inputFormatters,
-              style: null == widget.textStyle
-                  ? TextStyle(
-                      color: widget.textColor,
-                      fontSize: widget.textSize,
-                    )
-                  : widget.textStyle,
-              autocorrect: false,
-              enabled: widget.editable,
-              onEditingComplete: widget.onEditingComplete,
-              onSubmitted: widget.onSubmitted,
-              focusNode: widget.focusNode,
-              textAlign: widget.textAlign ?? TextAlign.start,
-              maxLength: widget.maxLength,
-              maxLengthEnforcement: MaxLengthEnforcement.none,
-              maxLines: widget.maxLines,
-              textInputAction: widget.textInputAction ?? TextInputAction.done,
-              keyboardType: widget.keyboardType,
-              controller: controllerDefault,
-              onChanged: widget.onChanged,
-              obscureText: widget.obscureText ?? false,
-              decoration: (widget.showLabelText == true)
-                  ? InputDecoration(labelText: widget.hintText)
-                  : InputDecoration(
-                      // hasFloatingPlaceholder: false,
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      isDense: widget.isDense,
-                      icon: BaseSysUtils.empty(widget.src)
-                          ? null
-                          : ImageView(
-                              width: 25,
-                              height: 25,
-                              src: widget.src ?? '',
-                            ),
-                      hintStyle: TextStyle(
-                          color: widget.hintTextColor,
-                          fontSize: widget.hintTextSize),
-                      hintText: widget.hintText,
-                      errorText: (widget.errorText?.isEmpty ?? true)
-                          ? null
-                          : widget.errorText,
-                      labelStyle: TextStyle(color: Colors.yellow),
-                      enabledBorder:
-                          true != widget.showBorder && true == widget.showLine
-                              ? UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: widget.lineColor ??
-                                          BaseColorUtils.colorGreyLiteLite))
-                              : InputBorder.none,
-                      focusedBorder:
-                          true != widget.showBorder && true == widget.showLine
-                              ? UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: widget.lineColor ??
-                                          BaseColorUtils.colorGreyLiteLite))
-                              : InputBorder.none,
-                      border:
-                          true != widget.showBorder && true == widget.showLine
-                              ? UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: widget.lineColor ??
-                                          BaseColorUtils.colorGreyLiteLite))
-                              : InputBorder.none)),
+          child: MPEditableText(
+            // onTap: null == widget.onClick ? onClick : widget.onClick,
+            enableInteractiveSelection: widget.enableinteractiveSelection ??
+                true,
+            inputFormatters: widget.inputFormatters,
+            style: null == widget.textStyle
+                ? TextStyle(
+              color: widget.textColor,
+              fontSize: widget.textSize,
+            )
+                : widget.textStyle!,
+            autocorrect: false,
+            readOnly: widget.editable ?? false,
+            onEditingComplete: widget.onEditingComplete,
+            onSubmitted: widget.onSubmitted,
+            focusNode: widget.focusNode ?? FocusNode(),
+            textAlign: widget.textAlign ?? TextAlign.start,
+            maxLength: widget.maxLength,
+            // maxLengthEnforcement: MaxLengthEnforcement.none,
+            maxLines: widget.maxLines ?? 1,
+            textInputAction: widget.textInputAction ?? TextInputAction.done,
+            keyboardType: widget.keyboardType,
+            controller: controllerDefault!,
+            onChanged: widget.onChanged,
+            obscureText: widget.obscureText ?? false,
+            // decoration: (widget.showLabelText == true)
+            //     ? InputDecoration(labelText: widget.hintText)
+            //     : InputDecoration(
+            //         // hasFloatingPlaceholder: false,
+            //         floatingLabelBehavior: FloatingLabelBehavior.never,
+            //         isDense: widget.isDense,
+            //         icon: BaseSysUtils.empty(widget.src)
+            //             ? null
+            //             : ImageView(
+            //                 width: 25,
+            //                 height: 25,
+            //                 src: widget.src ?? '',
+            //               ),
+            //         hintStyle: TextStyle(
+            //             color: widget.hintTextColor,
+            //             fontSize: widget.hintTextSize),
+            //         hintText: widget.hintText,
+            //         errorText: (widget.errorText?.isEmpty ?? true)
+            //             ? null
+            //             : widget.errorText,
+            //         labelStyle: TextStyle(color: Colors.yellow),
+            //         enabledBorder:
+            //             true != widget.showBorder && true == widget.showLine
+            //                 ? UnderlineInputBorder(
+            //                     borderSide: BorderSide(
+            //                         color: widget.lineColor ??
+            //                             BaseColorUtils.colorGreyLiteLite))
+            //                 : InputBorder.none,
+            //         focusedBorder:
+            //             true != widget.showBorder && true == widget.showLine
+            //                 ? UnderlineInputBorder(
+            //                     borderSide: BorderSide(
+            //                         color: widget.lineColor ??
+            //                             BaseColorUtils.colorGreyLiteLite))
+            //                 : InputBorder.none,
+            //         border:
+            //             true != widget.showBorder && true == widget.showLine
+            //                 ? UnderlineInputBorder(
+            //                     borderSide: BorderSide(
+            //                         color: widget.lineColor ??
+            //                             BaseColorUtils.colorGreyLiteLite))
+            //                 : InputBorder.none)
+          ),
         ),
       ),
     );

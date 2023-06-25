@@ -25,7 +25,7 @@ class KeyboardMediaQueryState extends State<KeyboardMediaQuery> {
     // TODO: implement build
     var data = MediaQuery.maybeOf(context);
     if (data == null) {
-      data = MediaQueryData.fromWindow(WidgetsBinding.instance.window);
+      data = MediaQueryData.fromWindow(WidgetsBinding.instance!.window);
     }
     var bottom = CoolKeyboard._keyboardHeightNotifier.value != 0
         ? CoolKeyboard._keyboardHeightNotifier.value
@@ -40,10 +40,10 @@ class KeyboardMediaQueryState extends State<KeyboardMediaQuery> {
   }
 
   onUpdateHeight() {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
+    SchedulerBinding.instance!.addPostFrameCallback((_) {
       setState(() => {});
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        WidgetsBinding.instance.handleMetricsChanged();
+      SchedulerBinding.instance!.addPostFrameCallback((_) {
+        WidgetsBinding.instance!.handleMetricsChanged();
       });
     });
   }

@@ -5,7 +5,7 @@ import 'inherited_widget.dart';
 /// 弹窗组件，整体框架组件
 class CustomPopupRoute<T> extends PopupRoute<T> {
   /// 主题
-  final ThemeData? theme;
+  // final ThemeData? theme;
 
   /// 弹窗动画时间
   final int? duration;
@@ -20,7 +20,7 @@ class CustomPopupRoute<T> extends PopupRoute<T> {
   final Widget? child;
 
   CustomPopupRoute({
-    this.theme,
+    // this.theme,
     this.duration,
     this.dismissible,
     this.opacity,
@@ -47,9 +47,9 @@ class CustomPopupRoute<T> extends PopupRoute<T> {
       context: context,
       child: CustomInheritedWidget(router: this, child: child!),
     );
-    if (theme != null) {
-      bottomSheet = Theme(data: theme!, child: bottomSheet);
-    }
+    // if (theme != null) {
+    //   bottomSheet = Theme(data: theme!, child: bottomSheet);
+    // }
     return bottomSheet;
   }
 }

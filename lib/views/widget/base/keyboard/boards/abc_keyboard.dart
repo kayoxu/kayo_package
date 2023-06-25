@@ -4,6 +4,8 @@ import 'package:kayo_package/utils/base_color_utils.dart';
 import 'package:kayo_package/views/widget/base/clickable.dart';
 import 'package:kayo_package/views/widget/base/keyboard/boards/keyboard_tools.dart';
 import 'package:kayo_package/views/widget/base/text_view.dart';
+import 'package:flutter/material.dart';
+import 'package:mpcore/mpcore.dart';
 
 import '../cool_ui.dart';
 
@@ -52,7 +54,7 @@ class KeyboardAbcState extends State<KeyboardAbc> {
     return SafeArea(
         top: false,
         bottom: true,
-        child: Material(
+        child: Container(
           color: BaseColorUtils.colorWindow,
           child: DefaultTextStyle(
               style: TextStyle(
@@ -306,8 +308,8 @@ class KeyboardAbcState extends State<KeyboardAbc> {
                 child: Container(
                   alignment: Alignment.center,
                   height: 35,
-                  child: Icon(
-                    Icons.backspace_outlined,
+                  child: MPIcon(
+                    MaterialIcons.backspace_outlined,
                     color: Colors.white,
                   ),
                 ),

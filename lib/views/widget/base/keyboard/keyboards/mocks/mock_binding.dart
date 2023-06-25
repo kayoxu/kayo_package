@@ -17,7 +17,7 @@ class MockBinding extends WidgetsFlutterBinding {
       _initFlag = true;
     }
     // if (WidgetsBinding.instance == null) MockBinding();
-    return WidgetsBinding.instance;
+    return WidgetsBinding.instance!;
   }
 
   MockBinaryMessenger? _binaryMessenger;

@@ -13,7 +13,7 @@ class MockBinaryMessenger extends BinaryMessenger {
   // The handlers for messages from the engine (including fake
   // messages sent by handlePlatformMessage).
   final Map<String, MessageHandler> _inboundHandlers =
-      <String, MessageHandler>{};
+  <String, MessageHandler>{};
 
   /// Send a mock message to the framework as if it came from the platform.
   ///
@@ -43,11 +43,9 @@ class MockBinaryMessenger extends BinaryMessenger {
   // TODO(ianh): When the superclass `handlePlatformMessage` is removed,
   // remove this @override (but leave the method).
   @override
-  Future<ByteData?> handlePlatformMessage(
-    String channel,
-    ByteData? data,
-    ui.PlatformMessageResponseCallback? callback,
-  ) {
+  Future<ByteData?> handlePlatformMessage(String channel,
+      ByteData? data,
+      ui.PlatformMessageResponseCallback? callback,) {
     Future<ByteData?>? result;
     if (_inboundHandlers.containsKey(channel))
       result = _inboundHandlers[channel]!(data);
@@ -81,14 +79,14 @@ class MockBinaryMessenger extends BinaryMessenger {
   // Handlers that intercept and respond to outgoing messages,
   // pretending to be the platform.
   final Map<String, MessageHandler> _outboundHandlers =
-      <String, MessageHandler>{};
+  <String, MessageHandler>{};
 
   // The outbound callbacks that were actually registered, so that we
   // can implement the [checkMockMessageHandler] method.
   final Map<String, Object> _outboundHandlerIdentities = <String, Object>{};
 
   @override
-  Future<ByteData?>? send(String channel, ByteData? message) {
+  Future<ByteData?> send(String channel, ByteData? message) {
     final Future<ByteData?>? resultFuture;
     final MessageHandler? handler = _outboundHandlers[channel];
     if (handler != null) {
@@ -104,6 +102,11 @@ class MockBinaryMessenger extends BinaryMessenger {
       }).whenComplete(() => _pendingMessages.remove(resultFuture));
     }
     return resultFuture;
+  }
+
+  @override
+  bool checkMessageHandler(String channel, MessageHandler? handler) {
+    return true;
   }
 
   /// Returns a Future that completes after all the platform calls are finished.
@@ -194,8 +197,8 @@ class MockBinaryMessenger extends BinaryMessenger {
   ///
   ///  * [setMockMethodCallHandler], which is similar but decodes
   ///    the messages using a [MethodCodec].
-  void setMockDecodedMessageHandler<T>(
-      BasicMessageChannel<T> channel, Future<T> Function(T? message)? handler) {
+  void setMockDecodedMessageHandler<T>(BasicMessageChannel<T> channel,
+      Future<T> Function(T? message)? handler) {
     if (handler == null) {
       setMockMessageHandler(channel.name, null);
       return;

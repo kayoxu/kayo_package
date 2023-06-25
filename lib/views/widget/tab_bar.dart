@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mpcore/mpcore.dart';
+
 
 ///支持顶部和顶部的TabBar控件
 ///配合AutomaticKeepAliveClientMixin可以keep住
@@ -27,7 +29,7 @@ class GSYTabBarWidget extends StatefulWidget {
 
   final TarBarControl? tarWidgetControl;
 
-  final PageController? topPageControl;
+  final MPPageController? topPageControl;
 
   final ValueChanged<int>? onPageChanged;
 
@@ -47,7 +49,8 @@ class GSYTabBarWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _GSYTabBarState createState() => new _GSYTabBarState(
+  _GSYTabBarState createState() =>
+      new _GSYTabBarState(
         type,
         tabViews,
         indicatorColor,
@@ -76,29 +79,27 @@ class _GSYTabBarState extends State<GSYTabBarWidget>
 
   final TarBarControl? _tarWidgetControl;
 
-  final PageController? _pageController;
+  final MPPageController? _pageController;
 
   final ValueChanged<int>? _onPageChanged;
 
-  _GSYTabBarState(
-    this._type,
-    this._tabViews,
-    this._indicatorColor,
-    this._title,
-    this._drawer,
-    this._floatingActionButton,
-    this._tarWidgetControl,
-    this._pageController,
-    this._onPageChanged,
-  ) : super();
+  _GSYTabBarState(this._type,
+      this._tabViews,
+      this._indicatorColor,
+      this._title,
+      this._drawer,
+      this._floatingActionButton,
+      this._tarWidgetControl,
+      this._pageController,
+      this._onPageChanged,) : super();
 
-  TabController? _tabController;
+  MPMainTabController? _tabController;
 
   @override
   void initState() {
     super.initState();
     _tabController =
-        new TabController(vsync: this, length: widget.tabItems?.length ?? 0);
+    new MPMainTabController(/* length: widget.tabItems?.length ?? 0*/);
   }
 
   ///整个页面dispose时，记得把控制器也dispose掉，释放内存
@@ -112,51 +113,58 @@ class _GSYTabBarState extends State<GSYTabBarWidget>
   Widget build(BuildContext context) {
     if (this._type == GSYTabBarWidget.TOP_TAB) {
       ///顶部tab bar
-      return new Scaffold(
-        floatingActionButton: _floatingActionButton,
-        persistentFooterButtons:
-            _tarWidgetControl == null ? [] : _tarWidgetControl!.footerButton,
-        appBar: new AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
+      return new MPScaffold(
+        // floatingActionButton: _floatingActionButton,
+        // persistentFooterButtons:
+        // _tarWidgetControl == null ? [] : _tarWidgetControl!.footerButton,
+        appBar: new MPAppBar(
+          context: context,
+          // backgroundColor: BaseColorUtils.colorAccent,
           title: _title,
-          bottom: new TabBar(
-            controller: _tabController,
-            tabs: widget.tabItems ?? [],
-            indicatorColor: _indicatorColor,
-          ),
+          // bottom: new TabBar(
+          //   controller: _tabController,
+          //   tabs: widget.tabItems ?? [],
+          //   indicatorColor: _indicatorColor,
+          // ),
         ),
-        body: new PageView(
+        body: new MPPageView(
           controller: _pageController,
           children: _tabViews ?? [],
-          onPageChanged: (index) {
-            _tabController?.animateTo(index);
-            _onPageChanged?.call(index);
-          },
+          // onPageChanged: (index) {
+          //   _tabController?.animateTo(index);
+          //   _onPageChanged?.call(index);
+          // },
         ),
       );
     }
 
     ///底部tab bar
-    return new Scaffold(
-        drawer: _drawer,
-        appBar: new AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
-          title: _title,
-        ),
-        body: new TabBarView(
-            //TabBarView呈现内容，因此放到Scaffold的body中
-            controller: _tabController, //配置控制器
-            children: _tabViews ?? []),
-        bottomNavigationBar: new Material(
-          //为了适配主题风格，包一层Material实现风格套用
-          color: Theme.of(context).primaryColor, //底部导航栏主题颜色
-          child: new TabBar(
-            //TabBar导航标签，底部导航放到Scaffold的bottomNavigationBar中
-            controller: _tabController, //配置控制器
-            tabs: widget.tabItems ?? [],
-            indicatorColor: _indicatorColor, //tab标签的下划线颜色
-          ),
-        ));
+    return MPScaffold(
+      // drawer: _drawer,
+      appBar: MPAppBar(
+        context: context,
+        // backgroundColor: BaseColorUtils.colorAccent,
+        title: _title,
+      ),
+      body:   MPMainTabView(
+        //TabBarView呈现内容，因此放到Scaffold的body中
+          controller: _tabController, //配置控制器
+        tabs: [],
+          // children: _tabViews ?? []
+      ),
+      // bottomNavigationBar: new Material(
+      //   //为了适配主题风格，包一层Material实现风格套用
+      //   color: Theme
+      //       .of(context)
+      //       .primaryColor, //底部导航栏主题颜色
+      //   child: new TabBar(
+      //     //TabBar导航标签，底部导航放到Scaffold的bottomNavigationBar中
+      //     controller: _tabController, //配置控制器
+      //     tabs: widget.tabItems ?? [],
+      //     indicatorColor: _indicatorColor, //tab标签的下划线颜色
+      //   ),
+      // )
+    );
   }
 }
 

@@ -77,23 +77,23 @@ class KayoPackage {
         this.nullText = '无';
         this.loadingText = '加载中, 请稍等...';
         BaseTimeUtils.formatDefault = 'yyyy-MM-dd HH:mm';
-        DateTimePicker.defaultDateTimePickerLocale = DateTimePickerLocale.zh_cn;
-        DataPicker.defaultDataPickerLocale = DataPickerLocale.zh_cn;
+        // DateTimePicker.defaultDateTimePickerLocale = DateTimePickerLocale.zh_cn;
+        // DataPicker.defaultDataPickerLocale = DataPickerLocale.zh_cn;
       } else {
         this.nullText = 'null';
         this.loadingText = 'loading...';
         BaseTimeUtils.formatDefault = 'MM-dd-yyyy HH:mm';
-        DateTimePicker.defaultDateTimePickerLocale = DateTimePickerLocale.en_us;
-        DataPicker.defaultDataPickerLocale = DataPickerLocale.en_us;
+        // DateTimePicker.defaultDateTimePickerLocale = DateTimePickerLocale.en_us;
+        // DataPicker.defaultDataPickerLocale = DataPickerLocale.en_us;
       }
     }
     this.nullText = nullText ?? this.nullText;
     this.loadingText = loadingText ?? this.loadingText;
     BaseTimeUtils.formatDefault = formatDefault ?? BaseTimeUtils.formatDefault;
-    DateTimePicker.defaultDateTimePickerLocale =
-        dateTimePickerLocale ?? DateTimePicker.defaultDateTimePickerLocale;
-    DataPicker.defaultDataPickerLocale =
-        dataPickerLocale ?? DataPicker.defaultDataPickerLocale;
+    // DateTimePicker.defaultDateTimePickerLocale =
+    //     dateTimePickerLocale ?? DateTimePicker.defaultDateTimePickerLocale;
+    // DataPicker.defaultDataPickerLocale =
+    //     dataPickerLocale ?? DataPicker.defaultDataPickerLocale;
 
     this.onTapToolbarBack = onTapToolbarBack ?? this.onTapToolbarBack;
     this.onNotifyPop = onNotifyPop ?? this.onNotifyPop;

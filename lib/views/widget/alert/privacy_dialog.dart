@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:kayo_package/views/widget/base/text_view.dart';
+import 'package:flutter/material.dart';
+import 'package:mpcore/mpcore.dart';
+import 'package:kayo_package/kayo_package.dart';
 
 ///
 ///  kayo_package
@@ -46,14 +49,16 @@ class _PrivacyViewState extends State<PrivacyView> {
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(
-          style: DefaultTextStyle.of(context).style,
+          style: DefaultTextStyle
+              .of(context)
+              .style,
           children: <InlineSpan>[
             ..._list.map((e) {
               if (widget.keys.contains(e)) {
                 return TextSpan(
                   text: '$e',
                   style: widget.keyStyle ??
-                      TextStyle(color: Theme.of(context).primaryColor),
+                      TextStyle(color: BaseColorUtils.colorAccent),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
                       widget.onTapCallback?.call(e);
@@ -103,12 +108,12 @@ bool _dialogPrivateShow = false;
 
 showPrivacyDialog(BuildContext context,
     {String? data,
-    String userTitle = '《用户协议》',
-    String privacyTitle = '《隐私政策》',
-    Function()? onUser,
-    Function()? onPrivacy,
-    Function()? onCancel,
-    Function()? onDone}) {
+      String userTitle = '《用户协议》',
+      String privacyTitle = '《隐私政策》',
+      Function()? onUser,
+      Function()? onPrivacy,
+      Function()? onCancel,
+      Function()? onDone}) {
   String _data = "感谢您对本公司的支持!本公司非常重视您的个人信息和隐私保护。" +
       "为了更好地保障您的个人权益，在您使用我们的产品前，" +
       "请务必审慎阅读$userTitle和$privacyTitle内的所有条款，尤其是:\n" +
@@ -122,54 +127,55 @@ showPrivacyDialog(BuildContext context,
   data = data ?? _data;
 
   if (_dialogPrivateShow == false) {
-    _dialogPrivateShow = true;
+    // _dialogPrivateShow = true;
 
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        barrierLabel: '',
-        // transitionDuration: Duration(milliseconds: 200),
-        builder: (BuildContext context) {
-          return CupertinoAlertDialog(
-            title: TextView(
-              '软件服务协议与隐私政策概述',
-              alignment: Alignment.center,
-            ),
-            content: SingleChildScrollView(
-              child: PrivacyView(
-                data: data ?? '',
-                keys: [userTitle, privacyTitle],
-                keyStyle: TextStyle(color: Colors.red),
-                onTapCallback: (String key) {
-                  if (key == userTitle) {
-                    onUser?.call();
-                  } else if (key == privacyTitle) {
-                    onPrivacy?.call();
-                  }
-                },
-              ),
-            ),
-            actions: [
-              CupertinoActionSheetAction(
-                  isDestructiveAction: true,
-                  onPressed: () async {
-                    onCancel?.call();
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    '不同意',
-                    style: TextStyle(fontSize: 18),
-                  )),
-              CupertinoActionSheetAction(
-                  onPressed: () async {
-                    onDone?.call();
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('确定', style: TextStyle(fontSize: 18)))
-            ],
-          );
-        }).then((value) {
-      _dialogPrivateShow = false;
-    });
+    // showDialog(
+    //     context: context,
+    //     barrierDismissible: false,
+    //     barrierLabel: '',
+    //     // transitionDuration: Duration(milliseconds: 200),
+    //     builder: (BuildContext context) {
+    //       return RawDialogRoute(
+    //         title: TextView(
+    //           '软件服务协议与隐私政策概述',
+    //           alignment: Alignment.center,
+    //         ),
+    //         content: SingleChildScrollView(
+    //           child: PrivacyView(
+    //             data: data ?? '',
+    //             keys: [userTitle, privacyTitle],
+    //             keyStyle: TextStyle(color: Colors.red),
+    //             onTapCallback: (String key) {
+    //               if (key == userTitle) {
+    //                 onUser?.call();
+    //               } else if (key == privacyTitle) {
+    //                 onPrivacy?.call();
+    //               }
+    //             },
+    //           ),
+    //         ),
+    //         actions: [
+    //           // ax(
+    //           //     isDestructiveAction: true,
+    //           //     onPressed: () async {
+    //           //       onCancel?.call();
+    //           //       Navigator.of(context).pop();
+    //           //     },
+    //           //     child: Text(
+    //           //       '不同意',
+    //           //       style: TextStyle(fontSize: 18),
+    //           //     )),
+    //           CupertinoActionSheetAction(
+    //               onPressed: () async {
+    //                 onDone?.call();
+    //                 Navigator.of(context).pop();
+    //               },
+    //               child: Text('确定', style: TextStyle(fontSize: 18)))
+    //         ],
+    //       );
+    //     }).then((value) {
+    //   _dialogPrivateShow = false;
+    // }
+    // );
   }
 }

@@ -86,26 +86,26 @@ class DatePicker {
       dateFormat = DateTimeFormatter.generateDateFormat(pickerMode);
     }
 
-    Navigator.push(
-      context,
-      new _DatePickerRoute(
-        onMonthChangeStartWithFirstDate: onMonthChangeStartWithFirstDate,
-        minDateTime: minDateTime,
-        maxDateTime: maxDateTime,
-        initialDateTime: initialDateTime,
-        dateFormat: dateFormat,
-        locale: locale,
-        pickerMode: pickerMode,
-        pickerTheme: pickerTheme,
-        onCancel: onCancel,
-        onChange: onChange,
-        onConfirm: onConfirm,
-        theme: Theme.of(context),
-        barrierLabel:
-            MaterialLocalizations.of(context).modalBarrierDismissLabel,
-        minuteDivider: minuteDivider,
-      ),
-    ).whenComplete(onClose ?? () => {});
+    // Navigator.push(
+    //   context,
+    //   new _DatePickerRoute(
+    //     onMonthChangeStartWithFirstDate: onMonthChangeStartWithFirstDate,
+    //     minDateTime: minDateTime,
+    //     maxDateTime: maxDateTime,
+    //     initialDateTime: initialDateTime,
+    //     dateFormat: dateFormat,
+    //     locale: locale,
+    //     pickerMode: pickerMode,
+    //     pickerTheme: pickerTheme,
+    //     onCancel: onCancel,
+    //     onChange: onChange,
+    //     onConfirm: onConfirm,
+    //     // theme: Theme.of(context),
+    //     // barrierLabel:
+    //     //     MaterialLocalizations.of(context).modalBarrierDismissLabel,
+    //     minuteDivider: minuteDivider,
+    //   ),
+    // ).whenComplete(onClose ?? () => {});
   }
 }
 
@@ -122,7 +122,7 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
     this.onCancel,
     this.onChange,
     this.onConfirm,
-    required this.theme,
+    // required this.theme,
     this.barrierLabel,
     required this.minuteDivider,
     RouteSettings? settings,
@@ -139,7 +139,7 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
   final int minuteDivider;
   final bool onMonthChangeStartWithFirstDate;
 
-  final ThemeData theme;
+  // final ThemeData theme;
 
   @override
   Duration get transitionDuration => const Duration(milliseconds: 200);
@@ -159,8 +159,8 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
   AnimationController createAnimationController() {
     assert(_animationController == null);
     assert(navigator?.overlay != null);
-    _animationController =
-        BottomSheet.createAnimationController(navigator!.overlay!);
+    // _animationController =
+    //     MPBottomSheet.createAnimationController(navigator!.overlay!);
     return _animationController!;
   }
 
@@ -178,9 +178,9 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
       child: _DatePickerComponent(route: this, pickerHeight: height),
     );
 
-    if (theme != null) {
-      bottomSheet = new Theme(data: theme, child: bottomSheet);
-    }
+    // if (theme != null) {
+    //   bottomSheet = new Theme(data: theme, child: bottomSheet);
+    // }
     return bottomSheet;
   }
 }
@@ -197,62 +197,63 @@ class _DatePickerComponent extends StatelessWidget {
     Widget? pickerWidget;
     switch (route.pickerMode) {
       case DateTimePickerMode.date:
-        pickerWidget = DatePickerWidget(
-          onMonthChangeStartWithFirstDate:
-              route.onMonthChangeStartWithFirstDate,
-          minDateTime: route.minDateTime,
-          maxDateTime: route.maxDateTime,
-          initialDateTime: route.initialDateTime,
-          dateFormat: route.dateFormat,
-          locale: route.locale,
-          pickerTheme: route.pickerTheme,
-          onCancel: route.onCancel,
-          onChange: route.onChange,
-          onConfirm: route.onConfirm,
-        );
+        // pickerWidget = DatePickerWidget(
+        //   onMonthChangeStartWithFirstDate:
+        //       route.onMonthChangeStartWithFirstDate,
+        //   minDateTime: route.minDateTime,
+        //   maxDateTime: route.maxDateTime,
+        //   initialDateTime: route.initialDateTime,
+        //   dateFormat: route.dateFormat,
+        //   locale: route.locale,
+        //   pickerTheme: route.pickerTheme,
+        //   onCancel: route.onCancel,
+        //   onChange: route.onChange,
+        //   onConfirm: route.onConfirm,
+        // );
         break;
       case DateTimePickerMode.time:
-        pickerWidget = TimePickerWidget(
-          minDateTime: route.minDateTime,
-          maxDateTime: route.maxDateTime,
-          initDateTime: route.initialDateTime,
-          dateFormat: route.dateFormat,
-          locale: route.locale,
-          pickerTheme: route.pickerTheme,
-          onCancel: route.onCancel,
-          onChange: route.onChange,
-          onConfirm: route.onConfirm,
-          minuteDivider: route.minuteDivider,
-        );
+        // pickerWidget = TimePickerWidget(
+        //   minDateTime: route.minDateTime,
+        //   maxDateTime: route.maxDateTime,
+        //   initDateTime: route.initialDateTime,
+        //   dateFormat: route.dateFormat,
+        //   locale: route.locale,
+        //   pickerTheme: route.pickerTheme,
+        //   onCancel: route.onCancel,
+        //   onChange: route.onChange,
+        //   onConfirm: route.onConfirm,
+        //   minuteDivider: route.minuteDivider,
+        // );
         break;
       case DateTimePickerMode.datetime:
-        pickerWidget = DateTimePickerWidget(
-          minDateTime: route.minDateTime,
-          maxDateTime: route.maxDateTime,
-          initDateTime: route.initialDateTime,
-          dateFormat: route.dateFormat,
-          locale: route.locale,
-          pickerTheme: route.pickerTheme,
-          onCancel: route.onCancel,
-          onChange: route.onChange,
-          onConfirm: route.onConfirm,
-          minuteDivider: route.minuteDivider,
-        );
+        // pickerWidget = DateTimePickerWidget(
+        //   minDateTime: route.minDateTime,
+        //   maxDateTime: route.maxDateTime,
+        //   initDateTime: route.initialDateTime,
+        //   dateFormat: route.dateFormat,
+        //   locale: route.locale,
+        //   pickerTheme: route.pickerTheme,
+        //   onCancel: route.onCancel,
+        //   onChange: route.onChange,
+        //   onConfirm: route.onConfirm,
+        //   minuteDivider: route.minuteDivider,
+        // );
         break;
     }
     return new GestureDetector(
-      child: new AnimatedBuilder(
-        animation: route.animation!,
-        builder: (BuildContext context, Widget? child) {
-          return new ClipRect(
-            child: new CustomSingleChildLayout(
-              delegate: new _BottomPickerLayout(route.animation!.value,
-                  contentHeight: _pickerHeight),
-              child: pickerWidget,
-            ),
-          );
-        },
-      ),
+      // child: new AnimatedBuilder(
+      //
+      //   // animation: route.animation!,
+      //   builder: (BuildContext context, Widget? child) {
+      //     return new ClipRect(
+      //       // child: new CustomSingleChildLayout(
+      //       //   delegate: new _BottomPickerLayout(route.animation!.value,
+      //       //       contentHeight: _pickerHeight),
+      //       //   child: pickerWidget,
+      //       // ),
+      //     );
+      //   },
+      // ),
     );
   }
 }

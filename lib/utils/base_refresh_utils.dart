@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kayo_package/kayo_package.dart';
+import 'package:kayo_package/libs/fluttertoast/fluttertoast.dart';
+import 'package:kayo_package/libs/pull_to_refresh/src/indicator/custom_indicator.dart';
+import 'package:kayo_package/libs/pull_to_refresh/src/internals/refresh_localizations.dart';
+import 'package:kayo_package/libs/pull_to_refresh/src/smart_refresher.dart';
 import 'package:kayo_package/views/widget/base/image_view.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:flutter/material.dart';
+import 'package:mpcore/mpcore.dart';
 
 import 'base_color_utils.dart';
 import 'base_view_utils.dart';
@@ -60,7 +64,8 @@ class BaseRefreshUtils {
           if (mode == LoadStatus.idle) {
             body = Text(strings.idleLoadingText ?? '');
           } else if (mode == LoadStatus.loading) {
-            body = CupertinoActivityIndicator();
+            // body = CupertinoActivityIndicator();
+            body = MPCircularProgressIndicator();
           } else if (mode == LoadStatus.failed) {
             body = Text(strings.loadFailedText ?? '');
           } else if (mode == LoadStatus.canLoading) {

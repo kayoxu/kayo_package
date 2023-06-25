@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:kayo_package/libs/pull_to_refresh/src/smart_refresher.dart';
 
 import 'base_view_model.dart';
 
