@@ -7,15 +7,14 @@ import 'package:kayo_package/kayo_package.dart';
 ///  Created by kayoxu on 2019-09-04 11:40.
 ///  Copyright © 2019 kayoxu. All rights reserved.
 class BaseViewUtils {
-  static Widget noData(
-      {String? src,
-      String? msg = 'No Data',
-      EdgeInsets? margin,
-      Color? msgColor,
-      double? msgSize,
-      double? width,
-      double? height,
-      double? marginImageTop = 0}) {
+  static Widget noData({String? src,
+    String? msg = 'No Data',
+    EdgeInsets? margin,
+    Color? msgColor,
+    double? msgSize,
+    double? width,
+    double? height,
+    double? marginImageTop = 0}) {
     return Container(
       alignment: Alignment.topCenter,
       margin: null == margin ? EdgeInsets.only(top: 60) : margin,
@@ -24,7 +23,8 @@ class BaseViewUtils {
         children: <Widget>[
           ImageView(
             src: BaseSysUtils.empty(src)
-                ? 'packages/kayo_package/assets/ic_no_data.png'
+                ? source(
+                'ic_no_data') //'packages/kayo_package/assets/ic_no_data.png'
                 : source(src!),
             margin: EdgeInsets.only(bottom: marginImageTop ?? 0),
             width: width ?? 219,

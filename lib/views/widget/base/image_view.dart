@@ -22,6 +22,12 @@ import 'package:http/http.dart' as http;
 ///
 source(String src, {String suffix = '.png'}) {
   if (!suffix.contains(".")) suffix = '.$suffix';
+  return 'http://apizt.kayoxu.com:9998/assets/${KayoPackage.share
+      .imageSourcePrefix}$src$suffix';
+}
+
+sourceSrc(String src, {String suffix = '.png'}) {
+  if (!suffix.contains(".")) suffix = '.$suffix';
   return 'assets/${KayoPackage.share.imageSourcePrefix}$src$suffix';
 }
 
@@ -109,7 +115,8 @@ class ImageViewState extends State<ImageView> {
           color: widget.color,
           fit: widget.fit);
     } else {
-      if (null != widget.url && widget.url != '' && widget.url!.length > 10) {
+      if (null != widget.url && widget.url != '' && widget.url!.length > 10 ||
+          widget.src?.startsWith('http') == true) {
         if (widget.useCache == true && false) {
           // image = CachedNetworkImage(
           //   placeholder: (context, str) {
@@ -129,7 +136,7 @@ class ImageViewState extends State<ImageView> {
           image = FadeInImage.assetNetwork(
             placeholder: widget.defaultImage ??
                 'packages/kayo_package/assets/ic_no_data.png',
-            image: widget.url ?? '',
+            image: widget.url ?? widget.src ?? '',
             width: widget.width,
             height: widget.height,
             fit: widget.fit,
@@ -180,14 +187,14 @@ class ImageViewState extends State<ImageView> {
         child: null == widget.onClick
             ? image
             : AnimatedContainer(
-                duration: Duration(milliseconds: 100),
-                foregroundDecoration: BoxDecoration(
-                  color: isDown
-                      ? Colors.grey.withOpacity(0.1)
-                      : Colors.transparent,
-                ),
-                child: image,
-              ),
+          duration: Duration(milliseconds: 100),
+          foregroundDecoration: BoxDecoration(
+            color: isDown
+                ? Colors.grey.withOpacity(0.1)
+                : Colors.transparent,
+          ),
+          child: image,
+        ),
       ),
     );
 
@@ -196,49 +203,49 @@ class ImageViewState extends State<ImageView> {
         : AspectRatio(aspectRatio: widget.aspectRatio ?? 1, child: container);
 
     return (null != widget.imagePadding
-            ? Container(
-                decoration: BoxDecoration(
-                  color: widget.imagePaddingColor ?? Colors.transparent,
-                  borderRadius:
-                      BorderRadius.circular(widget.imagePaddingRadius ?? 0),
-                ),
-                padding: widget.imagePadding,
-                alignment: Alignment.center,
-                child: image,
-              )
-            : Clickable(
-                margin: widget.margin,
-                padding: widget.padding,
-                child: container2,
-                radius: widget.radius,
-                onTap: widget.onClick,
-                onLongPress: widget.onLongClick,
-                bgColor: Colors.transparent,
-                elevation: widget.elevation,
-                shadowColor: widget.shadowColor,
-                materialBtn: false,
-                onTapDown: (d) {
-                  setState(() {
-                    isDown = true;
-                  });
-                },
+        ? Container(
+      decoration: BoxDecoration(
+        color: widget.imagePaddingColor ?? Colors.transparent,
+        borderRadius:
+        BorderRadius.circular(widget.imagePaddingRadius ?? 0),
+      ),
+      padding: widget.imagePadding,
+      alignment: Alignment.center,
+      child: image,
+    )
+        : Clickable(
+      margin: widget.margin,
+      padding: widget.padding,
+      child: container2,
+      radius: widget.radius,
+      onTap: widget.onClick,
+      onLongPress: widget.onLongClick,
+      bgColor: Colors.transparent,
+      elevation: widget.elevation,
+      shadowColor: widget.shadowColor,
+      materialBtn: false,
+      onTapDown: (d) {
+        setState(() {
+          isDown = true;
+        });
+      },
 
-                onHighlightChanged: (b) {
-                  if (!b) {
-                    setState(() {
-                      isDown = false;
-                    });
-                  }
-                },
-                //      onTapUp: (d) => setState(() => this.isDown = false),
-                onTapCancel: () {
-                  setState(() {
-                    isDown = false;
-                  });
-                },
-              ))
+      onHighlightChanged: (b) {
+        if (!b) {
+          setState(() {
+            isDown = false;
+          });
+        }
+      },
+      //      onTapUp: (d) => setState(() => this.isDown = false),
+      onTapCancel: () {
+        setState(() {
+          isDown = false;
+        });
+      },
+    ))
         .addIgnorePointer(
-            ignoring: null == widget.onClick && null == widget.onLongClick);
+        ignoring: null == widget.onClick && null == widget.onLongClick);
   }
 }
 

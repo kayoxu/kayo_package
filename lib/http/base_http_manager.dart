@@ -286,12 +286,12 @@ abstract class BaseHttpManager {
       }
     }
     //没有网络
-    var connectivityResult = await (new Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.none) {
-      var msg = textNetworkError();
-      _onError(onError, msg);
-      return BaseResultData(msg, BaseCode.RESULT_ERROR_NETWORK_ERROR).sendMsg();
-    }
+    // var connectivityResult = await (new Connectivity().checkConnectivity());
+    // if (connectivityResult == ConnectivityResult.none) {
+    //   var msg = textNetworkError();
+    //   _onError(onError, msg);
+    //   return BaseResultData(msg, BaseCode.RESULT_ERROR_NETWORK_ERROR).sendMsg();
+    // }
 
     if (option != null) {
       option.headers = header;
@@ -326,6 +326,8 @@ abstract class BaseHttpManager {
     } on DioError catch (e) {
       Response? errorResponse;
 
+
+
       if (e.response != null) {
         errorResponse = e.response;
       } else {
@@ -352,11 +354,12 @@ abstract class BaseHttpManager {
       if (errorResponse?.statusCode == KayoPackage.share.reLoginCode) {
         var msg = textLoginExpired();
         _onError(onError, msg);
+        showDebugToast('reLoginCode ${url}  ${response}');
         return BaseResultData(msg, 6).sendMsg();
       }
 
       String msg = (BaseSysUtils.isDebug ? errorHeader : '') +
-          (e.message );
+          (e.message);
       var code = errorResponse?.statusCode ?? BaseCode.RESULT_ERROR_OTHER_ERROR;
       Map<String, dynamic>? map = Map<String, dynamic>();
       try {
@@ -364,6 +367,7 @@ abstract class BaseHttpManager {
       } catch (e) {
         print(e);
         _onError(onError, e.toString());
+        showDebugToast('getmap ${url}  ${response}');
         return BaseResultData(msg, code).sendMsg();
       }
       if (map?.containsKey('error') == true) {
@@ -376,6 +380,8 @@ abstract class BaseHttpManager {
         code = map?['code'] ?? code;
       }
       _onError(onError, msg);
+      // showDebugToast('DioError ${url}  ${response}');
+      showDebugToast('${e.response}');
       return BaseResultData(msg, code).sendMsg();
     }
 
@@ -433,6 +439,7 @@ abstract class BaseHttpManager {
         if (BaseCode.RESULT_OK != resultData.code) {
           var msg = resultData.msg ?? resultData.message;
           _onError(onError, msg ?? '');
+          showDebugToast('RESULT_OK not ${url}  ${response}');
           return BaseResultData(msg, resultData.code).sendMsg();
         }
 
@@ -446,6 +453,7 @@ abstract class BaseHttpManager {
       var message = errorHeader + e.toString();
 
       _onError(onError, message);
+      showDebugToast('response.data ${url}  ${response}');
       return BaseResultData(
           message, BaseCode.RESULT_ERROR_NETWORK_JSON_EXCEPTION)
           .sendMsg();
@@ -463,5 +471,10 @@ abstract class BaseHttpManager {
         .replaceAll(":", "_")
         .replaceAll("?", "_")
         .replaceAll(".", "_");
+  }
+
+
+  showDebugToast(e){
+    LoadingUtils.showToast(data: e.toString(),timeInSecForIosWeb: 20);
   }
 }

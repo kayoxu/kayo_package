@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:kayo_package/views/widget/base/clickable.dart';
 
 import '../date_picker_constants.dart';
 import '../date_picker_theme.dart';
 import '../i18n/date_picker_i18n.dart';
+
+import 'package:kayo_package/utils/base_color_utils.dart';
 
 /// DatePicker's title widget.
 ///
@@ -52,7 +55,7 @@ class DatePickerTitleWidget extends StatelessWidget {
     if (cancelWidget == null) {
       TextStyle textStyle = pickerTheme.cancelTextStyle ??
           TextStyle(
-            color: Theme.of(context).unselectedWidgetColor,
+            color:BaseColorUtils.colorBlackLiteLite,
             fontSize: 17.0,
           );
       cancelWidget = Text(
@@ -63,10 +66,10 @@ class DatePickerTitleWidget extends StatelessWidget {
 
     return Container(
       height: pickerTheme.titleHeight,
-      child: TextButton(
+      child: Clickable(
         // shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
         child: cancelWidget,
-        onPressed: () => this.onCancel(),
+        onTap: () => this.onCancel(),
       ),
     );
   }
@@ -84,7 +87,7 @@ class DatePickerTitleWidget extends StatelessWidget {
     if (confirmWidget == null) {
       TextStyle textStyle = pickerTheme.confirmTextStyle ??
           TextStyle(
-            color: Theme.of(context).primaryColor,
+            color: BaseColorUtils.colorAccent,
             fontSize: 17.0,
           );
       confirmWidget = Text(
@@ -95,10 +98,10 @@ class DatePickerTitleWidget extends StatelessWidget {
 
     return Container(
       height: pickerTheme.titleHeight,
-      child: TextButton(
+      child: Clickable(
         // shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
         child: confirmWidget,
-        onPressed: () => this.onConfirm(),
+        onTap: () => this.onConfirm(),
       ),
     );
   }

@@ -19,27 +19,28 @@ extension BaseWidgetExtension on Widget? {
   ///设置widget的显示、隐藏、隐藏占位
   Widget setVisible2({Key? key, required bool? visible}) {
     if (null != this) {
-      return Visibility(
-        child: this!,
-        visible: visible ?? true,
-      );
+      // return Visibility(
+      //   child: this!,
+      //   visible: visible ?? true,
+      // );
+      return VisibleView(child: this!,
+        visible: (visible ?? true) ? Visible.visible : Visible.gone);
     }
     return SizedBox();
   }
 
   ///给widget增加点击事件
   @Deprecated('调用')
-  Widget setOnClick(
-      {Key? key,
-      required GestureTapCallback? onTap,
-      double? radius,
-      bool? materialBtn = true,
-      EdgeInsets? margin,
-      EdgeInsets? padding,
-      double? elevation,
-      Color? bgColor,
-      Color? shadowColor,
-      Alignment? alignment}) {
+  Widget setOnClick({Key? key,
+    required GestureTapCallback? onTap,
+    double? radius,
+    bool? materialBtn = true,
+    EdgeInsets? margin,
+    EdgeInsets? padding,
+    double? elevation,
+    Color? bgColor,
+    Color? shadowColor,
+    Alignment? alignment}) {
     if (null != this) {
       return Clickable(
         key: key,
@@ -127,11 +128,10 @@ extension BaseWidgetExtension on Widget? {
   }
 
   ///设置Align
-  Widget setAlign(
-      {Key? key,
-      required AlignmentGeometry alignment,
-      double? widthFactor,
-      double? heightFactor}) {
+  Widget setAlign({Key? key,
+    required AlignmentGeometry alignment,
+    double? widthFactor,
+    double? heightFactor}) {
     if (null != this) {
       return Align(
         key: key,
@@ -145,28 +145,27 @@ extension BaseWidgetExtension on Widget? {
   }
 
   ///外面包一层container
-  Widget addContainer(
-      {Key? key,
-      EdgeInsets? padding,
-      EdgeInsets? margin,
-      Alignment? alignment,
-      Color? color,
-      Decoration? decoration}) {
+  Widget addContainer({Key? key,
+    EdgeInsets? padding,
+    EdgeInsets? margin,
+    Alignment? alignment,
+    Color? color,
+    Decoration? decoration}) {
     if (null != this) {
       return null != padding ||
-              null != margin ||
-              null != alignment ||
-              null != color ||
-              null != decoration
+          null != margin ||
+          null != alignment ||
+          null != color ||
+          null != decoration
           ? Container(
-              key: key,
-              padding: padding,
-              margin: margin,
-              alignment: alignment,
-              child: this,
-              color: null == decoration ? color : null,
-              decoration: decoration,
-            )
+        key: key,
+        padding: padding,
+        margin: margin,
+        alignment: alignment,
+        child: this,
+        color: null == decoration ? color : null,
+        decoration: decoration,
+      )
           : this!;
     }
     return SizedBox();
@@ -194,14 +193,13 @@ extension BaseWidgetExtension on Widget? {
   }
 
   ///外面包一层SafeArea
-  Widget addSafeArea(
-      {Key? key,
-      bool? left,
-      bool? top,
-      bool? right,
-      bool? bottom,
-      EdgeInsets? minimum,
-      bool? maintainBottomViewPadding}) {
+  Widget addSafeArea({Key? key,
+    bool? left,
+    bool? top,
+    bool? right,
+    bool? bottom,
+    EdgeInsets? minimum,
+    bool? maintainBottomViewPadding}) {
     if (null != this) {
       return SafeArea(
           key: key,
@@ -253,10 +251,10 @@ extension BaseWidgetExtension on Widget? {
       return absorbing != true
           ? this!
           : AbsorbPointer(
-              key: key,
-              absorbing: absorbing!,
-              child: this,
-              ignoringSemantics: ignoringSemantics);
+          key: key,
+          absorbing: absorbing!,
+          child: this,
+          ignoringSemantics: ignoringSemantics);
     }
     return SizedBox();
   }
@@ -269,10 +267,10 @@ extension BaseWidgetExtension on Widget? {
       return ignoring != true
           ? this!
           : IgnorePointer(
-              key: key,
-              ignoring: ignoring!,
-              child: this,
-              ignoringSemantics: ignoringSemantics);
+          key: key,
+          ignoring: ignoring!,
+          child: this,
+          ignoringSemantics: ignoringSemantics);
     }
     return SizedBox();
   }

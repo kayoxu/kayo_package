@@ -59,6 +59,8 @@ class EditView extends StatefulWidget {
   final TextInputAction? textInputAction;
   final bool? enableinteractiveSelection;
   final List<TextInputFormatter>? inputFormatters;
+  final double? height;
+  final double? width;
 
   EditView({
     Key? key,
@@ -97,6 +99,8 @@ class EditView extends StatefulWidget {
     this.textInputAction,
     this.isDense = false,
     this.enableinteractiveSelection = true,
+    this.height,
+    this.width,
   }) : super(key: key);
 
   @override
@@ -104,136 +108,116 @@ class EditView extends StatefulWidget {
 }
 
 class EditViewState extends State<EditView> {
-  onClick() {}
-
-  TextEditingController? controllerDefault;
 
   @override
   void initState() {
     super.initState();
-    controllerDefault = widget.controller;
     initController();
   }
 
   void initController() {
-    if (((widget.useDefaultEditController == true) ||
-        (true != widget.editable)) &&
-        null == controllerDefault) {
-      controllerDefault = TextEditingController(text: widget.text ?? '');
-      print('flutter TextEditingController initState');
-    }
+
   }
 
   @override
   void dispose() {
-    if (((widget.useDefaultEditController == true) ||
-        (true != widget.editable)) &&
-        null != controllerDefault) {
-      if (widget.controller != controllerDefault) {
-        // widget.controller?.dispose();
-        try {
-          controllerDefault?.dispose();
-        } catch (e) {
-          print(e);
-        }
-      }
-      controllerDefault = null;
-      print('flutter TextEditingController dispose');
-    }
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     // initController();
-
     return Container(
-      alignment: widget.alignment,
-      child: Padding(
-        padding: widget.margin ?? EdgeInsets.only(left: 0),
-        child: Container(
 //           height: 1 == widget.maxLines ? 42 : null,
-          padding: widget.padding,
-          decoration: true == widget.showBorder
-              ? BoxDecoration(
-              color: BaseColorUtils.colorWhite,
-              borderRadius: BorderRadius.circular(widget.radius ?? 0),
-              boxShadow: [
-                BoxShadow(
-                    color: BaseColorUtils.colorWhiteDark,
-                    blurRadius: 2,
-                    spreadRadius: .5)
-              ])
-              : null,
-          child: MPEditableText(
-            // onTap: null == widget.onClick ? onClick : widget.onClick,
-            enableInteractiveSelection: widget.enableinteractiveSelection ??
-                true,
-            inputFormatters: widget.inputFormatters,
-            style: null == widget.textStyle
-                ? TextStyle(
-              color: widget.textColor,
-              fontSize: widget.textSize,
-            )
-                : widget.textStyle!,
-            autocorrect: false,
-            readOnly: widget.editable ?? false,
-            onEditingComplete: widget.onEditingComplete,
-            onSubmitted: widget.onSubmitted,
-            focusNode: widget.focusNode ?? FocusNode(),
-            textAlign: widget.textAlign ?? TextAlign.start,
-            maxLength: widget.maxLength,
-            // maxLengthEnforcement: MaxLengthEnforcement.none,
-            maxLines: widget.maxLines ?? 1,
-            textInputAction: widget.textInputAction ?? TextInputAction.done,
-            keyboardType: widget.keyboardType,
-            controller: controllerDefault!,
-            onChanged: widget.onChanged,
-            obscureText: widget.obscureText ?? false,
-            // decoration: (widget.showLabelText == true)
-            //     ? InputDecoration(labelText: widget.hintText)
-            //     : InputDecoration(
-            //         // hasFloatingPlaceholder: false,
-            //         floatingLabelBehavior: FloatingLabelBehavior.never,
-            //         isDense: widget.isDense,
-            //         icon: BaseSysUtils.empty(widget.src)
-            //             ? null
-            //             : ImageView(
-            //                 width: 25,
-            //                 height: 25,
-            //                 src: widget.src ?? '',
-            //               ),
-            //         hintStyle: TextStyle(
-            //             color: widget.hintTextColor,
-            //             fontSize: widget.hintTextSize),
-            //         hintText: widget.hintText,
-            //         errorText: (widget.errorText?.isEmpty ?? true)
-            //             ? null
-            //             : widget.errorText,
-            //         labelStyle: TextStyle(color: Colors.yellow),
-            //         enabledBorder:
-            //             true != widget.showBorder && true == widget.showLine
-            //                 ? UnderlineInputBorder(
-            //                     borderSide: BorderSide(
-            //                         color: widget.lineColor ??
-            //                             BaseColorUtils.colorGreyLiteLite))
-            //                 : InputBorder.none,
-            //         focusedBorder:
-            //             true != widget.showBorder && true == widget.showLine
-            //                 ? UnderlineInputBorder(
-            //                     borderSide: BorderSide(
-            //                         color: widget.lineColor ??
-            //                             BaseColorUtils.colorGreyLiteLite))
-            //                 : InputBorder.none,
-            //         border:
-            //             true != widget.showBorder && true == widget.showLine
-            //                 ? UnderlineInputBorder(
-            //                     borderSide: BorderSide(
-            //                         color: widget.lineColor ??
-            //                             BaseColorUtils.colorGreyLiteLite))
-            //                 : InputBorder.none)
-          ),
-        ),
+//       alignment: widget.alignment,
+
+      margin: widget.margin ?? EdgeInsets.only(left: 0),
+      height: widget.height ?? 40,
+      width: widget.width ?? double.infinity,
+      padding: widget.padding,
+      decoration: true == widget.showBorder
+          ? BoxDecoration(
+          color: BaseColorUtils.colorWhite,
+          borderRadius: BorderRadius.circular(widget.radius ?? 0),
+          boxShadow: [
+            BoxShadow(
+                color: BaseColorUtils.colorWhiteDark,
+                blurRadius: 2,
+                spreadRadius: .5)
+          ])
+          : null,
+      child: MPEditableText(
+        // onTap: null == widget.onClick ? onClick : widget.onClick,
+        enableInteractiveSelection: widget.enableinteractiveSelection ??
+            true,
+        inputFormatters: widget.inputFormatters,
+        style: null == widget.textStyle
+            ? TextStyle(
+          color: widget.textColor ?? BaseColorUtils.colorBlack,
+          fontSize: widget.textSize ?? 14,
+        )
+            : widget.textStyle!,
+        autocorrect: false,
+        readOnly: widget.editable == false,
+        onEditingComplete: widget.onEditingComplete,
+        placeholder: widget.hintText,
+        placeholderStyle: TextStyle(
+            color: widget.hintTextColor ??
+                BaseColorUtils.colorBlackLiteLite,
+            fontSize: widget.hintTextSize ?? 14),
+        onSubmitted: widget.onSubmitted,
+        focusNode: widget.focusNode ?? FocusNode(),
+        textAlign: widget.textAlign ?? TextAlign.start,
+        maxLength: widget.maxLength,
+        // maxLengthEnforcement: MaxLengthEnforcement.none,
+        maxLines: widget.maxLines ?? 1,
+        textInputAction: widget.textInputAction ?? TextInputAction.done,
+        keyboardType: widget.keyboardType,
+        controller: widget.controller!,
+        onChanged: widget.onChanged,
+        obscureText: widget.obscureText ?? false,
+        // decoration: (widget.showLabelText == true)
+        //     ? InputDecoration(labelText: widget.hintText)
+        //     : InputDecoration(
+        //         // hasFloatingPlaceholder: false,
+        //         floatingLabelBehavior: FloatingLabelBehavior.never,
+        //         isDense: widget.isDense,
+        //         icon: BaseSysUtils.empty(widget.src)
+        //             ? null
+        //             : ImageView(
+        //                 width: 25,
+        //                 height: 25,
+        //                 src: widget.src ?? '',
+        //               ),
+        //         hintStyle: TextStyle(
+        //             color: widget.hintTextColor,
+        //             fontSize: widget.hintTextSize),
+        //         hintText: widget.hintText,
+        //         errorText: (widget.errorText?.isEmpty ?? true)
+        //             ? null
+        //             : widget.errorText,
+        //         labelStyle: TextStyle(color: Colors.yellow),
+        //         enabledBorder:
+        //             true != widget.showBorder && true == widget.showLine
+        //                 ? UnderlineInputBorder(
+        //                     borderSide: BorderSide(
+        //                         color: widget.lineColor ??
+        //                             BaseColorUtils.colorGreyLiteLite))
+        //                 : InputBorder.none,
+        //         focusedBorder:
+        //             true != widget.showBorder && true == widget.showLine
+        //                 ? UnderlineInputBorder(
+        //                     borderSide: BorderSide(
+        //                         color: widget.lineColor ??
+        //                             BaseColorUtils.colorGreyLiteLite))
+        //                 : InputBorder.none,
+        //         border:
+        //             true != widget.showBorder && true == widget.showLine
+        //                 ? UnderlineInputBorder(
+        //                     borderSide: BorderSide(
+        //                         color: widget.lineColor ??
+        //                             BaseColorUtils.colorGreyLiteLite))
+        //                 : InputBorder.none)
       ),
     );
   }

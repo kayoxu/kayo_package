@@ -119,6 +119,7 @@ class TextView extends StatelessWidget {
             null == borderColor &&
             null == margin &&
             null == padding &&
+            null == radius &&
             null == border
         ? child2
         : Container(

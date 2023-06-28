@@ -43,32 +43,32 @@ Container HorizontalTitleMsgView2({
       children: <Widget>[
         Expanded(
             child: Row(
-          children: <Widget>[
-            TextView(
-              title ?? '',
-              size: titleSize,
-              fontWeight: titleFontWeight,
-              color: titleColor ?? BaseColorUtils.colorBlackLite,
-            ),
-            Expanded(
-              child: TextView(
-                msg ?? '',
-                padding: msgPadding,
-                size: msgSize,
-                fontWeight: msgFontWeight,
-                textAlign: TextAlign.end,
-                maxLine: 2,
-                color: msgColor ?? BaseColorUtils.colorBlack,
-              ),
-            )
-          ],
-        )),
+              children: <Widget>[
+                TextView(
+                  title ?? '',
+                  size: titleSize,
+                  fontWeight: titleFontWeight,
+                  color: titleColor ?? BaseColorUtils.colorBlackLite,
+                ),
+                Expanded(
+                  child: TextView(
+                    msg ?? '',
+                    padding: msgPadding,
+                    size: msgSize,
+                    fontWeight: msgFontWeight,
+                    textAlign: TextAlign.end,
+                    maxLine: 2,
+                    color: msgColor ?? BaseColorUtils.colorBlack,
+                  ),
+                )
+              ],
+            )),
         VisibleView(
           child: LineView(
             height: .5,
             color: lineColor ?? BaseColorUtils.colorGreyLiteLiteLite,
           ),
-          visible: showLine ?? false ? Visible.visible : Visible.gone,
+          visible: (showLine ?? false) ? Visible.visible : Visible.gone,
         )
       ],
     ),
@@ -239,7 +239,7 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
               width: double.infinity,
               height: .5,
               color:
-                  widget.topLineColor ?? BaseColorUtils.colorGreyLiteLiteLite,
+              widget.topLineColor ?? BaseColorUtils.colorGreyLiteLiteLite,
             ),
             color: widget.bgColor,
           ),
@@ -251,12 +251,22 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
           padding: widget.padding,
           child: Row(
             crossAxisAlignment:
-                widget.crossAxisAlignment ?? CrossAxisAlignment.center,
+            widget.crossAxisAlignment ?? CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  VisibleView(
+                  widget.leftIcon == Visible.gone ? Visibility(
+                    child: ImageView(
+                      src: widget.leftIconSrc,
+                      width: widget.leftIconWidth,
+                      height: widget.leftIconHeight,
+                      radius: widget.legtIconRadius,
+                      fit: BoxFit.fitWidth,
+                      margin: widget.leftIconMargin,
+                    ),
+                    visible: widget.leftIcon == Visible.gone ? false : true,
+                  ) : VisibleView(
                     child: ImageView(
                       src: widget.leftIconSrc,
                       width: widget.leftIconWidth,
@@ -276,8 +286,10 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
                     color: widget.titleColor,
                     size: widget.titleSize,
                   ),
-                  Visibility(
-                      visible: null != widget.subTitle,
+                  VisibleView(
+                      visible: null != widget.subTitle
+                          ? Visible.visible
+                          : Visible.gone,
                       child: TextView(
                         widget.subTitle ?? '',
                         size: 13,
@@ -292,65 +304,69 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
               ),
               Expanded(
                   child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  VisibleView(
-                    child: Clickable(
-                      child: TextView(
-                        null == widget.subMsg
-                            ? KayoPackage.share.nullText
-                            : widget.subMsg!,
-                        bgColor: widget.msgBgColor,
-                        maxLine: 5,
-                        width: widget.subMsgWidth,
-                        textAlign: TextAlign.right,
-                        padding: EdgeInsets.only(
-                            right: !BaseSysUtils.empty(widget.msg) ? 16 : 0),
-                        fontWeight: widget.subMsgFontWeight,
-                        color: widget.subMsgColor,
-                        size: widget.subMsgSize,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      VisibleView(
+                        child: Clickable(
+                          child: TextView(
+                            null == widget.subMsg
+                                ? KayoPackage.share.nullText
+                                : widget.subMsg!,
+                            bgColor: widget.msgBgColor,
+                            maxLine: 5,
+                            width: widget.subMsgWidth,
+                            textAlign: TextAlign.right,
+                            padding: EdgeInsets.only(
+                                right: !BaseSysUtils.empty(widget.msg)
+                                    ? 16
+                                    : 0),
+                            fontWeight: widget.subMsgFontWeight,
+                            color: widget.subMsgColor,
+                            size: widget.subMsgSize,
+                          ),
+                          onTap: widget.subMsgClick,
+                        ),
+                        visible: BaseSysUtils.empty(widget.subMsg)
+                            ? Visible.gone
+                            : Visible.visible,
                       ),
-                      onTap: widget.subMsgClick,
-                    ),
-                    visible: BaseSysUtils.empty(widget.subMsg)
-                        ? Visible.gone
-                        : Visible.visible,
-                  ),
-                  widget.msgEditable
-                      ? (widget.msgEditableFull == true
+                      widget.msgEditable
+                          ? (widget.msgEditableFull == true
                           ? Expanded(child: _msgEditContainer)
                           : _msgEditContainer)
-                      : Expanded(
+                          : Expanded(
                           child: Clickable(
-                          radius: 5,
-                          child: TextView(
-                            null == widget.msg
-                                ? KayoPackage.share.nullText
-                                : widget.msg,
+                            radius: 5,
+                            child: TextView(
+                              null == widget.msg
+                                  ? KayoPackage.share.nullText
+                                  : widget.msg,
+                              bgColor: widget.msgBgColor,
+                              textAlign: TextAlign.right,
+                              padding: widget.msgPadding,
+                              margin: EdgeInsets.only(
+                                  left: 8, right: widget.rightIcon ? 8 : 0),
+                              fontWeight: widget.msgFontWeight,
+                              color: widget.msgColor,
+                              size: widget.msgSize,
+                              maxLine: widget.msgMaxLine ?? 2,
+                            ),
+                            onTap: widget.onMsgClick,
                             bgColor: widget.msgBgColor,
-                            textAlign: TextAlign.right,
-                            padding: widget.msgPadding,
-                            margin: EdgeInsets.only(
-                                left: 8, right: widget.rightIcon ? 8 : 0),
-                            fontWeight: widget.msgFontWeight,
-                            color: widget.msgColor,
-                            size: widget.msgSize,
-                            maxLine: widget.msgMaxLine ?? 2,
-                          ),
-                          onTap: widget.onMsgClick,
-                          bgColor: widget.msgBgColor,
-                        )),
-                  Visibility(
-                    child: ImageView(
-                      src: widget.rightIconSrc ?? 'assets/ic_arrow_right.png',
-                      width: widget.rightIconWidth ?? 6,
-                      height: widget.rightIconHeight ?? 11,
-                      color: widget.rightIconColor,
-                    ),
-                    visible: widget.rightIcon,
-                  ),
-                ],
-              )),
+                          )),
+                      VisibleView(
+                        child: ImageView(
+                          src: widget.rightIconSrc ??
+                              'assets/ic_arrow_right.png',
+                          width: widget.rightIconWidth ?? 6,
+                          height: widget.rightIconHeight ?? 11,
+                          color: widget.rightIconColor,
+                        ),
+                        visible: widget.rightIcon ? Visible.visible : Visible
+                            .gone,
+                      ),
+                    ],
+                  )),
             ],
           ),
         ),
@@ -369,24 +385,31 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
         ),
       ],
     );
-    return /*Container(
+    return Container(
       margin: widget.margin,
       child: null == widget.onClick
           ? column
-          : Material(
+          :
+/*      Material(
               color: widget.bgColor,
               child: InkWell(
 //              color: ColorUtils.white,
                   onTap: widget.onClick,
 //              padding: EdgeInsets.all(0),
                   child: column),
-            ),
-    );*/
-        Clickable(
-      bgColor: widget.bgColor,
-      margin: widget.margin,
-      child: column,
-      onTap: widget.onClick,
+            )*/
+      Clickable(
+        bgColor: widget.bgColor,
+        child: column,
+        padding: EdgeInsets.zero,
+        onTap: widget.onClick,
+      ),
     );
+    //     Clickable(
+    //   bgColor: widget.bgColor,
+    //   margin: widget.margin,
+    //   child: column,
+    //   onTap: widget.onClick,
+    // );
   }
 }

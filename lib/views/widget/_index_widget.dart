@@ -12,6 +12,7 @@ export 'superscript_view.dart';
 export 'drag_view.dart';
 export 'big_image/asset_picker_viewer.dart';
 export 'city_picker/city_picker.dart';
+export 'package:kayo_package/views/widget/base/flutter_widgets.dart';
 
 /**
  *  kayo_package

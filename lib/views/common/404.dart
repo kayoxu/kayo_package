@@ -17,7 +17,6 @@ class WidgetNotFound extends StatelessWidget {
     return ToolBar(
       title: '页面错误',
       backClick: backClick,
-      iosBack: true,
       child: Center(
         child: TextView('没有找到相关页面'),
       ),

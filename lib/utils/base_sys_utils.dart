@@ -454,6 +454,14 @@ class BaseSysUtils {
       });
     };
   }
+
+  static getImageUrl({required String fileHost, required String? url}) {
+    return (url ?? '') == ''
+        ? ''
+        : url?.contains('http') == true
+        ? url ?? ''
+        : '$fileHost${url ?? ''}';
+  }
 //  static SystemNavigatorPop() async {
 //    return await SystemNavigator.pop();
 //  }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
 import 'package:kayo_package/views/widget/base/image_view.dart';
+import 'package:kayo_package/views/widget/visible_view.dart';
 
 ///  kayo_plugin
 ///  views.widget
@@ -45,9 +46,9 @@ class ErrorTextViewState extends State<ErrorTextView> {
 
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-        maintainState: true,
-        visible: widget.visible ?? false,
+    return VisibleView(
+        // maintainState: true,
+        visible: (widget.visible ?? false) ? Visible.visible : Visible.gone,
         child: Container(
           margin: widget.margin,
           decoration: BoxDecoration(
@@ -60,8 +61,8 @@ class ErrorTextViewState extends State<ErrorTextView> {
                 ? MainAxisAlignment.center
                 : MainAxisAlignment.start,
             children: <Widget>[
-              Visibility(
-                visible: showIcon ?? false,
+              VisibleView(
+                visible: (showIcon ?? false)? Visible.visible : Visible.gone,
                 child: Padding(
                   padding: EdgeInsets.only(left: 8),
                   child: ImageView(

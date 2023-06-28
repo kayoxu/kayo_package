@@ -400,6 +400,26 @@ class TabBarWidgetState extends State<TabBarWidget>
   }
 }
 
+Widget Tab({
+  required String icon,
+  required String title,
+  required bool actived,
+}) {
+  return Column(
+    children: [
+      MPIcon(icon, color: actived ? Colors.blue : Colors.grey),
+      Text(
+        title,
+        style: TextStyle(
+          fontSize: 12,
+          color: actived ? Colors.blue : Colors.grey,
+        ),
+      ),
+    ],
+  );
+}
+
+
 class TarWidgetControl {
   List<Widget> footerButton = [];
 }

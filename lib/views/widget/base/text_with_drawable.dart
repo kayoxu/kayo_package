@@ -468,7 +468,7 @@ class IncludeWidget {
     bool showArrowRight = false,
     GestureTapCallback? onTap,
     EdgeInsetsGeometry contentPadding =
-    const EdgeInsets.only(left: 10, top: 20, bottom: 20),
+        const EdgeInsets.only(left: 10, top: 20, bottom: 20),
   }) {
     controller = controller ?? TextEditingController();
     if (null != value) {
@@ -550,11 +550,11 @@ class IncludeWidget {
                   Expanded(
                     //IgnorePointer
                     child:
-                    readOnly ? IgnorePointer(child: textField) : textField,
+                        readOnly ? IgnorePointer(child: textField) : textField,
                   ),
                   SizedBox(width: 10),
-                  Visibility(
-                    visible: showArrowRight,
+                  VisibleView(
+                    visible: showArrowRight ? Visible.visible : Visible.gone,
                     child: MPIcon(
                       MaterialIcons.arrow_forward_ios,
                       color: Colors.grey,
@@ -698,8 +698,8 @@ class InputInfoRow extends StatelessWidget {
                         fontWeight: leftFontWeight,
                       ),
                     ),
-                    Visibility(
-                      visible: required,
+                    VisibleView(
+                      visible: required ? Visible.visible : Visible.gone,
                       child: Text(
                         '*',
                         style: TextStyle(color: Colors.red),
@@ -718,11 +718,11 @@ class InputInfoRow extends StatelessWidget {
                   Expanded(
                     //IgnorePointer
                     child:
-                    readOnly ? IgnorePointer(child: textField) : textField,
+                        readOnly ? IgnorePointer(child: textField) : textField,
                   ),
                   SizedBox(width: 10),
-                  Visibility(
-                    visible: showArrowRight,
+                  VisibleView(
+                    visible: showArrowRight ? Visible.visible : Visible.gone,
                     child: MPIcon(
                       MaterialIcons.arrow_forward_ios,
                       color: Colors.grey,

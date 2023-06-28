@@ -7,7 +7,6 @@ import 'date_time_formatter.dart';
 import 'i18n/date_picker_i18n.dart';
 import 'widget/date_picker_widget.dart';
 import 'widget/datetime_picker_widget.dart';
-import 'widget/time_picker_widget.dart';
 
 enum DateTimePickerMode {
   /// Display DatePicker

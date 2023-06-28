@@ -22,17 +22,14 @@ class DateTimeFormatter {
     return '';
   }
 
-  /// Check if the date format is for day(contain y、M、d、E) or not.
   static bool isDayFormat(String format) {
     return format.contains(RegExp(r'[yMdE]'));
   }
 
-  /// Check if the date format is for time(contain H、m、s) or not.
   static bool isTimeFormat(String format) {
     return format.contains(RegExp(r'[Hms]'));
   }
 
-  /// Split date format to array.
   static List<String> splitDateFormat(String? dateFormat,
       {DateTimePickerMode? mode}) {
     if (dateFormat == null || dateFormat.length == 0) {
@@ -40,13 +37,11 @@ class DateTimeFormatter {
     }
     List<String> result = dateFormat.split(RegExp(DATE_FORMAT_SEPARATOR));
     if (mode == DateTimePickerMode.datetime) {
-      // datetime mode need join day format
       List<String> temp = [];
       StringBuffer dayFormat = StringBuffer();
       for (int i = 0; i < result.length; i++) {
         String format = result[i];
         if (isDayFormat(format)) {
-          // find format pre-separator
           int end = dateFormat.indexOf(format);
           if (end > 0) {
             int start = 0;
@@ -71,7 +66,6 @@ class DateTimeFormatter {
     return result;
   }
 
-  /// Format datetime string
   static String formatDateTime(
       int value, String format, DateTimePickerLocale locale) {
     if (format == null || format.length == 0) {

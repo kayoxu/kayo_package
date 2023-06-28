@@ -1,41 +1,43 @@
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
 // import 'package:kayo_package/kayo_package.dart';
+// import 'package:kayo_package/views/widget/alert/datetime_picker_new/widget/list_wheel_scroll_view2.dart' as lw;
+// import 'package:kayo_package/views/widget/alert/datetime_picker_new/widget/picker2.dart' as pk;
 //
-// // typedef DataChangedCallback(dynamic data);
-// // typedef DataChangedCallbackMore<T>(List<int> indexes, List<T> data);
-// // typedef DataChangedCallback2(int index, dynamic data);
+// typedef DataChangedCallback(dynamic data);
+// typedef DataChangedCallbackMore<T>(List<int> indexes, List<T> data);
+// typedef DataChangedCallback2(int index, dynamic data);
 //
 // const double _kDataPickerHeight = 210.0;
 // const double _kDataPickerTitleHeight = 44.0;
 // const double _kDataPickerItemHeight = 36.0;
 // const double _kDataPickerFontSize = 15.0;
 //
-// // class DataPickerLocale {
-// //   /// English (EN) United States
-// //   static const String en_us = 'en';
-// //
-// //   /// Chinese (ZH) Simplified
-// //   static const String zh_cn = 'zh';
-// // }
+// class DataPickerLocale {
+//   /// English (EN) United States
+//   static const String en_us = 'en';
+//
+//   /// Chinese (ZH) Simplified
+//   static const String zh_cn = 'zh';
+// }
 //
 // class DataPickerNew {
 //   static String defaultDataPickerLocale = DataPickerLocale.zh_cn;
 //
 //   static Future show<T>(BuildContext context,
 //       {bool showTitleActions: true,
-//       required List<T> datas,
-//       int selectedIndex: 0,
-//       List<int>? selectedIndexes,
-//       DataChangedCallback? onChanged,
-//       DataChangedCallback? onConfirm,
-//       DataChangedCallbackMore<T>? onConfirmMore,
-//       DataChangedCallback2? onConfirm2,
-//       String suffix: '',
-//       bool? multipleChoice,
-//       String? title,
-//       String? locale,
-//       bool bottomSheet: true}) {
+//         required List<T> datas,
+//         int selectedIndex: 0,
+//         List<int>? selectedIndexes,
+//         DataChangedCallback? onChanged,
+//         DataChangedCallback? onConfirm,
+//         DataChangedCallbackMore<T>? onConfirmMore,
+//         DataChangedCallback2? onConfirm2,
+//         String suffix: '',
+//         bool? multipleChoice,
+//         String? title,
+//         String? locale,
+//         bool bottomSheet: true}) {
 //     locale = locale ?? defaultDataPickerLocale;
 //     return showDataPicker(context,
 //         showTitleActions: showTitleActions,
@@ -56,24 +58,24 @@
 //   @Deprecated('用show代替showDataPicker')
 //   static Future showDataPicker<T>(BuildContext context,
 //       {bool showTitleActions: true,
-//       required List<T> datas,
-//       int selectedIndex: 0,
-//       List<int>? selectedIndexes,
-//       DataChangedCallback? onChanged,
-//       DataChangedCallback? onConfirm,
-//       DataChangedCallbackMore<T>? onConfirmMore,
-//       DataChangedCallback2? onConfirm2,
-//       String suffix: '',
-//       bool? multipleChoice,
-//       String? title,
-//       String? locale,
-//       bool bottomSheet: true}) {
+//         required List<T> datas,
+//         int selectedIndex: 0,
+//         List<int>? selectedIndexes,
+//         DataChangedCallback? onChanged,
+//         DataChangedCallback? onConfirm,
+//         DataChangedCallbackMore<T>? onConfirmMore,
+//         DataChangedCallback2? onConfirm2,
+//         String suffix: '',
+//         bool? multipleChoice,
+//         String? title,
+//         String? locale,
+//         bool bottomSheet: true}) {
 //     locale = locale ?? defaultDataPickerLocale;
 //     if (true == bottomSheet) {
-//       return showModalBottomSheet(
+//       return F.showModalBottomSheet(
 //           context: context,
-//           isDismissible: true,
-//           isScrollControlled: false,
+//           // isDismissible: true,
+//           // isScrollControlled: false,
 //           shape: RoundedRectangleBorder(
 //               borderRadius: BorderRadius.only(
 //                   topLeft: Radius.circular(0), topRight: Radius.circular(0))),
@@ -104,9 +106,11 @@
 //             locale: locale,
 //             suffix: suffix,
 //             title: title ?? '',
-//             theme: Theme.of(context /*, shadowThemeOnly: true*/),
-//             barrierLabel:
-//                 MaterialLocalizations.of(context).modalBarrierDismissLabel,
+//             // theme: Theme.of(context /*, shadowThemeOnly: true*/),
+//             // barrierLabel:
+//             // MaterialLocalizations
+//             //     .of(context)
+//             //     .modalBarrierDismissLabel,
 //           ));
 //     }
 //   }
@@ -120,7 +124,7 @@
 //     this.onChanged,
 //     this.onConfirm,
 //     this.onConfirm2,
-//     this.theme,
+//     // this.theme,
 //     this.barrierLabel,
 //     this.locale,
 //     this.suffix,
@@ -134,7 +138,7 @@
 //   final DataChangedCallback? onChanged;
 //   final DataChangedCallback? onConfirm;
 //   final DataChangedCallback2? onConfirm2;
-//   final ThemeData? theme;
+//   // final ThemeData? theme;
 //   final String? locale;
 //   final String? suffix;
 //   final String? title;
@@ -177,9 +181,9 @@
 //         route: this,
 //       ),
 //     );
-//     if (theme != null) {
-//       bottomSheet = new Theme(data: theme!, child: bottomSheet);
-//     }
+//     // if (theme != null) {
+//     //   bottomSheet = new Theme(data: theme!, child: bottomSheet);
+//     // }
 //     return bottomSheet;
 //   }
 // }
@@ -212,35 +216,30 @@
 //
 // class _DataPickerState extends State<_DataPickerComponent> {
 //   int? _initialIndex;
-//   FixedExtentScrollController? dataScrollCtrl;
+//   lw.FixedExtentScrollController? dataScrollCtrl;
 //
 //   _DataPickerState(this._initialIndex) {
 //     if ((this._initialIndex ?? 0) < 0) {
 //       this._initialIndex = 0;
 //     }
 //     dataScrollCtrl =
-//         new FixedExtentScrollController(initialItem: _initialIndex ?? 0);
+//     new lw.FixedExtentScrollController(initialItem: _initialIndex ?? 0);
 //   }
 //
 //   @override
 //   Widget build(BuildContext context) {
 //     return new GestureDetector(
-//       child: new AnimatedBuilder(
-//         animation: widget.route!.animation!,
-//         builder: (BuildContext? context, Widget? child) {
-//           return new ClipRect(
-//             child: new CustomSingleChildLayout(
-//               delegate: new _BottomPickerLayout(widget.route!.animation!.value,
-//                   showTitleActions: widget.route!.showTitleActions),
-//               child: new GestureDetector(
-//                 child: Material(
-//                   color: Colors.transparent,
-//                   child: _renderPickerView(),
-//                 ),
-//               ),
+//       child: new ClipRect(
+//         child: new CustomSingleChildLayout(
+//           delegate: new _BottomPickerLayout(0,
+//               showTitleActions: widget.route!.showTitleActions),
+//           child: new GestureDetector(
+//             child: Container(
+//               color: Colors.transparent,
+//               child: _renderPickerView(),
 //             ),
-//           );
-//         },
+//           ),
+//         ),
 //       ),
 //     );
 //   }
@@ -294,14 +293,14 @@
 //                   children: <Widget>[
 //                     new Expanded(
 //                         child: Text(
-//                       '${widget.datas![index]}$suffixAppend',
-//                       style: TextStyle(
-//                           color: Color(0xFF000046),
-//                           fontSize: _kDataPickerFontSize),
-//                       textAlign: TextAlign.center,
-//                       softWrap: false,
-//                       overflow: TextOverflow.fade,
-//                     ))
+//                           '${widget.datas![index]}$suffixAppend',
+//                           style: TextStyle(
+//                               color: Color(0xFF000046),
+//                               fontSize: _kDataPickerFontSize),
+//                           textAlign: TextAlign.center,
+//                           softWrap: false,
+//                           overflow: TextOverflow.fade,
+//                         ))
 //                   ],
 //                 ),
 //               );
@@ -331,7 +330,9 @@
 //               child: Text(
 //                 '$cancel',
 //                 style: TextStyle(
-//                   color: Theme.of(context).unselectedWidgetColor,
+//                   color: Theme
+//                       .of(context)
+//                       .unselectedWidgetColor,
 //                   fontSize: 16.0,
 //                 ),
 //               ),
@@ -355,7 +356,9 @@
 //               child: Text(
 //                 '$done',
 //                 style: TextStyle(
-//                   color: Theme.of(context).primaryColor,
+//                   color: Theme
+//                       .of(context)
+//                       .primaryColor,
 //                   fontSize: 16.0,
 //                 ),
 //               ),
@@ -461,18 +464,17 @@
 //   final bool? isEN;
 //   final bool? multipleChoice;
 //
-//   const BottomSheetSingleWidgetNew(
-//       {Key? key,
-//       this.datas,
-//       this.selectedIndex,
-//       this.selectedIndexes,
-//       this.title,
-//       this.onChanged,
-//       this.multipleChoice,
-//       this.onConfirm,
-//       this.onConfirmMore,
-//       this.onConfirm2,
-//       this.isEN})
+//   const BottomSheetSingleWidgetNew({Key? key,
+//     this.datas,
+//     this.selectedIndex,
+//     this.selectedIndexes,
+//     this.title,
+//     this.onChanged,
+//     this.multipleChoice,
+//     this.onConfirm,
+//     this.onConfirmMore,
+//     this.onConfirm2,
+//     this.isEN})
 //       : super(key: key);
 //
 //   @override
@@ -507,168 +509,182 @@
 //   Widget build(BuildContext context) {
 //     return SafeArea(
 //         child: Column(
-//       mainAxisSize: MainAxisSize.min,
-//       children: [
-//         Container(
-//           height: itemHeight,
-//           child: Row(
-//             children: [
-//               // TextView(
-//               //   widget.isEN == true ? 'Cancel' : '取消',
-//               //   color: BaseColorUtils.colorBlackLite,
-//               //   radius: 10,
-//               //   size: 17,
-//               //   fontWeight: FontWeight.normal,
-//               //   padding:
-//               //       EdgeInsets.only(left: 12, right: 12, bottom: 12, top: 12),
-//               //   margin: EdgeInsets.only(left: 8),
-//               //   onTap: () {
-//               //     Navigator.pop(context);
-//               //   },
-//               // ),
+//           mainAxisSize: MainAxisSize.min,
+//           children: [
+//             Container(
+//               height: itemHeight,
+//               child: Row(
+//                 children: [
+//                   // TextView(
+//                   //   widget.isEN == true ? 'Cancel' : '取消',
+//                   //   color: BaseColorUtils.colorBlackLite,
+//                   //   radius: 10,
+//                   //   size: 17,
+//                   //   fontWeight: FontWeight.normal,
+//                   //   padding:
+//                   //       EdgeInsets.only(left: 12, right: 12, bottom: 12, top: 12),
+//                   //   margin: EdgeInsets.only(left: 8),
+//                   //   onTap: () {
+//                   //     Navigator.pop(context);
+//                   //   },
+//                   // ),
 //
-//               GestureDetector(
-//                 child: Container(
-//                   height: 40,
-//                   padding: EdgeInsets.only(left: 16),
-//                   alignment: Alignment.centerLeft,
-//                   width: 100,
-//                   child: Icon(
-//                     Icons.close,
-//                     color: BaseColorUtils.darkBlackLiteLite(context: context),
-//                   ),
-//                 ),
-//                 onTap: () {
-//                   Navigator.pop(context);
-//                 },
-//               ),
-//
-//               Expanded(
-//                   child: TextView(
-//                 // ''
-//                 widget.title ??
-//                     (widget.isEN == true
-//                         ? multipleChoice == true
-//                             ? 'Multiple choices'
-//                             : ''
-//                         : '${multipleChoice == true ? '可多选' : ''}'),
-//                 maxLine: 2,
-//                 textAlign: TextAlign.center,
-//                 alignment: Alignment.center,
-//                 color: BaseColorUtils.darkBlack(context: context),
-//                 size: 17,
-//                 fontWeight: FontWeight.w600,
-//                 margin: EdgeInsets.only(left: 16, right: 16),
-//               )),
-//
-//               Container(
-//                 width: 100,
-//                 alignment: Alignment.centerRight,
-//                 child: TextView(
-//                   widget.isEN == true ? 'Done' : '确定',
-//                   radius: 10,
-//                   color: BaseColorUtils.darkPrimary2(context: context),
-//                   size: 15,
-//                   fontWeight: FontWeight.w600,
-//                   padding:
-//                       EdgeInsets.only(left: 17, right: 17, bottom: 12, top: 12),
-//                   margin: EdgeInsets.only(right: 6),
-//                   onTap: () {
-//                     widget.onConfirm?.call(widget.datas?[selectedIndexes[0]]);
-//                     widget.onConfirm2?.call(
-//                         selectedIndexes[0], widget.datas?[selectedIndexes[0]]);
-//                     List<T> d = [];
-//                     List<int> indexes = [];
-//                     for (int i = 0; i < (widget.datas ?? []).length; i++) {
-//                       if (selectedIndexes.contains(i)) {
-//                         d.add(widget.datas![i]);
-//                         indexes.add(i);
-//                       }
-//                     }
-//                     widget.onConfirmMore?.call(indexes, d);
-//                     Navigator.pop(context);
-//                   },
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//         LineView(
-//           height: .5,
-//           color: BaseColorUtils.darkWindow(context: context).dark,
-//         ),
-//         Container(
-//           height: getVH(),
-//           child: Column(
-//             children: [
-//               Expanded(
-//                   child: Scrollbar(
-//                 // isAlwaysShown: true,
-//                 thumbVisibility: true,
-//                 child: ListView.separated(
-//                   separatorBuilder: (context, index) {
-//                     return Divider(
-//                       color: BaseColorUtils.darkPrimary2(context: context)
-//                           .withOpacity(.1),
-//                       height: .5,
-//                     );
-//                   },
-//                   itemBuilder: (context, index) {
-//                     return ListTile(
-//                       contentPadding: EdgeInsets.only(left: 15, right: 15),
-//                       selected: selectedIndexes.contains(index),
-//                       title: TextView(
-//                         widget.datas?[index]?.toString() ?? '',
-//                         size: 14,
-//                         color: selectedIndexes.contains(index)
-//                             ? BaseColorUtils.darkBlack(context: context)
-//                             : BaseColorUtils.darkBlack(context: context),
-//                         fontWeight: selectedIndexes.contains(index)
-//                             ? FontWeight.w600
-//                             : FontWeight.w600,
+//                   GestureDetector(
+//                     child: Container(
+//                       height: 40,
+//                       padding: EdgeInsets.only(left: 16),
+//                       alignment: Alignment.centerLeft,
+//                       width: 100,
+//                       child: Icon(
+//                         Icons.close,
+//                         color: BaseColorUtils.darkBlackLiteLite(
+//                             context: context),
 //                       ),
-//                       trailing: selectedIndexes.contains(index)
-//                           ? Icon(
-//                               Icons.check,
-//                               color:
-//                                   BaseColorUtils.darkPrimary2(context: context),
-//                               size: 18,
-//                             )
-//                           : Container(
-//                               height: 17,
-//                               width: 17,
-//                             ),
+//                     ),
+//                     onTap: () {
+//                       Navigator.pop(context);
+//                     },
+//                   ),
+//
+//                   Expanded(
+//                       child: TextView(
+//                         // ''
+//                         widget.title ??
+//                             (widget.isEN == true
+//                                 ? multipleChoice == true
+//                                 ? 'Multiple choices'
+//                                 : ''
+//                                 : '${multipleChoice == true ? '可多选' : ''}'),
+//                         maxLine: 2,
+//                         textAlign: TextAlign.center,
+//                         alignment: Alignment.center,
+//                         color: BaseColorUtils.darkBlack(context: context),
+//                         size: 17,
+//                         fontWeight: FontWeight.w600,
+//                         margin: EdgeInsets.only(left: 16, right: 16),
+//                       )),
+//
+//                   Container(
+//                     width: 100,
+//                     alignment: Alignment.centerRight,
+//                     child: TextView(
+//                       widget.isEN == true ? 'Done' : '确定',
+//                       radius: 10,
+//                       color: BaseColorUtils.darkPrimary2(context: context),
+//                       size: 15,
+//                       fontWeight: FontWeight.w600,
+//                       padding:
+//                       EdgeInsets.only(left: 17, right: 17, bottom: 12, top: 12),
+//                       margin: EdgeInsets.only(right: 6),
 //                       onTap: () {
-//                         setState(() {
-//                           if (multipleChoice == true) {
-//                             selectedIndexes.contains(index)
-//                                 ? selectedIndexes.remove(index)
-//                                 : selectedIndexes.add(index);
-//                           } else {
-//                             selectedIndexes.clear();
-//                             selectedIndexes.add(index);
+//                         widget.onConfirm?.call(
+//                             widget.datas?[selectedIndexes[0]]);
+//                         widget.onConfirm2?.call(
+//                             selectedIndexes[0],
+//                             widget.datas?[selectedIndexes[0]]);
+//                         List<T> d = [];
+//                         List<int> indexes = [];
+//                         for (int i = 0; i < (widget.datas ?? []).length; i++) {
+//                           if (selectedIndexes.contains(i)) {
+//                             d.add(widget.datas![i]);
+//                             indexes.add(i);
 //                           }
-//                           // selectedIndex = index;
-//                           widget.onChanged?.call(widget.datas?[index]);
-//                         });
+//                         }
+//                         widget.onConfirmMore?.call(indexes, d);
+//                         Navigator.pop(context);
 //                       },
-//                     );
-//                   },
-//                   // itemExtent: itemHeight,
-//                   itemCount: (widget.datas?.length ?? 0),
-//                 ),
-//               )),
-//             ],
-//           ),
-//         )
-//       ],
-//     ));
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//             LineView(
+//               height: .5,
+//               color: BaseColorUtils
+//                   .darkWindow(context: context)
+//                   .dark,
+//             ),
+//             Container(
+//               height: getVH(),
+//               child: Column(
+//                 children: [
+//                   Expanded(
+//                       child: Scrollbar(
+//                         // isAlwaysShown: true,
+//                         thumbVisibility: true,
+//                         child: ListView.separated(
+//                           separatorBuilder: (context, index) {
+//                             return Divider(
+//                               color: BaseColorUtils.darkPrimary2(
+//                                   context: context)
+//                                   .withOpacity(.1),
+//                               height: .5,
+//                             );
+//                           },
+//                           itemBuilder: (context, index) {
+//                             return ListTile(
+//                               contentPadding: EdgeInsets.only(
+//                                   left: 15, right: 15),
+//                               selected: selectedIndexes.contains(index),
+//                               title: TextView(
+//                                 widget.datas?[index]?.toString() ?? '',
+//                                 size: 14,
+//                                 color: selectedIndexes.contains(index)
+//                                     ? BaseColorUtils.darkBlack(context: context)
+//                                     : BaseColorUtils.darkBlack(
+//                                     context: context),
+//                                 fontWeight: selectedIndexes.contains(index)
+//                                     ? FontWeight.w600
+//                                     : FontWeight.w600,
+//                               ),
+//                               trailing: selectedIndexes.contains(index)
+//                                   ? Icon(
+//                                 Icons.check,
+//                                 color:
+//                                 BaseColorUtils.darkPrimary2(context: context),
+//                                 size: 18,
+//                               )
+//                                   : Container(
+//                                 height: 17,
+//                                 width: 17,
+//                               ),
+//                               onTap: () {
+//                                 setState(() {
+//                                   if (multipleChoice == true) {
+//                                     selectedIndexes.contains(index)
+//                                         ? selectedIndexes.remove(index)
+//                                         : selectedIndexes.add(index);
+//                                   } else {
+//                                     selectedIndexes.clear();
+//                                     selectedIndexes.add(index);
+//                                   }
+//                                   // selectedIndex = index;
+//                                   widget.onChanged?.call(widget.datas?[index]);
+//                                 });
+//                               },
+//                             );
+//                           },
+//                           // itemExtent: itemHeight,
+//                           itemCount: (widget.datas?.length ?? 0),
+//                         ),
+//                       )),
+//                 ],
+//               ),
+//             )
+//           ],
+//         ));
 //   }
 //
 //   double getVH() {
-//     double h = MediaQuery.of(context).size.height;
+//     double h = MediaQuery
+//         .of(context)
+//         .size
+//         .height;
 //
-//     double b = MediaQuery.of(context).padding.bottom;
+//     double b = MediaQuery
+//         .of(context)
+//         .padding
+//         .bottom;
 //     if (b < 1) {
 //       b = 40;
 //     }

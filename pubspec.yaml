@@ -5,7 +5,7 @@ author:
 homepage:
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -18,7 +18,7 @@ dependencies:
   flutter_spinkit: ">=4.1.2+1 <=10.0.0"    #  Mar 4, 2021     5.0.0
   pub_semver: ">=1.4.4 <=10.0.0"          #Feb 5, 2021   2.0.0
   flutter_slidable: ">=0.5.5 <=10.0.0"      # Jul 18, 2021 0.6.0
-  dio: ">=2.1.0 <=10.0.0"                   #Mar 28, 2021   4.0.0
+  dio: ^4.0.1+1
   event_bus: ">=1.1.1 <=10.0.0"          # Mar 4, 2021  2.0.0
 #  path_drawing: ">=0.5.1   <=10.0.0"       #  May 5, 2021 0.5.1
   #  cached_network_image: ">=2.0.0   <=10.0.0"       #  May 5, 2021 3.1.0

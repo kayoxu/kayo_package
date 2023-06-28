@@ -38,19 +38,10 @@ class ShadowView extends StatefulWidget {
 class ShadowViewState extends State<ShadowView> {
   @override
   Widget build(BuildContext context) {
-    return /*(null == widget.elevation || 0 == widget.elevation) &&
-            (true != widget.inkWell)
-        ? widget.child!
-        :*/
-      //     Material(
-      //   borderRadius: null != widget.borderRadius
-      //       ? widget.borderRadius
-      //       : BorderRadius.circular(widget.radius ?? 0),
-      //   elevation: widget.elevation ?? 0,
-      //   shadowColor: widget.shadowColor,
-      //   color: widget.bgColor,
-      //   child: widget.child,
-      // );
-      widget.child!;
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: widget.borderRadius, color: widget.bgColor),
+      child: widget.child,
+    );
   }
 }

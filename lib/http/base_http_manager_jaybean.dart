@@ -303,12 +303,12 @@ abstract class BaseHttpManagerJayBean {
     url = '$url'.replaceAll('\n', '');
 
     //没有网络
-    var connectivityResult = await (new Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.none) {
-      var msg = textNetworkError();
-      _onError(onError, msg);
-      return BaseResultData(msg, resultErrorNetwork.code).sendMsg();
-    }
+    // var connectivityResult = await (new Connectivity().checkConnectivity());
+    // if (connectivityResult == ConnectivityResult.none) {
+    //   var msg = textNetworkError();
+    //   _onError(onError, msg);
+    //   return BaseResultData(msg, resultErrorNetwork.code).sendMsg();
+    // }
 
     if (option != null) {
       option.headers = header;

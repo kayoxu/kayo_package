@@ -30,14 +30,16 @@ class VisibleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-            key: key,
-            visible: (visible ?? Visible.visible) != Visible.gone,
-            child: visible != Visible.invisible
-                ? child!
-                : Opacity(
-                    opacity: visible == Visible.visible ? 1.0 : 0.0,
-                    child: child))
-        .addIgnorePointer(ignoring: visible == Visible.invisible);
+    return Opacity(
+        opacity: visible == Visible.visible ? 1.0 : 0.0,
+        child: child).addIgnorePointer(ignoring: visible != Visible.visible);
+
+    // return Visibility(
+    //         key: key,
+    //         visible: (visible ?? Visible.visible) != Visible.gone,
+    //         child:  Opacity(
+    //                 opacity: visible == Visible.visible ? 1.0 : 0.0,
+    //                 child: child))
+    //     .addIgnorePointer(ignoring: visible == Visible.invisible);
   }
 }
