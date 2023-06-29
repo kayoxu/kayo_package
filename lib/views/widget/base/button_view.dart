@@ -73,35 +73,10 @@ class ButtonView extends StatelessWidget {
     return Container(
       margin: margin,
       alignment: alignment,
-      child: /*null == borderColor
-          ? MaterialButton(
-              onPressed: onPressed,
-              elevation: (showShadow == true) ? 3 : 0,
-              highlightElevation: showShadow == true ? 8 : 0,
-              disabledElevation: 0,
-              child: Padding(
-                padding: padding ?? EdgeInsets.only(left: 0),
-                child: Container(
-                  width: width,
-                  height: height,
-                  alignment: null == height ? null : Alignment.center,
-                  child: null == left
-                      ? textV()
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[left!, textV()],
-                        ),
-                ),
-              ),
-              color: bgColor ?? BaseColorUtils.colorAccent,
-              shape: RoundedRectangleBorder(
-                  borderRadius: null == borderRadius
-                      ? BorderRadius.circular(radius ?? 0)
-                      : borderRadius!),
-            )
-          : */
+      child:
       Clickable(
               radius: radius ?? 0,
+              padding: padding,
               bgColor: BaseColorUtils.transparent,
               decoration: (null != borderColor &&
                       null == bgStartColor &&

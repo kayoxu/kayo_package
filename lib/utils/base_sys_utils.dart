@@ -7,6 +7,7 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:kayo_package/kayo_package.dart';
 import 'package:flutter/ui/ui.dart' as ui;
+import 'package:kayo_package/views/widget/big_image/image_data.dart';
 
 ///  smart_community
 ///  common.utils
@@ -41,6 +42,8 @@ class BaseSysUtils {
       } else if (obj is num) {
         return false;
       } else if (obj is bool) {
+        return false;
+      }else if (obj is ImageData) {
         return false;
       } else {
         return true;

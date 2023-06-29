@@ -17,7 +17,7 @@ class VideoViewPage extends StatelessWidget {
         leadingIcon: MPIcon(MaterialIcons.close),
         backgroundColor: BaseColorUtils.colorBlack,
         child: MPVideoView(
-          url: url ?? '',
+          url: BaseSysUtils.getImageUrl(fileHost: fileHost, url: url),
           autoplay: true,
         ));
   }

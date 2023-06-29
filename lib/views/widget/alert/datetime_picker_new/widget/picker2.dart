@@ -50,27 +50,11 @@ class _CupertinoPickerState extends State<CupertinoPicker> {
   }
 
   void _addListener() {
-    bool notify = false;
-
     _controller?.addListener(() {
-      if (notify) {
-        setState(() {
-          selectIndex = _controller!.page;
-          widget.onSelectedItemChanged?.call(selectIndex);
-        });
-      } else {
-        widget.onSelectedItemChanged?.call(_controller!.page);
-      }
+      widget.onSelectedItemChanged?.call(_controller!.page);
     });
     widget.scrollController?.addListener(() {
-      if (notify) {
-        setState(() {
-          selectIndex = widget.scrollController!.page;
-          widget.onSelectedItemChanged?.call(selectIndex);
-        });
-      } else {
-        widget.onSelectedItemChanged?.call(widget.scrollController!.page);
-      }
+      widget.onSelectedItemChanged?.call(widget.scrollController!.page);
     });
   }
 

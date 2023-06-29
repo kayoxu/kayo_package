@@ -2,7 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:kayo_package/kayo_package.dart';
+import 'dart:typed_data';
+
 
 ///  smart_lock_flutter
 ///  bean.common
@@ -11,15 +12,17 @@ import 'package:kayo_package/kayo_package.dart';
 ///  Copyright © 2019 kayoxu. All rights reserved.
 
 class ImageData {
-  ImageData({this.file, this.path, this.url, this.name});
+  ImageData({this.file, this.path, this.url, this.name, this.size, this.bytes});
 
   File? file;
   String? path;
+  num? size;
   final String? name;
   String? url;
+  Uint8List? bytes;
 
   bool get isUpload {
-    return !BaseSysUtils.empty(url);
+    return null != url && '' != url;
   }
 
   factory ImageData.fromJson(Map<String, dynamic> json) =>
@@ -33,6 +36,8 @@ ImageData _$ImageDataFromJson(Map<String, dynamic> json) {
     path: json['path'] as String,
     url: json['url'] as String,
     name: json['name'] as String,
+    size: json['size'] as num?,
+    bytes: json['bytes'] as Uint8List?,
   );
 }
 
@@ -41,4 +46,6 @@ Map<String, dynamic> _$ImageDataToJson(ImageData instance) =>
       'path': instance.path,
       'url': instance.url,
       'name': instance.name,
+      'size': instance.size,
+      'bytes': instance.bytes,
     };

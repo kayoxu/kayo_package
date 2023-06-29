@@ -52,7 +52,7 @@ class LoadingUtils {
       share._timer = null;
     });
 
-    MPWebDialogs.showLoading(title: data ?? '');
+    MPWebDialogs.showLoading(title: data ?? KayoPackage.share.loadingText);
     // EasyLoading.show(
     //     status: data ?? KayoPackage.share.loadingText,
     //     dismissOnTap: dismissOnTap);
