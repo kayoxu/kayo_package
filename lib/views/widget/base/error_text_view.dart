@@ -62,11 +62,11 @@ class ErrorTextViewState extends State<ErrorTextView> {
                 : MainAxisAlignment.start,
             children: <Widget>[
               VisibleView(
-                visible: (showIcon ?? false)? Visible.visible : Visible.gone,
+                visible: (showIcon ?? false) ? Visible.visible : Visible.gone,
                 child: Padding(
                   padding: EdgeInsets.only(left: 8),
                   child: ImageView(
-                    src: 'assets/ic_error_warning.svg',
+                    src: source('ic_error_warning', suffix: 'svg'),
                     width: 25,
                     height: 25,
                     radius: 6,

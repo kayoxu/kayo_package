@@ -43,26 +43,26 @@ Container HorizontalTitleMsgView2({
       children: <Widget>[
         Expanded(
             child: Row(
-              children: <Widget>[
-                TextView(
-                  title ?? '',
-                  size: titleSize,
-                  fontWeight: titleFontWeight,
-                  color: titleColor ?? BaseColorUtils.colorBlackLite,
-                ),
-                Expanded(
-                  child: TextView(
-                    msg ?? '',
-                    padding: msgPadding,
-                    size: msgSize,
-                    fontWeight: msgFontWeight,
-                    textAlign: TextAlign.end,
-                    maxLine: 2,
-                    color: msgColor ?? BaseColorUtils.colorBlack,
-                  ),
-                )
-              ],
-            )),
+          children: <Widget>[
+            TextView(
+              title ?? '',
+              size: titleSize,
+              fontWeight: titleFontWeight,
+              color: titleColor ?? BaseColorUtils.colorBlackLite,
+            ),
+            Expanded(
+              child: TextView(
+                msg ?? '',
+                padding: msgPadding,
+                size: msgSize,
+                fontWeight: msgFontWeight,
+                textAlign: TextAlign.end,
+                maxLine: 2,
+                color: msgColor ?? BaseColorUtils.colorBlack,
+              ),
+            )
+          ],
+        )),
         VisibleView(
           child: LineView(
             height: .5,
@@ -89,7 +89,7 @@ class HorizontalTitleMsgView extends StatefulWidget {
   final double? rightIconWidth;
   final double? rightIconHeight;
   final Visible leftIcon;
-  final String leftIconSrc;
+  final String? leftIconSrc;
   final EdgeInsets leftIconMargin;
   final double leftIconHeight;
   final double leftIconWidth;
@@ -154,7 +154,7 @@ class HorizontalTitleMsgView extends StatefulWidget {
     this.padding,
     this.margin,
     this.leftIcon = Visible.gone,
-    this.leftIconSrc = 'assets/ic_moren.png',
+    this.leftIconSrc,
     this.leftIconMargin = const EdgeInsets.only(right: 12),
     this.leftIconHeight = 18,
     this.leftIconWidth = 18,
@@ -239,7 +239,7 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
               width: double.infinity,
               height: .5,
               color:
-              widget.topLineColor ?? BaseColorUtils.colorGreyLiteLiteLite,
+                  widget.topLineColor ?? BaseColorUtils.colorGreyLiteLiteLite,
             ),
             color: widget.bgColor,
           ),
@@ -251,32 +251,35 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
           padding: widget.padding,
           child: Row(
             crossAxisAlignment:
-            widget.crossAxisAlignment ?? CrossAxisAlignment.center,
+                widget.crossAxisAlignment ?? CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  widget.leftIcon == Visible.gone ? Visibility(
-                    child: ImageView(
-                      src: widget.leftIconSrc,
-                      width: widget.leftIconWidth,
-                      height: widget.leftIconHeight,
-                      radius: widget.legtIconRadius,
-                      fit: BoxFit.fitWidth,
-                      margin: widget.leftIconMargin,
-                    ),
-                    visible: widget.leftIcon == Visible.gone ? false : true,
-                  ) : VisibleView(
-                    child: ImageView(
-                      src: widget.leftIconSrc,
-                      width: widget.leftIconWidth,
-                      height: widget.leftIconHeight,
-                      radius: widget.legtIconRadius,
-                      fit: BoxFit.fitWidth,
-                      margin: widget.leftIconMargin,
-                    ),
-                    visible: widget.leftIcon,
-                  ),
+                  widget.leftIcon == Visible.gone
+                      ? Visibility(
+                          child: ImageView(
+                            src: widget.leftIconSrc ?? source('ic_moren'),
+                            width: widget.leftIconWidth,
+                            height: widget.leftIconHeight,
+                            radius: widget.legtIconRadius,
+                            fit: BoxFit.fitWidth,
+                            margin: widget.leftIconMargin,
+                          ),
+                          visible:
+                              widget.leftIcon == Visible.gone ? false : true,
+                        )
+                      : VisibleView(
+                          child: ImageView(
+                            src: widget.leftIconSrc ?? source('ic_moren'),
+                            width: widget.leftIconWidth,
+                            height: widget.leftIconHeight,
+                            radius: widget.legtIconRadius,
+                            fit: BoxFit.fitWidth,
+                            margin: widget.leftIconMargin,
+                          ),
+                          visible: widget.leftIcon,
+                        ),
                   TextView(
                     widget.title,
                     margin: widget.leftIcon == Visible.gone
@@ -304,69 +307,65 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
               ),
               Expanded(
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      VisibleView(
-                        child: Clickable(
-                          child: TextView(
-                            null == widget.subMsg
-                                ? KayoPackage.share.nullText
-                                : widget.subMsg!,
-                            bgColor: widget.msgBgColor,
-                            maxLine: 5,
-                            width: widget.subMsgWidth,
-                            textAlign: TextAlign.right,
-                            padding: EdgeInsets.only(
-                                right: !BaseSysUtils.empty(widget.msg)
-                                    ? 16
-                                    : 0),
-                            fontWeight: widget.subMsgFontWeight,
-                            color: widget.subMsgColor,
-                            size: widget.subMsgSize,
-                          ),
-                          onTap: widget.subMsgClick,
-                        ),
-                        visible: BaseSysUtils.empty(widget.subMsg)
-                            ? Visible.gone
-                            : Visible.visible,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  VisibleView(
+                    child: Clickable(
+                      child: TextView(
+                        null == widget.subMsg
+                            ? KayoPackage.share.nullText
+                            : widget.subMsg!,
+                        bgColor: widget.msgBgColor,
+                        maxLine: 5,
+                        width: widget.subMsgWidth,
+                        textAlign: TextAlign.right,
+                        padding: EdgeInsets.only(
+                            right: !BaseSysUtils.empty(widget.msg) ? 16 : 0),
+                        fontWeight: widget.subMsgFontWeight,
+                        color: widget.subMsgColor,
+                        size: widget.subMsgSize,
                       ),
-                      widget.msgEditable
-                          ? (widget.msgEditableFull == true
+                      onTap: widget.subMsgClick,
+                    ),
+                    visible: BaseSysUtils.empty(widget.subMsg)
+                        ? Visible.gone
+                        : Visible.visible,
+                  ),
+                  widget.msgEditable
+                      ? (widget.msgEditableFull == true
                           ? Expanded(child: _msgEditContainer)
                           : _msgEditContainer)
-                          : Expanded(
+                      : Expanded(
                           child: Clickable(
-                            radius: 5,
-                            child: TextView(
-                              null == widget.msg
-                                  ? KayoPackage.share.nullText
-                                  : widget.msg,
-                              bgColor: widget.msgBgColor,
-                              textAlign: TextAlign.right,
-                              padding: widget.msgPadding,
-                              margin: EdgeInsets.only(
-                                  left: 8, right: widget.rightIcon ? 8 : 0),
-                              fontWeight: widget.msgFontWeight,
-                              color: widget.msgColor,
-                              size: widget.msgSize,
-                              maxLine: widget.msgMaxLine ?? 2,
-                            ),
-                            onTap: widget.onMsgClick,
+                          radius: 5,
+                          child: TextView(
+                            null == widget.msg
+                                ? KayoPackage.share.nullText
+                                : widget.msg,
                             bgColor: widget.msgBgColor,
-                          )),
-                      VisibleView(
-                        child: ImageView(
-                          src: widget.rightIconSrc ??
-                              'assets/ic_arrow_right.png',
-                          width: widget.rightIconWidth ?? 6,
-                          height: widget.rightIconHeight ?? 11,
-                          color: widget.rightIconColor,
-                        ),
-                        visible: widget.rightIcon ? Visible.visible : Visible
-                            .gone,
-                      ),
-                    ],
-                  )),
+                            textAlign: TextAlign.right,
+                            padding: widget.msgPadding,
+                            margin: EdgeInsets.only(
+                                left: 8, right: widget.rightIcon ? 8 : 0),
+                            fontWeight: widget.msgFontWeight,
+                            color: widget.msgColor,
+                            size: widget.msgSize,
+                            maxLine: widget.msgMaxLine ?? 2,
+                          ),
+                          onTap: widget.onMsgClick,
+                          bgColor: widget.msgBgColor,
+                        )),
+                  VisibleView(
+                    child: ImageView(
+                      src: widget.rightIconSrc ?? source('ic_arrow_right'),
+                      width: widget.rightIconWidth ?? 6,
+                      height: widget.rightIconHeight ?? 11,
+                      color: widget.rightIconColor,
+                    ),
+                    visible: widget.rightIcon ? Visible.visible : Visible.gone,
+                  ),
+                ],
+              )),
             ],
           ),
         ),
@@ -398,12 +397,12 @@ class HorizontalTitleMsgViewState extends State<HorizontalTitleMsgView> {
 //              padding: EdgeInsets.all(0),
                   child: column),
             )*/
-      Clickable(
-        bgColor: widget.bgColor,
-        child: column,
-        padding: EdgeInsets.zero,
-        onTap: widget.onClick,
-      ),
+          Clickable(
+              bgColor: widget.bgColor,
+              child: column,
+              padding: EdgeInsets.zero,
+              onTap: widget.onClick,
+            ),
     );
     //     Clickable(
     //   bgColor: widget.bgColor,
