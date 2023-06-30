@@ -50,7 +50,7 @@ class F {
   static Widget CupertinoAlertDialog({
     Widget? title,
     Widget? content,
-    List<Widget>? Widget,
+    List<Widget>? actions,
   }) {
     return ToolBar(
         backgroundColor: BaseColorUtils.colorWhite,
@@ -80,7 +80,7 @@ class F {
               padding: EdgeInsets.all(20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: Widget ?? [],
+                children: actions ?? [],
               ),
             )
           ],
