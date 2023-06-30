@@ -5,7 +5,7 @@ import 'package:kayo_package/views/widget/base/button_view.dart';
 import 'package:kayo_package/views/widget/base/line_view.dart';
 import 'package:kayo_package/views/widget/base/text_view.dart';
 import 'package:flutter/material.dart';
-import 'package:mpcore/mpcore.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
 
 ///  kayo_plugin
 ///  views.widget.alert

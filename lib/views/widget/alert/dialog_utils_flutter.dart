@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' as m;
 import 'package:flutter/services.dart';
-import 'package:kayo_package/kayo_package.dart';
+import 'package:kayo_package/utils/base_color_utils.dart';
+import 'package:kayo_package/views/widget/base/text_view.dart';
 
 ///
 ///  waste

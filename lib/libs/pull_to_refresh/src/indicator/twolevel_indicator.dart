@@ -10,7 +10,7 @@ import 'package:flutter/widgets.dart';
 import 'classic_indicator.dart';
 import '../smart_refresher.dart';
 import 'package:flutter/material.dart';
-import 'package:mpcore/mpcore.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
 
 enum TwoLevelDisplayAlignment { fromTop, fromCenter, fromBottom }
 

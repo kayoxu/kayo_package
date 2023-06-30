@@ -14,7 +14,7 @@ import '../internals/indicator_wrap.dart';
 import 'package:flutter/cupertino.dart';
 import '../smart_refresher.dart';
 import 'package:flutter/material.dart';
-import 'package:mpcore/mpcore.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
 
 
 /// QQ ios refresh  header effect

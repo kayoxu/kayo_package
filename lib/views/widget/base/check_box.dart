@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kayo_package/kayo_package.dart';
-import 'package:kayo_package/utils/base_sys_utils.dart';
+import 'package:kayo_package/utils/base_color_utils.dart';
 
 import 'clickable.dart';
 import 'text_view.dart';

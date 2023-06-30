@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:kayo_package/http/base_code.dart';
+import 'package:kayo_package/http/bean/base_result_data.dart';
 import 'dart:collection';
-import 'package:connectivity/connectivity.dart';
 import 'package:kayo_package/http/bean/result_enum.dart';
+import 'package:kayo_package/utils/base_sys_utils.dart';
 
-import 'package:kayo_package/kayo_package.dart';
+import 'dart:convert' show json;
 
-import 'dart:convert' show json, utf8;
+import 'package:kayo_package/utils/loading_utils.dart';
 
 ///  tfblue_flutter_module
 ///  common.http

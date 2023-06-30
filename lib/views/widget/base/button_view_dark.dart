@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kayo_package/kayo_package.dart';
+import 'package:kayo_package/extension/base_build_context_extension.dart';
+import 'package:kayo_package/views/widget/base/button_view.dart';
 
 /// 默认字号18，白字蓝底，高度48
 class ButtonViewDark extends StatelessWidget {
@@ -39,37 +40,6 @@ class ButtonViewDark extends StatelessWidget {
 
     return ButtonView(
       onPressed: onPressed  ,
-      // style: ButtonStyle(
-      //   // 文字颜色
-      //   foregroundColor: MaterialStateProperty.resolveWith((states) {
-      //       if (states.contains(MaterialState.disabled)) {
-      //         return disabledTextColor ?? (isDark ? Color(0xFFCEDBF2) : Color(0xFFD4E2FA));
-      //       }
-      //       return textColor ?? (isDark ? Color(0xFFF2F2F2) : Colors.white);
-      //     },
-      //   ),
-      //   // 背景颜色
-      //   backgroundColor: MaterialStateProperty.resolveWith((states) {
-      //     if (states.contains(MaterialState.disabled)) {
-      //       return disabledBackgroundColor /*?? context.theme.colorScheme.secondary.dark*/;
-      //     }
-      //     return backgroundColor /*?? (isDark ?  context.theme.colorScheme.secondary: context.theme.primaryColor)*/;
-      //   }),
-      //   // 水波纹
-      //   overlayColor: MaterialStateProperty.resolveWith((states) {
-      //     return (textColor ?? (isDark ? Color(0xFFF2F2F2) : Colors.white)).withOpacity(0.12);
-      //   }),
-      //   // 按钮最小大小
-      //   minimumSize: (minWidth == null || minHeight == null) ? null : MaterialStateProperty.all<Size>(Size(minWidth!, minHeight!)),
-      //   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(padding),
-      //   shape: MaterialStateProperty.all<OutlinedBorder>(
-      //     RoundedRectangleBorder(
-      //       borderRadius: BorderRadius.circular(radius),
-      //     ),
-      //   ),
-      //   side: MaterialStateProperty.all<BorderSide>(side),
-      // ),
-      // child: Text(text, style: TextStyle(fontSize: fontSize),),
       text: text,
       textSize: fontSize,
       color: textColor,

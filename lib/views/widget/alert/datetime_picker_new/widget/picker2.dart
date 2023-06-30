@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/widgets.dart';
-import 'package:mpcore/mpcore.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
 
 class CupertinoPicker extends StatefulWidget {
   CupertinoPicker.builder({

@@ -12,7 +12,7 @@ import 'package:kayo_package/utils/base_color_utils.dart';
 import '../internals/indicator_wrap.dart';
 import '../smart_refresher.dart';
 import 'package:flutter/material.dart';
-import 'package:mpcore/mpcore.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
 
 // How much the scroll's drag gesture can overshoot the RefreshIndicator's
 // displacement; max displacement = _kDragSizeFactorLimit * displacement.

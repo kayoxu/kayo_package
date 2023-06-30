@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kayo_package/kayo_package.dart';
+import 'package:kayo_package/utils/base_color_utils.dart';
+import 'package:kayo_package/views/widget/base/clickable.dart';
 import 'package:kayo_package/views/widget/base/keyboard/cool_ui.dart';
-import 'package:flutter/material.dart';
-import 'package:mpcore/mpcore.dart';
+import 'package:kayo_package/views/widget/base/text_view.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
 import 'keyboard_tools.dart';
 
 class KeyboardPhone extends StatefulWidget {

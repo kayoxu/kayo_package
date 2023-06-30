@@ -2,13 +2,12 @@ import 'dart:core';
 import 'dart:io';
 
 import 'package:event_bus/event_bus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kayo_package/kayo_package.dart';
+import 'package:kayo_package/utils/base_sys_utils.dart';
 import 'package:kayo_package/utils/page_route_builder.dart';
-import 'package:flutter/material.dart';
-import 'package:mpcore/mpcore.dart';
+import 'package:kayo_package/utils/platform_utils.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
 
 ///  smart_community
 ///  common.common.utils

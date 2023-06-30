@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:kayo_package/kayo_package.dart';
+import 'package:kayo_package/extension/base_string_extension.dart';
 
 ///价格输入框和数量输入框的限制
 class PrecisionLimitFormatter extends TextInputFormatter {

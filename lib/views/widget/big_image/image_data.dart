@@ -17,7 +17,7 @@ class ImageData {
   File? file;
   String? path;
   num? size;
-  final String? name;
+  String? name;
   String? url;
   Uint8List? bytes;
 

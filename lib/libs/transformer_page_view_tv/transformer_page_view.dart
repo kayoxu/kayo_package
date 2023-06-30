@@ -3,7 +3,7 @@ library transformer_page_view;
 import 'package:flutter/widgets.dart';
 import 'package:kayo_package/libs/transformer_page_view_tv/index_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:mpcore/mpcore.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
 
 
 ///

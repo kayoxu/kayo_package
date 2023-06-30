@@ -29,7 +29,7 @@ import 'style/react_circle_tab_style.dart';
 import 'style/react_tab_style.dart';
 import 'style/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:mpcore/mpcore.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
 
 
 /// Default size of the curve line.

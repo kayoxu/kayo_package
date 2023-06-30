@@ -4,7 +4,7 @@ import 'package:kayo_package/utils/base_color_utils.dart';
 import 'package:kayo_package/utils/base_sys_utils.dart';
 import 'package:kayo_package/views/widget/base/image_view.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mpcore/mpcore.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
 
 ///  kayo_plugin
 ///  views.widget

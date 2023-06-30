@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kayo_package/kayo_package.dart';
-import 'package:flutter/material.dart';
-import 'package:mpcore/mpcore.dart';
+import 'package:kayo_package/views/widget/base/edit_view.dart';
+import 'package:kayo_package/views/widget/visible_view.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
 
 @Deprecated('Use `Other` widget instead')
 class TextWithDrawable extends StatelessWidget {
@@ -496,20 +496,7 @@ class IncludeWidget {
       inputFormatters: [
         if (null != reg) FilteringTextInputFormatter.allow(reg),
       ],
-      // decoration: InputDecoration(
-      //   hintText: hintText,
-      //   hintStyle: TextStyle(
-      //     color: hintColor,
-      //     fontSize: fontSize,
-      //   ),
-      //   contentPadding: contentPadding,
-      //   border: InputBorder.none,
-      //   suffixText: unit,
-      //   suffixStyle: TextStyle(
-      //     color: valueColor,
-      //     fontSize: fontSize,
-      //   ),
-      // ),
+
       textStyle: TextStyle(
         color: valueColor,
         fontSize: fontSize,

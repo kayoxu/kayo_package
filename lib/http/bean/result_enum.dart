@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:kayo_package/kayo_package.dart';
-
 ///
 ///  kayo_package
 ///  result_enum.dart

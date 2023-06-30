@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mpcore/mpcore.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
 
 
 ///支持顶部和顶部的TabBar控件

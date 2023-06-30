@@ -1,11 +1,7 @@
-
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kayo_package/kayo_package.dart';
-import 'package:flutter/material.dart';
-import 'package:mpcore/mpcore.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
+import 'package:kayo_package/views/common/404.dart';
 
 extension BasePageRoute on Widget? {
   ///

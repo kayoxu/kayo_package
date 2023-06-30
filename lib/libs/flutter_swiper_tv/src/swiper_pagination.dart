@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:kayo_package/libs/flutter_page_indicator_tv/flutter_page_indicator.dart';
 import 'package:kayo_package/libs/flutter_swiper_tv/src/swiper.dart';
 import 'package:kayo_package/libs/flutter_swiper_tv/src/swiper_plugin.dart';
-import 'package:kayo_package/kayo_package.dart';
+import 'package:kayo_package/utils/base_color_utils.dart';
 
 
 class FractionPaginationBuilder extends SwiperPlugin {

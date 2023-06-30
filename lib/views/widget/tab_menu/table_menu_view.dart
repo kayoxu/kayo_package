@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:kayo_package/kayo_package.dart';
+import 'package:kayo_package/utils/base_color_utils.dart';
+import 'package:kayo_package/views/widget/base/clickable.dart';
+import 'package:kayo_package/views/widget/base/line_view.dart';
+import 'package:kayo_package/views/widget/base/text_view.dart';
+import 'package:kayo_package/views/widget/tab_menu/bean/tab_menu.dart';
+import 'package:kayo_package/views/widget/visible_view.dart';
 
 typedef TabMenuBuilder = Widget Function(
     BuildContext context, TabMenu data, bool checked);

@@ -1,16 +1,9 @@
 import 'dart:io';
 
-// import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:kayo_package/kayo_package.dart';
-import 'package:kayo_package/utils/base_color_utils.dart';
+import 'package:kayo_package/extension/base_widget_extension.dart';
+import 'package:kayo_package/kayo_package_utils.dart';
 import 'package:kayo_package/views/widget/base/clickable.dart';
-//import 'package:flutter_svg/flutter_svg.dart';
-
-import 'dart:async';
-
-// import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:http/http.dart' as http;
 
 ///
 ///  flutter_demo
@@ -22,8 +15,7 @@ import 'package:http/http.dart' as http;
 ///
 source(String src, {String suffix = '.png'}) {
   if (!suffix.contains(".")) suffix = '.$suffix';
-  return 'http://apizt.kayoxu.com:9998/assets/${KayoPackage.share
-      .imageSourcePrefix}$src$suffix';
+  return 'http://apizt.kayoxu.com:9998/assets/${KayoPackage.share.imageSourcePrefix}$src$suffix';
 }
 
 sourceSrc(String src, {String suffix = '.png'}) {
@@ -118,20 +110,6 @@ class ImageViewState extends State<ImageView> {
       if (null != widget.url && widget.url != '' && widget.url!.length > 10 ||
           widget.src?.startsWith('http') == true) {
         if (widget.useCache == true && false) {
-          // image = CachedNetworkImage(
-          //   placeholder: (context, str) {
-          //     return Image.asset(widget.defaultImage ??
-          //         'packages/kayo_package/assets/ic_no_data.png');
-          //   },
-          //   cacheManager: KayoPackage.share.ignoreSSL == true
-          //       ? EsoImageCacheManager()
-          //       : null,
-          //   imageUrl: widget.url!,
-          //   width: widget.width,
-          //   height: widget.height,
-          //   color: widget.color,
-          //   fit: widget.fit,
-          // );
         } else {
           image = FadeInImage.assetNetwork(
             placeholder: widget.defaultImage ??
@@ -143,15 +121,6 @@ class ImageViewState extends State<ImageView> {
           );
         }
       } else if ((widget.src ?? '') != '') {
-//      if (widget.src.endsWith('.svg')) {
-//        image = SvgPicture.asset(
-//          widget.src,
-//          color: widget.color,
-//          width: widget.width,
-//          height: widget.height,
-//        );
-//      } else
-
         {
           image = Image.asset(
             widget.src ?? '',
@@ -187,14 +156,14 @@ class ImageViewState extends State<ImageView> {
         child: null == widget.onClick
             ? image
             : AnimatedContainer(
-          duration: Duration(milliseconds: 100),
-          foregroundDecoration: BoxDecoration(
-            color: isDown
-                ? Colors.grey.withOpacity(0.1)
-                : Colors.transparent,
-          ),
-          child: image,
-        ),
+                duration: Duration(milliseconds: 100),
+                foregroundDecoration: BoxDecoration(
+                  color: isDown
+                      ? Colors.grey.withOpacity(0.1)
+                      : Colors.transparent,
+                ),
+                child: image,
+              ),
       ),
     );
 
@@ -203,90 +172,48 @@ class ImageViewState extends State<ImageView> {
         : AspectRatio(aspectRatio: widget.aspectRatio ?? 1, child: container);
 
     return (null != widget.imagePadding
-        ? Container(
-      decoration: BoxDecoration(
-        color: widget.imagePaddingColor ?? Colors.transparent,
-        borderRadius:
-        BorderRadius.circular(widget.imagePaddingRadius ?? 0),
-      ),
-      padding: widget.imagePadding,
-      alignment: Alignment.center,
-      child: image,
-    )
-        : Clickable(
-      margin: widget.margin,
-      padding: widget.padding,
-      child: container2,
-      radius: widget.radius,
-      onTap: widget.onClick,
-      onLongPress: widget.onLongClick,
-      bgColor: Colors.transparent,
-      elevation: widget.elevation,
-      shadowColor: widget.shadowColor,
-      materialBtn: false,
-      onTapDown: (d) {
-        setState(() {
-          isDown = true;
-        });
-      },
+            ? Container(
+                decoration: BoxDecoration(
+                  color: widget.imagePaddingColor ?? Colors.transparent,
+                  borderRadius:
+                      BorderRadius.circular(widget.imagePaddingRadius ?? 0),
+                ),
+                padding: widget.imagePadding,
+                alignment: Alignment.center,
+                child: image,
+              )
+            : Clickable(
+                margin: widget.margin,
+                padding: widget.padding,
+                child: container2,
+                radius: widget.radius,
+                onTap: widget.onClick,
+                onLongPress: widget.onLongClick,
+                bgColor: Colors.transparent,
+                elevation: widget.elevation,
+                shadowColor: widget.shadowColor,
+                materialBtn: false,
+                onTapDown: (d) {
+                  setState(() {
+                    isDown = true;
+                  });
+                },
 
-      onHighlightChanged: (b) {
-        if (!b) {
-          setState(() {
-            isDown = false;
-          });
-        }
-      },
-      //      onTapUp: (d) => setState(() => this.isDown = false),
-      onTapCancel: () {
-        setState(() {
-          isDown = false;
-        });
-      },
-    ))
+                onHighlightChanged: (b) {
+                  if (!b) {
+                    setState(() {
+                      isDown = false;
+                    });
+                  }
+                },
+                //      onTapUp: (d) => setState(() => this.isDown = false),
+                onTapCancel: () {
+                  setState(() {
+                    isDown = false;
+                  });
+                },
+              ))
         .addIgnorePointer(
-        ignoring: null == widget.onClick && null == widget.onLongClick);
+            ignoring: null == widget.onClick && null == widget.onLongClick);
   }
 }
-
-// class EsoImageCacheManager extends CacheManager {
-//   static const key = 'libEsoCachedImageData';
-//
-//   static EsoImageCacheManager? _instance;
-//
-//   factory EsoImageCacheManager() {
-//     _instance ??= EsoImageCacheManager._();
-//     return _instance!;
-//   }
-//
-//   EsoImageCacheManager._()
-//       : super(Config(key, fileService: EsoHttpFileService()));
-// }
-
-// class EsoHttpFileService extends FileService {
-//   late HttpClient _httpClient;
-//
-//   EsoHttpFileService({HttpClient? httpClient}) {
-//     _httpClient = httpClient ?? HttpClient();
-//     _httpClient.badCertificateCallback = (cert, host, port) => true;
-//   }
-//
-//   @override
-//   Future<FileServiceResponse> get(String url,
-//       {Map<String, String>? headers}) async {
-//     final Uri resolved = Uri.base.resolve(url);
-//     final HttpClientRequest? req = await _httpClient.getUrl(resolved);
-//     headers?.forEach((key, value) {
-//       req?.headers.add(key, value);
-//     });
-//     final HttpClientResponse httpResponse = await req!.close();
-//     final http.StreamedResponse _response = http.StreamedResponse(
-//       httpResponse.timeout(Duration(seconds: 60)),
-//       httpResponse.statusCode,
-//       contentLength: httpResponse.contentLength,
-//       reasonPhrase: httpResponse.reasonPhrase,
-//       isRedirect: httpResponse.isRedirect,
-//     );
-//     return HttpGetResponse(_response);
-//   }
-// }

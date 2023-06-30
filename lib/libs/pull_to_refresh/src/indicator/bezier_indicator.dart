@@ -4,21 +4,14 @@
  * Time:  2019-08-02 19:20
  */
 
-import 'package:flutter/animation.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart'
     hide RefreshIndicator, RefreshIndicatorState;
 import 'package:kayo_package/libs/pull_to_refresh/src/internals/indicator_wrap.dart';
 import 'package:kayo_package/libs/pull_to_refresh/src/smart_refresher.dart';
-import 'package:kayo_package/libs/pull_to_refresh/src/internals/indicator_wrap.dart';
 import 'dart:math' as math;
 import 'package:flutter/physics.dart';
-import 'package:flutter/material.dart';
-import 'package:mpcore/mpcore.dart';
-import 'package:kayo_package/kayo_package.dart';
-import 'package:flutter/material.dart';
-import 'package:mpcore/mpcore.dart';
+import 'package:kayo_package/utils/base_color_utils.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
 
 enum BezierDismissType { None, RectSpread, ScaleToCenter }
 
@@ -45,16 +38,17 @@ class BezierHeader extends RefreshIndicator {
   // container height(not contain bezier)
   final double rectHeight;
 
-  BezierHeader({this.child: const Text(""),
-    this.onOffsetChange,
-    this.onModeChange,
-    this.readyRefresh,
-    this.enableChildOverflow: false,
-    this.endRefresh,
-    this.onResetValue,
-    this.dismissType: BezierDismissType.RectSpread,
-    this.rectHeight: 70,
-    this.bezierColor})
+  BezierHeader(
+      {this.child: const Text(""),
+      this.onOffsetChange,
+      this.onModeChange,
+      this.readyRefresh,
+      this.enableChildOverflow: false,
+      this.endRefresh,
+      this.onResetValue,
+      this.dismissType: BezierDismissType.RectSpread,
+      this.rectHeight: 70,
+      this.bezierColor})
       : super(refreshStyle: RefreshStyle.UnFollow, height: rectHeight);
 
   @override
@@ -159,8 +153,7 @@ class _BezierHeaderState extends RefreshIndicatorState<BezierHeader>
                     child: ClipPath(
                       child: Container(
                         height: widget.rectHeight + 30,
-                        color: widget.bezierColor ??
-                            BaseColorUtils.colorAccent,
+                        color: widget.bezierColor ?? BaseColorUtils.colorAccent,
                       ),
                       clipper: _BezierPainter(
                           value: _beizerBounceCtl.value,
@@ -180,23 +173,23 @@ class _BezierHeaderState extends RefreshIndicatorState<BezierHeader>
             ),
             !widget.enableChildOverflow
                 ? ClipRect(
-              child: Container(
-                height: (_beizerBounceCtl.isAnimating ||
-                    mode == RefreshStatus.refreshing
-                    ? 0
-                    : math.max(0, _beizerBounceCtl.value)) +
-                    widget.rectHeight,
-                child: widget.child,
-              ),
-            )
+                    child: Container(
+                      height: (_beizerBounceCtl.isAnimating ||
+                                  mode == RefreshStatus.refreshing
+                              ? 0
+                              : math.max(0, _beizerBounceCtl.value)) +
+                          widget.rectHeight,
+                      child: widget.child,
+                    ),
+                  )
                 : Container(
-              height: (_beizerBounceCtl.isAnimating ||
-                  mode == RefreshStatus.refreshing
-                  ? 0
-                  : math.max(0, _beizerBounceCtl.value)) +
-                  widget.rectHeight,
-              child: widget.child,
-            ),
+                    height: (_beizerBounceCtl.isAnimating ||
+                                mode == RefreshStatus.refreshing
+                            ? 0
+                            : math.max(0, _beizerBounceCtl.value)) +
+                        widget.rectHeight,
+                    child: widget.child,
+                  ),
           ],
         );
       },
@@ -312,13 +305,14 @@ class BezierCircleHeader extends StatefulWidget {
 
   final BezierDismissType dismissType;
 
-  BezierCircleHeader({this.bezierColor,
-    this.rectHeight: 70,
-    this.circleColor: Colors.white,
-    this.enableChildOverflow: false,
-    this.dismissType: BezierDismissType.RectSpread,
-    this.circleType: BezierCircleType.Progress,
-    this.circleRadius: 12});
+  BezierCircleHeader(
+      {this.bezierColor,
+      this.rectHeight: 70,
+      this.circleColor: Colors.white,
+      this.enableChildOverflow: false,
+      this.dismissType: BezierDismissType.RectSpread,
+      this.circleType: BezierCircleType.Progress,
+      this.circleRadius: 12});
 
   @override
   State<StatefulWidget> createState() {
@@ -390,42 +384,42 @@ class _BezierCircleHeaderState extends State<BezierCircleHeader>
         child: AlignTransition(
           child: widget.circleType == BezierCircleType.Progress
               ? Container(
-            height: widget.circleRadius * 2 + 5,
-            child: Stack(
-              children: <Widget>[
-                Center(
-                  child: Container(
-                    height: widget.circleRadius * 2,
-                    decoration: BoxDecoration(
-                        color: widget.circleColor,
-                        shape: BoxShape.circle),
-                  ),
-                ),
-                Center(
-                  child: SizedBox(
-                    child: MPCircularProgressIndicator(),
-                    height: widget.circleRadius * 2 + 5,
-                    width: widget.circleRadius * 2 + 5,
+                  height: widget.circleRadius * 2 + 5,
+                  child: Stack(
+                    children: <Widget>[
+                      Center(
+                        child: Container(
+                          height: widget.circleRadius * 2,
+                          decoration: BoxDecoration(
+                              color: widget.circleColor,
+                              shape: BoxShape.circle),
+                        ),
+                      ),
+                      Center(
+                        child: SizedBox(
+                          child: MPCircularProgressIndicator(),
+                          height: widget.circleRadius * 2 + 5,
+                          width: widget.circleRadius * 2 + 5,
+                        ),
+                      )
+                    ],
                   ),
                 )
-              ],
-            ),
-          )
               : AnimatedBuilder(
-            builder: (_, __) {
-              return Container(
-                height: widget.circleRadius * 2,
-                child: CustomPaint(
-                  painter: _RaidalPainter(
-                      value: _radialCtrl.value,
-                      circleColor: widget.circleColor,
-                      circleRadius: widget.circleRadius,
-                      refreshing: mode == RefreshStatus.refreshing),
+                  builder: (_, __) {
+                    return Container(
+                      height: widget.circleRadius * 2,
+                      child: CustomPaint(
+                        painter: _RaidalPainter(
+                            value: _radialCtrl.value,
+                            circleColor: widget.circleColor,
+                            circleRadius: widget.circleRadius,
+                            refreshing: mode == RefreshStatus.refreshing),
+                      ),
+                    );
+                  },
+                  animation: _radialCtrl,
                 ),
-              );
-            },
-            animation: _radialCtrl,
-          ),
           alignment: _childMoveCtl
               .drive(_childMoveTween as Animatable<AlignmentGeometry>),
         ),

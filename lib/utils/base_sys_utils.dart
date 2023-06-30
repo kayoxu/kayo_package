@@ -5,8 +5,11 @@ import 'dart:math';
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
-import 'package:kayo_package/kayo_package.dart';
 import 'package:flutter/ui/ui.dart' as ui;
+import 'package:kayo_package/extension/base_object_extension.dart';
+import 'package:kayo_package/kayo_package_utils.dart';
+import 'package:kayo_package/utils/base_color_utils.dart';
+import 'package:kayo_package/utils/platform_utils.dart';
 import 'package:kayo_package/views/widget/big_image/image_data.dart';
 
 ///  smart_community

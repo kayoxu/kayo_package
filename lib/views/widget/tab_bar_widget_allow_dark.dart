@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:kayo_package/libs/convex_bottom_bar/convex_bottom_bar.dart';
-import 'package:mpcore/mpcore.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
 
 
 ///支持顶部和顶部的TabBar控件

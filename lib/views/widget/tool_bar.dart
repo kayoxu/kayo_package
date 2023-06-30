@@ -1,11 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kayo_package/kayo_package.dart';
+import 'package:kayo_package/kayo_package_utils.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:mpcore/mpcore.dart';
-
+import 'package:kayo_package/views/widget/base/clickable.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
 import 'base/image_view.dart';
 
 ///  kayo_plugin
@@ -181,24 +181,10 @@ class ToolBarState extends State<ToolBar> {
             child: widget.child,
           );
     var scaffold = MPScaffold(
-      // key: widget.key,
-      // resizeToAvoidBottomPadding: widget.resizeToAvoidBottomPadding,
-      // resizeToAvoidBottomInset: widget.resizeToAvoidBottomPadding,
       name: widget.title,
       backgroundColor: null != widget.backgroundColor
           ? widget.backgroundColor
           : BaseColorUtils.colorWindow,
-      // drawer: widget.drawer,
-      // drawerDragStartBehavior:
-      // widget.drawerDragStartBehavior ?? DragStartBehavior.start,
-      // drawerEdgeDragWidth: widget.drawerEdgeDragWidth,
-      // drawerEnableOpenDragGesture: widget.drawerEnableOpenDragGesture ?? true,
-      // drawerScrimColor: widget.drawerScrimColor,
-      // endDrawer: widget.endDrawer,
-      // endDrawerEnableOpenDragGesture:
-      // widget.endDrawerEnableOpenDragGesture ?? true,
-      // onDrawerChanged: widget.onDrawerChanged,
-      // onEndDrawerChanged: widget.onEndDrawerChanged,
       appBar: widget.noAppBar == true
           ? null
           : (-1 == widget.toolbarHeight

@@ -1,16 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kayo_package/kayo_package.dart';
-import 'package:kayo_package/libs/fluttertoast/fluttertoast.dart';
+import 'package:kayo_package/kayo_package_utils.dart';
+
 import 'package:kayo_package/libs/pull_to_refresh/src/indicator/custom_indicator.dart';
 import 'package:kayo_package/libs/pull_to_refresh/src/internals/refresh_localizations.dart';
 import 'package:kayo_package/libs/pull_to_refresh/src/smart_refresher.dart';
-import 'package:kayo_package/views/widget/base/image_view.dart';
-import 'package:flutter/material.dart';
-import 'package:mpcore/mpcore.dart';
-
-import 'base_color_utils.dart';
-import 'base_view_utils.dart';
+import 'package:kayo_package/utils/base_color_utils.dart';
+import 'package:kayo_package/utils/base_view_utils.dart';
+import 'package:kayo_package/utils/loading_utils.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
 
 ///
 ///  kayo_package
@@ -90,8 +88,8 @@ class BaseRefreshUtils {
     if (refresh) {
       controller?.refreshCompleted();
     } else {
-      Fluttertoast.showToast(
-          msg: dataSize < 1 ? '没有更多数据了' : '上拉加载了${dataSize}条数据');
+      LoadingUtils.showToast(
+          data: dataSize < 1 ? '没有更多数据了' : '上拉加载了${dataSize}条数据');
     }
     if (dataSize < 1 || dataSize < pageSize) {
       if (refresh == false) {

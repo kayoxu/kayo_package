@@ -1,7 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:kayo_package/kayo_package.dart';
-import 'package:flutter/material.dart';
-import 'package:mpcore/mpcore.dart';
+import 'package:kayo_package/views/widget/visible_view.dart';
+import 'package:kayo_package/views/widget/base/clickable.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
+
+extension AsyncSnapshotExtension on AsyncSnapshot? {
+  // Widget v(view) {
+  //   if (this?.connectionState == ConnectionState.done) {
+  //     if (this?.hasError == true) {
+  //       return Text('Error: ${this?.error}');
+  //     }
+  //     return view!;
+  //   }
+  //   return MPCircularProgressIndicator();
+  // }
+
+  Widget? loading() {
+    if (this?.connectionState == ConnectionState.done) {
+      if (this?.hasError == true) {
+        return Text('Error: ${this?.error}');
+      }
+      return null;
+    }
+    return MPCircularProgressIndicator();
+  }
+}
+
 
 extension BaseWidgetExtension on Widget? {
   ///设置widget的显示、隐藏、隐藏占位
@@ -23,8 +46,9 @@ extension BaseWidgetExtension on Widget? {
       //   child: this!,
       //   visible: visible ?? true,
       // );
-      return VisibleView(child: this!,
-        visible: (visible ?? true) ? Visible.visible : Visible.gone);
+      return VisibleView(
+          child: this!,
+          visible: (visible ?? true) ? Visible.visible : Visible.gone);
     }
     return SizedBox();
   }

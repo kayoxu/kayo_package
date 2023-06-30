@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kayo_package/kayo_package.dart';
+import 'package:kayo_package/utils/base_color_utils.dart';
+import 'package:kayo_package/utils/base_sys_utils.dart';
+import 'package:kayo_package/views/widget/base/image_view.dart';
+import 'package:kayo_package/views/widget/base/text_view.dart';
 
 ///  smart_lock_flutter
 ///  utils

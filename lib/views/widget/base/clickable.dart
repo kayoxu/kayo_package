@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kayo_package/kayo_package.dart';
+import 'package:kayo_package/extension/base_num_extension.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
-import 'package:kayo_package/views/widget/base/shadow_view.dart';
 
 ///  kayo_plugin
 ///  views.widget.base

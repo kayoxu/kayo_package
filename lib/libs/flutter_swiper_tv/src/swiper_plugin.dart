@@ -3,7 +3,7 @@ import 'package:kayo_package/libs/flutter_page_indicator_tv/flutter_page_indicat
 import 'package:kayo_package/libs/flutter_swiper_tv/src/swiper.dart';
 import 'package:kayo_package/libs/flutter_swiper_tv/src/swiper_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:mpcore/mpcore.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
 
 
 /// plugin to display swiper components

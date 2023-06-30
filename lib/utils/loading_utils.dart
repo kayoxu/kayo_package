@@ -1,12 +1,7 @@
 import 'dart:async';
-
-import 'package:flutter/material.dart';
-
-// import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:kayo_package/kayo_package.dart';
-import 'package:kayo_package/libs/fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'package:mpcore/mpcore.dart';
+import 'package:kayo_package/kayo_package_utils.dart';
 
 ///
 ///  kayo_package
@@ -34,9 +29,10 @@ class LoadingUtils {
   Color? toastBgColor;
   Color? toastTextColor;
 
-  static TransitionBuilder? init({TransitionBuilder? builder,
-    Color? toastBgColor,
-    Color? toastTextColor}) {
+  static TransitionBuilder? init(
+      {TransitionBuilder? builder,
+      Color? toastBgColor,
+      Color? toastTextColor}) {
     share.toastBgColor = toastBgColor;
     share.toastTextColor = toastTextColor;
 
@@ -53,9 +49,6 @@ class LoadingUtils {
     });
 
     MPWebDialogs.showLoading(title: data ?? KayoPackage.share.loadingText);
-    // EasyLoading.show(
-    //     status: data ?? KayoPackage.share.loadingText,
-    //     dismissOnTap: dismissOnTap);
   }
 
   static showProgress({required double progress, String? data}) {
@@ -67,8 +60,6 @@ class LoadingUtils {
   }
 
   static showSuccess({String? data, int seconds = 2}) {
-    // EasyLoading.showSuccess(data ?? '',
-    //     duration: Duration(seconds: seconds ?? 2));
     MPWebDialogs.hideToast();
     MPWebDialogs.showToast(
         title: data ?? '',
@@ -94,28 +85,15 @@ class LoadingUtils {
         icon: ToastIcon.none);
   }
 
-  static showToast({String? data,
-    int timeInSecForIosWeb = 2,
-    ToastGravity gravity = ToastGravity.BOTTOM}) {
+  static showToast({String? data, int timeInSecForIosWeb = 2}) {
     MPWebDialogs.hideToast();
     MPWebDialogs.showToast(
         title: data ?? '',
         duration: Duration(milliseconds: timeInSecForIosWeb * 1000),
         icon: ToastIcon.none);
-    // EasyLoading.showToast(data ?? '');
-    // Fluttertoast.showToast(
-    //   msg: data ?? '',
-    //   gravity: gravity,
-    //   backgroundColor: share.toastBgColor,
-    //   textColor: share.toastTextColor,
-    //   toastLength:
-    //   timeInSecForIosWeb > 1 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT,
-    //   timeInSecForIosWeb: timeInSecForIosWeb,
-    // );
   }
 
   static dismiss() {
-    // EasyLoading.dismiss();
     MPWebDialogs.hideLoading();
   }
 }

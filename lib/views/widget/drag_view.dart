@@ -1,7 +1,4 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:kayo_package/kayo_package.dart';
 
 ///
 ///  kayo_package

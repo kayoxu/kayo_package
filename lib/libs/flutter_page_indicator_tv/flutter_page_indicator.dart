@@ -3,7 +3,7 @@ library flutter_page_indicator;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:mpcore/mpcore.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
 
 class WarmPainter extends BasePainter {
   WarmPainter(PageIndicator widget, int page, int index, Paint paint)

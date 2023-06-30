@@ -8,7 +8,7 @@ import '../date_picker_theme.dart';
 import '../date_picker_constants.dart';
 import '../i18n/date_picker_i18n.dart';
 import 'date_picker_title_widget.dart';
-import 'package:mpcore/mpcore.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
 import 'package:kayo_package/views/widget/alert/datetime_picker_new/widget/picker2.dart' as pk;
 
 /// Solar months of 31 days.

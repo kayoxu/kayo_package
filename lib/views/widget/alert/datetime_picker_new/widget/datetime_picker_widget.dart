@@ -10,7 +10,7 @@ import '../i18n/date_picker_i18n.dart';
 import 'date_picker_title_widget.dart';
 import 'date_picker_widget.dart';
 import 'picker2.dart' as pk;
-import 'package:mpcore/mpcore.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
 
 /// DateTimePicker widget. Can display date and time picker.
 ///

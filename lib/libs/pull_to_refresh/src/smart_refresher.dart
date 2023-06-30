@@ -14,7 +14,7 @@ import 'internals/refresh_physics.dart';
 import 'indicator/classic_indicator.dart';
 import 'indicator/material_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:mpcore/mpcore.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
 
 
 

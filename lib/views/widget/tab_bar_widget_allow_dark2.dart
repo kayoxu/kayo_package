@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:kayo_package/kayo_package.dart';
-import 'package:kayo_package/utils/base_color_utils.dart';
-import 'package:flutter/material.dart';
-import 'package:mpcore/mpcore.dart';
+import 'package:kayo_package/views/widget/tab_bar_widget.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
 
 ///支持顶部和顶部的TabBar控件
 ///配合AutomaticKeepAliveClientMixin可以keep住

@@ -1,7 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kayo_package/kayo_package.dart';
-import 'package:mpcore/mpcore.dart';
+import 'package:kayo_package/extension/color_extension.dart';
+import 'package:kayo_package/extension/base_object_extension.dart';
+import 'package:kayo_package/utils/base_color_utils.dart';
+import 'package:kayo_package/utils/base_sys_utils.dart';
+import 'package:kayo_package/views/widget/base/line_view.dart';
+import 'package:kayo_package/views/widget/base/text_view.dart';
+import 'package:kayo_package/views/widget/tool_bar.dart';
+import 'package:mpcore/mpkit/mpkit.dart';
 
 typedef DataChangedCallback(dynamic data);
 typedef DataChangedCallbackMore<T>(List<int> indexes, List<T> data);
@@ -142,9 +148,7 @@ class _BottomSheetSingleState<T> extends State<BottomSheetSingleWidgetNew<T>> {
               '${'${multipleChoice == true ? '(可多选)' : ''}'}',
       // leadingIcon: MPIcon(MaterialIcons.close),
       noBack: true,
-      child: SafeArea(
-          child: Column(
-        mainAxisSize: MainAxisSize.min,
+      child: Column(
         children: [
           Container(
             height: itemHeight,
@@ -264,7 +268,7 @@ class _BottomSheetSingleState<T> extends State<BottomSheetSingleWidgetNew<T>> {
             itemCount: (widget.datas?.length ?? 0),
           ))
         ],
-      )),
+      ),
     );
   }
 }
