@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:kayo_package/kayo_package_utils.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:kayo_package/utils/base_sys_utils.dart';
 import 'package:kayo_package/views/widget/base/clickable.dart';
 import 'package:mpcore/mpkit/mpkit.dart';
 import 'base/image_view.dart';
@@ -114,50 +115,63 @@ class ToolBar extends StatefulWidget {
 class ToolBarState extends State<ToolBar> {
   @override
   Widget build(BuildContext context) {
+    var ll = widget.noBack == true
+        ? Container()
+        : widget.leading != null
+            ? widget.leading
+            : (widget.iosBack == true || null != widget.leadingIcon
+                ? Clickable(
+                    alignment: Alignment.center,
+                    width: 40,
+                    height: 40,
+                    child: null != widget.leadingIcon
+                        ? widget.leadingIcon!
+                        : MPIcon(
+                            MaterialIcons.arrow_back_ios,
+                            color: Color(
+                              widget.darkStatusText == true
+                                  ? 0xff50525c
+                                  : 0xffffffff,
+                            ),
+                          ),
+
+                    onTap: widget.backClick ??
+                        (null != KayoPackage.share.onTapToolbarBack
+                            ? () {
+                                KayoPackage.share.onTapToolbarBack
+                                    ?.call(context);
+                              }
+                            : () async {
+                                try {
+                                  if (Navigator.canPop(context)) {
+                                    return Navigator.of(context).pop();
+                                  } else {
+                                    return await SystemNavigator.pop();
+                                  }
+                                } catch (e) {
+                                  print(e);
+                                  return await SystemNavigator.pop();
+                                }
+                              }), // null disables the button
+                  )
+                : null);
+
+    var leadi = ll;
+    if (!BaseSysUtils.empty(widget.actions)) {
+      var as = widget.actions;
+      if (null != ll) {
+        as!.insert(0, ll);
+      }
+      leadi = Row(
+        children: as!,
+      );
+    }
+
     PreferredSizeWidget toolbar = null == widget.appBar
         ? MPAppBar(
             context: context,
-            trailing: widget.actions?.first,
-            leading: widget.noBack == true
-                ? Container()
-                : widget.leading != null
-                    ? widget.leading
-                    : (widget.iosBack == true || null != widget.leadingIcon
-                        ? Clickable(
-                            alignment: Alignment.center,
-                            width: 40,
-                            height: 40,
-                            child: null != widget.leadingIcon
-                                ? widget.leadingIcon!
-                                : MPIcon(
-                                    MaterialIcons.arrow_back_ios,
-                                    color: Color(
-                                      widget.darkStatusText == true
-                                          ? 0xff50525c
-                                          : 0xffffffff,
-                                    ),
-                                  ),
-
-                            onTap: widget.backClick ??
-                                (null != KayoPackage.share.onTapToolbarBack
-                                    ? () {
-                                        KayoPackage.share.onTapToolbarBack
-                                            ?.call(context);
-                                      }
-                                    : () async {
-                                        try {
-                                          if (Navigator.canPop(context)) {
-                                            return Navigator.of(context).pop();
-                                          } else {
-                                            return await SystemNavigator.pop();
-                                          }
-                                        } catch (e) {
-                                          print(e);
-                                          return await SystemNavigator.pop();
-                                        }
-                                      }), // null disables the button
-                          )
-                        : null),
+            // trailing: widget.actions?.first,
+            leading: leadi,
             backgroundColor: null != widget.appbarColor
                 ? widget.appbarColor!
                 : BaseColorUtils.colorWindowWhite,

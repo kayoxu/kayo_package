@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
+import 'package:kayo_package/views/widget/tool_bar.dart';
 import 'package:kayo_package/views/widget/visible_view.dart';
 import 'package:kayo_package/views/widget/base/button_view.dart';
 import 'package:kayo_package/views/widget/base/line_view.dart';
@@ -23,7 +24,7 @@ class AlertSheet {
       required List<Widget> children,
       bool? showCancel = false,
       bool? textBold = true,
-      double? textSize = 14,
+      double? textSize = 16,
       String? cancelText = '取消',
       Color? cancelColor = BaseColorUtils.colorRed,
       VoidCallback? cancelCallback}) {
@@ -34,7 +35,8 @@ class AlertSheet {
         // backgroundColor: Colors.transparent,
         // isScrollControlled: true,
         builder: (context) {
-          return SafeArea(
+          return ToolBar(
+            noBack: true,
               child: Container(
             // color: BaseColorUtils.white,
             decoration: BoxDecoration(
@@ -83,6 +85,7 @@ class AlertSheet {
                             text: cancelText ?? '',
                             color: cancelColor ?? BaseColorUtils.colorBlack,
                             showLine: false,
+                            textSize: 16,
                             textBold: textBold ?? true,
                             callback: cancelCallback),
                       ],
@@ -107,7 +110,7 @@ class AlertSheet {
       text: text,
       showShadow: false,
       textSize: textSize,
-      fontWeight: textBold==true ? FontWeight.w600 : FontWeight.normal,
+      fontWeight: textBold == true ? FontWeight.w600 : FontWeight.normal,
       color: color,
       bgColor: BaseColorUtils.white,
       radius: 0,
@@ -117,7 +120,7 @@ class AlertSheet {
       onPressed: callback!,
     );
 
-    return  showLine!=true
+    return showLine != true
         ? action
         : Column(
             children: <Widget>[
