@@ -37,8 +37,23 @@ class F {
       builder: builder,
     );
   }
+  static Future<T> showDialog<T>(
+      {required BuildContext context, required WidgetBuilder builder}) {
+    return showMPDialog(
+      context: context,
+      builder: builder,
+    );
+  }
 
   static Widget CupertinoDialogAction({Widget? child, Function()? onPressed}) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        child: child,
+      ),
+    );
+  }
+  static Widget CupertinoActionSheetAction({Widget? child, Function()? onPressed}) {
     return GestureDetector(
       onTap: onPressed,
       child: Container(

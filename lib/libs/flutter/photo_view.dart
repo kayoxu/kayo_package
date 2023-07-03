@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:kayo_package/libs/flutter/swiper.dart';
 import 'package:kayo_package/utils/base_sys_utils.dart';
 import 'package:kayo_package/views/widget/base/image_view.dart';
+import 'package:kayo_package/views/widget/base/text_view.dart';
 import 'package:kayo_package/views/widget/tool_bar.dart';
 import 'package:mpcore/mpkit/mpkit.dart';
 
@@ -31,7 +32,9 @@ class PhotoViewPage extends StatelessWidget {
     return ToolBar(
         title: title ?? '查看图片',
         leadingIcon: MPIcon(MaterialIcons.close),
-        child: SwiperView(
+        child: BaseSysUtils.empty(us)
+            ? Container( alignment: Alignment.center,child: TextView('暂无图片'),)
+            : SwiperView(
           autoplay: false,
           dotIndicator: false,
           loop: false,
