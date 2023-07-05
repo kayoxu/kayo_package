@@ -1,5 +1,10 @@
 import 'dart:math';
 
+class BaseLatLng {
+  double? lat;
+  double? lng;
+}
+
 class GpsUtils {
   static const num pi = 3.1415926535897932384626;
   static const num x_pi = 3.14159265358979324 * 3000.0 / 180.0;
