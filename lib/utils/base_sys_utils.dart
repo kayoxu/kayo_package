@@ -263,11 +263,11 @@ class BaseSysUtils {
   }
 
   static Color indexColor(int index) {
-    if (index > 254) {
-      return randomColor(random: true);
-    }
     if (_indexColors.length != 256) {
       initIndexColors();
+    }
+    if (index > 254) {
+      return randomColor(random: true);
     }
     return _indexColors.findData<Color>(index) ?? randomColor(random: true);
   }

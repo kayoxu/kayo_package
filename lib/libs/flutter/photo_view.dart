@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:kayo_package/libs/flutter/swiper.dart';
+import 'package:kayo_package/utils/base_color_utils.dart';
 import 'package:kayo_package/utils/base_sys_utils.dart';
 import 'package:kayo_package/views/widget/base/image_view.dart';
 import 'package:kayo_package/views/widget/base/text_view.dart';
@@ -32,22 +33,28 @@ class PhotoViewPage extends StatelessWidget {
     return ToolBar(
         title: title ?? '查看图片',
         leadingIcon: MPIcon(MaterialIcons.close),
-        child: BaseSysUtils.empty(us)
-            ? Container( alignment: Alignment.center,child: TextView('暂无图片'),)
-            : SwiperView(
-          autoplay: false,
-          dotIndicator: false,
-          loop: false,
-          showIndicator: us.length > 1,
-          itemCount: us.length,
-          itemBuilder: (context, index) {
-            var u = us[index];
-            return ImageView(
-              src: BaseSysUtils.getImageUrl(fileHost: fileHost, url: u),
-              fit: BoxFit.fitWidth,
-              // height: height,
-            );
-          },
+        child: Container(
+          alignment: Alignment.center,
+          color: BaseSysUtils.empty(us)
+              ? BaseColorUtils.colorWindow
+              : BaseColorUtils.colorBlack,
+          child: BaseSysUtils.empty(us)
+              ? TextView('暂无图片')
+              : SwiperView(
+                  autoplay: false,
+                  dotIndicator: false,
+                  loop: false,
+                  showIndicator: us.length > 1,
+                  itemCount: us.length,
+                  itemBuilder: (context, index) {
+                    var u = us[index];
+                    return ImageView(
+                      src: BaseSysUtils.getImageUrl(fileHost: fileHost, url: u),
+                      fit: BoxFit.fitWidth,
+                      // height: height,
+                    );
+                  },
+                ),
         ));
   }
 }

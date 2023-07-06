@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:mpcore/mpkit/mpkit.dart';
 
@@ -36,6 +37,8 @@ class _CupertinoPickerState extends State<CupertinoPicker> {
 
   int selectIndex = 0;
 
+  Timer? _timer;
+
   @override
   void initState() {
     super.initState();
@@ -51,10 +54,18 @@ class _CupertinoPickerState extends State<CupertinoPicker> {
 
   void _addListener() {
     _controller?.addListener(() {
-      widget.onSelectedItemChanged?.call(_controller!.page);
+      _timer?.cancel();
+      _timer = Timer(Duration(milliseconds: 200), () {
+        widget.onSelectedItemChanged?.call(_controller!.page);
+        _timer?.cancel();
+      });
     });
     widget.scrollController?.addListener(() {
-      widget.onSelectedItemChanged?.call(widget.scrollController!.page);
+      _timer?.cancel();
+      _timer = Timer(Duration(milliseconds: 200), () {
+        widget.onSelectedItemChanged?.call(widget.scrollController!.page);
+        _timer?.cancel();
+      });
     });
   }
 
@@ -73,6 +84,7 @@ class _CupertinoPickerState extends State<CupertinoPicker> {
   @override
   void dispose() {
     _controller?.dispose();
+    _timer?.cancel();
     super.dispose();
   }
 

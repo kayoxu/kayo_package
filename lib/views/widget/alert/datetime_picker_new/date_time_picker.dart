@@ -82,6 +82,9 @@ class DateTimePicker {
     nowEndDate = DateTime(nowEndDate.year, nowEndDate.month, nowEndDate.day,
         nowEndDate.hour, nowEndDate.minute, 59);
 
+    bool noTime =
+        false; //!dateFormat.contains("HH") && !dateFormat.contains('mm');
+
     F.showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -178,21 +181,37 @@ class DateTimePicker {
                                 : 'Start Time')),
                 Container(
                   height: heightTime,
-                  child: DateTimePickerWidget(
-                    minDateTime: minStartDate ?? DateTime(2000),
-                    maxDateTime:
-                        maxStartDate ?? DateTime(2049, 12, 31, 23, 59, 59),
-                    initDateTime: nowStartDate,
-                    dateFormat: dateFormat!,
-                    pickerTheme: DateTimePickerTheme(
-                      showTitle: false,
-                      backgroundColor: Colors.transparent,
-                    ),
-                    onChange: (dateTime, selectedIndex) {
-                      nowStartDate = dateTime;
-                      onDateTimeChange?.call(nowStartDate!, nowEndDate!);
-                    },
-                  ),
+                  child: noTime
+                      ? DatePickerWidget(
+                          minDateTime: minStartDate ?? DateTime(2000),
+                          maxDateTime: maxStartDate ??
+                              DateTime(2049, 12, 31, 23, 59, 59),
+                          initialDateTime: nowStartDate,
+                          dateFormat: dateFormat!,
+                          pickerTheme: DateTimePickerTheme(
+                            showTitle: false,
+                            backgroundColor: Colors.transparent,
+                          ),
+                          onChange: (dateTime, selectedIndex) {
+                            nowStartDate = dateTime;
+                            onDateTimeChange?.call(nowStartDate!, nowEndDate!);
+                          },
+                        )
+                      : DateTimePickerWidget(
+                          minDateTime: minStartDate ?? DateTime(2000),
+                          maxDateTime: maxStartDate ??
+                              DateTime(2049, 12, 31, 23, 59, 59),
+                          initDateTime: nowStartDate,
+                          dateFormat: dateFormat!,
+                          pickerTheme: DateTimePickerTheme(
+                            showTitle: false,
+                            backgroundColor: Colors.transparent,
+                          ),
+                          onChange: (dateTime, selectedIndex) {
+                            nowStartDate = dateTime;
+                            onDateTimeChange?.call(nowStartDate!, nowEndDate!);
+                          },
+                        ),
                 ),
                 showEnd != true
                     ? SizedBox(
@@ -212,21 +231,39 @@ class DateTimePicker {
                       )
                     : Container(
                         height: heightTime,
-                        child: DateTimePickerWidget(
-                          minDateTime: minEndDate ?? DateTime(2000),
-                          maxDateTime:
-                              maxEndDate ?? DateTime(2049, 12, 31, 23, 59, 59),
-                          initDateTime: nowEndDate,
-                          dateFormat: dateFormat,
-                          pickerTheme: DateTimePickerTheme(
-                            showTitle: false,
-                            backgroundColor: Colors.transparent,
-                          ),
-                          onChange: (dateTime, selectedIndex) {
-                            nowEndDate = dateTime;
-                            onDateTimeChange?.call(nowStartDate!, nowEndDate!);
-                          },
-                        ),
+                        child: noTime
+                            ? DatePickerWidget(
+                                minDateTime: minEndDate ?? DateTime(2000),
+                                maxDateTime: maxEndDate ??
+                                    DateTime(2049, 12, 31, 23, 59, 59),
+                                initialDateTime: nowEndDate,
+                                dateFormat: dateFormat,
+                                pickerTheme: DateTimePickerTheme(
+                                  showTitle: false,
+                                  backgroundColor: Colors.transparent,
+                                ),
+                                onChange: (dateTime, selectedIndex) {
+                                  nowEndDate = dateTime;
+                                  onDateTimeChange?.call(
+                                      nowStartDate!, nowEndDate!);
+                                },
+                              )
+                            : DateTimePickerWidget(
+                                minDateTime: minEndDate ?? DateTime(2000),
+                                maxDateTime: maxEndDate ??
+                                    DateTime(2049, 12, 31, 23, 59, 59),
+                                initDateTime: nowEndDate,
+                                dateFormat: dateFormat,
+                                pickerTheme: DateTimePickerTheme(
+                                  showTitle: false,
+                                  backgroundColor: Colors.transparent,
+                                ),
+                                onChange: (dateTime, selectedIndex) {
+                                  nowEndDate = dateTime;
+                                  onDateTimeChange?.call(
+                                      nowStartDate!, nowEndDate!);
+                                },
+                              ),
                       ),
                 _inkWell2(
                     height: heightTitle,

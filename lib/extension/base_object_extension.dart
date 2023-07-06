@@ -4,6 +4,16 @@ import 'package:flutter/material.dart';
 
 import '../kayo_package.dart';
 
+extension IterableMapIndexed<E> on Iterable<E> {
+  Iterable<R> mapIndexed2<R>(R Function(int index, E) transform) sync* {
+    var index = 0;
+    for (final element in this) {
+      yield transform(index++, element);
+    }
+  }
+}
+
+
 extension BaseObjectExtension on Object? {
   T defaultValue<T>({required T data}) {
     if (null == this || this is! T) {

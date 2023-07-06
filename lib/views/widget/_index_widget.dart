@@ -11,6 +11,7 @@ export 'visible_view.dart';
 export 'superscript_view.dart';
 export 'drag_view.dart';
 export 'package:kayo_package/views/widget/base/flutter_widgets.dart';
+export 'package:kayo_package/views/widget/tab_bar_top_widget.dart';
 
 /**
  *  kayo_package
