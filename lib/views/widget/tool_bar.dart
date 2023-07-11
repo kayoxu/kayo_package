@@ -118,43 +118,43 @@ class ToolBarState extends State<ToolBar> {
     var ll = widget.noBack == true
         ? Container()
         : widget.leading != null
-            ? widget.leading
-            : (widget.iosBack == true || null != widget.leadingIcon
-                ? Clickable(
-                    alignment: Alignment.center,
-                    width: 40,
-                    height: 40,
-                    child: null != widget.leadingIcon
-                        ? widget.leadingIcon!
-                        : MPIcon(
-                            MaterialIcons.arrow_back_ios,
-                            color: Color(
-                              widget.darkStatusText == true
-                                  ? 0xff50525c
-                                  : 0xffffffff,
-                            ),
-                          ),
+        ? widget.leading
+        : (widget.iosBack == true || null != widget.leadingIcon
+        ? Clickable(
+      alignment: Alignment.center,
+      width: 40,
+      height: 40,
+      child: null != widget.leadingIcon
+          ? widget.leadingIcon!
+          : MPIcon(
+        MaterialIcons.arrow_back_ios,
+        color: Color(
+          widget.darkStatusText == true
+              ? 0xff50525c
+              : 0xffffffff,
+        ),
+      ),
 
-                    onTap: widget.backClick ??
-                        (null != KayoPackage.share.onTapToolbarBack
-                            ? () {
-                                KayoPackage.share.onTapToolbarBack
-                                    ?.call(context);
-                              }
-                            : () async {
-                                try {
-                                  if (Navigator.canPop(context)) {
-                                    return Navigator.of(context).pop();
-                                  } else {
-                                    return await SystemNavigator.pop();
-                                  }
-                                } catch (e) {
-                                  print(e);
-                                  return await SystemNavigator.pop();
-                                }
-                              }), // null disables the button
-                  )
-                : null);
+      onTap: widget.backClick ??
+          (null != KayoPackage.share.onTapToolbarBack
+              ? () {
+            KayoPackage.share.onTapToolbarBack
+                ?.call(context);
+          }
+              : () async {
+            try {
+              if (Navigator.canPop(context)) {
+                return Navigator.of(context).pop();
+              } else {
+                return await SystemNavigator.pop();
+              }
+            } catch (e) {
+              print(e);
+              return await SystemNavigator.pop();
+            }
+          }), // null disables the button
+    )
+        : null);
 
     var leadi = ll;
     if (!BaseSysUtils.empty(widget.actions)) {
@@ -169,112 +169,113 @@ class ToolBarState extends State<ToolBar> {
 
     PreferredSizeWidget toolbar = null == widget.appBar
         ? MPAppBar(
-            context: context,
-            // trailing: widget.actions?.first,
-            leading: leadi,
-            backgroundColor: null != widget.appbarColor
-                ? widget.appbarColor!
-                : BaseColorUtils.colorWindowWhite,
-            title: (null == widget.titelWidget && null == widget.titleWidget)
-                ? Text(
-                    widget.title ?? '',
-                    style: TextStyle(
-                        color: widget.darkStatusText == true
-                            ? BaseColorUtils.colorBlack
-                            : BaseColorUtils.white),
-                    textAlign: TextAlign.center,
-                  )
-                : (widget.titelWidget ?? widget.titleWidget),
-          )
+      context: context,
+      // trailing: widget.actions?.first,
+      leading: leadi,
+      backgroundColor: null != widget.appbarColor
+          ? widget.appbarColor!
+          : BaseColorUtils.colorWindowWhite,
+      title: (null == widget.titelWidget && null == widget.titleWidget)
+          ? Text(
+        widget.title ?? '',
+        style: TextStyle(
+            color: widget.darkStatusText == true
+                ? BaseColorUtils.colorBlack
+                : BaseColorUtils.white),
+        textAlign: TextAlign.center,
+      )
+          : (widget.titelWidget ?? widget.titleWidget),
+    )
         : widget.appBar!;
 
     var body2 = null == widget.marginToolbarTop
         ? widget.child
         : Container(
-            margin: EdgeInsets.only(top: widget.marginToolbarTop ?? 0),
-            child: widget.child,
-          );
+      margin: EdgeInsets.only(top: widget.marginToolbarTop ?? 0),
+      child: widget.child,
+    );
     var scaffold = MPScaffold(
       name: widget.title,
+      // barrierDismissible: false,
       backgroundColor: null != widget.backgroundColor
           ? widget.backgroundColor
           : BaseColorUtils.colorWindow,
       appBar: widget.noAppBar == true
           ? null
           : (-1 == widget.toolbarHeight
-              ? toolbar
-              : PreferredSize(
-                  child: (null == widget.toolbarSrc &&
-                          (null == widget.toolbarStartBgColor &&
-                              null == widget.toolbarEndBgColor))
-                      ? toolbar
-                      : Container(
-                          decoration: (null != widget.toolbarStartBgColor ||
-                                  null != widget.toolbarEndBgColor)
-                              ? BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      widget.toolbarStartBgColor ??
-                                          widget.toolbarEndBgColor!,
-                                      widget.toolbarEndBgColor ??
-                                          widget.toolbarStartBgColor!
-                                    ],
-                                    begin:
-                                        widget.toolbarStartBgColorAlignment ??
-                                            Alignment.centerLeft,
-                                    end: widget.toolbarEndBgColorAlignment ??
-                                        Alignment.centerRight,
-                                  ),
+          ? toolbar
+          : PreferredSize(
+        child: (null == widget.toolbarSrc &&
+            (null == widget.toolbarStartBgColor &&
+                null == widget.toolbarEndBgColor))
+            ? toolbar
+            : Container(
+          decoration: (null != widget.toolbarStartBgColor ||
+              null != widget.toolbarEndBgColor)
+              ? BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                widget.toolbarStartBgColor ??
+                    widget.toolbarEndBgColor!,
+                widget.toolbarEndBgColor ??
+                    widget.toolbarStartBgColor!
+              ],
+              begin:
+              widget.toolbarStartBgColorAlignment ??
+                  Alignment.centerLeft,
+              end: widget.toolbarEndBgColorAlignment ??
+                  Alignment.centerRight,
+            ),
 //                              borderRadius: BorderRadius.circular(widget.radius)
-                                )
-                              : BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          source(widget.toolbarSrc ?? '')),
-                                      fit: BoxFit.fill)),
-                          width: double.infinity,
-                          height: double.infinity,
-                          child: null == widget.toolbarSubView
-                              ? toolbar
-                              : Column(
-                                  children: widget.noAppBar == true
-                                      ? <Widget>[
-                                          PreferredSize(
-                                            child: SizedBox(
-                                              height: 25,
-                                            ),
-                                            preferredSize: Size.fromHeight(0),
-                                          ),
-                                          Expanded(
-                                            child: widget.toolbarSubView!,
-                                          )
-                                        ]
-                                      : <Widget>[
-                                          toolbar,
-                                          Expanded(
-                                            child: widget.toolbarSubView!,
-                                          )
-                                        ],
-                                ),
-                        ),
-                  preferredSize: Size.fromHeight(widget.toolbarHeight ?? 0),
-                )),
+          )
+              : BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(
+                      source(widget.toolbarSrc ?? '')),
+                  fit: BoxFit.fill)),
+          width: double.infinity,
+          height: double.infinity,
+          child: null == widget.toolbarSubView
+              ? toolbar
+              : Column(
+            children: widget.noAppBar == true
+                ? <Widget>[
+              PreferredSize(
+                child: SizedBox(
+                  height: 25,
+                ),
+                preferredSize: Size.fromHeight(0),
+              ),
+              Expanded(
+                child: widget.toolbarSubView!,
+              )
+            ]
+                : <Widget>[
+              toolbar,
+              Expanded(
+                child: widget.toolbarSubView!,
+              )
+            ],
+          ),
+        ),
+        preferredSize: Size.fromHeight(widget.toolbarHeight ?? 0),
+      )),
       body: null == widget.dragView
           ? body2
           : Stack(
-              children: [body2!, widget.dragView!],
-            ),
+        children: [body2!, widget.dragView!],
+      ),
       // floatingActionButton: widget.floatingActionButton,
       // floatingActionButtonLocation: widget.floatingActionButtonLocation,
     );
     return widget.noBack != true && null == widget.onWillPop
         ? scaffold
         : WillPopScope(
-            child: scaffold,
-            onWillPop: widget.noBack == true && widget.onWillPop == null
-                ? () async {
-                    return false;
-                  }
-                : widget.onWillPop);
+        child: scaffold,
+        onWillPop: widget.noBack == true && widget.onWillPop == null
+            ? () async {
+          return false;
+        }
+            : widget.onWillPop);
   }
 }

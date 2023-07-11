@@ -108,19 +108,23 @@ class EditView extends StatefulWidget {
 }
 
 class EditViewState extends State<EditView> {
+  FocusNode? defaultFocusNode;
 
   @override
   void initState() {
     super.initState();
     initController();
+    if (null == widget.focusNode) {
+      defaultFocusNode = FocusNode();
+    }
   }
 
-  void initController() {
-
-  }
+  void initController() {}
 
   @override
   void dispose() {
+    defaultFocusNode?.unfocus();
+    defaultFocusNode?.dispose();
     super.dispose();
   }
 
@@ -148,8 +152,7 @@ class EditViewState extends State<EditView> {
           : null,
       child: MPEditableText(
         // onTap: null == widget.onClick ? onClick : widget.onClick,
-        enableInteractiveSelection: widget.enableinteractiveSelection ??
-            true,
+        enableInteractiveSelection: widget.enableinteractiveSelection ?? true,
         inputFormatters: widget.inputFormatters,
         style: null == widget.textStyle
             ? TextStyle(
@@ -162,8 +165,7 @@ class EditViewState extends State<EditView> {
         onEditingComplete: widget.onEditingComplete,
         placeholder: widget.hintText,
         placeholderStyle: TextStyle(
-            color: widget.hintTextColor ??
-                BaseColorUtils.colorBlackLiteLite,
+            color: widget.hintTextColor ?? BaseColorUtils.colorBlackLiteLite,
             fontSize: widget.hintTextSize ?? 14),
         onSubmitted: widget.onSubmitted,
         focusNode: widget.focusNode ?? FocusNode(),
@@ -174,7 +176,9 @@ class EditViewState extends State<EditView> {
         textInputAction: widget.textInputAction ?? TextInputAction.done,
         keyboardType: widget.keyboardType,
         controller: widget.controller!,
-        onChanged: widget.onChanged,
+        onChanged: (d){
+          widget.onChanged?.call(d);
+         },
         obscureText: widget.obscureText ?? false,
         // decoration: (widget.showLabelText == true)
         //     ? InputDecoration(labelText: widget.hintText)
