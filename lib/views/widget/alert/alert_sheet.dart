@@ -18,13 +18,13 @@ class AlertSheet {
   * */
   static sheet(context,
       {String? title = '提示',
-      required List<Widget> children,
-      bool? showCancel = false,
-      bool? textBold = true,
-      double? textSize = 14,
-      String? cancelText = '取消',
-      Color? cancelColor = BaseColorUtils.colorRed,
-      VoidCallback? cancelCallback}) {
+        required List<Widget> children,
+        bool? showCancel = false,
+        bool? textBold = true,
+        double? textSize = 14,
+        String? cancelText = '取消',
+        Color? cancelColor = BaseColorUtils.colorRed,
+        VoidCallback? cancelCallback}) {
     cancelCallback = cancelCallback ?? () => hide(context);
 
     showModalBottomSheet(
@@ -34,78 +34,83 @@ class AlertSheet {
         builder: (context) {
           return SafeArea(
               child: Container(
-            // color: BaseColorUtils.white,
-            decoration: BoxDecoration(
-                color: BaseColorUtils.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                    topRight: Radius.circular(12))),
-            child: /*SafeArea(
+                // color: BaseColorUtils.white,
+                decoration: BoxDecoration(
+                    color: BaseColorUtils.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(12),
+                        topRight: Radius.circular(12))),
+                child: /*SafeArea(
               child: ,
             )*/
                 Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                VisibleView(
-                  visible: null == title ? Visible.gone : Visible.visible,
-                  child: TextView(
-                    title ?? '',
-                    size: 14,
-                    color: BaseColorUtils.colorGreyLite,
-                    maxLine: 2,
-                    margin: EdgeInsets.only(
-                        left: 16, top: 12, right: 16, bottom: 12),
-                  ),
-                ),
-                VisibleView(
-                  visible: null == title ? Visible.gone : Visible.visible,
-                  child: LineView(
-                    color: BaseColorUtils.colorWindow,
-                    height: 1,
-                  ),
-                ),
-                Column(
-                  children: children,
-                ),
-                VisibleView(
-                    visible:
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    VisibleView(
+                      visible: null == title ? Visible.gone : Visible.visible,
+                      child: TextView(
+                        title ?? '',
+                        size: textSize ?? 14,
+                        color: BaseColorUtils.colorGreyLite,
+                        maxLine: 2,
+                        margin: EdgeInsets.only(
+                            left: 16,
+                            top: (textSize ?? 0) > 20 ? 20 : 12,
+                            right: 16,
+                            bottom: (textSize ?? 0) > 20 ? 20 : 12),
+                      ),
+                    ),
+                    VisibleView(
+                      visible: null == title ? Visible.gone : Visible.visible,
+                      child: LineView(
+                        color: BaseColorUtils.colorWindow,
+                        height: 1,
+                      ),
+                    ),
+                    Column(
+                      children: children,
+                    ),
+                    VisibleView(
+                        visible:
                         showCancel == true ? Visible.visible : Visible.gone,
-                    child: Column(
-                      children: <Widget>[
-                        LineView(
-                          height: 6,
-                          color: BaseColorUtils.colorWindow,
-                        ),
-                        sheetAction(
-                            text: cancelText ?? '',
-                            color: cancelColor ?? BaseColorUtils.colorBlack,
-                            showLine: false,
-                            textBold: textBold ?? true,
-                            callback: cancelCallback),
-                      ],
-                    ))
-              ],
-            ),
-          ));
+                        child: Column(
+                          children: <Widget>[
+                            LineView(
+                              height: 6,
+                              color: BaseColorUtils.colorWindow,
+                            ),
+                            sheetAction(
+                                text: cancelText ?? '',
+                                color: cancelColor ?? BaseColorUtils.colorBlack,
+                                showLine: false,
+                                padding: (textSize ?? 0) > 20 ? EdgeInsets.only(
+                                    top: 20, bottom: 20) : null,
+                                textSize: textSize ?? 14,
+                                textBold: textBold ?? true,
+                                callback: cancelCallback),
+                          ],
+                        ))
+                  ],
+                ),
+              ));
         });
   }
 
   static hide(context) => Navigator.of(context).pop();
 
-  static Widget sheetAction(
-      {required String text,
-      required VoidCallback? callback,
-      Color? color = BaseColorUtils.colorBlackLite,
-      bool? textBold = true,
-      double? textSize,
-      EdgeInsets? padding,
-      bool? showLine = true}) {
+  static Widget sheetAction({required String text,
+    required VoidCallback? callback,
+    Color? color = BaseColorUtils.colorBlackLite,
+    bool? textBold = true,
+    double? textSize,
+    EdgeInsets? padding,
+    bool? showLine = true}) {
     var action = ButtonView(
       text: text,
       showShadow: false,
       textSize: textSize,
-      fontWeight: textBold==true ? FontWeight.w600 : FontWeight.normal,
+      fontWeight: textBold == true ? FontWeight.w600 : FontWeight.normal,
       color: color,
       bgColor: BaseColorUtils.white,
       radius: 0,
@@ -115,17 +120,17 @@ class AlertSheet {
       onPressed: callback!,
     );
 
-    return  showLine!=true
+    return showLine != true
         ? action
         : Column(
-            children: <Widget>[
-              action,
-              LineView(
-                color: BaseColorUtils.colorWindow,
-                height: 1,
+      children: <Widget>[
+        action,
+        LineView(
+          color: BaseColorUtils.colorWindow,
+          height: 1,
 //                margin: EdgeInsets.only(left: 16, right: 16),
-              ),
-            ],
-          );
+        ),
+      ],
+    );
   }
 }

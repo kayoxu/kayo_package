@@ -15,6 +15,7 @@ import 'base/image_view.dart';
 class ToolBar extends StatefulWidget {
   final Widget? child;
   final String? title;
+  final double? titleSize;
   @Deprecated('用titleWidget代替')
   final Widget? titelWidget;
   final Widget? titleWidget;
@@ -63,6 +64,7 @@ class ToolBar extends StatefulWidget {
     required this.child,
     this.key,
     this.title = '',
+    this.titleSize,
     this.titelWidget,
     this.titleWidget,
     this.appBar,
@@ -134,15 +136,16 @@ class ToolBarState extends State<ToolBar> {
                             onPressed: widget.backClick ??
                                 (null != KayoPackage.share.onTapToolbarBack
                                     ? () {
-                                  KayoPackage.share.onTapToolbarBack?.call(context);
-                                }
+                                        KayoPackage.share.onTapToolbarBack
+                                            ?.call(context);
+                                      }
                                     : () async {
-                                  if (Navigator.canPop(context)) {
-                                    return Navigator.of(context).pop();
-                                  } else {
-                                    return await SystemNavigator.pop();
-                                  }
-                                }), // null disables the button
+                                        if (Navigator.canPop(context)) {
+                                          return Navigator.of(context).pop();
+                                        } else {
+                                          return await SystemNavigator.pop();
+                                        }
+                                      }), // null disables the button
                           )
                         : null),
             brightness: true /*widget.darkStatusText == true*/
@@ -160,6 +163,7 @@ class ToolBarState extends State<ToolBar> {
                 ? Text(
                     widget.title ?? '',
                     style: TextStyle(
+                        fontSize: widget.titleSize,
                         color: widget.darkStatusText == true
                             ? BaseColorUtils.colorBlack
                             : BaseColorUtils.white),

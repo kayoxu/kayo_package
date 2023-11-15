@@ -7,8 +7,11 @@ extension BaseListExtension on List? {
 
   List get dealNotList => isList == true ? this! : [];
 
-  String toStringWith({String splitUnit = '、', String? def}) {
-    this?.removeWhere((e) => BaseSysUtils.empty(e));
+  String toStringWith(
+      {String splitUnit = '、', String? def, bool? removeEmpty}) {
+    if (removeEmpty ?? true) {
+      this?.removeWhere((e) => BaseSysUtils.empty(e));
+    }
     String str = this.dealNotList.toString();
     return str
         .substring(1, str.length - 1)
