@@ -148,9 +148,10 @@ class ToolBarState extends State<ToolBar> {
                                       }), // null disables the button
                           )
                         : null),
-            brightness: true /*widget.darkStatusText == true*/
-                ? Brightness.light
-                : Brightness.dark,
+            systemOverlayStyle: SystemUiOverlayStyle(
+                statusBarBrightness: widget.darkStatusText == true || true
+                    ? Brightness.light
+                    : Brightness.dark),
             centerTitle: widget.centerTitle ?? true,
             backgroundColor: null != widget.appbarColor
                 ? widget.appbarColor

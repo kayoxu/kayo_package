@@ -159,29 +159,30 @@ class TabBarWidgetState extends State<TabBarWidget>
           centerTitle: widget.centerTitle,
           leading: widget.showBack == true
               ? IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-            ),
-            iconSize: 22,
-            color: Color(
-                widget.darkStatusText == true ? 0xff50525c : 0xffffffff),
-            onPressed: widget.backClick ??
-                (null != KayoPackage.share.onTapToolbarBack
-                    ? () {
-                  KayoPackage.share.onTapToolbarBack?.call(context);
-                }
-                    : () async {
-                  if (Navigator.canPop(context)) {
-                    return Navigator.of(context).pop();
-                  } else {
-                    return await SystemNavigator.pop();
-                  }
-                }), // null disables the button
-          )
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                  ),
+                  iconSize: 22,
+                  color: Color(
+                      widget.darkStatusText == true ? 0xff50525c : 0xffffffff),
+                  onPressed: widget.backClick ??
+                      (null != KayoPackage.share.onTapToolbarBack
+                          ? () {
+                              KayoPackage.share.onTapToolbarBack?.call(context);
+                            }
+                          : () async {
+                              if (Navigator.canPop(context)) {
+                                return Navigator.of(context).pop();
+                              } else {
+                                return await SystemNavigator.pop();
+                              }
+                            }), // null disables the button
+                )
               : null,
-          brightness: widget.darkStatusText == true
-              ? Brightness.light
-              : Brightness.dark,
+          systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarBrightness: widget.darkStatusText == true
+                  ? Brightness.light
+                  : Brightness.dark),
           title: widget.title ??
               Text(
                 widget.titleStr ?? '',
@@ -228,36 +229,37 @@ class TabBarWidgetState extends State<TabBarWidget>
           automaticallyImplyLeading: false,
           leading: widget.showBack == true
               ? IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-            ),
-            iconSize: 22,
-            color: Color(
-                widget.darkStatusText == true ? 0xff50525c : 0xffffffff),
-            onPressed: widget.backClick ??
-                (null != KayoPackage.share.onTapToolbarBack
-                    ? () {
-                  KayoPackage.share.onTapToolbarBack?.call(context);
-                }
-                    : () async {
-                  if (Navigator.canPop(context)) {
-                    return Navigator.of(context).pop();
-                  } else {
-                    return await SystemNavigator.pop();
-                  }
-                }), // null disables the button
-          )
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                  ),
+                  iconSize: 22,
+                  color: Color(
+                      widget.darkStatusText == true ? 0xff50525c : 0xffffffff),
+                  onPressed: widget.backClick ??
+                      (null != KayoPackage.share.onTapToolbarBack
+                          ? () {
+                              KayoPackage.share.onTapToolbarBack?.call(context);
+                            }
+                          : () async {
+                              if (Navigator.canPop(context)) {
+                                return Navigator.of(context).pop();
+                              } else {
+                                return await SystemNavigator.pop();
+                              }
+                            }), // null disables the button
+                )
               : null,
-          brightness: widget.darkStatusText == true
-              ? Brightness.light
-              : Brightness.dark,
+          systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarBrightness: widget.darkStatusText == true
+                  ? Brightness.light
+                  : Brightness.dark),
           title: TabBar(
             controller: _tabController,
             tabs: widget.tabItems ?? [],
             indicatorColor: widget.indicatorColor,
             labelStyle: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
             unselectedLabelStyle:
-            TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
             labelColor: BaseColorUtils.colorAccent,
             unselectedLabelColor: Color(0xff333333),
             indicator: null,
@@ -285,7 +287,7 @@ class TabBarWidgetState extends State<TabBarWidget>
           drawer: widget.drawer,
           appBar: widget.appBar,
           body: TabBarView(
-            //TabBarView呈现内容，因此放到Scaffold的body中
+              //TabBarView呈现内容，因此放到Scaffold的body中
               physics: widget.scrollable == true
                   ? null
                   : NeverScrollableScrollPhysics(),
@@ -320,9 +322,7 @@ class TabBarWidgetState extends State<TabBarWidget>
                   //tab标签的下划线颜色
                   // labelColor: const Color(0xFF000000),
                   indicatorWeight: .5,
-                  labelColor: Theme
-                      .of(context)
-                      .primaryColor,
+                  labelColor: Theme.of(context).primaryColor,
                   unselectedLabelColor: const Color(0xFF8E8E8E),
                   isScrollable: false,
                   tabs: widget.tabItems ?? [],
@@ -342,15 +342,15 @@ class TabBarWidgetState extends State<TabBarWidget>
             children: [
               Expanded(
                   child: new PageView(
-                    controller: widget.topPageControl ?? _pageController,
-                    children: widget.tabViews ?? [],
-                    physics: NeverScrollableScrollPhysics(),
-                  )),
+                controller: widget.topPageControl ?? _pageController,
+                children: widget.tabViews ?? [],
+                physics: NeverScrollableScrollPhysics(),
+              )),
               Container(
                 padding: EdgeInsets.only(top: 3),
                 decoration: BoxDecoration(
                   border:
-                  Border(top: BorderSide(color: Colors.grey, width: .1)),
+                      Border(top: BorderSide(color: Colors.grey, width: .1)),
                   color: widget.backgroundColor,
                 ),
                 child: SafeArea(
@@ -383,11 +383,11 @@ class TabBarWidgetState extends State<TabBarWidget>
       return BaseSysUtils.empty(widget.tabViews)
           ? WidgetNotFound()
           : Scaffold(
-          backgroundColor: BaseColorUtils.colorWindow,
-          resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
-          drawer: widget.drawer,
-          appBar: widget.appBar,
-          body: widget.tabViews?[0]);
+              backgroundColor: BaseColorUtils.colorWindow,
+              resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
+              drawer: widget.drawer,
+              appBar: widget.appBar,
+              body: widget.tabViews?[0]);
     }
   }
 }

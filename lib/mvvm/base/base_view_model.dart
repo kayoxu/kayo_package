@@ -25,6 +25,7 @@ class BaseViewModel with ChangeNotifier {
   late ViewState _viewState;
   BuildContext? context;
   late bool autoLoadData;
+  bool isMobileResolution = false;
 
   BaseViewModel({ViewState? viewState, BuildContext? context})
       : _viewState = (viewState ?? ViewState.idle),
@@ -38,6 +39,11 @@ class BaseViewModel with ChangeNotifier {
 
   /// ViewState
   ViewState get viewState => _viewState;
+
+  setIsMobileResolution(BuildContext? context) {
+    isMobileResolution =
+        (MediaQuery.of(context ?? this.context!).size.width) < 768;
+  }
 
   setBuildContext(BuildContext context) {
     this.context = context;

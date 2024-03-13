@@ -31,10 +31,19 @@ class KayoPackage {
   Locale? locale = Locale('zh');
   String? imageSourcePrefix = '';
   int reLoginCode = 401;
-
   Function(BuildContext context)? onTapToolbarBack;
   Function(BuildContext context, String page, Map<String, dynamic>? resultArgs,
       dynamic resultData)? onNotifyPop;
+
+  bool isDark() {
+    return KayoPackage.share.navigatorKey.currentContext.isDark;
+  }
+
+  ThemeData get theme =>
+      Theme.of(KayoPackage.share.navigatorKey.currentContext!);
+
+  BuildContext get context =>
+      KayoPackage.share.navigatorKey.currentContext!;
 
   init({
     String? nullText,
@@ -54,8 +63,8 @@ class KayoPackage {
     Color? colorAccentLiteLite,
     Function(BuildContext context)? onTapToolbarBack,
     Function(BuildContext context, String page,
-        Map<String, dynamic>? resultArgs, dynamic resultData)?
-    onNotifyPop,
+            Map<String, dynamic>? resultArgs, dynamic resultData)?
+        onNotifyPop,
   }) {
     this.locale = locale ?? this.locale;
     BaseColorUtils.colorPrimary = colorPrimary ?? BaseColorUtils.colorPrimary;
@@ -101,7 +110,7 @@ class KayoPackage {
 
   setBuddhist(bool buddhist) {
     BaseTimeUtils.calendarType =
-    buddhist == true ? CalendarType.Buddhist : CalendarType.normal;
+        buddhist == true ? CalendarType.Buddhist : CalendarType.normal;
   }
 
   setDateFormat(String? format) {

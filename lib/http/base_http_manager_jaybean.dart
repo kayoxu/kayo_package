@@ -1,7 +1,7 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'dart:collection';
-import 'package:connectivity/connectivity.dart';
 import 'package:kayo_package/http/bean/result_enum.dart';
 
 import 'package:kayo_package/kayo_package.dart';

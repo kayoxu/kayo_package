@@ -39,8 +39,8 @@ class ObscureStyle {
   final String obscureText;
 
   const ObscureStyle({
-    this.isTextObscure: false,
-    this.obscureText: '*',
+    this.isTextObscure = false,
+    this.obscureText = '*',
   }) : assert(obscureText.length == 1);
 }
 
@@ -62,9 +62,9 @@ class UnderlineDecoration extends PinDecoration {
     TextStyle? textStyle,
     ObscureStyle? obscureStyle,
     this.enteredColor,
-    this.gapSpace: 16.0,
-    this.color: Colors.cyan,
-    this.lineHeight: 2.0,
+    this.gapSpace = 16.0,
+    this.color = Colors.cyan,
+    this.lineHeight = 2.0,
   }) : super(
           textStyle: textStyle,
           obscureStyle: obscureStyle,
@@ -92,9 +92,9 @@ class BoxTightDecoration extends PinDecoration {
     TextStyle? textStyle,
     ObscureStyle? obscureStyle,
     this.solidColor,
-    this.strokeWidth: 1.0,
-    this.radius: const Radius.circular(8.0),
-    this.strokeColor: Colors.cyan,
+    this.strokeWidth = 1.0,
+    this.radius = const Radius.circular(8.0),
+    this.strokeColor = Colors.cyan,
   }) : super(
           textStyle: textStyle,
           obscureStyle: obscureStyle,
@@ -129,10 +129,10 @@ class BoxLooseDecoration extends PinDecoration {
     ObscureStyle? obscureStyle,
     this.enteredColor,
     this.solidColor,
-    this.radius: const Radius.circular(4.0),
-    this.strokeWidth: 1.0,
-    this.gapSpace: 2,
-    this.strokeColor: BaseColorUtils.colorGreyLiteLiteLite,
+    this.radius = const Radius.circular(4.0),
+    this.strokeWidth = 1.0,
+    this.gapSpace = 2,
+    this.strokeColor = BaseColorUtils.colorGreyLiteLiteLite,
   }) : super(
           textStyle: textStyle,
           obscureStyle: obscureStyle,
@@ -202,11 +202,11 @@ class PinInputTextField extends StatefulWidget {
   final FocusNode? focusNode;
 
   PinInputTextField({
-    this.pinLength: 6,
+    this.pinLength = 6,
     this.width,
     this.height,
     this.onSubmit,
-    this.decoration: const BoxLooseDecoration(),
+    this.decoration = const BoxLooseDecoration(),
     List<TextInputFormatter>? inputFormatter,
     this.keyboardType,
     pinEditingController,
@@ -344,8 +344,8 @@ class _PinPaint extends CustomPainter {
     String? text,
     this.pinLength,
     this.decoration,
-    this.space: 1.0,
-    this.type: PinEntryType.boxTight,
+    this.space = 1.0,
+    this.type = PinEntryType.boxTight,
   }) {
     text ??= "";
     this.text = text.trim();

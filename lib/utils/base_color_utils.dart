@@ -131,6 +131,6 @@ class BaseColorUtils {
   }
 
   static Color darkPrimary2({required BuildContext? context}) {
-    return context.theme.colorScheme.secondary.dark;
+    return context.theme.colorScheme.secondary.dark!;
   }
 }

@@ -19,7 +19,7 @@ double _designD = 3.0;
  * h 高
  * density 像素密度
  */
-void setDesignWHD(double w, double h, {double density: 3.0}) {
+void setDesignWHD(double w, double h, {double density = 3.0}) {
   _designW = w;
   _designH = h;
   _designD = density;
@@ -42,7 +42,6 @@ class _ScreenUtil {
     _singleton._init();
     return _singleton;
   }
-
 
   _init() {
     MediaQueryData mediaQuery = MediaQueryData.fromWindow(ui.window);
@@ -143,11 +142,12 @@ class _ScreenUtil {
   /// fontSize 字体尺寸
   /// sySystem 是否跟随系统字体大小设置，默认 true。
   static double getScaleSp(BuildContext context, double fontSize,
-      {bool sySystem: true}) {
+      {bool sySystem = true}) {
     if (context == null || getScreenW(context) == 0.0) return fontSize;
-    return (sySystem ? MediaQuery
-        .of(context)
-        .textScaleFactor : 1.0) * fontSize * getScreenW(context) / _designW;
+    return (sySystem ? MediaQuery.of(context).textScaleFactor : 1.0) *
+        fontSize *
+        getScreenW(context) /
+        _designW;
   }
 
   /// Orientation
@@ -172,21 +172,23 @@ class _ScreenUtil {
   /// 返回根据屏幕宽适配后尺寸（单位 dp or pt）
   /// sizePx 单位px
   double getWidthPx(double sizePx) {
-    return _screenWidth == 0.0 ? (sizePx / _designD) :
-    (sizePx * _screenWidth / (_designW * _designD));
+    return _screenWidth == 0.0
+        ? (sizePx / _designD)
+        : (sizePx * _screenWidth / (_designW * _designD));
   }
 
   /// 返回根据屏幕高适配后尺寸（单位 dp or pt）
   /// sizePx 单位px
   double getHeightPx(double sizePx) {
-    return _screenHeight == 0.0 ? (sizePx / _designD) :
-    (sizePx * _screenHeight / (_designH * _designD));
+    return _screenHeight == 0.0
+        ? (sizePx / _designD)
+        : (sizePx * _screenHeight / (_designH * _designD));
   }
 
   /// 返回根据屏幕宽适配后字体尺寸
   /// fontSize 字体尺寸
   /// sySystem 是否跟随系统字体大小设置，默认 true。
-  double getSp(double fontSize, {bool sySystem: true}) {
+  double getSp(double fontSize, {bool sySystem = true}) {
     if (_screenWidth == 0.0) return fontSize;
     return (sySystem ? _textScaleFactor : 1.0) *
         fontSize *

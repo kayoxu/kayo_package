@@ -79,7 +79,7 @@ class TextView extends StatelessWidget {
       softWrap: true,
       textAlign: textAlign,
       style: TextStyle(
-        color: color,
+        color: color.dark,
         fontSize: size,
         fontFamily: fontFamily,
         fontWeight: fontWeight,
@@ -106,7 +106,7 @@ class TextView extends StatelessWidget {
                 width: rightIconWidth,
                 margin: rightIconMargin,
                 src: rightIcon,
-                color: rightIconColor,
+                color: rightIconColor.dark,
               )
             ],
           );
@@ -127,12 +127,12 @@ class TextView extends StatelessWidget {
             height: height,
             decoration: ((null != bgColor || true == border)
                 ? BoxDecoration(
-                    color: bgColor,
+                    color: bgColor.dark,
                     borderRadius: borderRadius ?? BorderRadius.circular(radius),
                     border: border != true
                         ? null
                         : Border.all(
-                            width: borderWidth, color: borderColor ?? color),
+                            width: borderWidth, color: (borderColor ?? color).dark!),
                     gradient: gradient,
                   )
                 : null),

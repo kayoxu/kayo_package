@@ -217,9 +217,9 @@ class ProviderWidget6<
       this.model6,
       this.child,
       this.onModelReady,
-      this.autoDispose: true,
-      this.autoInitState: true,
-      this.autoLoadData: true,
+      this.autoDispose = true,
+      this.autoInitState = true,
+      this.autoLoadData = true,
       this.initState,
       this.dispose})
       : super(key: key);

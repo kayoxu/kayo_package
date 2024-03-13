@@ -5,15 +5,16 @@ author:
 homepage:
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
 
-  intl: ^0.17.0               # Feb 3, 2021
+  intl: ^0.18.1 #  Dec 7, 2023
   fluro: ">=1.6.1  <=10.0.0"      #  Mar 1, 2021  2.0.3
-  connectivity: ">=0.4.8+2 <=10.0.0"   # May 26, 2021  3.0.6
+#  connectivity: ">=0.4.8+2 <=10.0.0"   # May 26, 2021  3.0.6
+  connectivity_plus: ^5.0.2
   url_launcher: ">=5.4.10 <=10.0.0"   # Jul 4, 2021  6.0.9
   flutter_spinkit: ">=4.1.2+1 <=10.0.0"    #  Mar 4, 2021     5.0.0
   pub_semver: ">=1.4.4 <=10.0.0"          #Feb 5, 2021   2.0.0
@@ -30,9 +31,9 @@ dependencies:
   json_annotation: ">=3.0.1 <=10.0.0"     # Jul 13, 2021   4.1.0
   provider: ">=4.0.0 <=10.0.0"            # Jul 12, 2021  5.0.0 / 6.0.0-dev
   fluttertoast: ">=3.1.2 <=20.0.0"        # May 19, 2021   8.0.7
-  extended_image: ^6.2.0
-  convex_bottom_bar: ^3.0.0
-  lpinyin: ^2.0.2  #latest version
+  extended_image: ^8.2.0
+  convex_bottom_bar: ^3.2.0
+  lpinyin: ^2.0.3
 
   #  pull_to_refresh: ">=1.5.8 <=10.0.0"       # May 7, 2021 2.0.0
   pull_to_refresh:

@@ -23,8 +23,8 @@ class ButtonRootView extends StatelessWidget {
     required this.children,
     this.margin,
     this.padding,
-    this.safeArea: false,
-    this.warp: false,
+    this.safeArea = false,
+    this.warp = false,
   }) : super(key: key);
 
   @override

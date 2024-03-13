@@ -20,9 +20,9 @@ class DateTimePickerWidget extends StatefulWidget {
     this.minDateTime,
     this.maxDateTime,
     this.initDateTime,
-    this.dateFormat: DATETIME_PICKER_TIME_FORMAT,
-    this.locale: DATETIME_PICKER_LOCALE_DEFAULT,
-    this.pickerTheme: DateTimePickerTheme.Default,
+    this.dateFormat = DATETIME_PICKER_TIME_FORMAT,
+    this.locale = DATETIME_PICKER_LOCALE_DEFAULT,
+    this.pickerTheme = DateTimePickerTheme.Default,
     this.minuteDivider = 1,
     this.onCancel,
     this.onChange,
@@ -44,12 +44,11 @@ class DateTimePickerWidget extends StatefulWidget {
   final bool onMonthChangeStartWithFirstDate;
 
   @override
-  State<StatefulWidget> createState() =>
-      _DateTimePickerWidgetState(
-          this.minDateTime,
-          this.maxDateTime,
-          this.initDateTime,
-          this.minuteDivider);
+  State<StatefulWidget> createState() => _DateTimePickerWidgetState(
+      this.minDateTime,
+      this.maxDateTime,
+      this.initDateTime,
+      this.minuteDivider);
 }
 
 class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
@@ -199,7 +198,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
   void _onPressedConfirm() {
     if (widget.onConfirm != null) {
       DateTime dateTime =
-      DateTime(_currYear, _currMonth, _currDay, _currHour, _currMinute, 0);
+          DateTime(_currYear, _currMonth, _currDay, _currHour, _currMinute, 0);
       widget.onConfirm!(dateTime, _calcSelectIndexList());
     }
     Navigator.pop(context);
@@ -209,7 +208,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
   void _onSelectedChange() {
     if (widget.onChange != null) {
       DateTime dateTime =
-      DateTime(_currYear, _currMonth, _currDay, _currHour, _currMinute, 0);
+          DateTime(_currYear, _currMonth, _currDay, _currHour, _currMinute, 0);
       widget.onChange!(dateTime, _calcSelectIndexList());
     }
   }
@@ -246,7 +245,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
   Widget _renderDatePickerWidget() {
     List<Widget> pickers = [];
     List<String> formatArr =
-    DateTimeFormatter.splitDateFormat(widget.dateFormat);
+        DateTimeFormatter.splitDateFormat(widget.dateFormat);
     formatArr.forEach((format) {
       List<int> valueRange = _findPickerItemRange(format);
 
@@ -523,8 +522,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
 
   /// calculate the range of month
   List<int> _calcMonthRange() {
-    int minMonth = 1,
-        maxMonth = 12;
+    int minMonth = 1, maxMonth = 12;
     int minYear = _minTime.year;
     int maxYear = _maxTime.year;
     if (minYear == _currYear) {
@@ -540,8 +538,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
 
   /// calculate the range of day
   List<int> _calcDayRange({currMonth}) {
-    int minDay = 1,
-        maxDay = _calcDayCountOfMonth();
+    int minDay = 1, maxDay = _calcDayCountOfMonth();
     int minYear = _minTime.year;
     int maxYear = _maxTime.year;
     int minMonth = _minTime.month;
@@ -562,8 +559,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
 
   /// calculate the range of hour
   List<int> _calcHourRange() {
-    int minHour = 0,
-        maxHour = 23;
+    int minHour = 0, maxHour = 23;
     if (_currYear == _minTime.year &&
         _currMonth == _minTime.month &&
         _currDay == _minTime.day) {
@@ -579,8 +575,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
 
   /// calculate the range of minute
   List<int> _calcMinuteRange({currHour}) {
-    int minMinute = 0,
-        maxMinute = 59;
+    int minMinute = 0, maxMinute = 59;
     if (currHour == null) {
       currHour = _currHour;
     }
@@ -604,8 +599,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
 
   /// calculate the range of second
   List<int> _calcSecondRange({currHour, currMinute}) {
-    int minSecond = 0,
-        maxSecond = 59;
+    int minSecond = 0, maxSecond = 59;
 
     if (currHour == null) {
       currHour = _currHour;

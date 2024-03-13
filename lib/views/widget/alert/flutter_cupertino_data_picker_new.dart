@@ -23,19 +23,19 @@ class DataPickerNew {
   static String defaultDataPickerLocale = DataPickerLocale.zh_cn;
 
   static Future show<T>(BuildContext context,
-      {bool showTitleActions: true,
+      {bool showTitleActions = true,
       required List<T> datas,
-      int selectedIndex: 0,
+      int selectedIndex = 0,
       List<int>? selectedIndexes,
       DataChangedCallback? onChanged,
       DataChangedCallback? onConfirm,
       DataChangedCallbackMore<T>? onConfirmMore,
       DataChangedCallback2? onConfirm2,
-      String suffix: '',
+      String suffix = '',
       bool? multipleChoice,
       String? title,
       String? locale,
-      bool bottomSheet: true}) {
+      bool bottomSheet = true}) {
     locale = locale ?? defaultDataPickerLocale;
     return showDataPicker(context,
         showTitleActions: showTitleActions,
@@ -55,19 +55,19 @@ class DataPickerNew {
 
   @Deprecated('用show代替showDataPicker')
   static Future showDataPicker<T>(BuildContext context,
-      {bool showTitleActions: true,
+      {bool showTitleActions = true,
       required List<T> datas,
-      int selectedIndex: 0,
+      int selectedIndex = 0,
       List<int>? selectedIndexes,
       DataChangedCallback? onChanged,
       DataChangedCallback? onConfirm,
       DataChangedCallbackMore<T>? onConfirmMore,
       DataChangedCallback2? onConfirm2,
-      String suffix: '',
+      String suffix = '',
       bool? multipleChoice,
       String? title,
       String? locale,
-      bool bottomSheet: true}) {
+      bool bottomSheet = true}) {
     locale = locale ?? defaultDataPickerLocale;
     if (true == bottomSheet) {
       return showModalBottomSheet(
@@ -188,7 +188,7 @@ class _DataPickerComponent extends StatefulWidget {
   _DataPickerComponent({
     Key? key,
     required this.route,
-    this.initialData: 0,
+    this.initialData = 0,
     this.datas,
     this.onChanged,
     this.locale,
