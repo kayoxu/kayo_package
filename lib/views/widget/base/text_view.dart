@@ -38,7 +38,7 @@ class TextView extends StatelessWidget {
       this.overflow,
       this.rightIconColor});
 
-  final Color color;
+  final Color? color;
   final Color? borderColor;
   final String? text;
   final String? fontFamily;

@@ -27,7 +27,7 @@ class DateTimePicker {
   static DateTimePickerLocale defaultDateTimePickerLocale =
       DateTimePickerLocale.zh_cn;
 
-  static show(BuildContext context,
+  static show(BuildContext? context,
       {bool? showEnd,
       DateTimePickerLocale? locale,
       // bool? showWeek,
@@ -78,7 +78,7 @@ class DateTimePicker {
         nowEndDate.hour, nowEndDate.minute, 59);
 
     showModalBottomSheet(
-      context: context,
+      context: context ?? KayoPackage.share.context,
       backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
         return Container(
@@ -87,7 +87,7 @@ class DateTimePicker {
               topLeft: Radius.circular(12),
               topRight: Radius.circular(12),
             ),
-            color: Colors.white,
+            color: Colors.white.darkNull,
           ),
           child: SafeArea(
               child: Container(
@@ -101,7 +101,7 @@ class DateTimePicker {
                   children: [
                     _inkWell(
                         height: heightTitle,
-                        color: BaseColorUtils.colorBlackLiteLite,
+                        color: BaseColorUtils.colorBlackLiteLite.darkNull,
                         title: DatePickerI18n.getLocaleCancel(locale!),
                         onTap: () {
                           Navigator.pop(context);
@@ -116,7 +116,7 @@ class DateTimePicker {
                                 ? ('选择时间${(showEnd ?? true) ? '段' : ''}')
                                 : ''),
                         style: TextStyle(
-                            color: Color(0xff333333),
+                            color: Color(0xff333333).darkNull,
                             fontSize: 17,
                             // height: heightTitle,
                             fontWeight: FontWeight.w600),
@@ -180,9 +180,10 @@ class DateTimePicker {
                     initDateTime: nowStartDate,
                     dateFormat: dateFormat!,
                     pickerTheme: DateTimePickerTheme(
-                      showTitle: false,
-                      backgroundColor: Colors.transparent,
-                    ),
+                        showTitle: false,
+                        backgroundColor: BaseColorUtils.transparent,
+                        itemTextStyle: TextStyle(
+                            color: Color(0xFF333333).dark, fontSize: 16.0)),
                     onChange: (dateTime, selectedIndex) {
                       nowStartDate = dateTime;
                       onDateTimeChange?.call(nowStartDate!, nowEndDate!);
@@ -214,9 +215,11 @@ class DateTimePicker {
                           initDateTime: nowEndDate,
                           dateFormat: dateFormat,
                           pickerTheme: DateTimePickerTheme(
-                            showTitle: false,
-                            backgroundColor: Colors.transparent,
-                          ),
+                              showTitle: false,
+                              backgroundColor: BaseColorUtils.transparent,
+                              itemTextStyle: TextStyle(
+                                  color: Color(0xFF333333).dark,
+                                  fontSize: 16.0)),
                           onChange: (dateTime, selectedIndex) {
                             nowEndDate = dateTime;
                             onDateTimeChange?.call(nowStartDate!, nowEndDate!);
@@ -240,7 +243,7 @@ class DateTimePicker {
       child: Text(
         title ?? '',
         style: TextStyle(
-            color: Color(0xff666666),
+            color: Color(0xff666666).darkNull,
             fontSize: 14,
             fontWeight: FontWeight.w600),
       ),
@@ -258,7 +261,7 @@ class DateTimePicker {
         child: Text(
           title ?? '',
           style: TextStyle(
-              color: color ?? BaseColorUtils.colorAccent,
+              color: color ?? BaseColorUtils.colorAccent.darkNull,
               fontSize: 15,
               fontWeight: FontWeight.w600),
         ),

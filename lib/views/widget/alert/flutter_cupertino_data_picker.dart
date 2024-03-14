@@ -74,6 +74,7 @@ class DataPicker {
           context: context,
           isDismissible: true,
           isScrollControlled: false,
+          backgroundColor: BaseColorUtils.colorWhite.dark,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(12), topRight: Radius.circular(12))),
@@ -550,32 +551,6 @@ class _BottomSheetSingleState<T> extends State<BottomSheetSingleWidget<T>> {
                     EdgeInsets.only(left: 8, right: 8, bottom: 12, top: 12),
                 margin: EdgeInsets.only(right: 12),
               )
-              // TextView(
-              //   widget.isEN == true ? 'Confirm' : '确定',
-              //   radius: 10,
-              //   color: BaseColorUtils.colorAccent,
-              //   size: 15,
-              //   fontWeight: FontWeight.w600,
-              //   padding:
-              //   EdgeInsets.only(left: 17, right: 17, bottom: 12, top: 12),
-              //   margin: EdgeInsets.only(right: 6),
-              //   onTap: () {
-              //     widget.onConfirm?.call(widget.datas?[selectedIndexes[0]]);
-              //     widget.onConfirm2?.call(
-              //         selectedIndexes[0],
-              //         widget.datas?[selectedIndexes[0]]);
-              //     List<T> d = [];
-              //     List<int> indexes = [];
-              //     for (int i = 0; i < (widget.datas ?? []).length; i++) {
-              //       if (selectedIndexes.contains(i)) {
-              //         d.add(widget.datas![i]);
-              //         indexes.add(i);
-              //       }
-              //     }
-              //     widget.onConfirmMore?.call(indexes, d);
-              //     Navigator.pop(context);
-              //   },
-              // ),
             ],
           ),
         ),
@@ -589,7 +564,7 @@ class _BottomSheetSingleState<T> extends State<BottomSheetSingleWidget<T>> {
                 child: ListView.separated(
                   separatorBuilder: (context, index) {
                     return Divider(
-                      color: Color(0xffEBEBEB),
+                      color: Color(0xffEBEBEB).dark,
                       height: .5,
                     );
                   },

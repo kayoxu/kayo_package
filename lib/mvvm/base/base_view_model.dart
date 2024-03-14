@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:kayo_package/kayo_package.dart';
 import 'package:kayo_package/mvvm/base/base_view_model_bus_event.dart';
+
+import 'base_view_theme_bus_event.dart';
 
 ///
 ///  kayo_package
@@ -26,12 +29,17 @@ class BaseViewModel with ChangeNotifier {
   BuildContext? context;
   late bool autoLoadData;
   bool isMobileResolution = false;
+  StreamSubscription? _themeChangeNotifier;
 
-  BaseViewModel({ViewState? viewState, BuildContext? context})
+  bool? themeNotifier = false;
+
+  BaseViewModel({ViewState? viewState,
+    BuildContext? context,
+    bool? themeNotifier = false})
       : _viewState = (viewState ?? ViewState.idle),
         context = context {
     debugPrint('BaseViewModel---constructor--->$runtimeType');
-
+    this.themeNotifier = themeNotifier;
     BaseViewModelBusEvent?.handleFunction(
         viewModel: '$runtimeType',
         type: BaseViewModelBusEvent.BASE_VIEW_MODEL_PUSH);
@@ -42,7 +50,10 @@ class BaseViewModel with ChangeNotifier {
 
   setIsMobileResolution(BuildContext? context) {
     isMobileResolution =
-        (MediaQuery.of(context ?? this.context!).size.width) < 768;
+        (MediaQuery
+            .of(context ?? this.context!)
+            .size
+            .width) < 768;
   }
 
   setBuildContext(BuildContext context) {
@@ -90,8 +101,27 @@ class BaseViewModel with ChangeNotifier {
     BaseViewModelBusEvent?.handleFunction(
         viewModel: '$runtimeType',
         type: BaseViewModelBusEvent.BASE_VIEW_MODEL_POP);
+    if (themeNotifier == true) {
+      _themeChangeNotifier?.cancel();
+      _themeChangeNotifier = null;
+    }
     super.dispose();
   }
 
-  void initState() {}
+  void initState() {
+    debugPrint('BaseViewModel initState -->$runtimeType');
+    if (themeNotifier == true) {
+      _themeChangeNotifier = BaseViewModelThemeBusEvent.eventBus
+          .on<BaseViewModelThemeBusEvent>()
+          .listen((event) {
+        this.onThemeChange(event.data);
+      });
+    }
+  }
+
+  void onThemeChange(dynamic data) {
+    if (themeNotifier == true) {
+      notifyListeners();
+    }
+  }
 }
