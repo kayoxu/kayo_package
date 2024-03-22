@@ -97,7 +97,7 @@ class BaseViewModel with ChangeNotifier {
     _disposed = true;
     debugPrint('BaseViewModel dispose -->$runtimeType');
 
-    BaseViewModelBusEvent?.handleFunction(
+    BaseViewModelBusEvent.handleFunction(
         viewModel: '$runtimeType',
         type: BaseViewModelBusEvent.BASE_VIEW_MODEL_POP);
     if (themeNotifier == true) {
