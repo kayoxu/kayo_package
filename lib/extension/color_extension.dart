@@ -14,9 +14,9 @@ extension ColorExtension on Color? {
 
   MaterialStateProperty<Color?>? materialStatePropertyFuc() {
     return MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
-          return this;
-        });
+        (Set<MaterialState> states) {
+      return this;
+    });
   }
 
   ///深色模式颜色调暗
@@ -35,25 +35,25 @@ extension ColorExtension on Color? {
         .withOpacity(KayoPackage.share.isDark() ? opacity : 1);
   }
 
-  Color? toDark() {
+  Color? toDark({bool? textDarkOnlyOpacity}) {
     if (null == this) {
       return this;
     }
     if (null == this) {
       return this;
     }
+
     Color color = this!;
-    final double opacity = color.opacity;
+    double opacity = color.opacity;
     if (opacity == 0) {
       return this;
     }
 
+    opacity = 0.89;
+
     if (KayoPackage.share.navigatorKey.currentContext.isDark) {
-      //  如果color是黑色则转换为白色，如果为灰色则转换为灰白 。
-      //  记住 浅黑则转换为浅白，浅灰则转换为浅灰白。如果是深黑则转换为深白，如果是深灰则转换为深灰白
-      if (color == null) {
-        // 如果输入颜色为 null，则返回默认颜色（例如 BaseColorUtils.colorAccent）
-        return BaseColorUtils.colorAccent;
+      if (textDarkOnlyOpacity == true) {
+        return this!.withOpacity(opacity);
       }
 
       // 提取红色、绿色和蓝色分量
@@ -65,8 +65,8 @@ extension ColorExtension on Color? {
       final double luminance = 0.299 * red + 0.587 * green + 0.114 * blue;
       // 根据亮度判断是否使用浅色或深色
       if (luminance < 128) {
-        int s = (red > 189 ? 1 : 0) + (green > 189 ? 1 : 0) +
-            (blue > 189 ? 1 : 0);
+        int s =
+            (red > 189 ? 1 : 0) + (green > 189 ? 1 : 0) + (blue > 189 ? 1 : 0);
         if (s < 3 && s > 0) {
           return color.withOpacity(.89);
         }
@@ -85,7 +85,6 @@ extension ColorExtension on Color? {
         return Color.fromRGBO(darkRed, darkGreen, darkBlue, 1.0);
       } else {
         // 浅色：降低不透明度以减弱颜色强度，但避免与原色相差太大
-        final double opacity = 0.89;
         final int adjustedRed = (red * opacity).toInt();
         final int adjustedGreen = (green * opacity).toInt();
         final int adjustedBlue = (blue * opacity).toInt();

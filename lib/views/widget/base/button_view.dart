@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kayo_package/extension/color_extension.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
 
 import 'clickable.dart';
@@ -9,7 +10,6 @@ import 'clickable.dart';
 ///  Created by kayoxu on 2019/1/23.
 ///  Copyright © 2019 kayoxu. All rights reserved.
 
-@deprecated
 class ButtonView extends StatelessWidget {
   final VoidCallback? onPressed;
   final Color? bgColor;
@@ -37,6 +37,7 @@ class ButtonView extends StatelessWidget {
   final double? borderWidth;
   final Color? bgStartColor;
   final Color? bgEndColor;
+  final bool? textDarkOnlyOpacity;
 
   ButtonView({
     Key? key,
@@ -60,6 +61,7 @@ class ButtonView extends StatelessWidget {
     this.borderWidth = 1,
     this.bgStartColor,
     this.bgEndColor,
+    this.textDarkOnlyOpacity,
   }) : super(key: key);
 
   @override
@@ -93,7 +95,7 @@ class ButtonView extends StatelessWidget {
                         ),
                 ),
               ),
-              color: bgColor ?? BaseColorUtils.colorAccent,
+              color: (bgColor ?? BaseColorUtils.colorAccent).darkNull,
               shape: RoundedRectangleBorder(
                   borderRadius: null == borderRadius
                       ? BorderRadius.circular(radius ?? 0)
@@ -110,16 +112,19 @@ class ButtonView extends StatelessWidget {
                           borderRadius:
                               BorderRadius.all(Radius.circular(radius ?? 0)),
                           side: BorderSide(
-                              color: borderColor!,
+                              color: borderColor!.dark,
                               style: BorderStyle.solid,
                               width: borderWidth!)))
                   : (null == bgStartColor && null == bgEndColor
                       ? null
                       : BoxDecoration(
                           gradient: LinearGradient(colors: [
-                            bgStartColor ??
-                                (bgColor ?? BaseColorUtils.colorAccent),
-                            bgEndColor ?? (bgColor ?? BaseColorUtils.colorAccent)
+                            (bgStartColor ??
+                                    (bgColor ?? BaseColorUtils.colorAccent))
+                                .dark,
+                            (bgEndColor ??
+                                    (bgColor ?? BaseColorUtils.colorAccent))
+                                .dark
                           ]),
                           borderRadius: BorderRadius.circular(radius ?? 0))),
               onTap: onPressed,
@@ -142,8 +147,10 @@ class ButtonView extends StatelessWidget {
     return Text(
       text ?? '',
       textAlign: TextAlign.center,
-      style:
-          TextStyle(color: color, fontSize: textSize, fontWeight: fontWeight),
+      style: TextStyle(
+          color: color.toDark(textDarkOnlyOpacity: textDarkOnlyOpacity),
+          fontSize: textSize,
+          fontWeight: fontWeight),
     );
   }
 }

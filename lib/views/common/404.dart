@@ -9,7 +9,7 @@ import 'package:kayo_package/views/widget/tool_bar.dart';
 ///  Copyright © 2019 kayoxu. All rights reserved.
 
 class WidgetNotFound extends StatelessWidget {
-  VoidCallback? backClick;
+  final VoidCallback? backClick;
 
   WidgetNotFound({this.backClick});
 

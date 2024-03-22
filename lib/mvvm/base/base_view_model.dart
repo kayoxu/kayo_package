@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
 
 import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +39,7 @@ class BaseViewModel with ChangeNotifier {
         context = context {
     debugPrint('BaseViewModel---constructor--->$runtimeType');
     this.themeNotifier = themeNotifier;
-    BaseViewModelBusEvent?.handleFunction(
+    BaseViewModelBusEvent.handleFunction(
         viewModel: '$runtimeType',
         type: BaseViewModelBusEvent.BASE_VIEW_MODEL_PUSH);
   }

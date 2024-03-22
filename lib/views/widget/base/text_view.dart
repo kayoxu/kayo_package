@@ -14,7 +14,7 @@ class TextView extends StatelessWidget {
       this.borderColor,
       this.fontFamily,
       this.borderWidth = 1,
-      this.size = 16,
+      this.size = 14,
       this.height,
       this.width,
       this.padding,
@@ -36,8 +36,10 @@ class TextView extends StatelessWidget {
       this.rightIconMargin = const EdgeInsets.only(left: 3),
       this.onTap,
       this.overflow,
-      this.rightIconColor});
+      this.rightIconColor,
+      this.textDarkOnlyOpacity});
 
+  final bool? textDarkOnlyOpacity;
   final Color? color;
   final Color? borderColor;
   final String? text;
@@ -79,7 +81,7 @@ class TextView extends StatelessWidget {
       softWrap: true,
       textAlign: textAlign,
       style: TextStyle(
-        color: color.dark,
+        color: color.toDark(textDarkOnlyOpacity: textDarkOnlyOpacity),
         fontSize: size,
         fontFamily: fontFamily,
         fontWeight: fontWeight,
@@ -132,7 +134,8 @@ class TextView extends StatelessWidget {
                     border: border != true
                         ? null
                         : Border.all(
-                            width: borderWidth, color: (borderColor ?? color).dark!),
+                            width: borderWidth,
+                            color: (borderColor ?? color).dark!),
                     gradient: gradient,
                   )
                 : null),

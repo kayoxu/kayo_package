@@ -52,6 +52,7 @@ Widget buttonView(
     Color? bgColor,
     EdgeInsets? margin,
     EdgeInsets? padding,
+    bool? textDarkOnlyOpacity,
     int? flex,
     Function()? onTap}) {
   return TextView(
@@ -60,6 +61,7 @@ Widget buttonView(
     bgColor: bgColor ?? BaseColorUtils.colorAccent,
     color: color ?? BaseColorUtils.white,
     textAlign: TextAlign.center,
+    textDarkOnlyOpacity: textDarkOnlyOpacity,
     padding: padding ?? EdgeInsets.only(top: 8, bottom: 8, left: 12, right: 12),
     radius: 4,
     onTap: onTap,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kayo_package/extension/color_extension.dart';
 import 'package:kayo_package/utils/base_color_utils.dart';
 import 'package:kayo_package/views/widget/base/shadow_view.dart';
 
@@ -95,8 +96,8 @@ class Clickable extends StatelessWidget {
               null == onTapCancel)
           ? ShadowView(
               elevation: elevation1,
-              shadowColor: shadowColor1,
-              bgColor: bgColor,
+              shadowColor: shadowColor1.darkNull,
+              bgColor: bgColor.darkNull,
               borderRadius: BorderRadius.circular(radius1),
               child: Container(
                 child: child,
@@ -106,10 +107,10 @@ class Clickable extends StatelessWidget {
             )
           : ShadowView(
               elevation: elevation1,
-              shadowColor: shadowColor1,
-              bgColor: ((selected ?? false) && null != selectColor)
+              shadowColor: shadowColor1.darkNull,
+              bgColor: (((selected ?? false) && null != selectColor)
                   ? selectColor
-                  : bgColor,
+                  : bgColor).darkNull,
               // inkWell: true,
               borderRadius: BorderRadius.circular(radius1),
               child: Container(
