@@ -302,6 +302,9 @@ abstract class BaseHttpManager {
     if (!BaseSysUtils.empty(contentType)) {
       option.headers?['Content-Type	'] = contentType;
     }
+    if (PlatformUtils.isWeb) {
+      option.headers?['Access-Control-Allow-Origin'] = '*';
+    }
 
     ///超时
     // option.connectTimeout = 1000 * 60;
@@ -405,7 +408,9 @@ abstract class BaseHttpManager {
 
       var jsonMap = Map<String, dynamic>();
 
-      if (jsonStr is List &&
+      if (jsonStr == null) {
+        jsonMap = {'code': 200, 'data': ''};
+      } else if (jsonStr is List &&
           !(jsonStr.toString().contains('code') &&
               jsonStr.toString().contains('message'))) {
         jsonMap = {'code': 200, 'data': jsonStr};

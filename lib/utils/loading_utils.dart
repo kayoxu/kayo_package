@@ -31,10 +31,9 @@ class LoadingUtils {
   Color? toastBgColor;
   Color? toastTextColor;
 
-  static TransitionBuilder? init(
-      {TransitionBuilder? builder,
-      Color? toastBgColor,
-      Color? toastTextColor}) {
+  static TransitionBuilder? init({TransitionBuilder? builder,
+    Color? toastBgColor,
+    Color? toastTextColor}) {
     share.toastBgColor = toastBgColor;
     share.toastTextColor = toastTextColor;
 
@@ -80,20 +79,24 @@ class LoadingUtils {
     EasyLoading.showInfo(data ?? '', duration: Duration(seconds: seconds ?? 2));
   }
 
-  static showToast(
-      {String? data,
-      int timeInSecForIosWeb = 2,
-      ToastGravity gravity = ToastGravity.BOTTOM}) {
+  static showToast({String? data,
+    int timeInSecForIosWeb = 2,
+    ToastGravity gravity = ToastGravity.BOTTOM}) {
     // EasyLoading.showToast(data ?? '');
-    Fluttertoast.showToast(
-      msg: data ?? '',
-      gravity: gravity,
-      backgroundColor: share.toastBgColor,
-      textColor: share.toastTextColor,
-      toastLength:
-          timeInSecForIosWeb > 1 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT,
-      timeInSecForIosWeb: timeInSecForIosWeb,
-    );
+    if (PlatformUtils.isMacOS || PlatformUtils.isWindows ||
+        PlatformUtils.isLinux) {
+      LoadingUtils.showError(data: data, seconds: timeInSecForIosWeb);
+    } else {
+      Fluttertoast.showToast(
+        msg: data ?? '',
+        gravity: gravity,
+        backgroundColor: share.toastBgColor,
+        textColor: share.toastTextColor,
+        toastLength:
+        timeInSecForIosWeb > 1 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT,
+        timeInSecForIosWeb: timeInSecForIosWeb,
+      );
+    }
   }
 
   static dismiss() {
