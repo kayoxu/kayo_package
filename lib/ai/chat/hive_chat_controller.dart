@@ -1,0 +1,280 @@
+import 'dart:async';
+import 'package:flutter_chat_core/flutter_chat_core.dart';
+import 'package:hive_ce/hive.dart';
+import 'package:uuid/uuid.dart';
+
+import 'ai_chat_utils.dart';
+
+class HiveChatController
+    with UploadProgressMixin, ScrollToMessageMixin
+    implements ChatController {
+  String? _currentSessionId;
+  String? _lastConversationId; // Add lastConversationId field
+  String sessionLabel = 'Session';
+  final Map<String, Box> _sessionBoxes = {};
+  final _operationsController = StreamController<ChatOperation>.broadcast();
+  final _uuid = const Uuid();
+
+  // Getter and setter for lastConversationId
+  String? get lastConversationId => _lastConversationId;
+
+  set lastConversationId(String? value) {
+    _lastConversationId = value;
+  }
+
+  HiveChatController() {
+    var cSessionId = AIChatUtils.loadCurrentSessionId();
+    _currentSessionId = cSessionId ?? _uuid.v4();
+    _openBox(_currentSessionId!);
+    if (cSessionId == null) {
+      _addSessionToMetadata(
+        _currentSessionId!,
+        '$sessionLabel ${DateTime.now().toString().substring(0, 10)}',
+      );
+    }
+  }
+
+  Future<Box> _openBox(String sessionId) async {
+    if (!_sessionBoxes.containsKey(sessionId)) {
+      _sessionBoxes[sessionId] =
+          await Hive.openBox('${AIChatUtils.currentApiKey}_chat_$sessionId');
+    }
+    return _sessionBoxes[sessionId]!;
+  }
+
+  Future<void> _addSessionToMetadata(String sessionId, String title) async {
+    final sessionsBox =
+        await Hive.openBox('${AIChatUtils.currentApiKey}_sessions');
+    await sessionsBox.put(sessionId, {
+      'id': sessionId,
+      'title': title,
+      'createdAt': DateTime.now().toUtc().toIso8601String(),
+      'lastConversationId': null, // Initialize lastConversationId
+    });
+  }
+
+  String startNewSession({String? title}) {
+    _currentSessionId = _uuid.v4();
+    _lastConversationId = null; // Reset lastConversationId for new session
+    AIChatUtils.saveCurrentSessionId(_currentSessionId);
+    _openBox(_currentSessionId!);
+    _addSessionToMetadata(
+      _currentSessionId!,
+      title ?? '$sessionLabel ${DateTime.now().toString().substring(0, 10)}',
+    );
+    _operationsController.add(ChatOperation.set([]));
+    return _currentSessionId!;
+  }
+
+  Future<void> saveSession(String sessionId) async {
+    final box = await _openBox(sessionId);
+    await box.flush();
+    final sessionsBox =
+        await Hive.openBox('${AIChatUtils.currentApiKey}_sessions');
+    final session = sessionsBox.get(sessionId);
+    if (session != null) {
+      session['lastConversationId'] =
+          _lastConversationId; // Save lastConversationId
+      await sessionsBox.put(sessionId, session);
+    }
+  }
+
+  Future<void> loadSession(String sessionId) async {
+    if (_currentSessionId != sessionId) {
+      _currentSessionId = sessionId;
+      AIChatUtils.saveCurrentSessionId(sessionId);
+      await _openBox(sessionId);
+      final sessionsBox =
+          await Hive.openBox('${AIChatUtils.currentApiKey}_sessions');
+      final session = sessionsBox.get(sessionId);
+      _lastConversationId =
+          session?['lastConversationId'] as String?; // Load lastConversationId
+      _operationsController.add(ChatOperation.set(messages));
+    }
+  }
+
+  Future<void> loadCurrentSession() async {
+    if (_currentSessionId != null) {
+      await _openBox(_currentSessionId!);
+      final sessionsBox =
+          await Hive.openBox('${AIChatUtils.currentApiKey}_sessions');
+      final session = sessionsBox.get(_currentSessionId!);
+      _lastConversationId =
+          session?['lastConversationId'] as String?; // Load lastConversationId
+      _operationsController.add(ChatOperation.set(messages));
+    }
+  }
+
+  List<Map<String, dynamic>> getSessions() {
+    final sessionsBox = Hive.box('${AIChatUtils.currentApiKey}_sessions');
+    return sessionsBox.values
+        .whereType<Map>()
+        .map((map) => map.map((key, value) => MapEntry(key.toString(), value)))
+        .toList()
+      ..sort((a, b) => DateTime.parse(b['createdAt'])
+          .compareTo(DateTime.parse(a['createdAt'])));
+  }
+
+  String? get currentSessionId => _currentSessionId;
+
+  set setCurrentSessionId(String? value) {
+    _currentSessionId = value;
+  }
+
+  @override
+  Future<void> insertMessage(Message message, {int? index}) async {
+    if (_currentSessionId == null) return;
+    final box = await _openBox(_currentSessionId!);
+    if (box.containsKey(message.id)) return;
+
+    await box.put(message.id, message.toJson());
+    _operationsController
+        .add(ChatOperation.insert(message, messages.length - 1));
+  }
+
+  @override
+  Future<void> removeMessage(Message message) async {
+    if (_currentSessionId == null) return;
+    final box = await _openBox(_currentSessionId!);
+    final sortedMessages = List.from(messages);
+    final index = sortedMessages.indexWhere((m) => m.id == message.id);
+
+    if (index != -1) {
+      final messageToRemove = sortedMessages[index];
+      await box.delete(messageToRemove.id);
+      _operationsController.add(ChatOperation.remove(messageToRemove, index));
+    }
+  }
+
+  @override
+  Future<void> updateMessage(Message oldMessage, Message newMessage) async {
+    if (_currentSessionId == null) return;
+    final box = await _openBox(_currentSessionId!);
+    final sortedMessages = List.from(messages);
+    final index = sortedMessages.indexWhere((m) => m.id == oldMessage.id);
+
+    if (index != -1) {
+      final actualOldMessage = sortedMessages[index];
+      if (actualOldMessage == newMessage) return;
+
+      await box.put(actualOldMessage.id, newMessage.toJson());
+      _operationsController.add(
+        ChatOperation.update(actualOldMessage, newMessage, index),
+      );
+    }
+  }
+
+  @override
+  Future<void> setMessages(List<Message> messages) async {
+    if (_currentSessionId == null) return;
+    final box = await _openBox(_currentSessionId!);
+    await box.clear();
+    if (messages.isEmpty) {
+      _operationsController.add(ChatOperation.set([]));
+      return;
+    } else {
+      await box.putAll(
+        messages
+            .map((message) => {message.id: message.toJson()})
+            .toList()
+            .reduce((acc, map) => {...acc, ...map}),
+      );
+      _operationsController.add(ChatOperation.set(messages));
+    }
+  }
+
+  @override
+  Future<void> insertAllMessages(List<Message> messages, {int? index}) async {
+    if (_currentSessionId == null || messages.isEmpty) return;
+    final box = await _openBox(_currentSessionId!);
+    final originalLength = box.length;
+    await box.putAll(
+      messages
+          .map((message) => {message.id: message.toJson()})
+          .toList()
+          .reduce((acc, map) => {...acc, ...map}),
+    );
+    _operationsController.add(
+      ChatOperation.insertAll(messages, originalLength),
+    );
+  }
+
+  @override
+  List<Message> get messages {
+    if (_currentSessionId == null) return [];
+    final box = _sessionBoxes[_currentSessionId!];
+    if (box == null) return [];
+
+    var boxValues = box.values;
+    List<Message> m = [];
+    try {
+      m = boxValues
+          .map((json) {
+            if (json is Map) {
+              final convertedMap =
+                  json.map((key, value) => MapEntry(key.toString(), value));
+              return Message.fromJson(convertedMap);
+            }
+            return null;
+          })
+          .whereType<Message>()
+          .toList()
+        ..sort(
+          (a, b) => (a.createdAt?.millisecondsSinceEpoch ?? 0)
+              .compareTo(b.createdAt?.millisecondsSinceEpoch ?? 0),
+        );
+    } catch (e) {
+      print('Error in messages getter: $e');
+    }
+    return m;
+  }
+
+  @override
+  Stream<ChatOperation> get operationsStream => _operationsController.stream;
+
+  Future<void> clearMessages() async {
+    if (_currentSessionId == null) return;
+    final box = await _openBox(_currentSessionId!);
+    await box.clear();
+    _operationsController.add(ChatOperation.set([]));
+  }
+
+  Future<void> deleteSession(String sessionId) async {
+    if (_sessionBoxes.containsKey(sessionId)) {
+      final box = _sessionBoxes[sessionId]!;
+      await box.clear();
+      await box.deleteFromDisk();
+      _sessionBoxes.remove(sessionId);
+    }
+    final sessionsBox =
+        await Hive.openBox('${AIChatUtils.currentApiKey}_sessions');
+    await sessionsBox.delete(sessionId);
+    if (_currentSessionId == sessionId) {
+      if (_sessionBoxes.isNotEmpty) {
+        _currentSessionId = _sessionBoxes.keys.last;
+        if (_currentSessionId == null) {
+          startNewSession();
+        } else {
+          loadCurrentSession();
+        }
+      } else {
+        _currentSessionId = null;
+        startNewSession();
+      }
+    } else {
+      AIChatUtils.saveCurrentSessionId(_currentSessionId);
+    }
+  }
+
+  @override
+  void dispose() {
+    _operationsController.close();
+    for (var box in _sessionBoxes.values) {
+      box.close();
+    }
+    _sessionBoxes.clear();
+    Hive.box('${AIChatUtils.currentApiKey}_sessions').close();
+    disposeUploadProgress();
+    disposeScrollMethods();
+  }
+}

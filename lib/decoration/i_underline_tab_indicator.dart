@@ -1,0 +1,97 @@
+import 'package:flutter/material.dart';
+
+///
+///  kayo_package
+///  i_underline_tab_indicator.dart
+///
+///  Created by kayoxu on 2020/10/21
+///  Copyright © 2020 kayoxu. All rights reserved.
+///
+
+class IUnderlineTabIndicator extends Decoration {
+  /// Create an underline style selected tab indicator.
+  ///
+  /// The [borderSide] and [insets] arguments must not be null.
+  final Color? color;
+
+  final BorderSide borderSide;
+
+  final EdgeInsetsGeometry insets;
+
+  IUnderlineTabIndicator({
+    this.color,
+    BorderSide? borderSide,
+    this.insets = EdgeInsets.zero,
+  }) : borderSide = borderSide ??
+            BorderSide(width: 2.5, color: color ?? Color(0xff1E6FF4));
+
+  /// The color and weight of the horizontal line drawn below the selected tab.
+  // BorderSide? borderSide;
+
+  /// Locates the selected tab's underline relative to the tab's boundary.
+  ///
+  /// The [TabBar.indicatorSize] property can be used to define the
+  /// tab indicator's bounds in terms of its (centered) tab widget with
+  /// [TabIndicatorSize.label], or the entire tab with [TabIndicatorSize.tab].
+  // final EdgeInsetsGeometry insets;
+
+  @override
+  Decoration lerpFrom(Decoration? a, double t) {
+    if (a is IUnderlineTabIndicator) {
+      return IUnderlineTabIndicator(
+        borderSide: BorderSide.lerp(a.borderSide, borderSide, t),
+        insets: EdgeInsetsGeometry.lerp(a.insets, insets, t)!,
+      );
+    }
+    return super.lerpFrom(a, t)!;
+  }
+
+  @override
+  Decoration lerpTo(Decoration? b, double t) {
+    if (b is IUnderlineTabIndicator) {
+      return IUnderlineTabIndicator(
+        borderSide: BorderSide.lerp(borderSide, b.borderSide, t),
+        insets: EdgeInsetsGeometry.lerp(insets, b.insets, t)!,
+      );
+    }
+    return super.lerpTo(b, t)!;
+  }
+
+  @override
+  _UnderlinePainter createBoxPainter([VoidCallback? onChanged]) {
+    return _UnderlinePainter(this, onChanged);
+  }
+}
+
+class _UnderlinePainter extends BoxPainter {
+  _UnderlinePainter(this.decoration, VoidCallback? onChanged)
+      : super(onChanged);
+
+  final IUnderlineTabIndicator decoration;
+
+  BorderSide get borderSide => decoration.borderSide;
+
+  EdgeInsetsGeometry get insets => decoration.insets;
+
+  Rect _indicatorRectFor(Rect rect, TextDirection textDirection) {
+    final Rect indicator = insets.resolve(textDirection).deflateRect(rect);
+
+    /// Desired width
+    double wantWidth = 22;
+
+    /// Calculate center coordinate
+    double cw = (indicator.left + indicator.right) / 2;
+    return Rect.fromLTWH(cw - wantWidth / 2,
+        indicator.bottom - borderSide.width, wantWidth, borderSide.width);
+  }
+
+  @override
+  void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
+    final Rect rect = offset & configuration.size!;
+    final TextDirection textDirection = configuration.textDirection!;
+    final Rect indicator =
+        _indicatorRectFor(rect, textDirection).deflate(borderSide.width / 2.0);
+    final Paint paint = borderSide.toPaint()..strokeCap = StrokeCap.square;
+    canvas.drawLine(indicator.bottomLeft, indicator.bottomRight, paint);
+  }
+}

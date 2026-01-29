@@ -1,0 +1,649 @@
+import 'package:cross_cache/cross_cache.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_chat_core/flutter_chat_core.dart';
+import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:flyer_chat_image_message/flyer_chat_image_message.dart';
+import 'package:flyer_chat_text_message/flyer_chat_text_message.dart';
+import 'package:flyer_chat_text_stream_message/flyer_chat_text_stream_message.dart';
+import 'package:kayo_package/kayo_package.dart';
+import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
+import 'package:hive_ce/hive.dart';
+import 'ai_chat_stream_manager.dart';
+import 'chat_localizations.dart';
+import 'package:kayo_package/l10n/generated/kayo_package_localizations_en.dart';
+import 'chat_service.dart';
+import 'hive_chat_controller.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+
+const Duration _kFlyerMessageInternalAnimationDuration =
+    Duration(milliseconds: 50);
+
+class AIChatPage extends StatefulWidget {
+  final String title;
+  final String apiKey;
+  final String apiUrl;
+  final String userId;
+  final String? hintText;
+  final ChatLocalizations? localizations;
+
+  const AIChatPage({
+    super.key,
+    required this.title,
+    required this.apiKey,
+    required this.apiUrl,
+    required this.userId,
+    this.hintText,
+    this.localizations,
+  });
+
+  @override
+  AIChatPageState createState() => AIChatPageState();
+}
+
+class AIChatPageState extends State<AIChatPage>
+    with SingleTickerProviderStateMixin {
+  final _uuid = const Uuid();
+  final _crossCache = CrossCache();
+  final _scrollController = ScrollController();
+  final _chatController = HiveChatController();
+  final _currentUser = const User(id: 'me');
+  final _agent = const User(id: 'agent');
+  late final AIChatStreamManager _streamManager;
+  late final ChatService chatService;
+  final Map<String, double> _initialScrollExtents = {};
+  final Map<String, bool> _reachedTargetScroll = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _streamManager = AIChatStreamManager(
+      chatController: _chatController,
+      chunkAnimationDuration: _kFlyerMessageInternalAnimationDuration,
+    );
+    chatService = ChatService(
+      baseUrl: widget.apiUrl,
+      apiKey: widget.apiKey,
+      userId: widget.userId,
+    );
+    Future.delayed(Duration.zero, () async {
+      await _chatController.loadCurrentSession();
+      setState(() {});
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final localizations =
+        KayoPackageLocalizations.of(context) ?? KayoPackageLocalizationsEn();
+    _chatController.sessionLabel = localizations.session;
+  }
+
+  @override
+  void dispose() {
+    _streamManager.dispose();
+    _chatController.dispose();
+    _scrollController.dispose();
+    _crossCache.dispose();
+    super.dispose();
+  }
+
+  void _startNewChat() async {
+    final localizations =
+        KayoPackageLocalizations.of(context) ?? KayoPackageLocalizationsEn();
+    try {
+      final messages = _chatController.messages;
+      if (messages.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(localizations.noMessagesToStartNewChat),
+          ),
+        );
+        return;
+      }
+
+      if (_chatController.currentSessionId != null) {
+        await _chatController.saveSession(_chatController.currentSessionId!);
+      }
+
+      _chatController.startNewSession();
+      _streamManager.reset();
+      _initialScrollExtents.clear();
+      _reachedTargetScroll.clear();
+      if (_scrollController.hasClients) {
+        _scrollController.jumpTo(0);
+      }
+      setState(() {});
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            '${localizations.startNewChatFailed}: $e',
+          ),
+        ),
+      );
+    }
+  }
+
+  List<Widget> _buildHistoryItems() {
+    final localizations =
+        KayoPackageLocalizations.of(context) ?? KayoPackageLocalizationsEn();
+    final sessions = _chatController.getSessions();
+    return sessions.map((session) {
+      final sessionId = session['id'] as String;
+      final title = session['title'] as String;
+      final createdAt = DateTime.parse(session['createdAt'] as String);
+      return ListTile(
+        title: Text(title),
+        subtitle: Text(
+          createdAt.toLocal().toString().substring(0, 16),
+          style: const TextStyle(fontSize: 12, color: Colors.grey),
+        ),
+        trailing: IconButton(
+          icon: const Icon(Icons.delete),
+          onPressed: () async {
+            final confirm = await showDialog<bool>(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text(localizations.deleteSessionTitle),
+                content: Text(localizations.deleteSessionConfirm),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, false),
+                    child: Text(localizations.cancel),
+                  ),
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, true),
+                    child: Text(localizations.delete),
+                  ),
+                ],
+              ),
+            );
+
+            if (confirm == true) {
+              try {
+                await _chatController.deleteSession(sessionId);
+                setState(() {});
+              } catch (e) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      '${localizations.deleteSessionFailed}: $e',
+                    ),
+                  ),
+                );
+              }
+            }
+          },
+        ),
+        onTap: () async {
+          try {
+            await _chatController.loadSession(sessionId);
+            if (_scrollController.hasClients) {
+              _scrollController
+                  .jumpTo(_scrollController.position.maxScrollExtent);
+            }
+            Navigator.pop(context);
+          } catch (e) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  '${localizations.loadSessionFailed}: $e',
+                ),
+              ),
+            );
+          }
+        },
+      );
+    }).toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final localizations =
+        KayoPackageLocalizations.of(context) ?? KayoPackageLocalizationsEn();
+    final theme = Theme.of(context);
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0.5,
+        title: Text(widget.title),
+        centerTitle: true,
+        actions: [
+          if (widget.localizations?.showCloseButton == true)
+            IconButton(
+              icon: Icon(Icons.close),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          IconButton(
+            icon: const Icon(Icons.add_circle_outline),
+            tooltip: localizations.newChat,
+            onPressed: _startNewChat,
+          )
+        ],
+      ),
+      drawer: Drawer(
+        child: Column(
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: theme.primaryColor,
+              ),
+              padding: const EdgeInsets.all(16),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  localizations.chatHistory,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: _buildHistoryItems(),
+              ),
+            ),
+            const Divider(),
+            if (widget.localizations?.showUserProfile == true)
+              ListTile(
+                leading: const Icon(Icons.person),
+                title: Text(localizations.mine),
+                onTap: () {
+                  Navigator.pop(context); // Close drawer
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MyProfilePage(
+                        userId: widget.userId,
+                        localizations: widget.localizations,
+                      ),
+                    ),
+                  );
+                },
+              ),
+          ],
+        ),
+      ),
+      body: ChangeNotifierProvider.value(
+        value: _streamManager,
+        child: Chat(
+          builders: Builders(
+            composerBuilder: (context) {
+              return Composer(
+                hintText:
+                    widget.hintText ?? localizations.startNewChatHintInput,
+              );
+            },
+            chatAnimatedListBuilder: (context, itemBuilder) {
+              return ChatAnimatedList(
+                scrollController: _scrollController,
+                itemBuilder: itemBuilder,
+                shouldScrollToEndWhenAtBottom: false,
+              );
+            },
+            emptyChatListBuilder: (context) {
+              return Center(
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 150),
+                  child: Text(
+                    localizations.startNewChatHint,
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+              );
+            },
+            imageMessageBuilder: (context, message, index,
+                    {MessageGroupStatus? groupStatus,
+                    bool isSentByMe = false}) =>
+                FlyerChatImageMessage(
+              message: message,
+              index: index,
+              showTime: false,
+              showStatus: false,
+            ),
+            textMessageBuilder: (context, message, index,
+                {MessageGroupStatus? groupStatus, bool isSentByMe = false}) {
+              final isAgent = message.authorId == _agent.id;
+              final textMessage = FlyerChatTextMessage(
+                message: message,
+                index: index,
+                showTime: false,
+                showStatus: false,
+                receivedBackgroundColor: Colors.transparent,
+                sentBackgroundColor:
+                    BaseColorUtils.colorAccent.withValues(alpha: .9),
+                padding: isAgent
+                    ? EdgeInsets.only(top: 5)
+                    : const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 8,
+                      ),
+              );
+              if (isAgent) {
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    aiIcon(false),
+                    Expanded(child: textMessage),
+                  ],
+                );
+              } else {
+                return textMessage;
+              }
+            },
+            textStreamMessageBuilder: (context, message, index,
+                {MessageGroupStatus? groupStatus, bool isSentByMe = false}) {
+              final streamState = context
+                  .watch<AIChatStreamManager>()
+                  .getState(message.streamId);
+              final isFromAI = message.authorId == _agent.id;
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (isFromAI) aiIcon(true),
+                  Flexible(
+                    child: FlyerChatTextStreamMessage(
+                      message: message,
+                      index: index,
+                      streamState: streamState,
+                      chunkAnimationDuration:
+                          _kFlyerMessageInternalAnimationDuration,
+                      showTime: false,
+                      showStatus: false,
+                      receivedBackgroundColor: Colors.transparent,
+                      sentBackgroundColor:
+                          BaseColorUtils.colorAccent.withValues(alpha: .9),
+                      padding: isFromAI
+                          ? const EdgeInsets.only(top: 5)
+                          : const EdgeInsets.symmetric(
+                              horizontal: 14, vertical: 8),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+          chatController: _chatController,
+          crossCache: _crossCache,
+          currentUserId: _currentUser.id,
+          onMessageSend: _handleMessageSend,
+          resolveUser: (id) => Future.value(switch (id) {
+            'me' => _currentUser,
+            'agent' => _agent,
+            _ => null,
+          }),
+          theme: context.isDark
+              ? ChatTheme.dark().copyWith(
+                  colors: ChatColors.dark().copyWith(
+                    surface: BaseColorUtils.colorWindowDark,
+                    primary: BaseColorUtils.colorAccent,
+                  ),
+                )
+              : ChatTheme.light().copyWith(
+                  colors: ChatColors.light().copyWith(
+                    surface: BaseColorUtils.colorWindow,
+                    primary: BaseColorUtils.colorAccent,
+                  ),
+                ),
+        ),
+      ),
+    );
+  }
+
+  Padding aiIcon(bool speaking) {
+    var aiIcon_ = widget.localizations?.aiIcon != null
+        ? ImageView(
+            height: 18,
+            width: 18,
+            src: speaking
+                ? (widget.localizations?.aiIconSpeaking ??
+                    widget.localizations?.aiIcon)
+                : widget.localizations!.aiIcon,
+          )
+        : Icon(Icons.smart_toy,
+            size: 18, color: speaking ? Colors.blue : Colors.blueGrey);
+    return Padding(
+      padding: EdgeInsets.only(left: 4.0, right: 8.0, top: 0),
+      child: Container(
+        height: 28,
+        padding: EdgeInsets.all(1),
+        width: 28,
+        child: aiIcon_,
+        // decoration: BoxDecoration(
+        //   shape: BoxShape.circle,
+        //   border: Border.all(
+        //     color: (speaking
+        //         ? BaseColorUtils.colorYellow
+        //         : BaseColorUtils.colorAccent).withValues(alpha: .5),
+        //     width: .1,
+        //   ),
+        //   color: (speaking
+        //           ? BaseColorUtils.colorYellow
+        //           : BaseColorUtils.colorAccent)
+        //       .withValues(alpha: .05),
+        // ),
+      ),
+    );
+  }
+
+  void _handleMessageSend(String text) async {
+    final localizations =
+        KayoPackageLocalizations.of(context) ?? KayoPackageLocalizationsEn();
+    BaseSysUtils.hideKeyboard(context);
+    final message = TextMessage(
+      id: _uuid.v4(),
+      authorId: _currentUser.id,
+      createdAt: DateTime.now().toUtc(),
+      text: text,
+      metadata: isOnlyEmoji(text) ? {'isOnlyEmoji': true} : null,
+    );
+    try {
+      await _chatController.insertMessage(message);
+      if (_chatController.messages.length == 1) {
+        final sessionsBox =
+            await Hive.openBox('${AIChatUtils.currentApiKey}_sessions');
+        await sessionsBox.put(_chatController.currentSessionId, {
+          'id': _chatController.currentSessionId,
+          'title': text.length > 20 ? '${text.substring(0, 20)}...' : text,
+          'createdAt': DateTime.now().toUtc().toIso8601String(),
+          'lastConversationId': null, // Initialize for new session
+        });
+      }
+      _sendContent(text);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${localizations.sendFailed}: $e'),
+        ),
+      );
+    }
+  }
+
+  void _sendContent(String content) async {
+    final streamId = _uuid.v4();
+    TextStreamMessage? streamMessage;
+    _reachedTargetScroll[streamId] = false; // Keep scroll logic as is for now
+
+    try {
+      streamMessage = TextStreamMessage(
+        id: streamId, // Use streamId as messageId for TextStreamMessage
+        authorId: _agent.id,
+        createdAt: DateTime.now().toUtc(),
+        streamId: streamId,
+        // text: '', // Initial text can be empty
+      );
+      await _chatController.insertMessage(streamMessage);
+      _streamManager.startStream(streamId, streamMessage);
+
+      // Scroll to bottom when new stream message is initiated
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (_scrollController.hasClients && mounted) {
+          _scrollController.animateTo(
+            _scrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 250),
+            curve: Curves.linearToEaseOut,
+          );
+        }
+      });
+
+      final response = chatService.sendMessageStream(
+        query: content,
+        conversationId: _chatController.lastConversationId,
+        onConversationId: (d) {
+          _chatController.lastConversationId = d;
+          if (_chatController.currentSessionId != null) {
+            _chatController.saveSession(_chatController.currentSessionId!);
+          }
+        },
+      );
+
+      await for (final chunk in response) {
+        final textChunk = chunk.text;
+        if (textChunk.isEmpty) continue;
+
+        // Await the addChunk to ensure characters are processed sequentially
+        // with delays before fetching the next network chunk.
+        await _streamManager.addChunk(streamId, textChunk);
+
+        // Auto-scroll logic (can be kept or adjusted)
+        // This will now trigger more frequently (per character), so ensure it's efficient
+        // and provides the desired user experience.
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (!_scrollController.hasClients || !mounted) return;
+          var initialExtent = _initialScrollExtents[streamId];
+          final reachedTarget = _reachedTargetScroll[streamId] ?? false;
+
+          if (reachedTarget) return;
+
+          initialExtent ??= _initialScrollExtents[streamId] =
+              _scrollController.position.maxScrollExtent;
+
+          // Smart scroll: only scroll if near the bottom or to keep new content visible.
+          // This logic might need tuning with per-character updates.
+          // A simpler approach might be to just scroll to maxExtent if the user hasn't scrolled up.
+          bool isAtBottom = _scrollController.position.pixels >=
+              _scrollController.position.maxScrollExtent - 50; // 50px threshold
+
+          if (isAtBottom) {
+            _scrollController.animateTo(
+              _scrollController.position.maxScrollExtent,
+              duration: const Duration(milliseconds: 100),
+              // Faster scroll for frequent updates
+              curve: Curves.linear, // Linear for smooth continuous scroll
+            );
+          }
+          // else if (initialExtent > 0) { // More complex target scrolling logic
+          //   final targetScroll = initialExtent +
+          //       _scrollController.position.viewportDimension -
+          //       MediaQuery.of(context).padding.bottom -
+          //       168; // Adjust this offset
+          //   if (_scrollController.position.maxScrollExtent > targetScroll) {
+          //     _scrollController.animateTo(
+          //       targetScroll,
+          //       duration: const Duration(milliseconds: 100),
+          //       curve: Curves.linearToEaseOut,
+          //     );
+          //     _reachedTargetScroll[streamId] = true;
+          //   } else {
+          //     _scrollController.animateTo(
+          //       _scrollController.position.maxScrollExtent,
+          //       duration: const Duration(milliseconds: 100),
+          //       curve: Curves.linearToEaseOut,
+          //     );
+          //   }
+          // }
+        });
+      }
+
+      // No need to check streamMessage != null here, as completeStream handles null originalMessage
+      await _streamManager.completeStream(streamId);
+    } catch (error) {
+      debugPrint('AIChatPage: Unhandled error for stream $streamId: $error');
+      // No need to check streamMessage != null here, as errorStream handles null originalMessage
+      await _streamManager.errorStream(streamId, error);
+
+      if (mounted) {
+        // Check if widget is still in the tree
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+                '${(KayoPackageLocalizations.of(context) ?? KayoPackageLocalizationsEn()).sendFailed}: $error'),
+          ),
+        );
+      }
+    } finally {
+      _initialScrollExtents.remove(streamId);
+      _reachedTargetScroll.remove(streamId);
+      // Ensure stream is cleaned up if not already by complete/error
+      // _streamManager.cleanupStream(streamId); // No, completeStream/errorStream already do this.
+    }
+  }
+}
+
+class MyProfilePage extends StatefulWidget {
+  final String userId;
+  final ChatLocalizations? localizations;
+
+  const MyProfilePage({super.key, required this.userId, this.localizations});
+
+  @override
+  State<MyProfilePage> createState() => _MyProfilePageState();
+}
+
+class _MyProfilePageState extends State<MyProfilePage> {
+  String _version = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadVersion();
+  }
+
+  Future<void> _loadVersion() async {
+    final info = await PackageInfo.fromPlatform();
+    setState(() {
+      _version = info.version;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final localizations =
+        KayoPackageLocalizations.of(context) ?? KayoPackageLocalizationsEn();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(localizations.mine),
+        centerTitle: true,
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Version: $_version',
+              style: TextStyle(fontSize: 18, color: BaseColorUtils.colorAccent),
+            ),
+            const SizedBox(height: 60),
+            ElevatedButton(
+              onPressed: () {
+                widget.localizations?.logout();
+              },
+              child: Text(localizations.userLoginExit),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

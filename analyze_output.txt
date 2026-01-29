@@ -1,0 +1,229 @@
+Analyzing kayo_package...                                       
+
+   info • The import of 'package:kayo_package/utils/base_sys_utils.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/ai/chat/ai_chat_page.dart:9:8 • unnecessary_import
+warning • The operand can't be 'null', so the condition is always 'true' • lib/ai/chat/ai_chat_page.dart:501:24 • unnecessary_null_comparison
+warning • The '!' will have no effect because the receiver can't be null • lib/ai/chat/ai_chat_page.dart:502:39 • unnecessary_non_null_assertion
+warning • The '!' will have no effect because the receiver can't be null • lib/ai/chat/ai_chat_utils.dart:36:54 • unnecessary_non_null_assertion
+warning • Unused import: 'dart:typed_data' • lib/ai/chat/chat_service.dart:4:8 • unused_import
+warning • Unused import: 'chat_localizations.dart' • lib/ai/chat/hive_chat_controller.dart:7:8 • unused_import
+warning • The method doesn't override an inherited method • lib/ai/chat/hive_chat_controller.dart:237:16 • override_on_non_overriding_member
+warning • Unused import: 'package:flutter/material.dart' • lib/ai/chat/messageAdapter.dart:1:8 • unused_import
+   info • The import of 'package:flutter/widgets.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart' • lib/decoration/i_underline_tab_indicator.dart:2:8 • unnecessary_import
+warning • This class (or a class that this class inherits from) is marked as '@immutable', but one or more of its instance fields aren't final: IUnderlineTabIndicator.color, IUnderlineTabIndicator.borderSide • lib/decoration/i_underline_tab_indicator.dart:12:7 • must_be_immutable
+warning • The operand can't be 'null', so the condition is always 'true' • lib/decoration/i_underline_tab_indicator.dart:23:23 • unnecessary_null_comparison
+warning • The operand can't be 'null', so the condition is always 'true' • lib/decoration/i_underline_tab_indicator.dart:67:27 • unnecessary_null_comparison
+warning • The operand can't be 'null', so the condition is always 'true' • lib/decoration/i_underline_tab_indicator.dart:77:17 • unnecessary_null_comparison
+warning • The operand can't be 'null', so the condition is always 'true' • lib/decoration/i_underline_tab_indicator.dart:78:26 • unnecessary_null_comparison
+warning • The operand can't be 'null', so the condition is always 'true' • lib/decoration/i_underline_tab_indicator.dart:92:26 • unnecessary_null_comparison
+   info • The import of 'package:flutter/cupertino.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart' • lib/extension/base_build_context_extension.dart:1:8 • unnecessary_import
+warning • Unused import: 'dart:ui' • lib/extension/base_date_time_extension.dart:1:8 • unused_import
+warning • Unused import: 'package:flutter/material.dart' • lib/extension/base_date_time_extension.dart:3:8 • unused_import
+warning • Unused import: 'dart:ui' • lib/extension/base_int_extension.dart:1:8 • unused_import
+warning • Unused import: 'package:flutter/material.dart' • lib/extension/base_int_extension.dart:3:8 • unused_import
+warning • Unused import: 'package:kayo_package/kayo_package.dart' • lib/extension/base_int_extension.dart:4:8 • unused_import
+warning • Unused import: 'package:flutter/material.dart' • lib/extension/base_object_extension.dart:3:8 • unused_import
+warning • Unused import: 'dart:ui' • lib/extension/base_page_route_extension.dart:1:8 • unused_import
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/extension/base_string_extension.dart:84:16 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/extension/base_string_extension.dart:89:16 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/extension/base_string_extension.dart:94:16 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/extension/base_string_extension.dart:99:16 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/extension/base_string_extension.dart:104:16 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/extension/base_string_extension.dart:106:31 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/extension/base_string_extension.dart:113:27 • deprecated_member_use
+   info • 'MaterialStateProperty' is deprecated and shouldn't be used. Use WidgetStateProperty instead. Moved to the Widgets layer to make code available outside of Material. This feature was deprecated after v3.19.0-0.3.pre • lib/extension/base_widget_extension.dart:48:5 • deprecated_member_use
+   info • 'ignoringSemantics' is deprecated and shouldn't be used. Use ExcludeSemantics or create a custom absorb pointer widget instead. This feature was deprecated after v3.8.0-12.0.pre • lib/extension/base_widget_extension.dart:240:15 • deprecated_member_use
+   info • 'ignoringSemantics' is deprecated and shouldn't be used. Use ExcludeSemantics or create a custom ignore pointer widget instead. This feature was deprecated after v3.8.0-12.0.pre • lib/extension/base_widget_extension.dart:256:15 • deprecated_member_use
+   info • 'value' is deprecated and shouldn't be used. Use component accessors like .r or .g, or toARGB32 for an explicit conversion • lib/extension/color_extension.dart:8:24 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/extension/color_extension.dart:14:34 • deprecated_member_use
+   info • 'MaterialStateProperty' is deprecated and shouldn't be used. Use WidgetStateProperty instead. Moved to the Widgets layer to make code available outside of Material. This feature was deprecated after v3.19.0-0.3.pre • lib/extension/color_extension.dart:20:3 • deprecated_member_use
+   info • 'MaterialStateProperty' is deprecated and shouldn't be used. Use WidgetStateProperty instead. Moved to the Widgets layer to make code available outside of Material. This feature was deprecated after v3.19.0-0.3.pre • lib/extension/color_extension.dart:21:12 • deprecated_member_use
+   info • 'MaterialState' is deprecated and shouldn't be used. Use WidgetState instead. Moved to the Widgets layer to make code available outside of Material. This feature was deprecated after v3.19.0-0.3.pre • lib/extension/color_extension.dart:22:14 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/extension/color_extension.dart:40:10 • deprecated_member_use
+   info • 'opacity' is deprecated and shouldn't be used. Use .a • lib/extension/color_extension.dart:63:28 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/extension/color_extension.dart:72:22 • deprecated_member_use
+   info • 'opacity' is deprecated and shouldn't be used. Use .a • lib/extension/color_extension.dart:72:50 • deprecated_member_use
+   info • 'red' is deprecated and shouldn't be used. Use (*.r * 255.0).round().clamp(0, 255) • lib/extension/color_extension.dart:76:29 • deprecated_member_use
+   info • 'green' is deprecated and shouldn't be used. Use (*.g * 255.0).round().clamp(0, 255) • lib/extension/color_extension.dart:77:31 • deprecated_member_use
+   info • 'blue' is deprecated and shouldn't be used. Use (*.b * 255.0).round().clamp(0, 255) • lib/extension/color_extension.dart:78:30 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/extension/color_extension.dart:87:24 • deprecated_member_use
+   info • 'MaterialStateProperty' is deprecated and shouldn't be used. Use WidgetStateProperty instead. Moved to the Widgets layer to make code available outside of Material. This feature was deprecated after v3.19.0-0.3.pre • lib/extension/color_extension.dart:122:3 • deprecated_member_use
+warning • Unused import: 'dart:async' • lib/extension/ontap_extension.dart:1:8 • unused_import
+warning • Unused import: 'package:flutter/material.dart' • lib/extension/ontap_extension.dart:3:8 • unused_import
+warning • Unused import: '../kayo_package_utils.dart' • lib/extension/ontap_extension.dart:5:8 • unused_import
+warning • Unused import: 'base_build_context_extension.dart' • lib/extension/ontap_extension.dart:6:8 • unused_import
+warning • Unused import: 'package:flutter/material.dart' • lib/http/base_http_error_event.dart:1:8 • unused_import
+   info • The import of 'package:kayo_package/http/bean/base_result_data.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/http/base_http_manager.dart:5:8 • unnecessary_import
+warning • The name utf8 is shown, but isn't used • lib/http/base_http_manager.dart:9:34 • unused_shown_name
+   info • The import of 'base_code.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/http/base_http_manager.dart:11:8 • unnecessary_import
+warning • The '!' will have no effect because the receiver can't be null • lib/http/base_http_manager.dart:314:40 • unnecessary_non_null_assertion
+warning • The '!' will have no effect because the receiver can't be null • lib/http/base_http_manager.dart:334:49 • unnecessary_non_null_assertion
+   info • The import of 'package:kayo_package/http/base_http_manager.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/http/base_http_manager_jaybean.dart:3:8 • unnecessary_import
+   info • The import of 'package:kayo_package/http/bean/base_result_data.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/http/base_http_manager_jaybean.dart:4:8 • unnecessary_import
+warning • The operand can't be 'null', so the condition is always 'true' • lib/http/base_http_manager_jaybean.dart:63:61 • unnecessary_null_comparison
+warning • Dead code • lib/http/base_http_manager_jaybean.dart:65:21 • dead_code
+warning • The left operand can't be null, so the right operand is never executed • lib/http/base_http_manager_jaybean.dart:192:49 • dead_null_aware_expression
+warning • Unused import: 'package:flutter/material.dart' • lib/http/bean/base_result_data.dart:1:8 • unused_import
+warning • Unused import: 'package:flutter/material.dart' • lib/http/bean/result_enum.dart:1:8 • unused_import
+warning • Unused import: 'package:kayo_package/kayo_package.dart' • lib/http/bean/result_enum.dart:2:8 • unused_import
+  error • Target of URI doesn't exist: 'package:kayo_package/views/widget/alert/datetime_picker_new/flutter_cupertino_datetime_picker.dart' • lib/kayo_package_utils.dart:4:8 • uri_does_not_exist
+  error • Undefined class 'DateTimePickerLocale' • lib/kayo_package_utils.dart:54:5 • undefined_class
+  error • Undefined name 'DateTimePicker' • lib/kayo_package_utils.dart:92:9 • undefined_identifier
+  error • Undefined name 'DateTimePickerLocale' • lib/kayo_package_utils.dart:92:54 • undefined_identifier
+  error • Undefined name 'DateTimePicker' • lib/kayo_package_utils.dart:98:9 • undefined_identifier
+  error • Undefined name 'DateTimePickerLocale' • lib/kayo_package_utils.dart:98:54 • undefined_identifier
+  error • Undefined name 'DateTimePicker' • lib/kayo_package_utils.dart:105:5 • undefined_identifier
+  error • Undefined name 'DateTimePicker' • lib/kayo_package_utils.dart:106:33 • undefined_identifier
+warning • Unused import: 'package:event_bus/event_bus.dart' • lib/mvvm/base/base_view_model.dart:2:8 • unused_import
+warning • The stack trace variable 's' isn't used and can be removed • lib/mvvm/base/base_view_model_list.dart:96:17 • unused_catch_stack
+warning • The stack trace variable 's' isn't used and can be removed • lib/mvvm/base/base_view_model_refresh.dart:45:17 • unused_catch_stack
+warning • Unused import: 'package:flutter/material.dart' • lib/mvvm/base/base_view_theme_bus_event.dart:1:8 • unused_import
+warning • Unused import: 'package:kayo_package/kayo_package.dart' • lib/mvvm/base/base_view_theme_bus_event.dart:2:8 • unused_import
+   info • The import of 'package:kayo_package/mvvm/base/base_view_model.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/mvvm/base/provider_widget.dart:5:8 • unnecessary_import
+   info • The import of 'package:kayo_package/utils/base_intent_utils.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/mvvm/base/provider_widget.dart:6:8 • unnecessary_import
+   info • 'value' is deprecated and shouldn't be used. Use component accessors like .r or .g, or toARGB32 for an explicit conversion • lib/utils/base_color_utils.dart:43:47 • deprecated_member_use
+warning • The '!' will have no effect because the receiver can't be null • lib/utils/base_color_utils.dart:134:52 • unnecessary_non_null_assertion
+   info • The import of 'package:flutter/cupertino.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart' • lib/utils/base_intent_utils.dart:5:8 • unnecessary_import
+   info • 'finish' is deprecated and shouldn't be used. 用pop • lib/utils/base_intent_utils.dart:37:5 • deprecated_member_use_from_same_package
+warning • This function has a nullable return type of 'Future<dynamic>?', but ends without returning a value • lib/utils/base_intent_utils.dart:72:11 • body_might_complete_normally_nullable
+warning • This function has a nullable return type of 'Future<dynamic>?', but ends without returning a value • lib/utils/base_intent_utils.dart:86:11 • body_might_complete_normally_nullable
+warning • A value for optional parameter 'data' isn't ever given • lib/utils/base_intent_utils.dart:122:29 • unused_element_parameter
+   info • The import of 'package:flutter/cupertino.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart' • lib/utils/base_intent_utils_noboost.dart:5:8 • unnecessary_import
+warning • This function has a nullable return type of 'Future<dynamic>?', but ends without returning a value • lib/utils/base_intent_utils_noboost.dart:51:11 • body_might_complete_normally_nullable
+warning • This function has a nullable return type of 'Future<dynamic>?', but ends without returning a value • lib/utils/base_intent_utils_noboost.dart:62:11 • body_might_complete_normally_nullable
+warning • A value for optional parameter 'full' isn't ever given • lib/utils/base_intent_utils_noboost.dart:80:12 • unused_element_parameter
+warning • A value for optional parameter 'data' isn't ever given • lib/utils/base_intent_utils_noboost.dart:99:31 • unused_element_parameter
+   info • The import of 'package:flutter/material.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/cupertino.dart' • lib/utils/base_refresh_utils.dart:2:8 • unnecessary_import
+warning • Unused import: 'package:kayo_package/views/widget/base/image_view.dart' • lib/utils/base_refresh_utils.dart:5:8 • unused_import
+   info • The import of 'base_color_utils.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/utils/base_refresh_utils.dart:8:8 • unnecessary_import
+   info • The import of 'base_view_utils.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/utils/base_refresh_utils.dart:9:8 • unnecessary_import
+   info • 'red' is deprecated and shouldn't be used. Use (*.r * 255.0).round().clamp(0, 255) • lib/utils/base_sys_utils.dart:289:21 • deprecated_member_use
+   info • 'green' is deprecated and shouldn't be used. Use (*.g * 255.0).round().clamp(0, 255) • lib/utils/base_sys_utils.dart:290:23 • deprecated_member_use
+   info • 'blue' is deprecated and shouldn't be used. Use (*.b * 255.0).round().clamp(0, 255) • lib/utils/base_sys_utils.dart:291:22 • deprecated_member_use
+   info • 'MediaQueryData.fromWindow' is deprecated and shouldn't be used. Use MediaQueryData.fromView instead. This constructor was deprecated in preparation for the upcoming multi-window support. This feature was deprecated after v3.7.0-32.0.pre • lib/utils/base_sys_utils.dart:305:12 • deprecated_member_use
+   info • 'window' is deprecated and shouldn't be used. Look up the current FlutterView from the context via View.of(context) or consult the PlatformDispatcher directly instead. Deprecated to prepare for the upcoming multi-window support. This feature was deprecated after v3.7.0-32.0.pre • lib/utils/base_sys_utils.dart:305:38 • deprecated_member_use
+   info • 'MediaQueryData.fromWindow' is deprecated and shouldn't be used. Use MediaQueryData.fromView instead. This constructor was deprecated in preparation for the upcoming multi-window support. This feature was deprecated after v3.7.0-32.0.pre • lib/utils/base_sys_utils.dart:309:12 • deprecated_member_use
+   info • 'window' is deprecated and shouldn't be used. Look up the current FlutterView from the context via View.of(context) or consult the PlatformDispatcher directly instead. Deprecated to prepare for the upcoming multi-window support. This feature was deprecated after v3.7.0-32.0.pre • lib/utils/base_sys_utils.dart:309:38 • deprecated_member_use
+warning • This function has a nullable return type of 'ContentType?', but ends without returning a value • lib/utils/base_sys_utils.dart:336:23 • body_might_complete_normally_nullable
+warning • Unused import: 'package:flutter/material.dart' • lib/utils/base_time_utils.dart:1:8 • unused_import
+warning • The operand can't be 'null', so the condition is always 'false' • lib/utils/base_time_utils.dart:147:9 • unnecessary_null_comparison
+warning • Unused import: 'dart:math' • lib/utils/isolate_utils.dart:2:8 • unused_import
+warning • This function has a nullable return type of 'FutureOr<T?>', but ends without returning a value • lib/utils/isolate_utils.dart:34:14 • body_might_complete_normally_nullable
+   info • The import of 'dart:ui' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/cupertino.dart' • lib/utils/loading_utils.dart:2:8 • unnecessary_import
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/utils/loading_utils.dart:76:41 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/utils/loading_utils.dart:77:30 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/utils/loading_utils.dart:81:35 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/utils/loading_utils.dart:155:39 • deprecated_member_use
+warning • Unused import: 'package:flutter/material.dart' • lib/utils/notification/notification_center.dart:1:8 • unused_import
+  error • Target of URI doesn't exist: 'datetime_picker/datetime_picker.dart' • lib/views/widget/alert/_index_widget_alert.dart:7:8 • uri_does_not_exist
+  error • Target of URI doesn't exist: 'datetime_picker_new/date_time_picker.dart' • lib/views/widget/alert/_index_widget_alert.dart:8:8 • uri_does_not_exist
+   info • The import of 'package:kayo_package/utils/base_color_utils.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/alert/alert_center.dart:3:8 • unnecessary_import
+   info • The import of 'package:kayo_package/views/widget/alert/flutter_cupertino_data_picker.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/alert/alert_center.dart:4:8 • unnecessary_import
+   info • The import of 'package:kayo_package/views/widget/base/button_view.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/alert/alert_center.dart:5:8 • unnecessary_import
+   info • The import of 'package:kayo_package/views/widget/base/clickable.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/alert/alert_center.dart:6:8 • unnecessary_import
+   info • The import of 'package:kayo_package/views/widget/base/edit_view.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/alert/alert_center.dart:7:8 • unnecessary_import
+   info • The import of 'package:kayo_package/views/widget/base/text_view.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/alert/alert_center.dart:8:8 • unnecessary_import
+warning • The declaration 'content' isn't referenced • lib/views/widget/alert/alert_center.dart:25:5 • unused_element
+   info • 'showDataPicker' is deprecated and shouldn't be used. 用show代替showDataPicker • lib/views/widget/alert/alert_center.dart:51:34 • deprecated_member_use_from_same_package
+warning • The '!' will have no effect because the receiver can't be null • lib/views/widget/alert/alert_center.dart:178:57 • unnecessary_non_null_assertion
+warning • This class (or a class that this class inherits from) is marked as '@immutable', but one or more of its instance fields aren't final: AlertDefault.title, AlertDefault.message, AlertDefault.content, AlertDefault.onOK, AlertDefault.onCancel, AlertDefault.showCancel, AlertDefault.okTitle, AlertDefault.cancelTitle, AlertDefault.margin • lib/views/widget/alert/alert_center.dart:197:7 • must_be_immutable
+   info • The import of 'package:kayo_package/utils/base_color_utils.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/alert/alert_sheet.dart:3:8 • unnecessary_import
+   info • The import of 'package:kayo_package/views/widget/base/button_view.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/alert/alert_sheet.dart:5:8 • unnecessary_import
+   info • The import of 'package:kayo_package/views/widget/base/text_view.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/alert/alert_sheet.dart:6:8 • unnecessary_import
+warning • The left operand can't be null, so the right operand is never executed • lib/views/widget/alert/alert_sheet.dart:54:30 • dead_null_aware_expression
+   info • 'background' is deprecated and shouldn't be used. Use surface instead. This feature was deprecated after v3.18.0-0.1.pre • lib/views/widget/alert/alert_sheet.dart:70:54 • deprecated_member_use
+   info • 'background' is deprecated and shouldn't be used. Use surface instead. This feature was deprecated after v3.18.0-0.1.pre • lib/views/widget/alert/alert_sheet.dart:81:58 • deprecated_member_use
+   info • The import of 'package:flutter/cupertino.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart' • lib/views/widget/alert/datetime_picker/date_picker.dart:1:8 • unnecessary_import
+warning • Unused import: 'package:kayo_package/l10n/generated/kayo_package_localizations_en.dart' • lib/views/widget/alert/datetime_picker/date_picker.dart:6:8 • unused_import
+warning • The '!' will have no effect because the receiver can't be null • lib/views/widget/alert/datetime_picker/date_picker.dart:127:31 • unnecessary_non_null_assertion
+warning • The operand can't be 'null', so the condition is always 'true' • lib/views/widget/alert/datetime_picker/date_picker.dart:212:15 • unnecessary_null_comparison
+warning • A value for optional parameter 'key' isn't ever given • lib/views/widget/alert/datetime_picker/date_picker.dart:237:30 • unused_element_parameter
+warning • Dead code • lib/views/widget/alert/datetime_picker/date_time_formatter.dart:23:5 • dead_code
+warning • The operand can't be 'null', so the condition is always 'false' • lib/views/widget/alert/datetime_picker/date_time_formatter.dart:78:16 • unnecessary_null_comparison
+warning • The operand can't be 'null', so the condition is always 'false' • lib/views/widget/alert/datetime_picker/date_time_formatter.dart:122:16 • unnecessary_null_comparison
+warning • The operand can't be 'null', so the condition is always 'true' • lib/views/widget/alert/datetime_picker/date_time_formatter.dart:173:18 • unnecessary_null_comparison
+warning • The operand can't be 'null', so the condition is always 'true' • lib/views/widget/alert/datetime_picker/date_time_formatter.dart:179:18 • unnecessary_null_comparison
+warning • The operand can't be 'null', so the condition is always 'true' • lib/views/widget/alert/datetime_picker/date_time_formatter.dart:200:17 • unnecessary_null_comparison
+warning • The operand can't be 'null', so the condition is always 'true' • lib/views/widget/alert/datetime_picker/date_time_formatter.dart:206:15 • unnecessary_null_comparison
+  error • Target of URI doesn't exist: 'package:kayo_package/views/widget/alert/datetime_picker/date_format.dart' • lib/views/widget/alert/datetime_picker/date_time_picker.dart:4:8 • uri_does_not_exist
+warning • Dead code • lib/views/widget/alert/datetime_picker/date_time_picker.dart:58:49 • dead_code
+warning • Dead code • lib/views/widget/alert/datetime_picker/date_time_picker.dart:67:51 • dead_code
+warning • Unused import: '../l10n_extension.dart' • lib/views/widget/alert/datetime_picker/widget/date_picker_title_widget.dart:4:8 • unused_import
+   info • 'showDataPicker' is deprecated and shouldn't be used. 用show代替showDataPicker • lib/views/widget/alert/flutter_cupertino_data_picker.dart:40:12 • deprecated_member_use_from_same_package
+warning • A value for optional parameter 'itemCount' isn't ever given • lib/views/widget/alert/flutter_cupertino_data_picker.dart:422:44 • unused_element_parameter
+   info • 'showDataPicker' is deprecated and shouldn't be used. 用show代替showDataPicker • lib/views/widget/alert/flutter_cupertino_data_picker_new.dart:40:12 • deprecated_member_use_from_same_package
+warning • A value for optional parameter 'itemCount' isn't ever given • lib/views/widget/alert/flutter_cupertino_data_picker_new.dart:421:44 • unused_element_parameter
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/alert/flutter_cupertino_data_picker_new.dart:614:28 • deprecated_member_use
+warning • Unused import: 'package:flutter/material.dart' • lib/views/widget/alert/num_picker.dart:1:8 • unused_import
+warning • Unused import: 'clickable.dart' • lib/views/widget/base/button_root.dart:5:8 • unused_import
+   info • The import of 'package:kayo_package/extension/color_extension.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/extension/_index_extension.dart' • lib/views/widget/base/button_view.dart:3:8 • unnecessary_import
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/button_view.dart:130:41 • deprecated_member_use
+warning • Unused import: 'package:kayo_package/views/widget/base/image_view.dart' • lib/views/widget/base/card_view.dart:4:8 • unused_import
+   info • 'groupValue' is deprecated and shouldn't be used. Use a RadioGroup ancestor to manage group value instead. This feature was deprecated after v3.32.0-0.0.pre • lib/views/widget/base/check_box.dart:40:15 • deprecated_member_use
+   info • 'onChanged' is deprecated and shouldn't be used. Use RadioGroup to handle value change instead. This feature was deprecated after v3.32.0-0.0.pre • lib/views/widget/base/check_box.dart:42:15 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/clickable.dart:133:62 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/clickable.dart:137:58 • deprecated_member_use
+   info • The import of 'package:kayo_package/extension/color_extension.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/extension/_index_extension.dart' • lib/views/widget/base/edit_view.dart:4:8 • unnecessary_import
+warning • Unused import: 'package:kayo_package/utils/base_color_utils.dart' • lib/views/widget/base/image_view.dart:9:8 • unused_import
+   info • The import of 'package:kayo_package/utils/base_sys_utils.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/base/image_view.dart:10:8 • unnecessary_import
+warning • Unused import: 'package:kayo_package/extension/color_extension.dart' • lib/views/widget/base/image_view.dart:11:8 • unused_import
+   info • 'value' is deprecated and shouldn't be used. Use component accessors like .r or .g, or toARGB32 for an explicit conversion • lib/views/widget/base/image_view.dart:91:41 • deprecated_member_use
+   info • The import of 'package:kayo_package/utils/base_color_utils.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/base/keyboard/boards/abc_keyboard.dart:3:8 • unnecessary_import
+   info • The import of 'package:kayo_package/views/widget/base/clickable.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/base/keyboard/boards/abc_keyboard.dart:4:8 • unnecessary_import
+   info • The import of 'package:kayo_package/views/widget/base/keyboard/boards/keyboard_tools.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/base/keyboard/boards/abc_keyboard.dart:5:8 • unnecessary_import
+   info • The import of 'package:kayo_package/views/widget/base/text_view.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/base/keyboard/boards/abc_keyboard.dart:6:8 • unnecessary_import
+   info • The import of '../cool_ui.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/base/keyboard/boards/abc_keyboard.dart:8:8 • unnecessary_import
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/abc_keyboard.dart:302:58 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/abc_keyboard.dart:303:55 • deprecated_member_use
+   info • The import of 'package:kayo_package/utils/base_color_utils.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/base/keyboard/boards/car_num_keyboard.dart:3:8 • unnecessary_import
+   info • The import of 'package:kayo_package/views/widget/base/clickable.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/base/keyboard/boards/car_num_keyboard.dart:4:8 • unnecessary_import
+   info • The import of 'package:kayo_package/views/widget/base/keyboard/boards/keyboard_tools.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/base/keyboard/boards/car_num_keyboard.dart:5:8 • unnecessary_import
+   info • The import of 'package:kayo_package/views/widget/base/text_view.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/base/keyboard/boards/car_num_keyboard.dart:6:8 • unnecessary_import
+   info • The import of '../cool_ui.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/base/keyboard/boards/car_num_keyboard.dart:8:8 • unnecessary_import
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/car_num_keyboard.dart:310:60 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/car_num_keyboard.dart:311:57 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/car_num_keyboard.dart:365:58 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/car_num_keyboard.dart:366:55 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/car_num_keyboard.dart:537:60 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/car_num_keyboard.dart:538:57 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/car_num_keyboard.dart:591:58 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/car_num_keyboard.dart:592:55 • deprecated_member_use
+   info • The import of 'package:kayo_package/views/widget/base/keyboard/boards/keyboard_tools.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/base/keyboard/boards/car_num_keyboard_bad.dart:3:8 • unnecessary_import
+   info • The import of 'package:kayo_package/views/widget/base/keyboard/cool_ui.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/base/keyboard/boards/car_num_keyboard_bad.dart:4:8 • unnecessary_import
+warning • The value of the local variable 'mediaQuery' isn't used • lib/views/widget/base/keyboard/boards/car_num_keyboard_bad.dart:8:20 • unused_local_variable
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/car_num_keyboard_bad.dart:164:60 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/car_num_keyboard_bad.dart:165:57 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/car_num_keyboard_bad.dart:194:58 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/car_num_keyboard_bad.dart:195:55 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/car_num_keyboard_bad.dart:275:60 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/car_num_keyboard_bad.dart:276:57 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/car_num_keyboard_bad.dart:304:58 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/car_num_keyboard_bad.dart:305:55 • deprecated_member_use
+   info • The import of 'package:kayo_package/utils/base_color_utils.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/base/keyboard/boards/car_num_keyboard_with_done.dart:3:8 • unnecessary_import
+   info • The import of 'package:kayo_package/views/widget/base/clickable.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/base/keyboard/boards/car_num_keyboard_with_done.dart:4:8 • unnecessary_import
+   info • The import of 'package:kayo_package/views/widget/base/keyboard/boards/keyboard_tools.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/base/keyboard/boards/car_num_keyboard_with_done.dart:5:8 • unnecessary_import
+   info • The import of 'package:kayo_package/views/widget/base/text_view.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/base/keyboard/boards/car_num_keyboard_with_done.dart:6:8 • unnecessary_import
+   info • The import of '../cool_ui.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/base/keyboard/boards/car_num_keyboard_with_done.dart:8:8 • unnecessary_import
+warning • The value of the local variable 'mediaQuery' isn't used • lib/views/widget/base/keyboard/boards/car_num_keyboard_with_done.dart:12:20 • unused_local_variable
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/car_num_keyboard_with_done.dart:219:60 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/car_num_keyboard_with_done.dart:220:57 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/car_num_keyboard_with_done.dart:249:58 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/car_num_keyboard_with_done.dart:250:55 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/car_num_keyboard_with_done.dart:332:60 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/car_num_keyboard_with_done.dart:333:57 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/car_num_keyboard_with_done.dart:362:58 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/car_num_keyboard_with_done.dart:363:55 • deprecated_member_use
+warning • Unused import: 'package:flutter/material.dart' • lib/views/widget/base/keyboard/boards/keyboard_tools.dart:1:8 • unused_import
+   info • The import of 'package:kayo_package/views/widget/base/keyboard/cool_ui.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/base/keyboard/boards/number_keyboard.dart:3:8 • unnecessary_import
+   info • The import of 'keyboard_tools.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/base/keyboard/boards/number_keyboard.dart:5:8 • unnecessary_import
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/number_keyboard.dart:95:42 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/number_keyboard.dart:97:42 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/number_keyboard.dart:119:42 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/number_keyboard.dart:121:42 • deprecated_member_use
+   info • The import of 'package:kayo_package/views/widget/base/keyboard/cool_ui.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/base/keyboard/boards/phone_keyboard.dart:3:8 • unnecessary_import
+   info • The import of 'keyboard_tools.dart' is unnecessary because all of the used elements are also provided by the import of 'package:kayo_package/kayo_package.dart' • lib/views/widget/base/keyboard/boards/phone_keyboard.dart:5:8 • unnecessary_import
+warning • The value of the local variable 'mediaQuery' isn't used • lib/views/widget/base/keyboard/boards/phone_keyboard.dart:9:20 • unused_local_variable
+warning • Dead code • lib/views/widget/base/keyboard/boards/phone_keyboard.dart:12:5 • dead_code
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/phone_keyboard.dart:139:54 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/widget/base/keyboard/boards/phone_keyboard.dart:140:51 • deprecated_member_use
+   info • The import of 'package:flutter/rendering.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart' • lib/views/widget/base/keyboard/cool_ui.dart:12:8 • unnecessary_import
+

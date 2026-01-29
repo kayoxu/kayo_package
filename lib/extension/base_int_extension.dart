@@ -1,0 +1,1 @@
+extension BaseIntExtension on int? {}
